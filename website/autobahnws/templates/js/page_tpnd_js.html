@@ -1,0 +1,136 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="AutobahnPython project description and features.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <p>
+         {{ autobahnjs() }} is a JavaScript client library that implements {{ wamp(short = False) }}:
+      </p>
+
+      <ul>
+         <li>implements WAMP v1, works with any <a href="http://wamp.ws/implementations">WAMP server</a>
+         <li>provides asynchronous RPC and PubSub messaging patterns</li>
+         <li>easy to use Promise-based API</li>
+         <li>pluggable promises/deferreds: use <a href="https://github.com/cujojs/when">when.js</a> (built-in), <a href="http://api.jquery.com/category/deferred-object/">jQuery</a>, <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/Deferred.html">Dojo</a> or others</li>
+         <li>flexible, automatic reconnect</li>
+         <li>session authentication (WAMP-CRA)</li>
+         <li>no dependencies</li>
+         <li>tiny size (65kB source, 24kB minified, 7kB compressed)</li>
+         <li><a href="https://github.com/tavendo/AutobahnJS" target="_blank">Open-Source</a> (MIT License)</li>
+      </ul>
+      <br>
+
+      <p>
+         {{autobahnjs()}} allows to develop real-time enabled Web/HTML5 apps based on asynchronous
+         RPC and PubSub messaging patterns.
+      </p>
+
+      <p style="width: 90%; margin: 2em auto 2em auto; color: #0273a0; font-style: italic;">
+         {{autobahnjs()}} relies on <a style="text-decoration: underline;" href="{{url_for('page_js_reference')}}#promises">Promises</a> for asynchronous programming.
+         A <i>promise</i> is an object that represents the eventual value returned from
+         the completion of an operation.
+      </p>
+
+      <p>
+         For example, here is how you do asynchronous RPCs with AutobahnJS and Promises ..
+      </p>
+
+      <div class="codeex">
+         <h1>AutobahnJS RPC Client</h1>
+         <pre class="brush: javascript; highlight: []; toolbar: false; auto-links: false; gutter: false;">
+            window.onload = function() {
+
+               // WAMP server
+               var wsuri = "ws://localhost:9000";
+
+               ab.connect(wsuri,
+
+                  // WAMP session was established
+                  function (session) {
+
+                     // asynchronous RPC, returns promise object
+                     session.call("http://example.com/simple/calc#add",
+                                  23, 7).then(
+
+                        // RPC success callback
+                        function (res) {
+                           console.log("got result: " + res);
+                        },
+
+                        // RPC error callback
+                        function (error, desc) {
+                           console.log("error: " + desc);
+                        }
+                     );
+                  },
+
+                  // WAMP session is gone
+                  function (code, reason) {
+                     console.log(reason);
+                  }
+               );
+            };
+         </pre>
+         <note>
+            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
+         </note>
+      </div>
+      <br>
+
+      <p>
+         .. and this is how Publish &amp; Subscribe looks
+      </p>
+
+      <div class="codeex">
+         <h1>AutobahnJS PubSub Client</h1>
+         <pre class="brush: javascript; highlight: []; toolbar: false; auto-links: false; gutter: false;">
+            window.onload = function() {
+
+               // WAMP server
+               var wsuri = "ws://localhost:9000";
+
+               ab.connect(wsuri,
+
+                  // WAMP session was established
+                  function (session) {
+
+                     // subscribe to topic
+                     session.subscribe("http://example.com/event#myevent1",
+
+                        // on event publication callback
+                        function (topic, event) {
+                           console.log("got event1: " + event);
+                     });
+
+                     // publish event on a topic
+                     session.publish("http://example.com/event#myevent1",
+                                     {a: 23, b: "foobar"});
+                  },
+
+                  // WAMP session is gone
+                  function (code, reason) {
+                     console.log(reason);
+                  }
+               );
+            };
+         </pre>
+         <note>
+            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_pubsub') }}">Publish &amp; Subscribe with AutobahnJS</a>
+         </note>
+      </div>
+      <br>
+
+      <p>
+         If you like, <a href="{{ url_for('page_js_getstarted') }}">get started</a>, check out the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a> and
+         - for complete information - the <a href="{{ url_for('page_js_reference') }}">API reference</a>.
+      </p>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

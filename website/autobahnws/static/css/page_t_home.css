@@ -1,0 +1,230 @@
+/*enforces a sane box model where paddings are not added to the box size*/
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+body {
+   background-color: #027eae;
+   color: #fff;
+}
+
+a {
+   color: #fff;
+   text-decoration: underline;
+}
+
+a:visited {
+   color: #fff;
+   text-decoration: underline;
+}
+
+a:hover {
+   color: #a5d500;
+   text-decoration: underline;
+}
+
+
+#home_central_wrapper
+{
+   width: 960px;
+   margin: 0 auto;
+}
+
+
+#intro {
+   width: 90%;
+   margin: 0 auto 20px auto;
+   padding-top: 0px;
+   font-size: 16px;
+}
+
+#projects {
+   width: 100%;
+   margin: auto;
+   padding-bottom: 60px;
+   /*border-top: solid 1px #fff;*/
+}
+
+#projects h1 {
+   color: #0286bd;
+   font-size: 16px;
+   /*font-family: Helvetica, Arial, sans-serif;*/
+   border-top: solid 1px #a5d500;
+   padding-top: 6px;
+}
+
+#projects h1 a {
+   text-decoration: none;
+}
+
+#projects h1 a:visited {
+   color: #0286bd;
+}
+
+#projects {
+   /*border-spacing: 54px;*/
+}
+
+#projects td {
+   /*display: block;*/
+   vertical-align: top;
+   min-height: 300px;
+   position: relative;
+   width: 456px;
+
+   /*padding: 16px;*/
+
+/*   border-right: solid 1px #aaa; */
+   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.2);
+   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.2);
+
+   border-radius: 3px;
+}
+
+#projects div.tdwrapper {
+/*
+   need to wrap TDs in DIVs for absolute positioning to work in FF
+   http://stackoverflow.com/questions/7256004/firefox-issue-with-displayabsolute-in-a-table-cell
+*/
+   display: block;
+   position: relative;
+   border: 0;
+   padding: 16px;
+   margin: 0;
+   height: 100%;
+}
+
+#projects td.hspacer {
+   min-height: 0px;
+   width: 48px;
+   height: 48px;
+   border: none;
+   box-shadow: none;
+}
+
+.linkboxspacer {
+   height: 34px;
+}
+
+.forkgithub {
+   background-image: url(../img/githubfork_inactive.png);
+   background-repeat: no-repeat;
+   width: 55px;
+   height: 60px;
+   position: absolute;
+   top: -1px;
+   right: -1px;
+   display: block;
+}
+
+.forkgithub:hover {
+   background-image: url(../img/githubfork_active.png);
+}
+
+.linkbox {
+   background-image: url(../img/btn_devzone_inactive.png);
+   background-repeat: no-repeat;
+   width: 143px;
+   height: 34px;
+   display: block;
+   margin: auto;
+   position: absolute;
+   bottom: 12px;
+   right: 12px;
+}
+
+.linkbox:hover {
+   background-image: url(../img/btn_devzone_active.png);
+}
+
+#projects ul {
+   padding-left: 20px;
+}
+
+#projects ul li {
+   background-image: url("../img/bullet.png");
+   background-position: 0 0.5em;
+   background-repeat: no-repeat;
+   list-style-type: none;
+   margin-bottom: 0.5em;
+   padding-left: 18px;
+   line-height: 1.2em;
+   width: 80%;
+   font-size: 14px;
+}
+
+#webmqad {
+   background-image: url('../img/slide_in_left_arrow.png');
+   background-repeat: no-repeat;
+
+   position: fixed;
+   bottom: 0px;
+   right: -600px;
+   width: 620px;
+   height: 74px;
+   font-size: 14px;
+   padding: 16px 0 16px 32px;
+   background-color: #ff6600;
+   color: #fff;
+
+   transition: all 0.5s ease-in-out;
+   -ms-transition: all 0.5s ease-in-out;
+   -webkit-transition: all 0.5s ease-in-out;
+   -moz-transition: all 0.5s ease-in-out;
+   -o-transition: all 0.5s ease-in-out;
+
+
+   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.3);
+   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.3);
+}
+
+#webmqad a {
+   color: #fff;
+}
+
+#webmqad a:visited {
+   color: #fff;
+}
+
+#webmqad a:hover {
+   color: #fff;
+}
+
+#webmqad_countdown {
+   position: absolute;
+   right: 6px;
+   bottom: 0;
+   font-size: 64px;
+   color: rgba(255,255,255,0.6);
+}
+
+#webmqad_hide {
+   position: absolute;
+   right: 54px;
+   top: 6px;
+   width: 20px;
+   height: 20px;
+   text-align: center;
+   vertical-align: middle;
+   border: solid 1px #fff;
+   color: #fff;
+   background-color: #ff6600;
+}
+
+#webmqad_hide:hover {
+   color: #ff6600;
+   background-color: #fff;
+}
+
+.notextselect {
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.defaultcursor {
+   cursor: default;
+}

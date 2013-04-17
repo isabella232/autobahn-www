@@ -1,0 +1,155 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Features &mdash; AutobahnPython 0.5.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.5.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="AutobahnPython 0.5.6 documentation" href="index.html" />
+    <link rel="next" title="WebSocket" href="websockettoc.html" />
+    <link rel="prev" title="AutobahnPython Reference" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="websockettoc.html" title="WebSocket"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="AutobahnPython Reference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Features</a><ul>
+<li><a class="reference internal" href="#websocket">WebSocket</a></li>
+<li><a class="reference internal" href="#rpc-pubsub-wamp">RPC &amp; PubSub (WAMP)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">AutobahnPython Reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="websockettoc.html"
+                        title="next chapter">WebSocket</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/features.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="websocket">
+<h2>WebSocket<a class="headerlink" href="#websocket" title="Permalink to this headline">¶</a></h2>
+<p><em>AutobahnPython</em> provides an implementation of the WebSocket protocol
+which can be used to create WebSocket clients and servers.</p>
+<blockquote>
+<div><ul class="simple">
+<li>implements <a class="reference external" href="http://tools.ietf.org/html/rfc6455">RFC6455</a> (and Draft Hybi-10 to -17)</li>
+<li>framework for clients and servers</li>
+<li>easy to use basic API</li>
+<li>advanced API for frame-based/streaming processing</li>
+<li>very good <a class="reference external" href="http://autobahn.ws/testsuite">standards conformance</a></li>
+<li>fully asynchronous <a class="reference external" href="http://twistedmatrix.com">Twisted-based</a> implementation</li>
+<li>supports secure WebSocket (TLS)</li>
+<li>Open-source (Apache 2 license)</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="rpc-pubsub-wamp">
+<h2>RPC &amp; PubSub (WAMP)<a class="headerlink" href="#rpc-pubsub-wamp" title="Permalink to this headline">¶</a></h2>
+<p>Additionally, <em>AutobahnPython</em> provides an implementation of the
+<a class="reference external" href="http://wamp.ws">The WebSocket Application Messaging Protocol (WAMP)</a>.</p>
+<p>Building on WAMP, AutobahnPython can be used to create applications around the
+<strong>Remote Procedure Call</strong> and <strong>Publish &amp; Subscribe</strong> messaging patterns.</p>
+<blockquote>
+<div><ul class="simple">
+<li>implements <a class="reference external" href="http://wamp.ws">WAMP</a></li>
+<li>provides asynchronous RPC and PubSub messaging</li>
+<li>fully compatible with AutobahnJS and AutobahnAndroid (other WAMP impl.)</li>
+<li>simple and open protocol</li>
+<li>built on <em>JSON</em> and <em>WebSocket</em></li>
+<li>usable for clients and servers</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="websockettoc.html" title="WebSocket"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="AutobahnPython Reference"
+             >previous</a> |</li>
+        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 Tavendo GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

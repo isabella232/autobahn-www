@@ -1,0 +1,92 @@
+{% extends "layout_tpsd.html" %}
+
+{% block developerheader %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/page_tpsd_tut.css') }}">
+
+<meta name="description" content="Overview of the tutorials available for programming using WebSockets and Autobahn.oss.">
+
+{% endblock %}
+
+
+{% block sidenavpagecontent %}
+
+<div class="developers_page_wrapper">
+
+      <a name="top"></a>
+      <h1>Teaching {{ autobahnoss(size = 100, colored = True) }} - The Tutorials</h1>
+
+      <p>Probably the fastest way to get started is with one of our tutorials, which contain
+      complete working code demos illustrating certain features of {{ autobahn(size = 100, colored = True) }} as well as the {{ autobahnoss(size = 100, colored = True) }} open source project.</p>
+
+      <p>The symbols beside the tutorials indicate the languages used:</p>
+      <ol>
+         <li><img src="{{ url_for('static', filename='img/html5-logo-tiny.png') }}"></img> : JavaScript/HTML5 example code</li>
+         <li><img src="{{ url_for('static', filename='img/JQuery_logo_symbol.png') }}"></img> : JavaScript/jQuery example code</li>
+         <li><img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img> : Python/Twisted example code</li>
+         <li><img src="{{ url_for('static', filename='img/Android_robot_small.png') }}"></img> : Java/Android example code</li>
+      </ol>
+
+      <p class="tutorial_toc_header">WebSockets Programming with {{ autobahnoss(size = 100, colored = True) }}</p>
+
+      <ul class="tutlist bullet_point_correction">
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_echo') }}">WebSockets Echo server in 10 Lines</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/html5-logo-tiny.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+            <!--<img src="{{ url_for('static', filename='img/Android_robot_small.png') }}"></img>-->
+         </li>
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_broadcast') }}">WebSockets Broadcasting</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/html5-logo-tiny.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+            <!--<img src="{{ url_for('static', filename='img/Android_robot_small.png') }}"></img>-->
+         </li>
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_streaming') }}">Streaming Data Processing with WebSockets</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+         </li>
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_producer') }}">Flow-control with the Producer/Consumer Pattern</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+         </li>
+      </ul>
+
+
+      <p class="tutorial_toc_header">RPC Programming with {{ autobahnoss(size = 100, colored = True) }}</p>
+
+      <ul class="tutlist bullet_point_correction">
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_rpc') }}">Remote Procedure Calls with Autobahn</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/JQuery_logo_symbol.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Android_robot_small.png') }}"></img>
+         </li>
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_rpc_keyvalue') }}">Remote, persistent Key-Value Store in 50 Lines</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/JQuery_logo_symbol.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+         </li>
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_rpc_calculator') }}">Decimal calculator RPC Service</a>&nbsp;&nbsp;
+            <img src="{{ url_for('static', filename='img/JQuery_logo_symbol.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+         </li>
+      </ul>
+
+      <p class="tutorial_toc_header">PubSub Programming with {{ autobahnoss(size = 100, colored = True) }}</p>
+      <ul class="bullet_point_correction">
+         <li>
+            <a href="{{ url_for('autobahnhub_developers_tutorial_pubsub') }}">Publish &amp; Subscribe with Autobahn</a>
+            <img src="{{ url_for('static', filename='img/JQuery_logo_symbol.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Python_logo_symbol.png') }}"></img>
+            <img src="{{ url_for('static', filename='img/Android_robot_small.png') }}"></img>
+         </li>
+      </ul>
+
+
+
+</div>
+
+
+{% endblock %}

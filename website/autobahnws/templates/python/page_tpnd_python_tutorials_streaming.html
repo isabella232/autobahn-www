@@ -1,0 +1,544 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="Tutorial: Using the Frame-based and Streaming APIs and streaming data processing with AutobahnPython.">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/page_tpsd_getstarted.css') }}">
+{% endblock %}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <h1>Using the Frame-based and Streaming APIs</h1>
+
+      <p>
+         This tutorial shows three variants of the same functionality: a WebSocket client producing random bytes,
+         and a WebSocket server computing a SHA-256 over those bytes and sending back the computed digests.
+      </p>
+
+      <p>
+         We show how to do
+         <ul>
+            <li><a href="#message_based">message-based</a> processing,</li>
+            <li><a href="#frame_based">frame-based</a> processing and</li>
+            <li><a href="#streaming">streaming</a> processing</li>
+         </ul>
+      </p>
+
+      <p>
+         The examples demonstrate the use of the advanced API of AutobahnPython
+         for frame-based/streaming processing and the differences to the basic API
+         for message-based processing.
+      </p>
+
+      <p>
+         You can find all the code for this tutorial in the
+         <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/websocket/streaming">source code repository</a>.
+      </p>
+
+
+      <h2>Prerequisites</h2>
+      <p>
+         For this tutorial you will need
+      </p>
+
+      <ul>
+         <li>{{ autobahnpython() }} installed</li>
+      </ul>
+
+      <p>
+         A guide how to setup {{ autobahnpython() }} can be found in the <a href="{{ url_for('page_python_getstarted') }}">getting started</a>.
+      </p>
+
+
+
+      <h2>Introduction</h2>
+
+      <p>
+         A WebSocket message consists of a potentially unlimited number of fragments ("message frames"),
+         which can each have a payload between 0 and 2^63 octets.
+      </p>
+
+      <p>
+         {{ autobahnpython() }}'s basic API is message-based. This API is convenient to use and
+         when you produce/consume messages of limited size, the basic API should be all you need and
+         is the way to go.
+      </p>
+
+      <p>
+         However, due to the nature of a message-based API, the underlying implementation has to buffer
+         all data received for a message frame, and buffer all frames received for the message, and only
+         when the message finally ends, flatten all buffered data and fires the {{inlinecode('onMessage')}} method.
+      </p>
+
+      <p>
+         Consequently, when you need to process messages consisting of a large number of message fragments,
+         or you need to process messages that contain message fragments of large size, this buffering will
+         result in excessive memory consumption.
+      </p>
+
+      <p>
+         In these cases, you might want to process message fragments on a per frame basis, or you may even want
+         to process incoming data as it arrives (streaming).
+         This is where the advanced API of {{autobahnpython()}} comes into play.
+      </p>
+
+      <p>
+         The advanced API provides you with all the necessary methods and callbacks to program WebSocket clients and servers
+         using frame-based processing or even fully streaming processing - both sending and receiving.
+      </p>
+
+      <p>
+         For this tutorial, we implement the functionality of a client sending random bytes to a server, and the server
+         computing a SHA-256 over the received bytes and sending back digests. This functionality is implemented in three
+         different variants, for message-base, frame-based and streaming processing.
+      </p>
+
+      <p>To create random byte strings of varying length, we use a little helper function:</p>
+
+      <div class="codeex">
+         <h1>Random Byte String Generator</h1>
+         <pre class="brush: python; highlight: []; toolbar: false; auto-links: false; gutter: true;">
+            import random, struct
+
+            def randomByteString(len):
+               """
+               Generate a string of random bytes.
+               """
+               return ''.join([struct.pack("!Q",
+                               random.getrandbits(64)) for x in
+                                  xrange(0, len / 8 + int(len % 8 > 0))])[:len]
+         </pre>
+      </div>
+
+
+      <a name="message_based"></a>
+      <h2>Message-based Processing</h2>
+
+      <p>
+         The message-based client is a straight-forward application of the basic API:
+      </p>
+
+      <div class="codeex">
+         <h1>Message-based Client</h1>
+         <pre class="brush: python; highlight: [20, 26]; toolbar: false; auto-links: false; gutter: true;">
+from ranstring import randomByteString
+from twisted.internet import reactor
+from autobahn.websocket import WebSocketClientFactory, \
+                               WebSocketClientProtocol, \
+                               connectWS
+
+MESSAGE_SIZE = 1 * 2**20
+
+
+class MessageBasedHashClientProtocol(WebSocketClientProtocol):
+   """
+   Message-based WebSockets client that generates stream of random octets
+   sent to WebSockets server as a sequence of messages. The server will
+   respond to us with the SHA-256 computed over each message. When
+   we receive response, we repeat by sending a new message.
+   """
+
+   def sendOneMessage(self):
+      data = randomByteString(MESSAGE_SIZE)
+      self.sendMessage(data, binary = True)
+
+   def onOpen(self):
+      self.count = 0
+      self.sendOneMessage()
+
+   def onMessage(self, message, binary):
+      print "Digest for message %d computed by server: %s" \
+            % (self.count, message)
+      self.count += 1
+      self.sendOneMessage()
+
+
+if __name__ == '__main__':
+
+   factory = WebSocketClientFactory("ws://localhost:9000")
+   factory.protocol = MessageBasedHashClientProtocol
+   connectWS(factory)
+   reactor.run()
+         </pre>
+      </div>
+
+      <p>
+         We send out a message of {{inlinecode('MESSAGE_SIZE')}}
+         random bytes with {{inlinecode('sendMessage')}} (line 20) as soon as the WebSocket opening
+         handshake with the server has been completed in {{inlinecode('onOpen')}} (line 22).
+      </p>
+
+      <p>
+         When we receive a message with a computed digest (line 26), we just print the
+         digest and send another message (line 30).
+      </p>
+
+      <p>
+         The message-based server is even simpler:
+      </p>
+
+      <div class="codeex">
+         <h1>Message-based Server</h1>
+         <pre class="brush: python; highlight: [14, 18]; toolbar: false; auto-links: false; gutter: true;">
+import hashlib
+from twisted.internet import reactor
+from autobahn.websocket import WebSocketServerFactory, \
+                               WebSocketServerProtocol, \
+                               listenWS
+
+
+class MessageBasedHashServerProtocol(WebSocketServerProtocol):
+   """
+   Message-based WebSockets server that computes a SHA-256 for every
+   message it receives and sends back the computed digest.
+   """
+
+   def onMessage(self, message, binary):
+      sha256 = hashlib.sha256()
+      sha256.update(message)
+      digest = sha256.hexdigest()
+      self.sendMessage(digest)
+      print "Sent digest for message: %s" % digest
+
+
+if __name__ == '__main__':
+   factory = WebSocketServerFactory("ws://localhost:9000")
+   factory.protocol = MessageBasedHashServerProtocol
+   listenWS(factory)
+   reactor.run()
+         </pre>
+      </div>
+
+      <p>
+         When the server receives a message from the client (line 14), it computes the
+         digest over the complete message payload (line 15 - 17), and sends back the
+         digest as a Hex string (line 18).
+      </p>
+
+      <br/>
+
+
+      <a name="frame_based"></a>
+      <h2>Frame-based Processing</h2>
+
+      <p>
+         The frame-based client uses methods and callbacks from the advanced API for
+         frame-based processing:
+      </p>
+
+      <div class="codeex">
+         <h1>Frame-based Client</h1>
+         <pre class="brush: python; highlight: [21, 25]; toolbar: false; auto-links: false; gutter: true;">
+from ranstring import randomByteString
+from twisted.internet import reactor
+from autobahn.websocket import WebSocketProtocol, \
+                               WebSocketClientFactory, \
+                               WebSocketClientProtocol, \
+                               connectWS
+
+FRAME_SIZE = 1 * 2**20
+
+
+class FrameBasedHashClientProtocol(WebSocketClientProtocol):
+   """
+   Message-based WebSockets client that generates stream of random octets
+   sent to WebSockets server as a sequence of frames all in one message.
+   The server will respond to us with the SHA-256 computed over frames.
+   When we receive response, we repeat by sending a new frame.
+   """
+
+   def sendOneFrame(self):
+      data = randomByteString(FRAME_SIZE)
+      self.sendMessageFrame(data)
+
+   def onOpen(self):
+      self.count = 0
+      self.beginMessage(opcode = WebSocketProtocol.MESSAGE_TYPE_BINARY)
+      self.sendOneFrame()
+
+   def onMessage(self, message, binary):
+      print "Digest for frame %d computed by server: %s" \
+            % (self.count, message)
+      self.count += 1
+      self.sendOneFrame()
+
+
+if __name__ == '__main__':
+
+   factory = WebSocketClientFactory("ws://localhost:9000")
+   factory.protocol = FrameBasedHashClientProtocol
+   connectWS(factory)
+   reactor.run()
+         </pre>
+      </div>
+
+      <p>
+         The frame-based client explicitly starts a new message (line 25) {{inlinecode('beginMessage')}}
+         within {{inlinecode('onOpen')}}, which is called after the WebSocket handshake
+         has been completed.
+      </p>
+
+      <p>
+         It then sends each {{inlinecode('FRAME_SIZE')}} number of random bytes as a new frame
+         within this this single message via {{inlinecode('sendMessageFrame')}} (line 21).
+      </p>
+
+      <p>
+         When we receive a digest from the server (line 25), we send another frame (line 28)
+         within the same single message that was already begun.
+      </p>
+
+      <p>
+         Since there is no stop condition, we never end the message (which could be done
+         using {{inlinecode('endMessage')}}), but send an infinite sequence of frames (message fragments)
+         within that single message started.
+      </p>
+
+      <p>
+         The frame-based server now no longer overrides {{inlinecode('onMessage')}}, but the
+         frame-based hooks {{inlinecode('onMessageBegin')}}, {{inlinecode('onMessageFrame')}} and {{inlinecode('onMessageEnd')}}:
+      </p>
+
+      <div class="codeex">
+         <h1>Frame-based Server</h1>
+         <pre class="brush: python; highlight: [16, 20, 27]; toolbar: false; auto-links: false; gutter: true;">
+import hashlib
+from twisted.internet import reactor
+from autobahn.websocket import WebSocketServerFactory, \
+                               WebSocketServerProtocol, \
+                               listenWS
+
+
+class FrameBasedHashServerProtocol(WebSocketServerProtocol):
+   """
+   Frame-based WebSockets server that computes a running SHA-256 for message
+   data received. It will respond after every frame received with the digest
+   computed up to that point. It can receive messages of unlimited number
+   of frames. Digest is reset upon new message.
+   """
+
+   def onMessageBegin(self, opcode):
+      WebSocketServerProtocol.onMessageBegin(self, opcode)
+      self.sha256 = hashlib.sha256()
+
+   def onMessageFrame(self, payload, reserved):
+      data = ''.join(payload)
+      self.sha256.update(data)
+      digest = self.sha256.hexdigest()
+      self.sendMessage(digest)
+      print "Sent digest for frame: %s" % digest
+
+   def onMessageEnd(self):
+      pass
+
+
+if __name__ == '__main__':
+   factory = WebSocketServerFactory("ws://localhost:9000")
+   factory.protocol = FrameBasedHashServerProtocol
+   listenWS(factory)
+   reactor.run()
+         </pre>
+      </div>
+
+      <p>
+         Note that we must override {{inlinecode('onMessageEnd')}}, even when we don't do anything here,
+         since otherwise the default implementation of the basic API will still be active (and
+         would try to assemble frames into a message to fire {{inlinecode('onMessage')}},
+         which we don't want it to do or try to do).
+      </p>
+
+      <br/>
+
+
+      <a name="streaming"></a>
+      <h2>Streaming Processing</h2>
+
+      <p>
+         With the message-based client/server, we sent an infinite sequence of messages and got back
+         one digest per message. With the frame-based client/server, we started one message, sent an
+         infinite sequence of frames, and got back one digest per message frame.
+      </p>
+
+      <p>
+         With a streaming client, we don't rely on message/frame structuring, but will start a single
+         message, then a single frame, and then send data within that frame. We want to get back a
+         digest for every {{inlinecode('BATCH_SIZE')}} bytes.
+      </p>
+
+      <div class="codeex">
+         <h1>Streaming Client</h1>
+         <pre class="brush: python; highlight: [27, 31, 33]; toolbar: false; auto-links: false; gutter: true;">
+from ranstring import randomByteString
+from zope.interface import implements
+from twisted.internet import reactor, interfaces
+from autobahn.websocket import WebSocketProtocol, \
+                               WebSocketClientFactory, \
+                               WebSocketClientProtocol, \
+                               connectWS
+
+BATCH_SIZE = 1 * 2**20
+
+
+class StreamingHashClientProtocol(WebSocketClientProtocol):
+   """
+   Streaming WebSockets client that generates stream of random octets
+   sent to WebSockets server as a sequence of batches in one frame, in
+   one message. The server computes a running SHA-256, which it will send
+   every BATCH_SIZE octets back to us. When we receive a response, we
+   repeat by sending another batch of data.
+   """
+
+   def sendOneBatch(self):
+      data = randomByteString(BATCH_SIZE)
+
+      # Note, that this could complete the frame, when the frame length is
+      # reached. Since the frame length here is 2^63, we don't bother, since
+      # it'll take _very_ long to reach that.
+      self.sendMessageFrameData(data)
+
+   def onOpen(self):
+      self.count = 0
+      self.beginMessage(opcode = WebSocketProtocol.MESSAGE_TYPE_BINARY)
+      # 2^63 - This is the maximum imposed by the WS protocol
+      self.beginMessageFrame(0x7FFFFFFFFFFFFFFF)
+      self.sendOneBatch()
+
+   def onMessage(self, message, binary):
+      print "Digest for batch %d computed by server: %s" \
+            % (self.count, message)
+      self.count += 1
+      self.sendOneBatch()
+
+
+if __name__ == '__main__':
+
+   factory = WebSocketClientFactory("ws://localhost:9000")
+   factory.protocol = StreamingHashClientProtocol
+   connectWS(factory)
+   reactor.run()
+         </pre>
+      </div>
+
+      <p>
+         The client again in {{inlinecode('onOpen')}} begins a new message (line 27).
+         However, now we also start a new frame immediately (line 28). We specify the maximum
+         frame length allowed by the WebSocket protocol, which is 2^63. This is practically infinite.
+         No setup in the foreseeable future will be able to exhaust that.
+      </p>
+
+      <p>
+         Random bytes are sent as the payload of that single frame (line 23).
+      </p>
+
+      <p>
+         Note that again we never end the message which could be done
+         using {{inlinecode('endMessage')}}), and that there is no {{inlinecode('endMessageFrame')}}
+         method, since the size of the message frame was already specified when the frame
+         was begun. The frame is finished as soon as all data has been written via
+         {{inlinecode('sendMessageFrameData')}}.
+      </p>
+
+      <p>
+         The server now overrides even more methods, since it wants to process
+         frame payload data as it arrives:
+      </p>
+
+      <div class="codeex">
+         <h1>Streaming Server</h1>
+         <pre class="brush: python; highlight: [20, 27, 30, 56, 59]; toolbar: false; auto-links: false; gutter: true;">
+import hashlib
+from twisted.internet import reactor
+from autobahn.websocket import WebSocketServerFactory, \
+                               WebSocketServerProtocol, \
+                               listenWS
+
+from streaming_client import BATCH_SIZE
+
+
+class StreamingHashServerProtocol(WebSocketServerProtocol):
+   """
+   Streaming WebSockets server that computes a running SHA-256 for data
+   received. It will respond every BATCH_SIZE bytes with the digest
+   up to that point. It can receive messages of unlimited number of frames
+   and frames of unlimited length (actually, up to 2^63, which is the
+   WebSockets protocol imposed limit on frame size). Digest is reset upon
+   new message.
+   """
+
+   def onMessageBegin(self, opcode):
+      WebSocketServerProtocol.onMessageBegin(self, opcode)
+      self.sha256 = hashlib.sha256()
+      self.count = 0
+      self.received = 0
+      self.next = BATCH_SIZE
+
+   def onMessageFrameBegin(self, length, reserved):
+      WebSocketServerProtocol.onMessageFrameBegin(self, length, reserved)
+
+   def onMessageFrameData(self, data):
+      length = len(data)
+      self.received += length
+
+      ## when the data received exceeds the next BATCH_SIZE ..
+      if self.received >= self.next:
+
+         ## update digest up to batch size
+         rest = length - (self.received - self.next)
+         self.sha256.update(data[:rest])
+
+         ## send digest
+         digest = self.sha256.hexdigest()
+         self.sendMessage(digest)
+         print "Sent digest for batch %d : %s" % (self.count, digest)
+
+         ## advance to next batch
+         self.next += BATCH_SIZE
+         self.count += 1
+
+         ## .. and update the digest for the rest
+         self.sha256.update(data[rest:])
+      else:
+         ## otherwise we just update the digest for received data
+         self.sha256.update(data)
+
+   def onMessageFrameEnd(self):
+      pass
+
+   def onMessageEnd(self):
+      pass
+
+
+if __name__ == '__main__':
+   factory = WebSocketServerFactory("ws://localhost:9000")
+   factory.protocol = StreamingHashServerProtocol
+   listenWS(factory)
+   reactor.run()
+         </pre>
+      </div>
+
+      <p>
+         Since the server now also no longer relies on message or frame boundaries, it needs
+         to know the {{inlinecode('BATCH_SIZE')}} (line 4) it is expected to compute digests for.
+      </p>
+
+      <p>
+         All the processing now happens in {{inlinecode('onMessageFrameData')}}, which it overrides.
+         This hook is called by {{ autobahnpython() }} when new payload data for a started frame arrives.
+      </p>
+
+      <br/>
+
+
+      <h2>Outlook</h2>
+
+      <p>
+         There are aspects with all three variants related to flow-control that can be improved.
+         The <a href="{{ url_for('page_python_tutorials_producerconsumer') }}">Flow control with the Producer-Consumer Pattern</a> tutorial
+         shows how to manage these.
+      </p>
+
+   </div>
+
+{% endblock %}

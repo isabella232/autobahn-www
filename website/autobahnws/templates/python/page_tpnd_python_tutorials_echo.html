@@ -1,0 +1,330 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="Tutorial: a WebSocket echo server and client using AutobahnPython.">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/page_tpsd_getstarted.css') }}">
+{% endblock %}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <h1>Hello world: WebSocket Echo</h1>
+
+      <p>
+         The goal of this tutorial is to get you going with WebSocket programming
+         with {{ autobahnpython() }} step by step.
+      </p>
+
+      <p>
+         We will create a simple WebSocket echo server that just echo's back any WebSocket
+         message it receives.
+      </p>
+
+      <p>
+         We will also create a JavaScript client running in browsers and a Python client
+         again using {{ autobahnpython() }}.
+      </p>
+
+      <p>
+         You can find all the code for this tutorial in the
+         <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/websocket/echo">source code repository</a>.
+      </p>
+
+      <p class="hint">
+         The code in the source repository is slightly extended to make it more convenient and robust.
+      </p>
+
+
+      <h2>Prerequisites</h2>
+      <p>
+         For this tutorial you will need
+      </p>
+
+      <ul>
+         <li>{{ autobahnpython() }} installed</li>
+         <li>a WebSocket capable browser</li>
+      </ul>
+
+      <p>
+         A guide how to setup {{ autobahnpython() }} can be found in the <a href="{{ url_for('page_python_getstarted') }}">getting started</a>.
+         For the browser, you can use any recent version of Chrome or Firefox i.e.
+      </p>
+
+
+      <h2>Twisted Concepts</h2>
+
+      <p>
+         {{ autobahnpython() }} builds on
+         <a href="http://twistedmatrix.com/trac/" target="_blank">Twisted</a>,
+         an event-driven networking engine written in Python.
+      </p>
+
+      <p>
+         Obviously, we cannot give a thorough introduction to Twisted here. You will
+         find plenty of material on the Web. However, here is the ultra-short intro:
+      </p>
+
+      <p>
+         Twisted servers and clients are created around the concepts of
+      </p>
+
+      <ul>
+         <li>Reactors</li>
+         <li>Protocols</li>
+         <li>Factories</li>
+      </ul>
+
+      <p>
+         A Twisted <strong>reactor</strong> is an abstraction of the event loop within Twisted to process
+         network (and other) events.
+      </p>
+
+      <p>
+         A Twisted <strong>protocol</strong> provides the implementation of a particular IP-based (or other)
+         protocol.
+      </p>
+
+      <p>
+         A Twisted <strong>factory</strong> creates instances of a protocol, one for each client connection
+         accepted by a server or each connection established to a server by a client.
+      </p>
+
+      <p>
+         Hence, to implement our WebSocket Echo Server we need to define a protocol class that
+         implements our WebSocket based Echo protocol.
+      </p>
+
+
+      <h2>The Echo Server</h2>
+
+      <h3>The code</h3>
+
+         <p>
+            For the echo server, put the following code into a {{ inlineshell('server.py') }} file. We walk
+            through the code in a second.
+         </p>
+
+         <div class="codeex">
+            <h1>WebSocket Echo Server</h1>
+            <pre class="brush: python; highlight: [7, 9, 10]; toolbar: false; auto-links: false; gutter: true;">
+               from twisted.internet import reactor
+               from autobahn.websocket import WebSocketServerFactory, \
+                                              WebSocketServerProtocol, \
+                                              listenWS
+
+
+               class EchoServerProtocol(WebSocketServerProtocol):
+
+                  def onMessage(self, msg, binary):
+                     self.sendMessage(msg, binary)
+
+
+               if __name__ == '__main__':
+
+                  factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
+                  factory.protocol = EchoServerProtocol
+                  listenWS(factory)
+                  reactor.run()
+            </pre>
+         </div>
+
+         <p>
+            and run the server from a command shell
+         </p>
+
+         {{beginshell()}}
+python server.py
+         {{endshell()}}
+
+         <p class="hint">
+            The server will run forever until you break out from the Python interpreter
+            (Ctrl-C/D/Z depending on the platform).
+         </p>
+         <p class="hint">
+            The server will not output anything. To enable debug output, just provide True
+            to the debug parameter when creating the WebSocketServerFactory.
+         </p>
+         <br>
+
+
+         <h3>How it works</h3>
+
+         <p>
+            We implement our WebSocket Echo Server by deriving (line 7) from a base class {{ inlinecode('WebSocketServerProtocol') }}
+            provided by {{ autobahnpython() }}. Now, all the "interesting" stuff happens in lines 9-10.
+         </p>
+
+         <p>
+            The {{ inlinecode('onMessage') }} method of our protocol will be fired by
+            {{ autobahnpython() }} upon receiving a new WebSocket message.
+            The {{ inlinecode('msg') }} argument is - you guessed it - the WebSocket message payload,
+            which can be a string (UTF-8 encoded) or a binary.
+            If it is binary, the {{ inlinecode('binary') }} argument will be {{ inlinecode('True') }}.
+         </p>
+
+         <p>
+            All we do in our Echo server is sending back the unmodified message, which is done on line 10.
+            The {{ inlinecode('sendMessage') }} method we use is provided by {{ autobahnpython() }},
+            and we merely forward the payload and payload type of the message received.
+            That way, we echo both text and binary messages.
+         </p>
+
+         <p>
+            To run the server, we first create an instance of {{ inlinecode('WebSocketServerFactory') }} (line 15)
+            specifying a WebSocket URI for the server, which defines port, hostname and WS/WSS.
+            We tell the factory to use our protocol (line 16) and Twisted to start our
+            factory {{ inlinecode('listenWs') }} (line 17).
+            Finally we start the (default) Twisted reactor which will enter into it's
+            networking event loop (line 18).
+         </p>
+         <br>
+
+
+      <h2>The Echo Client - JavaScript</h2>
+
+         <h3>The code</h3>
+         <p>
+            For the JavaScript/Browser variant of the echo client, put the following
+            code into a {{inlineshell('client.html')}} file and open that in a browser.
+         </p>
+
+         <div class="codeex">
+            <h1>WebSocket Echo Client - JavaScript</h1>
+            <pre class="brush: xml; highlight: [6, 8, 16]; toolbar: false; auto-links: false; gutter: true;">
+               &lt;html&gt;
+                  &lt;head&gt;
+                     &lt;script type="text/javascript"&gt;
+                        window.onload = function() {
+
+                           var webSocket = new WebSocket("ws://localhost:9000");
+
+                           webSocket.onmessage = function(e) {
+                              console.log("Got echo: " + e.data);
+                           }
+                        }
+                     &lt;&#47;script&gt;
+                  &lt;&#47;head&gt;
+                  &lt;body&gt;
+                     &lt;h1&gt;WebSocket Echo Client&lt;&#47;h1&gt;
+                     &lt;button onclick='webSocket.send("Hello, world!");'&gt;
+                        Send Hello
+                     &lt;&#47;button&gt;
+                  &lt;&#47;body&gt;
+               &lt;&#47;html&gt;
+            </pre>
+         </div>
+
+         <p>
+            Open your browser's debugging console (i.e. on Firefox/Chrome Windows, hit F12).
+            Press the send button. You should see the echo'ed messages in the console output.
+         </p>
+         <br>
+
+
+         <h3>How it works</h3>
+
+         <p>
+            The JavaScript API for WebSocket in browsers resides in a built-in object
+            {{inlinecode('WebSocket')}} (or {{inlinecode('MozWebSocket')}} in Firefox 7-10).
+         </p>
+
+         <p>
+            To set up a WebSocket connection, we create an instance of that object (line 6).
+         </p>
+
+         <p>
+            We then create an event handler (line 8) which will get fired upon
+            receiving a WebSockets message. The event has a {{inlinecode('data')}}
+            attribute which contains the message payload.
+         </p>
+
+         <p>
+            To send the initial "Hello, world!", we connect the click event on the button
+            to a call of the method {{inlinecode('send')}} on the WebSocket connection object (line 16).
+         </p>
+         <br>
+
+
+
+      <h2>The Echo Client - Python</h2>
+
+         <h3>The code</h3>
+
+         <p>
+            For the {{ autobahnpython() }} variant of the echo client, put the following
+            code into a {{inlineshell('client.py')}} file. We walk through the code in a second.
+         </p>
+
+         <div class="codeex">
+            <h1>WebSocket Echo Client - Python</h1>
+            <pre class="brush: python; highlight: [7, 12, 13, 15]; toolbar: false; auto-links: false; gutter: true;">
+               from twisted.internet import reactor
+               from autobahn.websocket import WebSocketClientFactory, \
+                                              WebSocketClientProtocol, \
+                                              connectWS
+
+
+               class EchoClientProtocol(WebSocketClientProtocol):
+
+                  def sendHello(self):
+                     self.sendMessage("Hello, world!")
+
+                  def onOpen(self):
+                     self.sendHello()
+
+                  def onMessage(self, msg, binary):
+                     print "Got echo: " + msg
+                     reactor.callLater(1, self.sendHello)
+
+
+               if __name__ == '__main__':
+
+                  factory = WebSocketClientFactory("ws://localhost:9000", debug = False)
+                  factory.protocol = EchoClientProtocol
+                  connectWS(factory)
+                  reactor.run()
+            </pre>
+         </div>
+
+         <p>
+            Run the client from a command shell (while the server is still running in your first shell)
+         </p>
+
+         {{beginshell()}}
+python client.py
+         {{endshell()}}
+
+         <p class="hint">
+            The client will run forever until you break out from the Python interpreter
+            (Ctrl-C/D/Z depending on the platform).
+         </p>
+         <p class="hint">
+            The client will not output anything. To enable debug output, just provide True
+            to the debug parameter when creating the WebSocketClientFactory.
+         </p>
+         <br>
+
+
+         <h3>How it works</h3>
+         <p>
+            The client is structured similar to the server, but this time we derive our {{inlinecode('EchoClientProtocol')}}
+            from the base class for client WebSockets, {{inlinecode('WebSocketClientProtocol')}} (line 7).
+         </p>
+         <p>
+            The {{inlinecode('onOpen')}} method (line 12) will get fired by {{ autobahnpython() }}
+            when the WebSockets handshake has been completed.
+            What we do is call {{inlinecode('sendHello')}} (line 13) in which we send out a first "Hello, world!".
+         </p>
+
+         <p>
+            When we receive an echo from the server (line 15), we send another hello. But we don't want
+            to send it immediately, since then we have a very fast echo ping/pong between client and server.
+            What we do is use a Twisted method {{inlinecode('reactor.callLater')}} which will call the callable
+            given (here {{inlinecode('sendHello')}} after the specified time (seconds).
+         </p>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

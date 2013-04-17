@@ -1,0 +1,150 @@
+{% extends "layout_t.html" %}
+
+{% block header %}
+
+   <meta name="description" content="">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/page_t_home.css') }}">
+   <script type="text/javascript" src="{{ url_for('static', filename='js/page_t_home.js') }}"></script>
+
+{% endblock%}
+
+
+{% block body %}
+
+   <div id="home_central_wrapper">
+
+      <div style="width: 500px; margin: 60px auto 40px auto;">
+         <img src="{{ url_for('static', filename='img/autobahnws_large.png') }}" width="500" height="64">
+      </div>
+
+      <div id="intro">
+         <p>
+            Autobahn provides Open-Source client and server implementations of
+            <a href="http://tools.ietf.org/html/rfc6455">WebSocket</a> and <a href="http://wamp.ws">WAMP</a>.<br><br>
+            WebSocket allows bidirectional real-time messaging between browsers (as well as other clients) and servers
+            and WAMP provides asynchronous RPC and PubSub over WebSocket.
+            <br>
+            <a style="float: right;" href="http://wamp.ws">
+               <img style="position: relative; right: 80px;" src="{{ url_for('static', filename='img/wamp_white.png') }}" width="145" height="26">
+            </a>
+         </p>
+         <br>
+      </div>
+
+      <table id="projects">
+         <tr>
+            <td>
+               <div class="tdwrapper">
+                  <img style="" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
+                  <p>
+                     AutobahnPython is a WebSocket / WAMP
+                     client and server framework based on Twisted.
+                     It's conformant, scalable and flexible.
+                  </p>
+                  <p>
+                     <ul>
+                        <li>WebSocket Hixie-76, Hybi-10+, RFC6455</li>
+                        <li>WAMP v1</li>
+                        <li>framework for clients and servers</li>
+                     </ul>
+                  </p>
+                  <div class="linkboxspacer"></div>
+                  <a class="linkbox" href="{{ url_for('page_python') }}"></a>
+                  <a class="forkgithub" href="https://github.com/tavendo/AutobahnPython"></a>
+               </div>
+            </td>
+            <td class="hspacer"></td>
+            <td>
+               <div class="tdwrapper">
+                  <img style="" src="{{ url_for('static', filename='img/autobahnjs.png') }}" width="280" height="44">
+                  <p>
+                     AutobahnJS is a WAMP client library. It works together with
+                     any WAMP server and provides
+                     asynchronous RPC and PubSub to browser based apps.
+                  </p>
+                  <p>
+                     <ul>
+                        <li>WAMP v1</li>
+                        <li>Pluggable Deferreds: when.js, jQuery, Dojo ..</li>
+                        <li>Auto-reconnect, Client authentication, ..</li>
+                     </ul>
+                  </p>
+                  <div class="linkboxspacer"></div>
+                  <a class="linkbox" href="{{ url_for('page_js') }}"></a>
+                  <a class="forkgithub" href="https://github.com/tavendo/AutobahnJS"></a>
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td class="hspacer" colspan="3"></td>
+         </tr>
+         <tr>
+            <td>
+               <div class="tdwrapper">
+                  <img style="" src="{{ url_for('static', filename='img/autobahnandroid.png') }}" width="353" height="44">
+                  <p>
+                     AutobahnAndroid is a WebSocket / WAMP
+                     client library for native Java Android apps.
+                     It's conformant, fast and plays fine with Android
+                     UI activities as well as background services.
+                  </p>
+                  <p>
+                     <ul>
+                        <li>WebSocket RFC6455</li>
+                        <li>WAMP v1</li>
+                        <li>optimized for Android</li>
+                     </ul>
+                  </p>
+                  <div class="linkboxspacer"></div>
+                  <a class="linkbox" href="{{ url_for('page_android') }}"></a>
+                  <a class="forkgithub" href="https://github.com/tavendo/AutobahnAndroid"></a>
+               </div>
+            </td>
+            <td class="hspacer"></td>
+            <td>
+               <div class="tdwrapper">
+                  <img style="" src="{{ url_for('static', filename='img/autobahntestsuite.png') }}" width="374" height="44">
+                  <p>
+                     AutobahnTestsuite is a comprehensive WebSocket protocol test
+                     suite for verifying WebSocket client and server implementations.
+                  </p>
+                  <p>
+                     <ul>
+                        <li>over 300 test cases</li>
+                        <li>fully automated testing</li>
+                        <li>used by more than 30 projects</li>
+                     </ul>
+                  </p>
+                  <div class="linkboxspacer"></div>
+                  <a class="linkbox" href="{{ url_for('page_testsuite') }}"></a>
+                  <a class="forkgithub" href="https://github.com/tavendo/AutobahnTestSuite"></a>
+               </div>
+            </td>
+         </tr>
+      </table>
+
+      {% if session["debug"] %}
+         <!-- Twitter code excluded in debug-mode -->
+      {% else %}
+         <div style="position: fixed; top: 16px; right: 32px;">
+            <a href="https://twitter.com/autobahnws" class="twitter-follow-button" data-show-count="false">Follow @autobahnws</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+         </div>
+      {% endif %}
+
+      <center style="font-size: 14px;">
+         Autobahn WebSocket technology is brought to you by
+         <a href="http://www.tavendo.de"><img style="" src="{{ url_for('static', filename='img/tavendosmall.png') }}" width="118" height="18"></a>
+      </center>
+      <br><br>
+
+      <div id="webmqad" class="notextselect defaultcursor">
+         Looking for an integrated, enterprise-ready Real-time messaging solution?<br>
+         Check out <a href="http://www.tavendo.de/webmq" target="_blank">Tavendo WebMQ</a>. The Web Message Broker based on Autobahn WebSocket.
+         <span id="webmqad_countdown">5</span>
+         <div id="webmqad_hide" class="notextselect defaultcursor">X</div>
+      </div>
+
+   </div>
+
+{% endblock%}

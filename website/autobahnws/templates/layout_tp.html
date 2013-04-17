@@ -1,0 +1,143 @@
+{% extends "layout_t.html" %}
+
+{% block header %}
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_tp.css') }}">
+
+   {% block subheader %}{% endblock %}
+
+{% endblock %}
+
+{% block body %}
+
+   <div id="sticky_footer_outer_wrapper">
+      <div id="sticky_footer_central_content_wrapper">
+
+         <!-- Header -->
+         <div id="awh_layout_header">
+            <div id="outside_l_top_banner"></div>
+            <div id="outside_r_top_banner"></div>
+            <div id="header_inner_top_banner">
+               <span></span>
+               <a alt="AutobahnWebSocket" href="/">
+                  {% if session['subsite'] == 'python' %}
+                     <img id="project_top_banner" alt="AutobahnPython" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
+                  {% elif session['subsite'] == 'android' %}
+                     <img id="project_top_banner" alt="AutobahnAndroid" src="{{ url_for('static', filename='img/autobahnandroid.png') }}" width="353" height="44">
+                  {% elif session['subsite'] == 'js' %}
+                     <img id="project_top_banner" alt="AutobahnJS" src="{{ url_for('static', filename='img/autobahnjs.png') }}" width="280" height="44">
+                  {% elif session['subsite'] == 'testsuite' %}
+                     <img id="project_top_banner" alt="AutobahnTestsuite" src="{{ url_for('static', filename='img/autobahntestsuite.png') }}" width="374" height="44">
+                  {% else %}
+                     <p>FIXME</p>
+                  {% endif %}
+               </a>
+            </div>
+         </div>
+
+         <!-- Navbar -->
+         <div id="navbar_wrapper">
+            <div id="navbar">
+               {% if session['subsite'] == 'python' %}
+                  <a href="{{ url_for('page_python') }}" {% if session['subsitetab'] == 'overview' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Overview
+                  </a>
+                  <a href="{{ url_for('page_python_getstarted') }}" {% if session['subsitetab'] == 'getstarted' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get Started
+                  </a>
+                  <a href="{{ url_for('page_python_tutorials') }}" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Tutorials
+                  </a>
+                  <a href="{{ url_for('page_python_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Reference
+                  </a>
+                  <a href="{{ url_for('page_python_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Downloads
+                  </a>
+                  <a href="{{ url_for('page_python_getintouch') }}" {% if session['subsitetab'] == 'getintouch' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get in touch
+                  </a>
+               {% elif session['subsite'] == 'android' %}
+                  <a href="{{ url_for('page_android') }}" {% if session['subsitetab'] == 'overview' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Overview
+                  </a>
+                  <a href="{{ url_for('page_android_getstarted') }}" {% if session['subsitetab'] == 'getstarted' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get Started
+                  </a>
+                  <a href="{{ url_for('page_android_tutorials') }}" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Tutorials
+                  </a>
+                  <a href="{{ url_for('page_android_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Reference
+                  </a>
+                  <a href="{{ url_for('page_android_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Downloads
+                  </a>
+                  <a href="{{ url_for('page_android_getintouch') }}" {% if session['subsitetab'] == 'getintouch' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get in touch
+                  </a>
+               {% elif session['subsite'] == 'js' %}
+                  <a href="{{ url_for('page_js') }}" {% if session['subsitetab'] == 'overview' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Overview
+                  </a>
+                  <a href="{{ url_for('page_js_getstarted') }}" {% if session['subsitetab'] == 'getstarted' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get Started
+                  </a>
+                  <a href="{{ url_for('page_js_tutorials') }}" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Tutorials
+                  </a>
+                  <a href="{{ url_for('page_js_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Reference
+                  </a>
+                  <a href="{{ url_for('page_js_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Downloads
+                  </a>
+                  <a href="{{ url_for('page_js_getintouch') }}" {% if session['subsitetab'] == 'getintouch' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get in touch
+                  </a>
+               {% elif session['subsite'] == 'testsuite' %}
+                  <a href="{{ url_for('page_testsuite') }}" {% if session['subsitetab'] == 'overview' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Overview
+                  </a>
+                  <a href="{{ url_for('page_testsuite_installation') }}" {% if session['subsitetab'] == 'installation' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Installation
+                  </a>
+                  <a href="{{ url_for('page_testsuite_manual') }}" {% if session['subsitetab'] == 'manual' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Manual
+                  </a>
+                  <a href="{{ url_for('page_testsuite_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Downloads
+                  </a>
+                  <a href="{{ url_for('page_testsuite_getintouch') }}" {% if session['subsitetab'] == 'getintouch' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Get in touch
+                  </a>
+               {% else %}
+                  <p>FIXME</p>
+               {% endif %}
+            </div> <!-- navbar -->
+         </div> <!-- navbar_wrapper -->
+
+         {% block page %}{% endblock %}
+
+      </div> <!-- sticky_footer_outer_wrapper -->
+   </div> <!-- sticky_footer_central_content_wrapper -->
+
+   <div id="footer_wrapper">
+      <div id="footer">
+         <div id="footer_legal">
+            <p>
+               Autobahn WebSocket technology is brought to you by
+               <a href="http://www.tavendo.de"><img style="" src="{{ url_for('static', filename='img/tavendosmallgrey.png') }}" width="118" height="18"></a>
+            </p>
+            <p>
+               Autobahn WebSocket is a trademark of <a href="http://www.tavendo.de" target="_blank">Tavendo GmbH</a>.
+               All other trademarks are those of their respective entities.
+            </p>
+            <p>
+               Copyright &copy; 2011-2012 <a href="http://www.tavendo.de" target="_blank">Tavendo GmbH</a>. All rights reserved.
+            </p>
+         </div>
+      </div>
+   </div>
+
+{% endblock %}

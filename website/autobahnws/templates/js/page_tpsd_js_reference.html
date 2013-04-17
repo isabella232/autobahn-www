@@ -1,0 +1,679 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="AutobahnJS API Reference.">
+
+<!--   <link rel="stylesheet" href="{{ url_for('static', filename='css/page_tpsd_getstarted.css') }}">
+-->
+{% endblock%}
+
+
+{% block pagecontent %}
+
+{% macro docmethod_toc(classname, methodname) -%}
+   <li><a href="#{{classname}}_{{methodname}}">{{classname}}.<span style="font-weight: 600;">{{methodname}}</span></a></li>
+{%- endmacro %}
+
+
+{% macro docmethod(classname, methodname, params, return, desc) -%}
+   <br><br>
+   <a name="{{classname}}_{{methodname}}"></a>
+   <a class="awh_up" href="#top">Up</a>
+   <h3>{{classname}}.{{methodname}}</h3>
+   <p class="summary2">{{desc}}</p>
+   <div style="background-color: #eee; padding: 14px;">
+      <span>{{classname}}</span>.<span style="font-weight: 600;">{{methodname}}</span>
+      {%- if params is not none %}
+         (&nbsp;{%- for param in params %}{% if not loop.first %}, {% endif %}<span style="font-style: italic;">{{ param[0] }}</span>{%- endfor %}&nbsp;)
+      {%- else %}
+         ( )
+      {%- endif %}
+      {%- if return is not none %}
+         &nbsp; &#9658; &nbsp; {{ return[0] }}
+      {%- endif %}
+   </div>
+   <table class="parameters">
+      {%- if params is not none %}
+         {%- for param in params %}
+            <tr><td><i>{{param[0]}}</i></td><td>{{param[1]}}</td><td>{{param[2]}}</td></tr>
+         {%- endfor %}
+      {%- endif %}
+      {%- if return is not none %}
+         {%- if params is not none %}
+            <tr><td colspan="3">&nbsp;</td></tr>
+         {%- endif %}
+         <tr><td><i>{{return[0]}}</i></td><td>{{return[1]}}</td><td>{{return[2]}}</td></tr>
+      {%- endif %}
+   </table>
+{%- endmacro %}
+
+<style>
+   .summary {
+   font-size: 14px;
+      background-color: #eee;
+      padding-top: 1.4em;
+      padding-bottom: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
+      border-top: solid 1px #888;
+   }
+
+   .parameters {
+      font-size: 14px;
+      background-color: #eee;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 2em;
+   }
+
+   .parameters td {
+      padding: 4px;
+   }
+
+   .example2 {
+      font-style: italic;
+      margin-bottom: 2em;
+      margin-top: 2em;
+/*
+      border: solid 1px #888;
+      border-radius: 6px;
+      width: 90%;
+      margin: auto;
+*/
+   }
+
+   .example2 div {
+/*      margin: 1em 2em 0.8em 2em; */
+      margin-left: 2em;
+      margin-top: 2em;
+      font-size: 14px;
+   }
+
+   .notes {
+      font-style: italic;
+      margin-bottom: 2em;
+   }
+
+   .notes ul {
+      font-style: normal;
+   }
+
+   .docsection_method {
+      margin-top: 1em;
+      margin-bottom: 1em;
+   }
+</style>
+
+<div class="pagewrapper">
+
+      <!--<img class="language_logo_right" src="{{ url_for('static', filename='img/JQuery_logo_medium.png') }}"></img>-->
+
+
+      <h1>{{ autobahnjs() }} Reference</h1>
+
+      <p>
+         The following is a complete reference of the public application programming interface
+         of {{ autobahnjs() }}.
+         Anything not listed here should be considered library internal and
+         not be used from user applications.
+      </p>
+
+
+      <a href="top"></a>
+      <h2>Table of Contents</h2>
+      <ol>
+         <li>
+            <a href="#promises">Deferreds and Promises</a>
+         </li>
+         <li>
+            <a href="#session_lifecycle">Session Lifecycle</a>
+            <ul>
+               {{docmethod_toc('ab', 'Session')}}
+               {{docmethod_toc('ab', 'connect')}}
+               {{docmethod_toc('Session', 'sessionid')}}
+               {{docmethod_toc('Session', 'close')}}
+            </ul>
+         </li>
+         <li>
+            <a href="#session_lifecycle">Session Authentication</a>
+            <ul>
+               {{docmethod_toc('Session', 'authreq')}}
+               {{docmethod_toc('Session', 'authsign')}}
+               {{docmethod_toc('Session', 'auth')}}
+            </ul>
+         </li>
+         <li>
+            <a href="#pubsub">Publish &amp; Subscribe</a>
+            <ul>
+               {{docmethod_toc('Session', 'subscribe')}}
+               {{docmethod_toc('Session', 'unsubscribe')}}
+               {{docmethod_toc('Session', 'publish')}}
+            </ul>
+         </li>
+         <li>
+            <a href="#rpc">Remote Procedure Calls</a>
+            <ul>
+               {{docmethod_toc('Session', 'call')}}
+            </ul>
+         </li>
+         <li>
+            <a href="#uri_handling">URI Handling</a>
+            <ul>
+               {{docmethod_toc('Session', 'prefix')}}
+               {{docmethod_toc('Session', 'shrink')}}
+               {{docmethod_toc('Session', 'resolve')}}
+            </ul>
+         </li>
+         <li>
+            <a href="#settings_diagnostics">Settings and Diagnostics</a>
+            <ul>
+               {{docmethod_toc('ab', 'debug')}}
+               {{docmethod_toc('ab', 'version')}}
+               <li><a href="#pluggablepromises">Pluggable Promises</a></li>
+            </ul>
+         </li>
+      </ol>
+      <br>
+
+
+      <a name="promises"></a>
+      <br><br>
+      <h2>Deferreds and Promises</h2>
+
+      <p style="font-size: 14px; font-style: italic; width: 80%; margin-left: 2em; color: #999;">
+         For the purpose of this document, the terms <i>Promise</i>, <i>Deferred</i> and
+         <i>Future</i> are used synonymous.
+      </p>
+
+      <p>
+         {{autobahnjs()}} relies on <i>Promises</i> for asynchronous programming.
+         For example, when you issue an RPC, the immediate return value you will
+         get back is a Promise object.
+      </p>
+
+      <p style="width: 90%; margin: 2em auto 2em auto; color: #0273a0; font-style: italic;">
+         A <i>promise</i> is an object that represents the eventual value returned from
+         the completion of an asynchronous operation (such as a RPC).
+      </p>
+
+      <p>
+         A promise has the following characteristics:
+         <ol>
+            <li>Can be in one of three states: unfulfilled, resolved, rejected</li>
+            <li>May only change from unfulfilled to resolved or unfulfilled to rejected</li>
+            <li>Implements a <b>then()</b> method for registering callbacks for notification of state change</li>
+            <li>Callbacks cannot change the value produced by the promise</li>
+            <li>A promise's <b>then()</b> method returns a new promise, to provide chaining while keeping the original promise's value unchanged</li>
+         </ol>
+         <span>Source: [*]</span>
+      </p>
+
+      <p>
+         With JavaScript, promises are not built into the language, but come with
+         libraries. There are different implementations. {{autobahnjs()}} comes
+         with <b>when.js</b> promises built in, but allows to <a href="#pluggablepromises">plug in</a> a different
+         promise implementation when needed.
+      </p>
+
+      <p>
+         <b>when.js</b> is a well tested and maintained JavaScript <i>promise</i> implementation
+         conforming to the upcoming <a href="http://wiki.commonjs.org/wiki/Promises/A" target="_blank">Common JS Promises/A</a>
+         proposal.
+         We expect the <i>when.js</i> promises used (per default) by {{autobahnjs()}} to be
+         interchangable and interoperable with other implementations conforming
+         to <i>Common JS Promises/A</i>.
+      </p>
+
+      <h3>Resources</h3>
+      <ul>
+         <li><a href="http://en.wikipedia.org/wiki/Promise_%28programming%29">Promise (Wikipedia)</a></li>
+         <li>[*] <a href="http://dojotoolkit.org/documentation/tutorials/1.6/promises/">Dojo Deferreds and Promises</a></li>
+         <li><a href="http://dojotoolkit.org/documentation/tutorials/1.6/deferreds/">Getting started with Deferreds (Dojo Documentation)</a></li>
+         <li><a href="http://dojotoolkit.org/reference-guide/1.7/dojo/Deferred.html">Dojo Deferreds Reference</a></li>
+         <li><a href="http://api.jquery.com/category/deferred-object/">jQuery Deferred Object</a></li>
+         <li><a href="http://wiki.commonjs.org/wiki/Promises/A">JavaScript Promises/A</a></li>
+         <li><a href="https://github.com/cujojs/when">when.js - A lightweight Promise and when() implementation</a></li>
+      </ul>
+
+
+      <a name="session_lifecycle"></a>
+      <br><br>
+      <h2>Session Lifecycle</h2>
+
+      <p>Describe methods of session establishment: low-level using Session object, high-level
+      using connect().</p>
+
+      <div class="docsection_method">
+         {{docmethod('ab',
+                     'Session',
+                     [
+                        ['wsuri', 'string', 'WebSocket URI of WAMP server.'],
+                        ['onopen', 'function', 'Callback fired when session has been estanlished.'],
+                        ['onclose', 'function', 'Callback fired when session has been closed, lost or failed to be established in the first place.'],
+                        ['options', 'object', 'WAMP session options.']
+                     ],
+                     ['result', 'Session object', 'New session object'],
+                     'Creates a new WAMP session object'
+                     )}}
+
+         <p>
+            Here is a full featured, complete example of session management including
+            initial establishment code, proper error handling and automatic reconnects.
+            You can copy-paste this as a starting template for your own app:
+         </p>
+
+         <a name="apptemplate"></a>
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               // WAMP session object
+               var sess;
+
+               // WAMP server
+               var wsuri = "ws://example.com:9000";
+
+               window.onload = function() {
+
+                  // establish session when window has loaded
+                  connect();
+               };
+
+               function connect() {
+
+                  // establish session to WAMP server
+                  sess = new ab.Session(wsuri,
+
+                     // fired when session has been opened
+                     function() {
+                        console.log("Connected!");
+
+                        onConnect();
+                     },
+
+                     // fired when session has been closed
+                     function(reason) {
+                        switch (reason) {
+                           case ab.CONNECTION_CLOSED:
+                              console.log("Connection was closed properly - done.");
+                              break;
+                           case ab.CONNECTION_UNREACHABLE:
+                              console.log("Connection could not be established.");
+                              break;
+                           case ab.CONNECTION_UNSUPPORTED:
+                              console.log("Browser does not support WebSocket.");
+                              break;
+                           case ab.CONNECTION_LOST:
+                              console.log("Connection lost - reconnecting ...");
+
+                              // automatically reconnect after 1s
+                              window.setTimeout(connect, 1000);
+                              break;
+                        }
+                     }
+                  );
+               };
+
+               function onConnect() {
+                  // do your awesome stuff HERE ..
+               };
+            </pre>
+         </div>
+      </div>
+
+
+      <div class="docsection_method">
+         {{docmethod('ab',
+                     'connect',
+                     [
+                        ['wsuri', 'string', 'WebSocket URI of WAMP server.'],
+                        ['onconnect', 'function', 'Callback fired when session has been established.'],
+                        ['onhangup', 'function', 'Callback fired when session has been closed, lost or failed to be established in the first place.'],
+                        ['options', 'object', 'WAMP session options.']
+                     ],
+                     none,
+                     'Connect to WAMP server, establishing new session. High level function with auto-reconnect.'
+                     )}}
+      </div>
+
+
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'sessionid',
+                     none,
+                     ['result', 'string', 'The ID of this session or null if session is not open.'],
+                     'Return the WAMP session ID of for this session.'
+                     )}}
+      </div>
+
+
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'close',
+                     none,
+                     none,
+                     'Close the session.'
+                     )}}
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               sess.close();
+            </pre>
+         </div>
+      </div>
+
+
+
+      <a name="session_authentication"></a>
+      <br><br>
+      <h2>Session Authentication</h2>
+
+      <p>Describe WAMP-CRA (WAMP Challenge Response Authentication).</p>
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'authreq',
+                     [
+                        ['authkey', 'string', 'Authentication key, i.e. user or application name. If undefined, anonymous authentication is performed.'],
+                        ['extra', 'object', 'Authentication extra information - optional.']
+                     ],
+                     ['result', 'Deferred object', 'A deferred, the success handler of which will be fired with an authentication challenge.'],
+                     'Issues an authentication request.'
+                     )}}
+      </div>
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'authsign',
+                     [
+                        ['challenge', 'string', 'Authentication challenge as returned by the WAMP server upon a authentication request.'],
+                        ['secret', 'string', 'Authentication secret.']
+                     ],
+                     ['result', 'string', 'Authentication signature. This is then given to Session.auth to finish the authentication handshake.'],
+                     'Signs an authentication challenge.'
+                     )}}
+      </div>
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'auth',
+                     [
+                        ['signature', 'string', 'A authentication signature.']
+                     ],
+                     ['result', 'Deferred object', 'A deferred, the success handler of which will be fired with the granted permissions.'],
+                     'Authenticate, finishing the authentication handshake.'
+                     )}}
+      </div>
+
+
+      <a name="pubsub"></a>
+      <br><br>
+      <h2>Publish and Subscribe</h2>
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'subscribe',
+                     [
+                        ['topic', 'string', 'The URI or CURIE of the topic to subscribe to.'],
+                        ['callback', 'function', 'The event handler to fire when receiving an event under the subscribed topic.']
+                     ],
+                     none,
+                     'Subscribe for a given topic, subsequently receive events published under the topic.'
+                     )}}
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               sess.subscribe("http://example.com/event#myevent1", function (topic, event) {
+                  console.log("Event 1 received!");
+               });
+            </pre>
+         </div>
+
+         <div class="notes">Notes
+            <ul>
+               <li>
+                  The method runs asynchronously and does not provide feedback whether a subscription was successful or not.
+               </li>
+               <li>
+                  A subscription may fail for example, when the WAMP server employs topic-based authorization and
+                  the client is not authorized to access or subscribe to the respective topic.
+               </li>
+               <li>
+                  The topic can be specified either using a fully qualified URI, or a CURIE
+                  for which a prefix shorthand was previously established on the session.
+               </li>
+            </ul>
+         </div>
+
+         <p>
+            You can hook up <i>one callback</i> to <i>multiple topics</i>, and since your callbacks will
+            receive the topic for which they get fired, switch in your callback:
+         </p>
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               function myCallback(topic, event) {
+
+                  switch (topic) {
+                     case "http://example.com/event#myevent1":
+                        // handle event 1
+                        break;
+                     case "http://example.com/event#myevent2":
+                        // handle event 2
+                        break;
+                     default:
+                        break;
+                  }
+               };
+
+               sess.subscribe("http://example.com/event#myevent1", myCallback);
+               sess.subscribe("http://example.com/event#myevent2", myCallback);
+            </pre>
+         </div>
+
+         <p>
+            You can also hook up <i>multiple callbacks</i> onto the <i>same topic</i>:
+         </p>
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var myEvent1Topic = "http://example.com/event#myevent1";
+
+               sess.subscribe(myEvent1Topic, function (topic, event) {
+                  // first code to handle event 1
+               });
+
+               sess.subscribe(myEvent1Topic, function (topic, event) {
+                  // more code to handle event 1
+               });
+            </pre>
+         </div>
+
+         <div class="notes">Notes
+            <ul>
+               <li>
+                  Upon the first subscribe to a topic, a WAMP message is sent to
+                  the server to subscribe the WAMP client for that topic.
+               </li>
+               <li>
+                  Subsequent subscribes for a topic already previously subscribed to
+                  do not trigger a send of another WAMP message. The <i>client</i> has
+                  already a subscription, and merely registers (client side) the
+                  additional callback to be fired for events received on the respective
+                  topic.
+               </li>
+               <li>
+                  A subscribe to a topic <i>and</i> for a callback that is already
+                  registered raises an exception.
+               </li>
+               <li>
+                  Multiple callbacks registered for one topic are fired in
+                  the order they were registered.
+               </li>
+            </ul>
+         </div>
+      </div>
+
+
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'unsubscribe',
+                     [
+                        ['topic', 'string', 'The URI or CURIE of the topic to unsubscribe from.']
+                     ],
+                     none,
+                     'Unsubscribe any callback(s) currently subscribed from the given topic.'
+                     )}}
+
+
+
+         {{docmethod('Session',
+                     'unsubscribe',
+                     [
+                        ['topic', 'string', 'The URI or CURIE of the topic to unsubscribe from.'],
+                        ['callback', 'function', 'The event handler for which to remove the subscription.']
+                     ],
+                     none,
+                     'Unsubscribe only the given callback currently subscribed from the given topic.'
+                     )}}
+      </div>
+
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'publish',
+                     [
+                        ['topic', 'string', 'The URI or CURIE of the topic to publish to.'],
+                        ['event', 'object', 'The event to be published.']
+                     ],
+                     none,
+                     'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic.'
+                     )}}
+
+
+         {{docmethod('Session',
+                     'publish',
+                     [
+                        ['topic', 'string', 'The URI or CURIE of the topic to publish to.'],
+                        ['event', 'object', 'The event to be published.'],
+                        ['excludeMe', 'bool', 'Exclude me (the publisher) if I am subscribed from receivers for this publication.']
+                     ],
+                     none,
+                     'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic, specifying whether to exclude myself or not.'
+                     )}}
+
+
+         {{docmethod('Session',
+                     'publish',
+                     [
+                        ['topic', 'string', 'The URI or CURIE of the topic to publish to.'],
+                        ['event', 'object', 'The event to be published.'],
+                        ['exclude', 'array', 'Explicit list of clients to exclude from this publication, given as array of session IDs.'],
+                        ['eligible', 'array', 'Explicit list of clients that are eligible for this publication, given as array of session IDs.']
+                     ],
+                     none,
+                     'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic, specifying whether to exclude myself or not.'
+                     )}}
+
+      </div>
+
+
+      <a name="rpc"></a>
+      <br><br>
+      <h2>Remote Procedure Calls</h2>
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'call',
+                     [
+                        ['method', 'string', 'The URI or CURIE of the remote procedure to call.'],
+                        ['...', 'varargs of object(s)', 'Remote procedure call arguments, zero or more values.']
+                     ],
+                     ['result', 'Deferred object', 'The call result deferred, upon which you can add success and error processing.'],
+                     'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic.'
+                     )}}
+      </div>
+
+
+
+      <a name="uri_handling"></a>
+      <br><br>
+      <h2>URI Handling</h2>
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'prefix',
+                     [
+                        ['prefix', 'string', 'The prefix to be established for subsequent use in CURIEs.'],
+                        ['uri', 'string', 'The fully qualified URI to establish a CURIE prefix for.']
+                     ],
+                     none,
+                     'Establish the given prefix for use in CURIEs in the session.'
+                     )}}
+      </div>
+
+
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'shrink',
+                     [
+                        ['uri', 'string', 'The fully qualified URI to be shrinked to CURIE.'],
+                        ['pass', 'bool', 'If argument present and true, return the unmodified URI when no prefix was defined previously in this session to shrink the URI.']
+                     ],
+                     none,
+                     'Shrink the given fully qualified URI to a CURIE. A CURIE prefix must have been previously defined in this session.'
+                     )}}
+      </div>
+
+
+
+      <div class="docsection_method">
+         {{docmethod('Session',
+                     'resolve',
+                     [
+                        ['curie', 'string', 'Resolves the The fully qualified URI to establish a CURIE prefix for.'],
+                        ['pass', 'bool', 'If argument persent and true, return the unmodified URI when no prefix was defined to.']
+                     ],
+                     none,
+                     'Resolves the given CURIE to a fully qualified URI. The CURIE prefix must have been previously defined in this session.'
+                     )}}
+      </div>
+
+
+
+
+      <a name="settings_diagnostics"></a>
+      <br><br>
+      <h2>Settings and Diagnostics</h2>
+
+      <div class="docsection_method">
+         {{docmethod('ab',
+                     'debug',
+                     [
+                        ['wamp', 'bool', 'If true, enable debugging of WAMP level communication.'],
+                        ['ws', 'bool', 'If true, enable debugging of WebSocket level communication.']
+                     ],
+                     none,
+                     'Turn on/off debugging of WAMP and/or WebSocket communication.'
+                     )}}
+      </div>
+
+
+      <div class="docsection_method">
+         {{docmethod('ab',
+                     'version',
+                     none,
+                     ['result', 'string', 'AutobahnJS version string.'],
+                     'Return the AutobahnJS version.'
+                     )}}
+      </div>
+
+
+      <a name="pluggablepromises"></a>
+      <h3>Pluggable Promises</h3>
+
+
+</div>
+
+{% endblock %}

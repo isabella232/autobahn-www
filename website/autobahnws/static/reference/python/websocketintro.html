@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; AutobahnPython 0.5.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.5.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="AutobahnPython 0.5.6 documentation" href="index.html" />
+    <link rel="up" title="WebSocket" href="websockettoc.html" />
+    <link rel="next" title="Base" href="websocketbase.html" />
+    <link rel="prev" title="WebSocket" href="websockettoc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="websocketbase.html" title="Base"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="websockettoc.html" title="WebSocket"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#class-diagrams">Class Diagrams</a></li>
+<li><a class="reference internal" href="#basic-api">Basic API</a></li>
+<li><a class="reference internal" href="#advanced-api">Advanced API</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="websockettoc.html"
+                        title="previous chapter">WebSocket</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="websocketbase.html"
+                        title="next chapter">Base</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/websocketintro.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>The class <a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol" title="autobahn.websocket.WebSocketProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol</span></tt></a> implements the
+WebSocket protocol.</p>
+<p>Though you will use methods and override callbacks from this class, you must
+implement your clients/servers by deriving from the classes
+<a class="reference internal" href="websocketclient.html#autobahn.websocket.WebSocketClientProtocol" title="autobahn.websocket.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketClientProtocol</span></tt></a> and
+<a class="reference internal" href="websocketserver.html#autobahn.websocket.WebSocketServerProtocol" title="autobahn.websocket.WebSocketServerProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketServerProtocol</span></tt></a>.</p>
+<div class="section" id="class-diagrams">
+<h2>Class Diagrams<a class="headerlink" href="#class-diagrams" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol" title="autobahn.websocket.WebSocketProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol</span></tt></a></li>
+<li><a class="reference internal" href="websocketclient.html#autobahn.websocket.WebSocketClientProtocol" title="autobahn.websocket.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketClientProtocol</span></tt></a></li>
+<li><a class="reference internal" href="websocketserver.html#autobahn.websocket.WebSocketServerProtocol" title="autobahn.websocket.WebSocketServerProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketServerProtocol</span></tt></a></li>
+<li><a class="reference internal" href="wampclient.html#autobahn.wamp.WampClientProtocol" title="autobahn.wamp.WampClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampClientProtocol</span></tt></a></li>
+<li><a class="reference internal" href="wampserver.html#autobahn.wamp.WampServerProtocol" title="autobahn.wamp.WampServerProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampServerProtocol</span></tt></a></li>
+</ul>
+<img alt="_images/protocolclasses.png" src="_images/protocolclasses.png" />
+<ul class="simple">
+<li><a class="reference internal" href="websocketclient.html#autobahn.websocket.WebSocketClientFactory" title="autobahn.websocket.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketClientFactory</span></tt></a></li>
+<li><a class="reference internal" href="websocketserver.html#autobahn.websocket.WebSocketServerFactory" title="autobahn.websocket.WebSocketServerFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketServerFactory</span></tt></a></li>
+<li><a class="reference internal" href="wampclient.html#autobahn.wamp.WampClientFactory" title="autobahn.wamp.WampClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampClientFactory</span></tt></a></li>
+<li><a class="reference internal" href="wampserver.html#autobahn.wamp.WampServerFactory" title="autobahn.wamp.WampServerFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampServerFactory</span></tt></a></li>
+</ul>
+<img alt="_images/factoryclasses.png" src="_images/factoryclasses.png" />
+</div>
+<div class="section" id="basic-api">
+<h2>Basic API<a class="headerlink" href="#basic-api" title="Permalink to this headline">¶</a></h2>
+<p>Most of the time, the basic API offered by <em>AutobahnPython</em>
+will be the one you want to use. It is easy to use and gets out of your way.</p>
+<p>The basic API is the one to use, unless you have specific needs (frame-based
+processing or streaming), in which case Autobahn provides an advanced
+API (see below).</p>
+<p>The basic API consists of the following methods and callbacks</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onOpen" title="autobahn.websocket.WebSocketProtocol.onOpen"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onOpen()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessage" title="autobahn.websocket.WebSocketProtocol.onMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onClose" title="autobahn.websocket.WebSocketProtocol.onClose"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onClose()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.sendMessage" title="autobahn.websocket.WebSocketProtocol.sendMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.sendMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.sendClose" title="autobahn.websocket.WebSocketProtocol.sendClose"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.sendClose()</span></tt></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="advanced-api">
+<h2>Advanced API<a class="headerlink" href="#advanced-api" title="Permalink to this headline">¶</a></h2>
+<p>A WebSockets message consists of a potentially unlimited number of
+fragments (&#8220;message frames&#8221;), each of which can have a payload between 0
+and 2^63 octets.</p>
+<p>The implementation of the basic API is message-based, and thus has to buffer
+all data received for a message frame, and buffer all frames received for
+a message, and only when the message finally ends, flattens all buffered
+data and fires <a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessage" title="autobahn.websocket.WebSocketProtocol.onMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessage()</span></tt></a>.</p>
+<p>Usually, when you produce/consume messages of small to limited size (like
+say &lt;256k), this is absolutely sufficient and convenient.</p>
+<p>However, when you want to process messages consisting of a large number
+of message fragments, or you want to process messages that contain message
+fragments of large size, this buffering will result in excessive memory
+consumption.</p>
+<p>In these cases, you might want to process message fragments on a per
+frame basis, or you may even want to process data incoming, as it arrives.</p>
+<p>The advanced API provides you all the necessary methods and callbacks to
+do WebSockets using frame-based processing or even completely streaming
+processing - both sending and receiving.</p>
+<p>API for frame-based processing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageBegin" title="autobahn.websocket.WebSocketProtocol.onMessageBegin"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageBegin()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageFrame" title="autobahn.websocket.WebSocketProtocol.onMessageFrame"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageFrame()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageEnd" title="autobahn.websocket.WebSocketProtocol.onMessageEnd"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageEnd()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.beginMessage" title="autobahn.websocket.WebSocketProtocol.beginMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.beginMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.sendMessageFrame" title="autobahn.websocket.WebSocketProtocol.sendMessageFrame"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.sendMessageFrame()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.endMessage" title="autobahn.websocket.WebSocketProtocol.endMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.endMessage()</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>API for streaming processing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageBegin" title="autobahn.websocket.WebSocketProtocol.onMessageBegin"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageBegin()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageFrameBegin" title="autobahn.websocket.WebSocketProtocol.onMessageFrameBegin"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageFrameBegin()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageFrameData" title="autobahn.websocket.WebSocketProtocol.onMessageFrameData"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageFrameData()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageFrameEnd" title="autobahn.websocket.WebSocketProtocol.onMessageFrameEnd"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageFrameEnd()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onMessageEnd" title="autobahn.websocket.WebSocketProtocol.onMessageEnd"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onMessageEnd()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.beginMessage" title="autobahn.websocket.WebSocketProtocol.beginMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.beginMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.beginMessageFrame" title="autobahn.websocket.WebSocketProtocol.beginMessageFrame"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.beginMessageFrame()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.sendMessageFrameData" title="autobahn.websocket.WebSocketProtocol.sendMessageFrameData"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.sendMessageFrameData()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.endMessage" title="autobahn.websocket.WebSocketProtocol.endMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.endMessage()</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>The advanced API for frame-based/streaming processing of WebSockets
+messages also provides access to extension points in the WebSockets
+protocol (you also normally won&#8217;t use) - namely &#8220;reserved bits&#8221; and
+&#8220;reserved opcodes&#8221;.</p>
+<p>Additionally, the advanced API provides methods and callbacks to do
+your own processing of WebSockets Pings and Pongs. Normally, it is
+unnecessary to do that, Autobahn will do the right thing under the hood.
+Anyway, if you want, you can do.</p>
+<p>API for explicit Ping/Pong processing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onPing" title="autobahn.websocket.WebSocketProtocol.onPing"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onPing()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.onPong" title="autobahn.websocket.WebSocketProtocol.onPong"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.onPong()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.sendPing" title="autobahn.websocket.WebSocketProtocol.sendPing"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.sendPing()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.WebSocketProtocol.sendPong" title="autobahn.websocket.WebSocketProtocol.sendPong"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol.sendPong()</span></tt></a></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="websocketbase.html" title="Base"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="websockettoc.html" title="WebSocket"
+             >previous</a> |</li>
+        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 Tavendo GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

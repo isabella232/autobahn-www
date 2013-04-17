@@ -1,0 +1,37 @@
+{% extends "layout_tpn.html" %}
+
+{% block subheader %}
+   <meta name="description" content="Downloads and source code for AutobahnPython.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <p>
+         You can download {{ autobahnpython() }} packages from the Python Package Index
+      </p>
+      <center>
+         <a href="http://pypi.python.org/pypi/autobahn" target="_blank">
+            <img src="{{ url_for('static', filename='img/python_logo.png') }}" style="margin-top: 12px; margin-bottom: 2px;" width="191" height="54">
+            <br>
+            http://pypi.python.org/pypi/autobahn
+         </a>
+      </center>
+      <br><br>
+
+      <p>
+         or clone/fork the source code from GitHub
+      </p>
+      <center>
+         <a href="https://github.com/tavendo/AutobahnPython" target="_blank">
+            <img src="{{ url_for('static', filename='img/github_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="135" height="60">
+            <br>
+            https://github.com/tavendo/AutobahnPython
+         </a>
+      </center>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

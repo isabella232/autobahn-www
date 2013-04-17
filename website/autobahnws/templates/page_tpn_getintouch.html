@@ -1,0 +1,55 @@
+{% extends "layout_tpn.html" %}
+
+{% block subheader %}
+   <meta name="description" content="Ways for developers to get in touch with the Autobahn WebSocket community.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <p>We are on Twitter</p>
+      <center>
+         <a href="https://twitter.com/#autobahnws" target="_blank">
+            <img src="{{ url_for('static', filename='img/twitter_logo.png') }}" style="margin-top: 0px; margin-bottom: 0px;" width="72" height="72">
+            <br>
+            https://twitter.com/#autobahnws
+         </a>
+      </center>
+      <br>
+
+      <p>have a mailing list</p>
+      <center>
+         <a href="http://groups.google.com/group/autobahnws" target="_blank">
+            <img src="{{ url_for('static', filename='img/googlegroups_logo.gif') }}" style="margin-top: 0px; margin-bottom: 4px;" width="194" height="40">
+            <br>
+            http://groups.google.com/group/autobahnws
+         </a>
+      </center>
+      <br>
+
+      <p>hang out on IRC</p>
+      <center>
+         <a href="http://freenode.net" target="_blank">
+            <img src="{{ url_for('static', filename='img/irc_logo.png') }}" style="margin-top: 0px; margin-bottom: 8px;" width="92" height="49">
+            <br>
+         </a>
+         #autobahn / chat.freenode.net
+      </center>
+      <br>
+
+      <p>and answer questions on StackOverflow</p>
+      <center>
+         <a href="http://stackoverflow.com" target="_blank">
+            <img src="{{ url_for('static', filename='img/stackoverflow_logo.png') }}" style="margin-top: 0px; margin-bottom: 12px;" width="238" height="62">
+            <br>
+            <a href="http://stackoverflow.com/search?q=autobahn&submit=search" target="_blank">http://stackoverflow.com/search?q=autobahn&submit=search</a>
+            <br>
+            <a href="http://stackoverflow.com/questions/tagged/autobahn" target="_blank">http://stackoverflow.com/questions/tagged/autobahn</a>
+         </a>
+      </center>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

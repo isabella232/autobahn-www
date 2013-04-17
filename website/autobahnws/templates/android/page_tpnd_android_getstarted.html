@@ -1,0 +1,227 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="Getting started with AutobahnAndroid. Installation, a first client and where to find more information.">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/page_tpsd_getstarted.css') }}">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <a name="top"></a>
+      <h1>Get started with {{ autobahnandroid() }}</h1>
+      <p>
+         This short intro will get you started with {{ autobahnandroid() }} in no time:
+         <div style="margin-left: 40px;">
+            <ul>
+               <li><a href="#installation">Installation</a></li>
+               <li><a href="#yourfirstclient">Your first Client</a></li>
+               <li><a href="#wheretogo">Where to go now</a></li>
+            </ul>
+         </div>
+      </p>
+      <br>
+
+
+      <a name="installation"></a>
+      <h1>Installation</h1>
+
+      <a name="requirements"></a>
+      <h2>Requirements</h2>
+
+      <p>
+         {{ autobahnandroid() }} is written against the Android 2.2 platform  (= API level 8). You can use
+         it with projects built against that version or higher.
+      </p>
+
+      <p>
+         {{ autobahnandroid() }} depends on <a href="http://jackson.codehaus.org/" target="_blank">Jackson</a>,
+         a high-performance JSON processor. AutobahnAndroid is known to work with Jackson 1.8 and 1.9.
+      </p>
+
+
+      <h2>Set Compiler Level</h2>
+
+      <p>
+         Make sure the Java compiler compliance level is set to (at least) 1.6 in your project settings:
+      </p>
+
+      <center>
+         <img style="margin: 1em;" src="{{ url_for('static', filename='img/autobahn_eclipse0.png') }}" width="679" height="672"></img>
+      </center>
+
+
+      <h2>Add JARs to your project</h2>
+
+      <p>
+         To use {{ autobahnandroid() }}, you will need 3 JARs:
+      </p>
+      <ul>
+         <li><a href="{{autobahnandroid_latestjar()}}">AutobahnAndroid</a></li>
+         <li><a href="{{jackson_core_jar()}}">Jackson Core</a></li>
+         <li><a href="{{jackson_mapper_jar()}}">Jackson Mapper</a></li>
+      </ul>
+
+      <p>
+         You can also get a <a href="{{autobahnandroid_latestbundle()}}">complete bundle</a> of AutobahnAndroid and Jackson JARs.
+      </p>
+
+      <p class="hint">
+         {{ autobahnandroid() }} is also available in <a href="https://github.com/tavendo/AutobahnAndroid" target="_blank">source code</a> on GitHub.
+      </p>
+
+      <p>
+         Put the 3 above JARs into your project's <i>libs</i> folder
+      </p>
+
+      <center>
+         <img style="margin: 1em;" src="{{ url_for('static', filename='img/autobahn_eclipse1.png') }}" width="310" height="470"></img>
+      </center>
+
+      <p>
+         and add the JARs to the project's build path
+      </p>
+
+      <center>
+         <img style="margin: 1em;" src="{{ url_for('static', filename='img/autobahn_eclipse2.png') }}" width="801" height="555"></img>
+      </center>
+
+
+
+      <h2>Set App Permissions</h2>
+
+      <p>
+         Make sure the <i>Manifest</i> for your application contains the <i>android.permission.INTERNET</i>
+      </p>
+
+      <div class="codeex">
+         <script type="syntaxhighlighter" class="brush: xml; highlight: [4,5]; toolbar: false; auto-links: false;"><![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" ...>
+
+    <uses-permission android:name="android.permission.INTERNET">
+    </uses-permission>
+
+    <application ...>
+    </application>
+</manifest>
+      ]]></script>
+      </div>
+
+      <center>
+         <img style="margin: 1em;" src="{{ url_for('static', filename='img/autobahn_eclipse3.png') }}"></img>
+      </center>
+
+      <br/>
+
+
+      <a name="yourfirstclient"></a>
+      <h1>Your first Client</h1>
+
+      <p>
+         Create a new Android project and replace the main activity code with the following:
+      </p>
+
+      <div class="codeex">
+         <pre class="brush: java; highlight: [18]; toolbar: false; auto-links: false;">
+            package de.tavendo.test1;
+
+            import android.app.Activity;
+            import android.os.Bundle;
+            import android.util.Log;
+            import de.tavendo.autobahn.WebSocketConnection;
+            import de.tavendo.autobahn.WebSocketException;
+            import de.tavendo.autobahn.WebSocketHandler;
+
+            public class Test1Activity extends Activity {
+
+               private static final String TAG = "de.tavendo.test1";
+
+               private final WebSocketConnection mConnection = new WebSocketConnection();
+
+               private void start() {
+
+                  final String wsuri = "ws://192.168.1.132:9000";
+
+                  try {
+                     mConnection.connect(wsuri, new WebSocketHandler() {
+
+                        @Override
+                        public void onOpen() {
+                           Log.d(TAG, "Status: Connected to " + wsuri);
+                           mConnection.sendTextMessage("Hello, world!");
+                        }
+
+                        @Override
+                        public void onTextMessage(String payload) {
+                           Log.d(TAG, "Got echo: " + payload);
+                        }
+
+                        @Override
+                        public void onClose(int code, String reason) {
+                           Log.d(TAG, "Connection lost.");
+                        }
+                     });
+                  } catch (WebSocketException e) {
+
+                     Log.d(TAG, e.toString());
+                  }
+               }
+
+               @Override
+               public void onCreate(Bundle savedInstanceState) {
+
+                  super.onCreate(savedInstanceState);
+                  setContentView(R.layout.main);
+
+                  start();
+              }
+            }
+         </pre>
+      </div>
+
+      <p>
+         Now start a WebSocket echo server on some host and adjust line 18 for the IP of
+         the host.
+      </p>
+
+      <p class="hint">
+         You can use any WebSocket server that implements WebSocket RFC6455 or at least Hybi-10+.
+         A WebSocket server that only implements Hixie-76 will <i>not</i> work.
+      </p>
+
+      <p class="hint">
+         For this demo, on the WebSocket server you will need to implement "echo", so that any message
+         sent to it is simply echo'ed back to the client. I.e. you can use the server provided
+         with the WebSocket Echo server example that comes with {{ autobahnpython() }}.
+      </p>
+
+      <p>
+         Build and run the app. You should see the following in the Android device logcat:
+      </p>
+
+      <center>
+         <img style="margin: 1em;" src="{{ url_for('static', filename='img/autobahn_eclipse4.png') }}" width="886" height="394"></img>
+      </center>
+
+      <br/>
+
+
+      <a name="wheretogo"></a>
+      <h1>Where to go now</h1>
+
+      <p>
+         Now that you are up and running, check out the <a href="{{ url_for('page_android_tutorials') }}">tutorials</a> available or
+         the <a href="{{ url_for('page_android_reference') }}">reference documentation</a>.
+      </p>
+
+      <p>
+         Finally, if you run into problems, have questions or want to contribute,
+         don't hesitate to <a href="{{ url_for('page_android_getintouch') }}">join us</a>!
+      </p>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout_tpn.html" %}
+
+{% block subheader %}
+   <meta name="description" content="Downloads and source code for AutobahnAndroid.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <p>
+         Download the {{ autobahnandroid() }} pre-built JAR from Amazon S3
+      </p>
+      <center>
+         <a href="{{autobahnandroid_latestjar()}}" target="_blank">
+            <img src="{{ url_for('static', filename='img/amazon_s3_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="199" height="50">
+            <br>
+            {{autobahnandroid_latestjar()}}
+         </a>
+      </center>
+      <br><br>
+
+      <p>
+         or download the following complete bundle that includes dependencies (Jackson) already
+      </p>
+      <center>
+         <a href="{{autobahnandroid_latestbundle()}}" target="_blank">
+            <img src="{{ url_for('static', filename='img/amazon_s3_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="199" height="50">
+            <br>
+            {{autobahnandroid_latestbundle()}}
+         </a>
+      </center>
+      <br><br>
+
+      <p>
+         or clone/fork the source code from GitHub
+      </p>
+      <center>
+         <a href="https://github.com/tavendo/AutobahnAndroid" target="_blank">
+            <img src="{{ url_for('static', filename='img/github_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="135" height="60">
+            <br>
+            https://github.com/tavendo/AutobahnAndroid
+         </a>
+      </center>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

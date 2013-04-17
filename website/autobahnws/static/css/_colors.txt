@@ -1,0 +1,6 @@
+Autobahn.ws Color Scheme
+========================
+
+blue:          #027eae
+green:         #a5d500
+light green:   #d8ff50

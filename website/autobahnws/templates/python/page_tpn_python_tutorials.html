@@ -1,0 +1,49 @@
+{% extends "layout_tpn.html" %}
+
+{% block subheader %}
+   <meta name="description" content="AutobahnPython programming tutorials.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+<div class="pagewrapper">
+
+   <h1>{{ autobahnpython() }} Tutorials &amp; Examples</h1>
+
+   <p>
+      Tutorials and examples are here to show case specific areas of {{ autobahnpython() }}.
+      They include self-contained, fully working code, but may not cover all features available.
+      For the latter, please consult the <a href="{{ url_for('page_python_reference') }}">API reference</a>.
+   </p>
+
+   <ol>
+      <li>
+         WebSocket Programming
+         <ul>
+            <li><b><a href="{{ url_for('page_python_tutorials_echo') }}">Hello world: WebSocket Echo</a></b></li>
+            <li><a href="{{ url_for('page_python_tutorials_broadcast') }}">Broadcasting over WebSocket</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_streaming') }}">Using the Frame-based and Streaming APIs</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_producerconsumer') }}">Flow control with the Producer-Consumer Pattern</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_tls') }}">Using TLS: secure WebSocket</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_web') }}">Using {{ autobahnpython() }} with Twisted Web</a></li>
+         </ul>
+      </li>
+      <li>
+         WAMP Programming
+         <ul>
+            <li><b><a href="{{ url_for('page_python_tutorials_rpc') }}">Remote Procedure Calls with {{ autobahnpython() }}</a></b></li>
+            <li><a href="{{ url_for('page_python_tutorials_keyvaluestore') }}">Key-Value Store Service</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_calculator') }}">Decimal Calculator Service</a></li>
+            <li><b><a href="{{ url_for('page_python_tutorials_pubsub') }}">Publish &amp; Subscribe with {{ autobahnpython() }}</a></b></li>
+            <li><a href="{{ url_for('page_python_tutorials_pubsubhandlers') }}">Writing Custom PubSub Handlers</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_sessionauth') }}">WAMP Session Authentication</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_serial2ws') }}">Two-way Arduino-WAMP Bridge</a></li>
+            <li><a href="{{ url_for('page_python_tutorials_dbusdesktopnotify') }}">DBus Bridge: Trigger Desktop Notifications from WAMP</a></li>
+         </ul>
+      </li>
+   </ol>
+
+</div>
+
+{% endblock %}

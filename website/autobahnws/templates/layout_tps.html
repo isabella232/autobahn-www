@@ -1,0 +1,31 @@
+{% extends "layout_tp.html" %}
+
+<!-- Content Page _with_ Sidenav -->
+
+{% block subheader %}
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_tps.css') }}">
+
+   {% block subsubheader %}{% endblock %}
+
+{% endblock %}
+
+
+{% block page %}
+
+<div class="middle_wrapper">
+   <div class="page_wrapper">
+      <table id="sidenavpage_main_table">
+         <tr>
+            <td id="sidenavpage_sidenav">
+               {% block sidenavbarcontent %}{% endblock %}
+            </td> <!-- sidenavpage_sidenav -->
+            <td id="sidenavpage_content">
+               {% block sidenavpagecontent %}{% endblock %}
+            </td> <!-- sidenavpage_content -->
+         </tr>
+      </table> <!-- sidenavpage_main_table -->
+   </div> <!-- middle_wrapper -->
+</div> <!-- page_wrapper -->
+
+{% endblock %}

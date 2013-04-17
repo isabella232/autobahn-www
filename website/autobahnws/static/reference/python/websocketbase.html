@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Base &mdash; AutobahnPython 0.5.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.5.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="AutobahnPython 0.5.6 documentation" href="index.html" />
+    <link rel="up" title="WebSocket" href="websockettoc.html" />
+    <link rel="next" title="Client" href="websocketclient.html" />
+    <link rel="prev" title="Introduction" href="websocketintro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="websocketclient.html" title="Client"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="websocketintro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Base</a><ul>
+<li><a class="reference internal" href="#factory">Factory</a></li>
+<li><a class="reference internal" href="#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="websocketintro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="websocketclient.html"
+                        title="next chapter">Client</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/websocketbase.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="base">
+<h1>Base<a class="headerlink" href="#base" title="Permalink to this headline">¶</a></h1>
+<p>The class <a class="reference internal" href="#autobahn.websocket.WebSocketProtocol" title="autobahn.websocket.WebSocketProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol</span></tt></a> implements the core
+WebSockets protocol.</p>
+<p>Though you will use methods and override callbacks from this class, you must
+implement your clients/servers by deriving from the classes
+<a class="reference internal" href="websocketclient.html#autobahn.websocket.WebSocketClientProtocol" title="autobahn.websocket.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketClientProtocol</span></tt></a> and
+<a class="reference internal" href="websocketserver.html#autobahn.websocket.WebSocketServerProtocol" title="autobahn.websocket.WebSocketServerProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketServerProtocol</span></tt></a>.</p>
+<div class="section" id="factory">
+<h2>Factory<a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="autobahn.websocket.WebSocketFactory">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.</tt><tt class="descname">WebSocketFactory</tt><a class="headerlink" href="#autobahn.websocket.WebSocketFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixin for WebSocketClientFactory and WebSocketServerFactory.</p>
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketFactory.prepareMessage">
+<tt class="descname">prepareMessage</tt><big>(</big><em>payload</em>, <em>binary=False</em>, <em>masked=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketFactory.prepareMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a WebSocket message. This can be later used on multiple
+instances of WebSocketProtocol using sendPreparedMessage().</p>
+<p>By doing so, you can avoid the (small) overhead of framing the
+_same_ payload into WS messages when that payload is to be sent
+out on multiple connections.</p>
+<p>Modes: Hybi, Hixie</p>
+<p>Caveats:</p>
+<p>1) Only use when you know what you are doing. I.e. calling
+sendPreparedMessage() on the _same_ protocol instance multiples
+times with the same prepared message might break the spec.
+Since i.e. the frame mask will be the same!</p>
+<ol class="arabic simple" start="2">
+<li>Treat the object returned as opaque. It may change!</li>
+</ol>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="protocol">
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#autobahn.websocket.WebSocketProtocol" title="autobahn.websocket.WebSocketProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.WebSocketProtocol</span></tt></a> is the core of Autobahn&#8217;s
+WebSocket implementation. It implements a Twisted protocol which speaks WebSockets.</p>
+<dl class="class">
+<dt id="autobahn.websocket.WebSocketProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.</tt><tt class="descname">WebSocketProtocol</tt><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Twisted Protocol class for WebSockets. This class is used by both WebSocket
+client and server protocol version. It is unusable standalone, for example
+the WebSockets initial handshake is implemented in derived class differently
+for clients and servers.</p>
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onOpen">
+<tt class="descname">onOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onOpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when initial WebSockets handshake was completed. Now you may send messages.
+Default implementation does nothing. Override in derived class.</p>
+<p>Modes: Hybi, Hixie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onClose">
+<tt class="descname">onClose</tt><big>(</big><em>wasClean</em>, <em>code</em>, <em>reason</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onClose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when the connection has been closed. Override in derived class.</p>
+<p>Modes: Hybi, Hixie</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wasClean</strong> (<em>bool</em>) &#8211; True, iff the connection was closed cleanly.</li>
+<li><strong>code</strong> (<em>int</em>) &#8211; None or close status code (sent by peer), if there was one (<tt class="xref py py-class docutils literal"><span class="pre">WebSocketProtocol</span></tt>.CLOSE_STATUS_CODE_*).</li>
+<li><strong>reason</strong> (<em>str</em>) &#8211; None or close reason (sent by peer) (when present, a status code MUST have been also be present).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onPing">
+<tt class="descname">onPing</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onPing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when Ping was received. Default implementation responds
+with a Pong. Override in derived class.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>str</em>) &#8211; Payload of Ping, when there was any. Can be arbitrary, up to 125 octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onPong">
+<tt class="descname">onPong</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onPong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when Pong was received. Default implementation does nothing.
+Override in derived class.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> &#8211; Payload of Pong, when there was any. Can be arbitrary, up to 125 octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessageBegin">
+<tt class="descname">onMessageBegin</tt><big>(</big><em>opcode</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessageBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when receiving a new message has begun. Default implementation will
+prepare to buffer message frames. Override in derived class.</p>
+<p>Modes: Hybi, Hixie</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>opcode</strong> (<em>int</em>) &#8211; Opcode of message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessageFrameBegin">
+<tt class="descname">onMessageFrameBegin</tt><big>(</big><em>length</em>, <em>reserved</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessageFrameBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when receiving a new message frame has begun. Default implementation will
+prepare to buffer message frame data. Override in derived class.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> (<em>int</em>) &#8211; Payload length of message frame which is to be received.</li>
+<li><strong>reserved</strong> (<em>int</em>) &#8211; Reserved bits set in frame (an integer from 0 to 7).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessageFrameData">
+<tt class="descname">onMessageFrameData</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessageFrameData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when receiving data witin message frame. Default implementation will
+buffer data for frame. Override in derived class.</p>
+<p>Modes: Hybi, Hixie</p>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ul class="first last simple">
+<li>For Hixie mode, this method is slightly misnamed for historic reasons.</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>str</em>) &#8211; Partial payload for message frame.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessageFrameEnd">
+<tt class="descname">onMessageFrameEnd</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessageFrameEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when a message frame has been completely received. Default implementation
+will flatten the buffered frame data and callback onMessageFrame. Override
+in derived class.</p>
+<p>Modes: Hybi</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessageFrame">
+<tt class="descname">onMessageFrame</tt><big>(</big><em>payload</em>, <em>reserved</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessageFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when complete message frame has been received. Default implementation
+will buffer frame for message. Override in derived class.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>payload</strong> (<em>list of str</em>) &#8211; Message frame payload.</li>
+<li><strong>reserved</strong> (<em>int</em>) &#8211; Reserved bits set in frame (an integer from 0 to 7).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessageEnd">
+<tt class="descname">onMessageEnd</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessageEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when a message has been completely received. Default implementation
+will flatten the buffered frames and callback onMessage. Override
+in derived class.</p>
+<p>Modes: Hybi, Hixie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.onMessage">
+<tt class="descname">onMessage</tt><big>(</big><em>payload</em>, <em>binary</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.onMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when a complete message was received. Default implementation does nothing.
+Override in derived class.</p>
+<p>Modes: Hybi, Hixie</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>payload</strong> (<em>str</em>) &#8211; Message payload (UTF-8 encoded text string or binary string). Can also be an empty string, when message contained no payload.</li>
+<li><strong>binary</strong> (<em>bool</em>) &#8211; If True, payload is binary, otherwise text.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendClose">
+<tt class="descname">sendClose</tt><big>(</big><em>code=None</em>, <em>reason=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendClose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a closing handshake.</p>
+<p>Modes: Hybi, Hixie</p>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ul class="first last simple">
+<li>For Hixie mode, code and reason will be silently ignored.</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>code</strong> (<em>int</em>) &#8211; An optional close status code (<tt class="xref py py-class docutils literal"><span class="pre">WebSocketProtocol</span></tt>.CLOSE_STATUS_CODE_NORMAL or 3000-4999).</li>
+<li><strong>reason</strong> (<em>str</em>) &#8211; An optional close reason (a string that when present, a status code MUST also be present).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendPing">
+<tt class="descname">sendPing</tt><big>(</big><em>payload=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendPing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out Ping to peer. A peer is expected to Pong back the payload a soon
+as &#8220;practical&#8221;. When more than 1 Ping is outstanding at a peer, the peer may
+elect to respond only to the last Ping.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>str</em>) &#8211; An optional, arbitrary payload of length &lt; 126 octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendPong">
+<tt class="descname">sendPong</tt><big>(</big><em>payload=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendPong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out Pong to peer. A Pong frame MAY be sent unsolicited.
+This serves as a unidirectional heartbeat. A response to an unsolicited pong is &#8220;not expected&#8221;.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>str</em>) &#8211; An optional, arbitrary payload of length &lt; 126 octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.beginMessage">
+<tt class="descname">beginMessage</tt><big>(</big><em>opcode=1</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.beginMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin sending new message.</p>
+<p>Modes: Hybi, Hixie</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>opcode</strong> &#8211; Message type, normally either WebSocketProtocol.MESSAGE_TYPE_TEXT (default) or
+WebSocketProtocol.MESSAGE_TYPE_BINARY (only Hybi mode).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.beginMessageFrame">
+<tt class="descname">beginMessageFrame</tt><big>(</big><em>length</em>, <em>reserved=0</em>, <em>mask=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.beginMessageFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin sending new message frame.</p>
+<p>Modes: Hybi</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> (<em>int</em>) &#8211; Length of frame which is started. Must be &gt;= 0 and &lt;= 2^63.</li>
+<li><strong>reserved</strong> (<em>int</em>) &#8211; Reserved bits for frame (an integer from 0 to 7). Note that reserved != 0 is only legal when an extension has been negoiated which defines semantics.</li>
+<li><strong>mask</strong> (<em>str</em>) &#8211; Optional frame mask. When given, this is used. When None and the peer is a client, a mask will be internally generated. For servers None is default.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendMessageFrameData">
+<tt class="descname">sendMessageFrameData</tt><big>(</big><em>payload</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendMessageFrameData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out data when within message frame (message was begun, frame was begun).
+Note that the frame is automatically ended when enough data has been sent
+that is, there is no endMessageFrame, since you have begun the frame specifying
+the frame length, which implicitly defined the frame end. This is different from
+messages, which you begin and end, since a message can contain an unlimited number
+of frames.</p>
+<p>Modes: Hybi, Hixie</p>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd><ul class="first last simple">
+<li>For Hixie mode, this method is slightly misnamed for historic reasons.</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> &#8211; Data to send.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int &#8211; Hybi mode: when frame still incomplete, returns outstanding octets, when frame complete, returns &lt;= 0, when &lt; 0, the amount of unconsumed data in payload argument. Hixie mode: returns None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.endMessage">
+<tt class="descname">endMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.endMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>End a previously begun message. No more frames may be sent (for that message). You have to
+begin a new message before sending again.</p>
+<p>Modes: Hybi, Hixie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendMessageFrame">
+<tt class="descname">sendMessageFrame</tt><big>(</big><em>payload</em>, <em>reserved=0</em>, <em>mask=None</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendMessageFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>When a message has begun, send a complete message frame in one go.</p>
+<p>Modes: Hybi</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendMessage">
+<tt class="descname">sendMessage</tt><big>(</big><em>payload</em>, <em>binary=False</em>, <em>payload_frag_size=None</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out a message in one go.</p>
+<p>You can send text or binary message, and optionally specifiy a payload fragment size.
+When the latter is given, the payload will be split up into frames with
+payload &lt;= the payload_frag_size given.</p>
+<p>Modes: Hybi, Hixie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.sendPreparedMessage">
+<tt class="descname">sendPreparedMessage</tt><big>(</big><em>preparedMsg</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.sendPreparedMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message that was previously prepared with
+WebSocketFactory.prepareMessage().</p>
+<p>Modes: Hybi, Hixie</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.WebSocketProtocol.registerProducer">
+<tt class="descname">registerProducer</tt><big>(</big><em>producer</em>, <em>streaming</em><big>)</big><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.registerProducer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a Twisted producer with this protocol.</p>
+<p>Modes: Hybi, Hixie</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>producer</strong> (<em>object</em>) &#8211; A Twisted push or pull producer.</li>
+<li><strong>streaming</strong> (<em>bool</em>) &#8211; Producer type.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.SUPPORTED_SPEC_VERSIONS">
+<tt class="descname">SUPPORTED_SPEC_VERSIONS</tt><em class="property"> = [0, 10, 11, 12, 13, 14, 15, 16, 17, 18]</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.SUPPORTED_SPEC_VERSIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>WebSockets protocol spec (draft) versions supported by this implementation.
+Use of version 18 indicates RFC6455. Use of versions &lt; 18 indicate actual
+draft spec versions (Hybi-Drafts). Use of version 0 indicates Hixie-76.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.SUPPORTED_PROTOCOL_VERSIONS">
+<tt class="descname">SUPPORTED_PROTOCOL_VERSIONS</tt><em class="property"> = [0, 8, 13]</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.SUPPORTED_PROTOCOL_VERSIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>WebSocket protocol versions supported by this implementation. For Hixie-76,
+there is no protocol version announced in HTTP header, and we just use the
+draft version (0) in this case.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.SPEC_TO_PROTOCOL_VERSION">
+<tt class="descname">SPEC_TO_PROTOCOL_VERSION</tt><em class="property"> = {0: 0, 16: 13, 18: 13, 17: 13, 10: 8, 11: 8, 12: 8, 13: 13, 14: 13, 15: 13}</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.SPEC_TO_PROTOCOL_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping from protocol spec (draft) version to protocol version.  For Hixie-76,
+there is no protocol version announced in HTTP header, and we just use the
+pseudo protocol version 0 in this case.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.PROTOCOL_TO_SPEC_VERSION">
+<tt class="descname">PROTOCOL_TO_SPEC_VERSION</tt><em class="property"> = {0: 0, 8: 12, 13: 18}</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.PROTOCOL_TO_SPEC_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping from protocol version to the latest protocol spec (draft) version
+using that protocol version.  For Hixie-76, there is no protocol version
+announced in HTTP header, and we just use the draft version (0) in this case.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.DEFAULT_SPEC_VERSION">
+<tt class="descname">DEFAULT_SPEC_VERSION</tt><em class="property"> = 10</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.DEFAULT_SPEC_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default WebSockets protocol spec version this implementation speaks.
+We use Hybi-10, since this is what is currently targeted by widely distributed
+browsers (namely Firefox 8 and the like).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.MESSAGE_TYPE_TEXT">
+<tt class="descname">MESSAGE_TYPE_TEXT</tt><em class="property"> = 1</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.MESSAGE_TYPE_TEXT" title="Permalink to this definition">¶</a></dt>
+<dd><p>WebSockets text message type (UTF-8 payload).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.MESSAGE_TYPE_BINARY">
+<tt class="descname">MESSAGE_TYPE_BINARY</tt><em class="property"> = 2</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.MESSAGE_TYPE_BINARY" title="Permalink to this definition">¶</a></dt>
+<dd><p>WebSockets binary message type (arbitrary binary payload).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_NORMAL">
+<tt class="descname">CLOSE_STATUS_CODE_NORMAL</tt><em class="property"> = 1000</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_NORMAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normal close of connection.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_GOING_AWAY">
+<tt class="descname">CLOSE_STATUS_CODE_GOING_AWAY</tt><em class="property"> = 1001</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_GOING_AWAY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Going away.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_PROTOCOL_ERROR">
+<tt class="descname">CLOSE_STATUS_CODE_PROTOCOL_ERROR</tt><em class="property"> = 1002</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_PROTOCOL_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Protocol error.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_UNSUPPORTED_DATA">
+<tt class="descname">CLOSE_STATUS_CODE_UNSUPPORTED_DATA</tt><em class="property"> = 1003</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_UNSUPPORTED_DATA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsupported data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_NULL">
+<tt class="descname">CLOSE_STATUS_CODE_NULL</tt><em class="property"> = 1005</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_NULL" title="Permalink to this definition">¶</a></dt>
+<dd><p>No status received. (MUST NOT be used as status code when sending a close).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_ABNORMAL_CLOSE">
+<tt class="descname">CLOSE_STATUS_CODE_ABNORMAL_CLOSE</tt><em class="property"> = 1006</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_ABNORMAL_CLOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abnormal close of connection. (MUST NOT be used as status code when sending a close).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_INVALID_PAYLOAD">
+<tt class="descname">CLOSE_STATUS_CODE_INVALID_PAYLOAD</tt><em class="property"> = 1007</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_INVALID_PAYLOAD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invalid frame payload data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_POLICY_VIOLATION">
+<tt class="descname">CLOSE_STATUS_CODE_POLICY_VIOLATION</tt><em class="property"> = 1008</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_POLICY_VIOLATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Policy violation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_MESSAGE_TOO_BIG">
+<tt class="descname">CLOSE_STATUS_CODE_MESSAGE_TOO_BIG</tt><em class="property"> = 1009</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_MESSAGE_TOO_BIG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Message too big.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_MANDATORY_EXTENSION">
+<tt class="descname">CLOSE_STATUS_CODE_MANDATORY_EXTENSION</tt><em class="property"> = 1010</em><a class="headerlink" href="#autobahn.websocket.WebSocketProtocol.CLOSE_STATUS_CODE_MANDATORY_EXTENSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mandatory extension.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="websocketclient.html" title="Client"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="websocketintro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011,2012 Tavendo GmbH.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
