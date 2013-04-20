@@ -9,6 +9,7 @@ all:
 clean:
 	echo "Cleaning "autobahn.ws" website .."
 	sudo rm -rf /usr/local/www/autobahn
+	sudo mkdir /usr/local/www/autobahn
 
 deploy:
 	echo "Deploying "autobahn.ws" website .."
