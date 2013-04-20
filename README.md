@@ -39,3 +39,9 @@ The contents under the directory
     website/autobahnws/static/reference
 
 is library documentation that needs to be generated from the respective Autobahn project. See the `README.md` in above directory.
+
+## License
+
+The content of this Web site is licensed under the [Creative Commons CC-BY-SA](http://creativecommons.org/licenses/by-sa/3.0/).
+
+The code for the Web site itself and any example or tutorial code is licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html).
