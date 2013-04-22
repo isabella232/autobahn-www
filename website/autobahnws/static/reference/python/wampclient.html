@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Client &mdash; AutobahnPython 0.5.6 documentation</title>
+    <title>Client &mdash; AutobahnPython 0.5.14 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.5.6',
+        URL_ROOT:    './',
+        VERSION:     '0.5.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="AutobahnPython 0.5.6 documentation" href="index.html" />
+    <link rel="top" title="AutobahnPython 0.5.14 documentation" href="index.html" />
     <link rel="up" title="WAMP" href="wamptoc.html" />
     <link rel="next" title="Server" href="wampserver.html" />
     <link rel="prev" title="Base" href="wampbase.html" /> 
@@ -43,7 +41,7 @@
         <li class="right" >
           <a href="wampbase.html" title="Base"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">AutobahnPython 0.5.14 documentation</a> &raquo;</li>
           <li><a href="wamptoc.html" accesskey="U">WAMP</a> &raquo;</li> 
       </ul>
     </div>
@@ -125,6 +123,14 @@ sure to call the base method.</p>
 <em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampClientProtocol</tt><a class="headerlink" href="#autobahn.wamp.WampClientProtocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Twisted client protocol for WAMP.</p>
 <dl class="method">
+<dt id="autobahn.wamp.WampClientProtocol.call">
+<tt class="descname">call</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a remote-procedure call (RPC). The first argument is the procedure
+URI (mandatory). Subsequent positional arguments can be provided (must be
+JSON serializable). The return value is a Twisted Deferred.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="autobahn.wamp.WampClientProtocol.onSessionOpen">
 <tt class="descname">onSessionOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.onSessionOpen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback fired when WAMP session was fully established. Override
@@ -148,14 +154,6 @@ prefix for both client-to-server and server-to-client messages.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.call">
-<tt class="descname">call</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.call" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform a remote-procedure call (RPC). The first argument is the procedure
-URI (mandatory). Subsequent positional arguments can be provided (must be
-JSON serializable). The return value is a Twisted Deferred.</p>
 </dd></dl>
 
 <dl class="method">
@@ -264,13 +262,13 @@ itself to a WAMP server. The server needs to implement WAMP-CRA also of course.<
         <li class="right" >
           <a href="wampbase.html" title="Base"
              >previous</a> |</li>
-        <li><a href="index.html">AutobahnPython 0.5.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">AutobahnPython 0.5.14 documentation</a> &raquo;</li>
           <li><a href="wamptoc.html" >WAMP</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011,2012 Tavendo GmbH.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>
