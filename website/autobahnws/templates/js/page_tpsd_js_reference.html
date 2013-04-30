@@ -223,6 +223,10 @@
          interchangable and interoperable with other implementations conforming
          to <i>Common JS Promises/A</i>.
       </p>
+      <p>
+         Details about how to change the promises module to be used are given in the <a href="#pluggablepromises">Pluggable Promises</a> section below.
+      </p>
+      
 
       <h3>Resources</h3>
       <ul>
@@ -290,8 +294,8 @@
                      },
 
                      // fired when session has been closed
-                     function(reason) {
-                        switch (reason) {
+                     function(code, reason, detail) {
+                        switch (code) {
                            case ab.CONNECTION_CLOSED:
                               console.log("Connection was closed properly - done.");
                               break;
@@ -308,7 +312,10 @@
                               window.setTimeout(connect, 1000);
                               break;
                         }
-                     }
+                     },
+
+                     // optional dictionary of options
+                     {'maxRetries': 60, 'retryDelay': 2000}
                   );
                };
 
@@ -332,6 +339,58 @@
                      none,
                      'Connect to WAMP server, establishing new session. High level function with auto-reconnect.'
                      )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               function connect() {
+
+                  // establish session to WAMP server
+                  sess = new ab.Session(wsuri,
+
+                     // onconnect - fired when session has been opened
+                     function() {
+                        // use the connection
+                     },
+
+                     // onhangup - fired when session has been closed
+                     function(code, reason, detail) {
+                        // what to do when the connection attempt
+                        // or an established connection fails 
+                     },
+
+                     // optional dictionary of options
+                     {'maxRetries': 60, 'retryDelay': 2000}
+                  );
+               };
+            </pre>
+         </div>                     
+         <div>
+            <ul>
+               <li>
+                  The 'onhangup' handler is optional. If no handler is given, then the code and the reason are logged to the browser console.
+               </li>
+               <li>
+                  The 'onhangup' handler is fired both in case of a failure to initially establish a connection, and should the established connection fail.
+               </li>
+               <li>
+                  Possible 'options' are
+                  <ul>
+                     <li>
+                        'maxRetries': The number of attempts that AutobahnJS makes at (re)establishing a connection.
+                     </li>
+                     <li>
+                        'retryDelay': The time in milliseconds between retries.
+                     </li>
+                     <li>
+                        'skipSubprotocolCheck': boolean, if 'true' the subprotocol check for whether the server speaks WAMP is skipped. May be useful with some browsers which do not provide subprotocol information.
+                     </li>
+                     <li>
+                        'skipSubprotocolAnnounce': boolean, if 'true' the subprotocol announcement (for WAMP) is skipped. May be useful when trying to connect to servers which do not handle WebSocket subprotocols handshaking.
+                     </li>
+                  </ul>
+               </li>
+         </div>
+
+
       </div>
 
 
@@ -343,6 +402,14 @@
                      ['result', 'string', 'The ID of this session or null if session is not open.'],
                      'Return the WAMP session ID of for this session.'
                      )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var mySessionId = sess.sessionId();
+            </pre>
+         </div>
+         <p>
+            The sessionID is used for sending published events to specific recipients, or to exclude recipients from receiving an event.
+         </p>
       </div>
 
 
@@ -380,6 +447,36 @@
                      ['result', 'Deferred object', 'A deferred, the success handler of which will be fired with an authentication challenge.'],
                      'Issues an authentication request.'
                      )}}
+         <p>
+            Below are two full examples of an authentication handshake: one for authentication as anonymous, one using an authentication key and secret.
+         </p>
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               // Authenticate as anonymous
+
+               sess.authreq().then(function () {
+                  sess.auth().then(function(permissions) {
+                     // do your stuff 
+                  }, onAuthError);
+               }, autreqError);
+            </pre>
+         </div>
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               // Authenticate using authkey and authsecret
+
+               sess.authreq(authkey).then(
+                  function (challenge) {
+                     var signature = sess.authsign(challenge, authsecret);
+                     sess.auth(signature).then(function(permissions){
+                        // do your stuff
+                     }, onAuthError);
+                  }, autreqError);
+            </pre>
+         </div>
+         <p>
+            'Extra' is a dictionary. The functions that the 'extra' serves are up to the implementation. Data in the 'extra' can e.g. be used to define a role for the user.
+         </p>
       </div>
 
       <div class="docsection_method">
@@ -392,7 +489,75 @@
                      ['result', 'string', 'Authentication signature. This is then given to Session.auth to finish the authentication handshake.'],
                      'Signs an authentication challenge.'
                      )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               
+                  var signature = sess.authsign(challenge, authsecret);
+                     
+            </pre>
+         </div>                     
       </div>
+
+      <p>
+         Signing of the challenge may be using the cleartext password, as shown above.
+      </p>
+      <p>
+         When the server stores the password hashed and salted, WAMP offers a function to derive the secret as stored on the server, and sign using this.
+         <br>
+         In these cases the challenge string contains the salt the server used.
+      </p>
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               
+                  var secret = ab.deriveKey(authsecret, JSON.parse(challenge).authextra);
+
+                  var signature = session.authsign(challenge, secret);
+                     
+            </pre>
+         </div>
+      <p>
+         Signing may also be via a third party, e.g. the Web server that the application is served from and to which it already is authenticated.
+      </p>
+      <p>
+         This could use something like this example function for the signing request:
+      </p>
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               
+                  function authsignremote(url, challenge) {
+
+                     var res = new XMLHttpRequest();
+                     res.open('POST', url, false);
+                     res.send(challenge);
+
+                     if (res.status == 200) {
+                        try {
+                           var r = res.responseText;
+                           console.log(r);
+                           return r;
+                        } catch (e) {
+                           return null;
+                        }
+                     } else {
+                        return null;
+                     }
+                  };
+                     
+            </pre>
+         </div>
+         <p>
+            and the signature would then be created like
+         </p>
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+            
+                  var signature = authsignremote("/authsign", challenge);
+                     
+            </pre>
+         </div>
+
+
 
       <div class="docsection_method">
          {{docmethod('Session',
@@ -403,6 +568,15 @@
                      ['result', 'Deferred object', 'A deferred, the success handler of which will be fired with the granted permissions.'],
                      'Authenticate, finishing the authentication handshake.'
                      )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               
+               sess.auth(response).then(function(permissions){
+                  // do your stuff
+               }, onAuthError);
+               
+            </pre>
+         </div>                     
       </div>
 
 
@@ -525,7 +699,19 @@
                      'Unsubscribe any callback(s) currently subscribed from the given topic.'
                      )}}
 
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var myTopic = "http://example.com/myEvent1Topic";
 
+               sess.subscribe(myTopic, topicHandler1);
+               sess.subscribe(myTopic, topicHandler2);
+
+               sess.unsubscribe(myTopic);
+            </pre>
+         </div>
+         <p>
+            In the above example, events for 'myTopic' are no longer received, and neither callback handler is fired.
+         </p>
 
          {{docmethod('Session',
                      'unsubscribe',
@@ -536,6 +722,20 @@
                      none,
                      'Unsubscribe only the given callback currently subscribed from the given topic.'
                      )}}
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var myTopic = "http://example.com/myEvent1Topic";
+
+               sess.subscribe(myTopic, topicHandler1);
+               sess.subscribe(myTopic, topicHandler2);
+
+               sess.unsubscribe(myTopic, topicHandler1);
+            </pre>
+         </div>
+         <p>
+            In the above example, events for 'myTopic' are still received, but callback handler 'topicHandler1' is no longer called.
+         </p>
       </div>
 
 
@@ -550,6 +750,15 @@
                      'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic.'
                      )}}
 
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var myTopic = "http://example.com/myEvent1Topic";
+               var myEvent = {eventname: "myEvent", eventDetails: ["something happened", "today"]};
+
+
+               sess.publish(myTopic, myEvent);
+            </pre>
+         </div>
 
          {{docmethod('Session',
                      'publish',
@@ -561,7 +770,21 @@
                      none,
                      'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic, specifying whether to exclude myself or not.'
                      )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var myEvent1Topic = "http://example.com/event#myevent1";
 
+               session.subscribe(myEvent1Topic, function(topic, event){
+                  console.log(topic, event);
+               });
+               
+               session.publish(myEvent1Topic, "Hello world!", true);
+               session.publish(myEvent1Topic, "Foobar!", false);
+            </pre>
+         </div>
+         <p>
+            In the above example, only the publication of "Foobar" is sent to the publisher, and logged.
+         </p>
 
          {{docmethod('Session',
                      'publish',
@@ -572,8 +795,27 @@
                         ['eligible', 'array', 'Explicit list of clients that are eligible for this publication, given as array of session IDs.']
                      ],
                      none,
-                     'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic, specifying whether to exclude myself or not.'
+                     'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic, specifying a group of clients that do not receive the event, or a group that receives the event.'
                      )}}
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               var myEvent1Topic = "http://example.com/event#myevent1";
+               var mySessionId = sess.sessionid();
+
+               sess.subscribe(myEvent1Topic, function(topic, event){
+                  console.log(topic, event);
+               });
+               
+               sess.publish(myEvent1Topic, "Hello world!", [], [mySessionId] );
+               sess.publish(myEvent1Topic, "Foobar!", [client1SessionId, client23SessionId], [mySessionId]);
+            </pre>
+         </div>
+         <p>
+            In the above example, the first publish is equivalent to setting the option 'excludeMe' to true.<br>
+            In the second publish, Clients 1 &amp; 23 would not receive the event, while all other subscribed clients would receive it - including the sender.
+         </p>
+
 
       </div>
 
@@ -592,6 +834,35 @@
                      ['result', 'Deferred object', 'The call result deferred, upon which you can add success and error processing.'],
                      'Publish the given event (which may be of simple type, or any JSON serializable object) to the given topic.'
                      )}}
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               session.call("http://example.com/rpc1", arg1, arg2, arg3).then(function (result) {
+                  // do stuff with the result
+               }, function(error) {
+                  // handle the error
+               });
+            </pre>
+         </div>
+         <ul>
+            <li>
+               The method to be called is identified by a valid HTTP URI.
+            </li>
+            <li>
+               The call may have zero or more arguments.
+            </li>
+            <li>
+               Both the success handler and the error handler receive a single return value. This may be any JSON object.
+            </li>
+            <li>
+               The error handler is optional.
+            </li>
+         </ul>
+
+
+
+         </ul>
+
       </div>
 
 
@@ -610,6 +881,21 @@
                      none,
                      'Establish the given prefix for use in CURIEs in the session.'
                      )}}
+
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               session.prefix("myEvents", "http://example.com/events/");
+               session.prefix("myRPCs", "http://example.com/rpcs#");
+
+               session.subscribe("myEvents:foo");
+               session.call("myRPCs:bar").then(barSuccess, barError);
+            </pre>
+         </div>
+         <p>
+            In the above, <em>"myEvents:foo"</em> is equivalent to <em>"http://example.com/events/foo"</em> and <em>"myRPCs:bar"</em> to <em>"http://example.com/rpcs#bar"</em>.
+         </p>
+                             
       </div>
 
 
@@ -624,6 +910,16 @@
                      none,
                      'Shrink the given fully qualified URI to a CURIE. A CURIE prefix must have been previously defined in this session.'
                      )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               session.prefix("myEvents", "http://example.com/events/");
+               
+               var foobar = session.shrink("http://example.com/events/foobar");
+            </pre>
+         </div>
+         <p>
+            In the above, <em>foobar</em> is assigned as <em>"myEvents:foobar"</em>.
+         </p>
       </div>
 
 
@@ -638,6 +934,17 @@
                      none,
                      'Resolves the given CURIE to a fully qualified URI. The CURIE prefix must have been previously defined in this session.'
                      )}}
+
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               session.prefix("myEvents", "http://example.com/events/");
+               
+               var foobar = session.resolve("myEvents:foobar");
+            </pre>
+         </div>
+         <p>
+            In the above, <em>'foobar'</em> is assigned as <em>"http://example.com/events/foobar"</em>.
+         </p>
       </div>
 
 
@@ -669,9 +976,26 @@
                      )}}
       </div>
 
-
+      <br>
       <a name="pluggablepromises"></a>
       <h3>Pluggable Promises</h3>
+
+      <p>
+         The promises module to be used can be set by changing the value of ab._Deferred from its default value of "when.defer", e.g.
+      <p>
+      <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+         ab._Deferred = jQuery.Deferred;
+      </pre>
+      <p>
+         This should be done before the first call of a WAMP function that uses deferreds, and, obviously, after the inclusion of the replacement module.
+      </p>      
+      <p>
+         A specific reason to make use of this interchangeability is currently during development. With when.js, exceptions thrown in deferred handlers are not logged to the browser console, with the obvious downsides for debugging.<br>
+         Usign jQuery deferreds gets around this problem. 
+      </p>
+      <p>
+         When.js added a debug version starting with version 1.6. We are looking into using this with AutobahnJS to enable easy debugging.
+      </p>
 
 
 </div>
