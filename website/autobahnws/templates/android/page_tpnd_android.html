@@ -9,14 +9,30 @@
 
    <div class="pagewrapper">
 
+<!--
       <p>
          {{ autobahnandroid() }} implements <a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSockets Protocol</a>
          and {{ wamp(short = False) }}
       </p>
+-->
 
+      <p>
+         {{autobahnandroid()}} is an open-source networking library for Java/<a href="http://developer.android.com/" target="_blank">Android</a> created by the <a href="/">Autobahn project</a> that implements
+         <ul>
+            <li><a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSocket Protocol</a> and</li>
+            <li>{{ wamp(short = False) }}</li>
+         </ul>
+         for creating native mobile WebSocket/WAMP clients.
+         <span style="float: right; margin-right: 2em;">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/android" data-text="AutobahnAndroid: WebSocket and WAMP (RPC+PubSub over WebSocket) for Java/Android." data-count="none" data-hashtags="websocket,wamp,android">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+         </span>
+      </p>
+      <br>
+
+      <b>Features</b>
       <ul>
-         <li>library for WebSocket and WAMP clients</li>
-         <li>implements WebSocket RFC6455, Draft Hybi-10+ and WAMP v1</li>
+         <li>supports WebSocket RFC6455, Draft Hybi-10+ and WAMP v1</li>
          <li>works on Android 2.2+</li>
          <li>very good <a href="{{ url_for('page_testsuite') }}">standards conformance</a></li>
          <li>high-performance asynchronous design</li>

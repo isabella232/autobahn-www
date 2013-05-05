@@ -10,14 +10,23 @@
    <div class="pagewrapper">
 
       <p>
-         {{autobahnpython()}} implements <a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSockets Protocol</a>
-         and {{ wamp(short = False) }}:
+         {{autobahnpython()}} is an open-source networking library for <a href="http://www.python.org/" target="_blank">Python</a>/<a href="http://twistedmatrix.com/" target="_blank">Twisted</a> created by the <a href="/">Autobahn project</a> that implements
+         <ul>
+            <li><a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSocket Protocol</a> and</li>
+            <li>{{ wamp(short = False) }}</li>
+         </ul>
+         for creating WebSocket/WAMP servers and clients.
+         <span style="float: right; margin-right: 2em;">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/python" data-text="AutobahnPython: WebSocket and WAMP (RPC+PubSub over WebSocket) for Python/Twisted." data-count="none" data-hashtags="websocket,wamp,python,twisted">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+         </span>
       </p>
+      <br>
 
+      <b>Features</b>
       <ul>
-         <li>framework for WebSocket and {{wamp()}} clients and servers</li>
-         <li>implements WebSocket RFC6455, Draft Hybi-10+, Hixie-76 and WAMP v1</li>
-         <li><a href="http://twistedmatrix.com" target="_blank">Twisted</a>-based, runs on <a href="http://www.python.org">CPython</a> and <a href="http://pypy.org/">PyPy</a></li>
+         <li>supports WebSocket RFC6455, Draft Hybi-10+, Hixie-76 and WAMP v1</li>
+         <li><a href="http://twistedmatrix.com" target="_blank">Twisted</a>-based, runs on <a href="http://www.python.org">CPython</a>, <a href="http://pypy.org/">PyPy</a> and <a href="http://www.jython.org/">Jython</a></li>
          <li>high-performance, fully asynchronous implementation</li>
          <li>best-in-class standards conformance (100% strict passes with <a href="{{ url_for('page_testsuite') }}">Autobahn WebSocket Testsuite</a>)</li>
          <li>message-, frame- and streaming-APIs</li>
@@ -30,11 +39,7 @@
 
       <p>
          You can use {{autobahnpython()}} to create clients and servers
-         speaking either plain WebSocket or WAMP.
-      </p>
-
-      <p>
-         Here is a simple WebSocket echo server:
+         speaking either plain WebSocket or WAMP. Here is a simple WebSocket echo server:
       </p>
 
       <div class="codeex">
@@ -65,9 +70,6 @@
       <p>
          {{wamp()}} allows to develop real-time enabled apps
          based on asynchronous RPC and PubSub messaging patterns.
-      </p>
-
-      <p>
          Here is a simple WAMP server providing a RPC endpoint and a PubSub topic:
       </p>
 
