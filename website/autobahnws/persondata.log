@@ -1,0 +1,8 @@
+
+SQL*Loader: Release 11.2.0.1.0 - Production on Di Mai 14 08:12:02 2013
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+SQL*Loader-500: Datei (persondata.ctl) kann nicht geöffnet werden
+SQL*Loader-553: Datei nicht gefunden
+SQL*Loader-509: Systemfehler: Das System kann die angegebene Datei nicht finden.
