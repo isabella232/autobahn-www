@@ -130,6 +130,7 @@
             <ul>
                {{docmethod_toc('ab', 'Session')}}
                {{docmethod_toc('ab', 'connect')}}
+               {{docmethod_toc('ab', 'launch')}}
                {{docmethod_toc('Session', 'sessionid')}}
                {{docmethod_toc('Session', 'close')}}
             </ul>
@@ -244,8 +245,14 @@
       <br><br>
       <h2>Session Lifecycle</h2>
 
-      <p>Describe methods of session establishment: low-level using Session object, high-level
-      using connect().</p>
+      <p>
+         {{autobahnjs()}} provides different methods of session establishment - from low-level to high-level:
+      </p>
+      <ul>
+         <li><b>ab.Session</b><br>Create a raw WAMP session object.</li>
+         <li><b>ab.connect</b><br>WAMP session establishment with automatic reconnect.</li>
+         <li><b>ab.launch</b><br>WAMP session establishment with automatic reconnect and authentication (WAMP-CRA).</li>
+      </ul>
 
       <div class="docsection_method">
          {{docmethod('ab',
@@ -259,7 +266,7 @@
                      ['result', 'Session object', 'New session object'],
                      'Creates a new WAMP session object'
                      )}}
-
+<!--
          <p>
             Here is a full featured, complete example of session management including
             initial establishment code, proper error handling and automatic reconnects.
@@ -325,7 +332,7 @@
             </pre>
          </div>
       </div>
-
+-->
 
       <div class="docsection_method">
          {{docmethod('ab',
@@ -341,26 +348,26 @@
                      )}}
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-               function connect() {
+               ab.connect(
+                  // The WebSocket URI of the WAMP server
+                  wsuri,
 
-                  // establish session to WAMP server
-                  sess = new ab.Session(wsuri,
+                  // The onconnect handler
+                  function (session) {
+                     // WAMP session established here ..
+                  },
 
-                     // onconnect - fired when session has been opened
-                     function() {
-                        // use the connection
-                     },
+                  // The onhangup handler
+                  function (code, reason, detail) {
+                     // WAMP session closed here ..
+                  },
 
-                     // onhangup - fired when session has been closed
-                     function(code, reason, detail) {
-                        // what to do when the connection attempt
-                        // or an established connection fails 
-                     },
-
-                     // optional dictionary of options
-                     {'maxRetries': 60, 'retryDelay': 2000}
-                  );
-               };
+                  // The session options
+                  {
+                     'maxRetries': 60,
+                     'retryDelay': 2000
+                  }
+               );
             </pre>
          </div>                     
          <div>
@@ -390,6 +397,44 @@
                </li>
          </div>
 
+      <div class="docsection_method">
+         {{docmethod('ab',
+                     'launch',
+                     [
+                        ['appconfig', 'object', 'WAMP app configuration.'],
+                        ['onconnect', 'function', 'Callback fired when session has been established.'],
+                        ['onhangup', 'function', 'Callback fired when session has been closed, lost or failed to be established in the first place.']
+                     ],
+                     none,
+                     'Connect to WAMP server, establishing new session. High level function with auto-reconnect and authentication.'
+                     )}}
+         <div class="codeex">
+            <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
+               ab.launch(
+                  // WAMP app configuration
+                  {
+                     // Tavendo WebMQ server URL
+                     wsuri: ab.getServerUrl(),
+                     // authentication info
+                     appkey: null, // authenticate as anonymous
+                     appsecret: null,
+                     appextra: null,
+                     // additional session configuration
+                     sessionConfig: {maxRetries: 10,
+                                     sessionIdent: "Vote"}
+                  },
+                  // session open handler
+                  function (newSession) {
+                     session = newSession;
+                     main(session);
+                  },
+                  // session close handler
+                  function (code, reason, detail) {
+                     session = null;
+                  }
+               );
+            </pre>
+         </div>
 
       </div>
 
@@ -404,11 +449,11 @@
                      )}}
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-               var mySessionId = sess.sessionId();
+               var mySessionId = sess.sessionid();
             </pre>
          </div>
          <p>
-            The sessionID is used for sending published events to specific recipients, or to exclude recipients from receiving an event.
+            The session ID is used for sending published events to specific recipients, or to exclude recipients from receiving an event.
          </p>
       </div>
 
