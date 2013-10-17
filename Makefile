@@ -3,16 +3,27 @@ all:
 	@echo ""
 	@echo "  clean"
 	@echo "  deploy"
-	@echo "  cleandeploy"
+	@echo "  freeze"
+	@echo "  test"
+	@echo "  test_frozen"
 	@echo ""
 
+deploy: clean freeze upload
+
 clean:
-	echo "Cleaning "autobahn.ws" website .."
-	sudo rm -rf /usr/local/www/autobahn
-	sudo mkdir /usr/local/www/autobahn
+	rm -rf website/autobahnws/build
 
-deploy:
-	echo "Deploying "autobahn.ws" website .."
-	sudo cp -R website/* /usr/local/www/autobahn
+freeze:
+	python website/autobahnws/__init__.py -f
 
-cleandeploy: clean deploy
+upload:
+	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "build"
+
+test:
+	python website/autobahnws/__init__.py -d
+
+test_socketserver:
+	python website/autobahnws/__init__.py -d -s
+
+test_frozen:
+	python website/autobahnws/__init__.py -f -d

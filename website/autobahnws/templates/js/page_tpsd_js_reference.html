@@ -106,9 +106,6 @@
 
 <div class="pagewrapper">
 
-      <!--<img class="language_logo_right" src="{{ url_for('static', filename='img/JQuery_logo_medium.png') }}"></img>-->
-
-
       <h1>{{ autobahnjs() }} Reference</h1>
 
       <p>
@@ -227,7 +224,7 @@
       <p>
          Details about how to change the promises module to be used are given in the <a href="#pluggablepromises">Pluggable Promises</a> section below.
       </p>
-      
+
 
       <h3>Resources</h3>
       <ul>
@@ -369,7 +366,7 @@
                   }
                );
             </pre>
-         </div>                     
+         </div>
          <div>
             <ul>
                <li>
@@ -501,7 +498,7 @@
 
                sess.authreq().then(function () {
                   sess.auth().then(function(permissions) {
-                     // do your stuff 
+                     // do your stuff
                   }, onAuthError);
                }, autreqError);
             </pre>
@@ -536,11 +533,11 @@
                      )}}
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-               
+
                   var signature = sess.authsign(challenge, authsecret);
-                     
+
             </pre>
-         </div>                     
+         </div>
       </div>
 
       <p>
@@ -554,11 +551,11 @@
 
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-               
+
                   var secret = ab.deriveKey(authsecret, JSON.parse(challenge).authextra);
 
                   var signature = session.authsign(challenge, secret);
-                     
+
             </pre>
          </div>
       <p>
@@ -569,7 +566,7 @@
       </p>
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-               
+
                   function authsignremote(url, challenge) {
 
                      var res = new XMLHttpRequest();
@@ -588,7 +585,7 @@
                         return null;
                      }
                   };
-                     
+
             </pre>
          </div>
          <p>
@@ -596,9 +593,9 @@
          </p>
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-            
+
                   var signature = authsignremote("/authsign", challenge);
-                     
+
             </pre>
          </div>
 
@@ -615,13 +612,13 @@
                      )}}
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-               
+
                sess.auth(response).then(function(permissions){
                   // do your stuff
                }, onAuthError);
-               
+
             </pre>
-         </div>                     
+         </div>
       </div>
 
 
@@ -822,7 +819,7 @@
                session.subscribe(myEvent1Topic, function(topic, event){
                   console.log(topic, event);
                });
-               
+
                session.publish(myEvent1Topic, "Hello world!", true);
                session.publish(myEvent1Topic, "Foobar!", false);
             </pre>
@@ -851,7 +848,7 @@
                sess.subscribe(myEvent1Topic, function(topic, event){
                   console.log(topic, event);
                });
-               
+
                sess.publish(myEvent1Topic, "Hello world!", [], [mySessionId] );
                sess.publish(myEvent1Topic, "Foobar!", [client1SessionId, client23SessionId], [mySessionId]);
             </pre>
@@ -940,7 +937,7 @@
          <p>
             In the above, <em>"myEvents:foo"</em> is equivalent to <em>"http://example.com/events/foo"</em> and <em>"myRPCs:bar"</em> to <em>"http://example.com/rpcs#bar"</em>.
          </p>
-                             
+
       </div>
 
 
@@ -958,7 +955,7 @@
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
                session.prefix("myEvents", "http://example.com/events/");
-               
+
                var foobar = session.shrink("http://example.com/events/foobar");
             </pre>
          </div>
@@ -983,7 +980,7 @@
          <div class="codeex">
             <pre class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
                session.prefix("myEvents", "http://example.com/events/");
-               
+
                var foobar = session.resolve("myEvents:foobar");
             </pre>
          </div>
@@ -1033,10 +1030,10 @@
       </pre>
       <p>
          This should be done before the first call of a WAMP function that uses deferreds, and, obviously, after the inclusion of the replacement module.
-      </p>      
+      </p>
       <p>
          A specific reason to make use of this interchangeability is currently during development. With when.js, exceptions thrown in deferred handlers are not logged to the browser console, with the obvious downsides for debugging.<br>
-         Usign jQuery deferreds gets around this problem. 
+         Usign jQuery deferreds gets around this problem.
       </p>
       <p>
          When.js added a debug version starting with version 1.6. We are looking into using this with AutobahnJS to enable easy debugging.
