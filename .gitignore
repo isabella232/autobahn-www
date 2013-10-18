@@ -1,2 +1,4 @@
 *.sublime-workspace
 website/autobahnws/build
+website/autobahnws/reports*
+

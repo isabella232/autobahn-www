@@ -25,11 +25,12 @@ from boto.s3.key import Key
 
 
 def percent_cb(complete, total):
-   sys.stdout.write("%d %%\n" % round(100. * float(complete) / float(total)))
-   sys.stdout.flush()
+   if total > 0:
+      sys.stdout.write("%d %%\n" % round(100. * float(complete) / float(total)))
+      sys.stdout.flush()
 
 
-def upload_files(bucketname, srcdir):
+def upload_files(bucketname, srcdir, prefix = None):
    print bucketname, srcdir
    conn = S3Connection()
    bucket = conn.get_bucket(bucketname)
@@ -38,6 +39,8 @@ def upload_files(bucketname, srcdir):
       for file in files:
 
          filekey = os.path.relpath(os.path.join(path, file), srcdir).replace('\\', '/')
+         if prefix:
+            filekey = prefix + '/' + filekey
          filepath = os.path.normpath(os.path.join(path, file))
 
          #print "filekey: ", filekey
@@ -73,8 +76,14 @@ if __name__ == "__main__":
                       dest = "directory",
                       help = "Directory to upload.")
 
+   parser.add_option ("-p",
+                      "--prefix",
+                      dest = "prefix",
+                      default = None,
+                      help = "File prefix within bucket.")
+
    (options, args) = parser.parse_args ()
 
    directory = os.path.join(os.path.dirname(__file__),  options.directory)
 
-   upload_files(options.bucket, directory)
+   upload_files(options.bucket, directory, options.prefix)

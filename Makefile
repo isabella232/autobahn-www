@@ -6,6 +6,8 @@ all:
 	@echo "  freeze"
 	@echo "  test"
 	@echo "  test_frozen"
+	@echo "  upload"
+	@echo "  upload_reports"
 	@echo ""
 
 deploy: clean freeze upload
@@ -18,6 +20,10 @@ freeze:
 
 upload:
 	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "build"
+
+upload_reports:
+	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "reports" --prefix "reports"
+	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "reports_20131013" --prefix "reports_20131013"
 
 test:
 	python website/autobahnws/__init__.py -d
