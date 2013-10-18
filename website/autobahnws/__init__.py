@@ -91,12 +91,6 @@ def page_python_tutorials_pubsub():
    session['subsitetab'] = 'tutorials'
    return render_template('python/page_tpnd_python_tutorials_pubsub.html')
 
-@app.route('/python/reference/')
-def page_python_reference():
-   session['subsite'] = 'python'
-   session['subsitetab'] = 'reference'
-   return render_template('python/page_tpn_python_reference.html')
-
 @app.route('/python/downloads/')
 def page_python_downloads():
    session['subsite'] = 'python'
