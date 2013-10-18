@@ -139,7 +139,7 @@ a:hover {
    }
 }
 
-@media (min-width: 1380px) {
+@media (min-width: 1480px) {
    #projectsContainer {
       width: 1393px;
    }
