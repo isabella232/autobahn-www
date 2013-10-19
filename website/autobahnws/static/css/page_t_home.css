@@ -52,14 +52,16 @@ a:hover {
    width: 55px;
    height: 60px;
    position: absolute;
-   top: -1px;
-   right: -1px;
+   top: 0px;
+   right: 0px;
    display: block;
 }
 
 .forkgithub:hover {
    background-image: url(../img/githubfork_active.png);
 }
+
+
 
 .linkbox {
    background-image: url(../img/btn_devzone_inactive.png);
@@ -77,10 +79,11 @@ a:hover {
    background-image: url(../img/btn_devzone_active.png);
 }
 
-.linkbox.crossbar {
+/* crossbar yellow design */
+/*.linkbox.crossbar {
    background-image: none;
    color: #5E5E5E;
-   background-color: #AAA;
+   background-color: #ffe000;
    border-radius: 20px;
 
    padding: 4px 27px;
@@ -89,7 +92,37 @@ a:hover {
 }
 .linkbox.crossbar:hover {
    background-image: none;
-   background-color: #D6D6D6;
+   background-color: #fdff00;
+}
+.crossbar .forkgithub {
+   background-image: url(../img/githubfork_inactive_yellow.png);
+}
+
+.crossbar .forkgithub:hover {
+   background-image: url(../img/githubfork_active_yellow.png);
+}*/
+
+/*  crossbar grey design */
+.linkbox.crossbar {
+   background-image: none;
+   color: #444;
+   background-color: #999999;
+   border-radius: 20px;
+
+   padding: 4px 27px;
+   text-decoration: none;
+   text-align: center;
+}
+.linkbox.crossbar:hover {
+   background-image: none;
+   background-color: #cbcbcb;
+}
+.crossbar .forkgithub {
+   background-image: url(../img/githubfork_inactive_grey.png);
+}
+
+.crossbar .forkgithub:hover {
+   background-image: url(../img/githubfork_active_grey.png);
 }
 
 
@@ -154,6 +187,10 @@ a:hover {
    -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.25);
    box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.35);
 
+}
+
+.project.crossbar ul li {
+   background-image: url("../img/bullet_grey.png");
 }
 
 
