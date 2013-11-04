@@ -38,6 +38,12 @@ def page_home():
    session['subsitetab'] = 'overview'
    return render_template('page_t_home.html')
 
+@app.route('/impressum/')
+def page_impressum():
+   session['subsite'] = ''
+   session['subsitetab'] = 'impressum'
+   return render_template('page_t_impressum.html')
+
 
 ################################################################################
 ## AutobahnPython

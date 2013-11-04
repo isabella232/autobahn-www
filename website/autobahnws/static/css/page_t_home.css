@@ -217,3 +217,15 @@ a:hover {
    margin: 40px 0 0;
    padding: 0 0 40px 0;
 }
+
+
+#impressum {
+   width: 100px;
+   text-align: center;
+   margin: 0 auto;
+}
+
+#impressumLink {
+   font-size: 14px;
+   padding: 0 0 1em;
+}
