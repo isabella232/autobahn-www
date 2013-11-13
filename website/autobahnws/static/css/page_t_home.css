@@ -202,9 +202,19 @@ a:hover {
 }
 
 .pvideotitle {
-   color: #f4f4f4;
+   color: #aaa;
    padding-bottom: 8px;
 }
+
+.pvideotitle > a, a:visited {
+   color: #ddd;
+}
+
+.pvideotitle > a:hover {
+   color: #fff;
+}
+
+/* ffde00 */
 
 /* protocols in intro */
 
