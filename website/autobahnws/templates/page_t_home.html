@@ -12,72 +12,41 @@
 
    <div id="home_central_wrapper">
 
-      <div style="width: 405px; margin: 60px auto 40px auto;">
+      <div style="width: 405px; margin: 40px auto 40px auto;">
          <img src="{{ url_for('static', filename='img/autobahnws_large_plain.png') }}" width="405" height="64">
       </div>
 
       <div id="intro">
+
          <center id="introhead">
             Open-source real-time framework for Web, Mobile &amp; Internet of Things.
+            <span>
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:80px; height:20px;"></iframe>
+            </span>
             <span>
                <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:100px; height:20px;"></iframe>
             </span>
          </center>
-         <br><br>
-         <center style="font-size: 18px;">
-            <span style="position: relative; top: 5px; margin-right: -16px;">
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=srdummy&show_count=false&show_screen_name=false" style="width:80px; height:20px;"></iframe>
-            </span>
-            <span id="twitterfollowline">us on <a href="https://twitter.com/srdummy">Twitter</a> and learn more in the areas below:</span>
 
-         </center>
-<!--
-         <ul id="introsub">
-            <li>
+         <p id="introsub">
                The Autobahn project provides open-source implementations of the
                <a href="http://tools.ietf.org/html/rfc6455">WebSocket</a> and
                <a href="http://wamp.ws">WAMP</a> protocols.
-            </li>
-            <li>
                WebSocket allows bidirectional real-time messaging on the Web and WAMP adds
                asynchronous Remote Procedure Calls and Publish &amp; Subscribe on top of WebSocket.
-            </li>
-         </ul>
--->
+         </p>
+
+         <div id="broughtToYouBy">
+            Autobahn is a community project started and sponsored by
+            <a href="http://www.tavendo.com"><img style="" src="{{ url_for('static', filename='img/tavendosmall.png') }}" width="118" height="18"></a>
+         </div>
+
       </div>
 
-<!--         
-         <p>
-            The Autobahn project provides open-source client and server implementations of
-            <div id="protocolContainer">
-               <div class="protocol">
-                  <a style="" href="http://tools.ietf.org/html/rfc6455">
-                     The WebSocket Protocol
-                  </a>
-                  <img style="position: relative; top: 6px;" src="{{ url_for('static', filename='img/websocket_48x48_white.png') }}" width="48" height="48">
-
-               </div>
-               <div class="protocol">
-                  <a style="margin-left: 2em;" href="http://wamp.ws">
-                     The WebSocket Application Messaging Protocol
-                  </a>&nbsp;
-                  <img src="{{ url_for('static', filename='img/wamp_white.png') }}" width="145" height="26">
-               </div>
-            </div>
-            <br>
-            <br>
-            WebSocket allows bidirectional real-time messaging between browsers (as well as other clients) and servers
-            and WAMP provides asynchronous RPC and PubSub over WebSocket.
-            <br>
-            <span style="float: right; margin-right: 2em; margin-top: 0em;">
-               <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/" data-text="The Autobahn project: open-source WebSocket and WAMP (RPC+PubSub over WebSocket) implementations." data-count="none" data-hashtags="websocket,wamp">Tweet</a>
-               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            </span>
-         </p>
-         <br>
--->         
-
      <div id="projectsContainer">
+         <center id="projectsHeader">
+            Explore the Autobahn subprojects and gallery:
+         </center>
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
             <p>
@@ -173,53 +142,27 @@
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://record-evolution.com/">REone</a> business app built with <a href="http://crossbar.io/">Crossbar.io</a> on Oracle</center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/J80b3qbYKqc?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://showroomdummy.com" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/J80b3qbYKqc?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://showroomdummy.com/">Connected Car</a> demo built with <a href="http://crossbar.io/">Crossbar.io</a></center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/l0A6__tLreY?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://showroomdummy.com" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/l0A6__tLreY?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://showroomdummy.com/">3D desktop-to-mobile</a> built with <a href="http://crossbar.io/">Crossbar.io</a></center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/8WSCbyTcy-Y?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://showroomdummy.com" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/8WSCbyTcy-Y?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div class="project pvideo">
             <center class="pvideotitle">Arduino real-time charting built <a href="http://autobahn.ws/python/">Autobahn</a></center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/va7j86thW5M?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://showroomdummy.com" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/va7j86thW5M?hd=1&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div style="clear: both"></div>
       </div>
-
-
-<!--
-      {% if session["debug"] %}
-      {% else %}
-         <div style="position: fixed; top: 16px; right: 32px;">
-            <a href="https://twitter.com/autobahnws" class="twitter-follow-button" data-show-count="false">Follow @autobahnws</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-         </div>
-      {% endif %}
--->
-<!--       <center style="font-size: 14px;">
-         Autobahn WebSocket technology is brought to you by
-         <a href="http://www.tavendo.de"><img style="" src="{{ url_for('static', filename='img/tavendosmall.png') }}" width="118" height="18"></a>
-      </center>
-      <br><br> -->
-
-      <div id="broughtToYouBy">
-         Autobahn WebSocket technology is brought to you by
-         <a href="http://www.tavendo.de"><img style="" src="{{ url_for('static', filename='img/tavendosmall.png') }}" width="118" height="18"></a>
-      </div>
-      <div id="impressum">
-         <a id="impressumLink" href="{{ url_for('page_impressum') }}">Impressum</a>
-      </div>
-
-
 
    </div>
 

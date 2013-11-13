@@ -21,6 +21,40 @@ body
    font-family: "Segoe UI", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-weight: normal;
    font-size: 16px;
+
+
+/*   
+   background-color: #e00;
+   background: -webkit-linear-gradient(bottom, rgba(200,200,200,1.0), rgba(255,255,255, 1.0));
+   background:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   background:     -ms-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+*/
+/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
+
+/*
+background-image: -ms-linear-gradient(bottom left, #BFBFBF 0%, #FFFFFF 100%);
+
+
+background-image: -moz-linear-gradient(bottom left, #BFBFBF 0%, #FFFFFF 100%);
+
+
+background-image: -o-linear-gradient(bottom left, #BFBFBF 0%, #FFFFFF 100%);
+*/
+
+/* Webkit (Safari/Chrome 10) */ 
+/*
+background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #BFBFBF), color-stop(1, #FFFFFF));
+*/
+
+/* Webkit (Chrome 11+) */ 
+background: -moz-linear-gradient(bottom right, #eee 0%, #FFFFFF 100%) fixed;
+background: -webkit-linear-gradient(bottom left, #eee 0%, #FFFFFF 100%) fixed;
+background: linear-gradient(to bottom left, #eee 0%, #FFFFFF 100%) fixed;
+
+/* W3C Markup, IE10 Release Preview */ 
+/*
+background-image: linear-gradient(to top right, #BFBFBF 0%, #FFFFFF 100%);
+*/
 }
 
 h1
@@ -247,7 +281,7 @@ span.code
    -moz-transition: all 0.1s ease-in-out;
    -o-transition: all 0.1s ease-in-out;
 
-   color: rgba(0, 0, 0, 0.2);
+   color: rgba(0, 0, 0, 0.4);
 }
 
 #navbar > .navitem:hover
@@ -298,7 +332,6 @@ span.code
    margin: 0 auto;
    padding: 30px 0;
    color: #333;
-   background-color: #fff;
 }
 
 
@@ -317,11 +350,11 @@ span.code
 
 #footer {
    width: 960px;
-   margin: 0px auto;
-   padding-top: 20px;
-   padding-bottom: 0px;
-   color: #ccc;
-   font-size: 12px;
+   margin: 20px auto 40px auto;
+   padding-top: 0px;
+   padding-bottom: 30px;
+   color: #bbb;
+   font-size: 13px;
 }
 
 #footer p {
@@ -332,7 +365,7 @@ span.code
 #footer a
 {
    color: #ccc;
-   text-decoration: none;
+   text-decoration: underline;
 }
 
 #footer a:visited

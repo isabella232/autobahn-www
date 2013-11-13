@@ -10,9 +10,6 @@
 
 {% block body %}
 
-   <div id="sticky_footer_outer_wrapper">
-      <div id="sticky_footer_central_content_wrapper">
-
          <!-- Header -->
          <div id="awh_layout_header">
             <div id="outside_l_top_banner"></div>
@@ -119,25 +116,20 @@
 
          {% block page %}{% endblock %}
 
-      </div> <!-- sticky_footer_outer_wrapper -->
-   </div> <!-- sticky_footer_central_content_wrapper -->
-
-   <div id="footer_wrapper">
       <div id="footer">
          <div id="footer_legal">
             <p>
-               Autobahn WebSocket technology is brought to you by
-               <a href="http://www.tavendo.de"><img style="" src="{{ url_for('static', filename='img/tavendosmallgrey.png') }}" width="118" height="18"></a>
+               Autobahn is a community project started and sponsored by
+               <a href="http://www.tavendo.com"><img style="" src="{{ url_for('static', filename='img/tavendosmallgrey.png') }}" width="118" height="18"></a>
             </p>
             <p>
-               Tavendo, WAMP and "Autobahn WebSocket" are trademarks of <a href="http://www.tavendo.de" target="_blank">Tavendo GmbH</a>.
+               Copyright &copy; 2011-2013, <a href="http://www.tavendo.com" target="_blank">Tavendo GmbH</a> (<a id="impressumLink" href="{{ url_for('page_impressum') }}">Impressum</a>). Content licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons CC-BY-SA</a> and code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>.          
+            </p>
+            <p>
+               Tavendo, WAMP and "Autobahn WebSocket" are trademarks of <a href="http://www.tavendo.com" target="_blank">Tavendo GmbH</a>.
                All other trademarks are those of their respective entities.
-            </p>
-            <p>
-               Copyright &copy; 2011-2013, <a href="http://www.tavendo.de" target="_blank">Tavendo GmbH</a>. Content licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons CC-BY-SA</a> and code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>.
             </p>
          </div>
       </div>
-   </div>
 
 {% endblock %}
