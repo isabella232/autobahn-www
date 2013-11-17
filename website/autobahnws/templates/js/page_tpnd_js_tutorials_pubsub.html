@@ -92,7 +92,7 @@
       <div class="codeex">
          <pre type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;">
             &lt;head&gt;
-               <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
+               &lt;script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"&gt;&lt;/script&gt;
             &lt;&#47;head&gt;
          </pre>
       </div>
@@ -308,16 +308,16 @@
       </p>
       <div class="codeex">
          <pre class="brush: xml; highlight: [7, 8, 9]; toolbar: false; auto-links: false;">
-            <div class="block">
-               <p>
-                  Publish a simple event containing no data. <br>
+            &lt;div class="block"&gt;
+               &lt;p&gt;
+                  Publish a simple event containing no data. &lt;br&gt;
                   In a second browser window/tab with the demo web app, open the console
                   (hit 'F12') and you can see events being received.
-               </p>
-               <button onclick="sess.subscribe('http://example.com/simple', onEvent);">Subscribe</button>
-               <button onclick="sess.unsubscribe('http://example.com/simple');">Unsubscribe</button>
-               <button onclick="sess.publish('http://example.com/simple', null);">Publish</button>
-            </div>
+               &lt;/p&gt;
+               &lt;button onclick="sess.subscribe('http://example.com/simple', onEvent);"&gt;Subscribe&lt;/button&gt;
+               &lt;button onclick="sess.unsubscribe('http://example.com/simple');"&gt;Unsubscribe&lt;/button&gt;
+               &lt;button onclick="sess.publish('http://example.com/simple', null);"&gt;Publish&lt;/button&gt;
+            &lt;/div&gt;
          </pre>
       </div>
 
@@ -348,20 +348,20 @@
       <div class="codeex">
          <pre class="brush: xml; highlight: [6, 7, 9, 10]; toolbar: false; auto-links: false;">
 
-         <div class="block">
-            <p>
+         &lt;div class="block"&gt;
+            &lt;p&gt;
                Publish an event containing data.
-            </p>
-            <form>
-               <p>Message: <input id="form_message" type="text" size="50" maxlength="50" value="Hello, world!"></p>
-               <p>Flag: <input id="form_flag" type="checkbox"></p>
-               <p>Event:
-                  <input id="event1" type="radio" name="eventtype" checked>MyEvent 1
-                  <input type="radio" name="eventtype">MyEvent 2
-               </p>
-            </form>
-            <button onclick="publishEvent()">Publish Event</button>
-         </div>
+            &lt;/p&gt;
+            &lt;form&gt;
+               &lt;p&gt;Message: &lt;input id="form_message" type="text" size="50" maxlength="50" value="Hello, world!"&gt;&lt;/p&gt;
+               &lt;p&gt;Flag: &lt;input id="form_flag" type="checkbox"&gt;&lt;/p&gt;
+               &lt;p&gt;Event:
+                  &lt;input id="event1" type="radio" name="eventtype" checked&gt;MyEvent 1
+                  &lt;input type="radio" name="eventtype"&gt;MyEvent 2
+               &lt;/p&gt;
+            &lt;/form&gt;
+            &lt;button onclick="publishEvent()"&gt;Publish Event&lt;/button&gt;
+         &lt;/div&gt;
          </pre>
       </div>
 
