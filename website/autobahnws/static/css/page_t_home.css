@@ -2,11 +2,13 @@
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 body {
+   height: auto; /* extend body to fit the entire content instead of limiting it to the height of the html element = screen height */
    background-color: #027eae;
    color: #fff;
    background: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
    background:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
    background:     -ms-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   background-attachment: fixed;
 }
 
 a {
