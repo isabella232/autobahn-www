@@ -1,14 +1,26 @@
 /*enforces a sane box model where paddings are not added to the box size*/
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+html {
+   height: auto;
+   /*the background of the body gets applied to the HTML, so this needs to be reset to more height as well*/
+   /*see: http://stackoverflow.com/questions/20070220/extend-background-gradient-across-body-without-background-attachment-fixed */
+   min-height: 100%;
+   /*background-color: #027eae;*/
+}
+
 body {
    height: auto; /* extend body to fit the entire content instead of limiting it to the height of the html element = screen height */
+   /* does not fix the fact that the background has the HTML height */
+
+   background-image: none; /* reset default background gradient to prevent fallback to white background */
    background-color: #027eae;
    color: #fff;
-   background: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
-   background:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
-   background:     -ms-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
-   background-attachment: fixed;
+   background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   background-image:     -ms-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   background-image:         linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   background-attachment: scroll;
 }
 
 a {
