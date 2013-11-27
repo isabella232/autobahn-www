@@ -77,10 +77,10 @@
          <h1>WAMP RPC/PubSub Server</h1>
          <pre class="brush: python; toolbar: false; auto-links: false; gutter: false;">
          from twisted.internet import reactor
-         from autobahn.websocket import WampServerFactory, \
-                                        WampServerProtocol, \
-                                        listenWS, \
-                                        exportRpc
+         from autobahn.websocket import listenWS
+         from autobahn.wamp import WampServerFactory, \
+                                   WampServerProtocol, \
+                                   exportRpc
 
          class RpcServerProtocol(WampServerProtocol):
 
