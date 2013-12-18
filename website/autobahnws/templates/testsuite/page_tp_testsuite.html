@@ -9,7 +9,7 @@
 {% block pagecontent %}
 
    <div class="testsuite_overview">
-      <p>
+      <p style="font-size: 18px;">
          {{ autobahntestsuite() }} provides a fully automated test suite to
          verify client and server implementations of
          <a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSocket Protocol</a>
@@ -20,27 +20,42 @@
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
          </span>
       </p>
+      <br>
 
-      <p>Check out the latest (full) test reports:</p>
-      <center class="testsuite_overview_report_links">
-         <a href="/testsuite/reports/clients/index.html">Browsers &amp; Clients</a>
-         <a href="/testsuite/reports/mobileclients/index.html">Mobile</a>
-         <a href="/testsuite/reports/servers/index.html">Servers</a>
-      </center>
       <p>
-         Details on the test setup used can be found <a href="https://github.com/tavendo/AutobahnTestSuite/tree/master/examples/publicreports">here</a>.
+         For installation, please see <a href="{{ url_for('page_testsuite_installation') }}">here</a>.
+         For usage, please see the <a href="{{ url_for('page_testsuite_manual') }}">User Manual</a>.
       </p>
+      <br>
 
-      <p id="reports_20131013">Here is a set of new reports (including WebSocket compression), but fewer testees:</p>
-      <center class="testsuite_overview_report_links">
-         <a href="/testsuite/reports_20131013/clients/index.html">Browsers &amp; Clients</a>
-         <a href="/testsuite/reports_20131013/servers/index.html">Servers</a>
-      </center>
+      <p style="width: 80%; margin: auto; background-color: #ddd; padding: 16px;">
+         <b>New:</b> There is a new <a href="http://normanmaurer.github.io/autobahntestsuite-maven-plugin/">Maven Plugin</a>
+         that integrates {{ autobahntestsuite() }} into <a href="http://maven.apache.org/">Maven</a> based builds for
+         fully automated testing in Java/WebSocket/Maven projects. Created by Norman Maurer (RedHat) - thanks!
+      </p>
 
    </div>
 
    <div class="testsuite_overview">
 
+      <h2>Reports</h2>
+      <p>Check out the latest test reports:</p>
+      <center class="testsuite_overview_report_links">
+         <a href="/testsuite/reports/clients/index.html">Browsers &amp; Clients</a>
+         <a href="/testsuite/reports/mobileclients/index.html">Mobile</a>
+         <a href="/testsuite/reports/servers/index.html">Servers</a>
+      </center>
+
+      <p id="reports_20131013">Here is a set of newer reports (including WebSocket compression), but fewer testees:</p>
+      <center class="testsuite_overview_report_links">
+         <a href="/testsuite/reports_20131013/clients/index.html">Browsers &amp; Clients</a>
+         <a href="/testsuite/reports_20131013/servers/index.html">Servers</a>
+      </center>
+      <p>
+         Details on the test setup used with creating above reports can be found <a href="https://github.com/tavendo/AutobahnTestSuite/tree/master/examples/publicreports">here</a>.
+      </p>
+
+      <a name="users"></a>
       <h2>Users</h2>
 
       <p>
@@ -94,6 +109,7 @@
                <li><a href="http://gitorious.org/qtwebsocket" target="_blank">QtWebSocket</a></li>
                <li><a href="https://github.com/eventlet/eventlet" target="_blank">eventlet</a></li>
                <li><a href="http://code.google.com/p/zaproxy/" target="_blank">zaproxy</a></li>
+               <li>... and more (can't keep up)</li>
             </ul>
          </div>
       </div>

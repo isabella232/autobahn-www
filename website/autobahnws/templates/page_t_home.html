@@ -30,7 +30,7 @@
 
          <p id="introsub">
                The Autobahn project provides open-source implementations of the
-               <a href="http://tools.ietf.org/html/rfc6455">WebSocket</a> and
+               <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a> and
                <a href="http://wamp.ws">WAMP</a> protocols.
                WebSocket allows bidirectional real-time messaging on the Web and WAMP adds
                asynchronous Remote Procedure Calls and Publish &amp; Subscribe on top of WebSocket.
@@ -50,15 +50,14 @@
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
             <p>
-               AutobahnPython is a WebSocket / WAMP
-               client and server framework based on Twisted.
-               It's conformant, scalable and flexible.
+               {{ autobahnpython(colored = True) }} is a WebSocket / WAMP networking library running
+               on <a href="http://twistedmatrix.com">Twisted</a>
             </p>
             <p>
                <ul>
-                  <li>WebSocket Hixie-76, Hybi-10+, RFC6455</li>
-                  <li>WAMP v1</li>
-                  <li>framework for clients and servers</li>
+                  <li>create <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a> clients and servers</li>
+                  <li>create <a href="http://wamp.ws">WAMP</a> clients and servers</li>
+                  <li>highly conformant, performant and flexible</li>
                </ul>
             </p>
             <div class="linkboxspacer"></div>
@@ -69,15 +68,14 @@
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnjs.png') }}" width="280" height="44">
             <p>
-               AutobahnJS is a WAMP client library. It works together with
-               any WAMP server and provides
-               asynchronous RPC and PubSub to browser based apps.
+               {{ autobahnjs(colored = True) }} is a WAMP client library that
+               <a href="http://wamp.ws/implementations/">works with any</a> WAMP server
             </p>
             <p>
                <ul>
-                  <li>WAMP v1</li>
-                  <li>Pluggable Deferreds: when.js, jQuery, Dojo ..</li>
-                  <li>Auto-reconnect, Client authentication, ..</li>
+                  <li>add <a href="http://wamp.ws">WAMP</a> connectivity to HTML5 apps</li>
+                  <li><b>upcoming:</b> long-poll fallback (old browsers)</li>
+                  <li><b>upcoming:</b> <a href="http://nodejs.org/">Node.js</a> support</li>
                </ul>
             </p>
             <div class="linkboxspacer"></div>
@@ -88,15 +86,13 @@
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnandroid.png') }}" width="353" height="44">
             <p>
-               AutobahnAndroid is a WebSocket / WAMP
-               client library for native Java Android apps.
-               It's conformant, fast and plays fine with Android
-               UI activities as well as background services.
+               {{ autobahnandroid(colored = True) }} is a WebSocket / WAMP
+               client library written in Java for <a href="http://developer.android.com/">Android</a>
             </p>
             <p>
                <ul>
-                  <li>WebSocket RFC6455</li>
-                  <li>WAMP v1</li>
+                  <li>add <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a> connectivity to apps</li>
+                  <li>add <a href="http://wamp.ws">WAMP</a> connectivity to apps</li>
                   <li>optimized for Android</li>
                </ul>
             </p>
@@ -108,14 +104,14 @@
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahntestsuite.png') }}" width="374" height="44">
             <p>
-               AutobahnTestsuite is a comprehensive WebSocket protocol test
-               suite for verifying WebSocket client and server implementations.
+               {{ autobahntestsuite(colored = True) }} is a comprehensive protocol test
+               suite for verifying WebSocket implementations
             </p>
             <p>
                <ul>
-                  <li>over 300 test cases</li>
-                  <li>fully automated testing</li>
-                  <li>used by more than 30 projects</li>
+                  <li><a href="{{ url_for('page_testsuite') }}#users">used</a> across the industry</li>
+                  <li>over 300 test cases, fully automated</li>
+                  <li><b>new:</b> Maven <a href="http://normanmaurer.github.io/autobahntestsuite-maven-plugin/">Plugin integration</a></li>
                </ul>
             </p>
             <div class="linkboxspacer"></div>
@@ -142,7 +138,7 @@
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://record-evolution.com/">REone</a> business app built with <a href="http://crossbar.io/">Crossbar.io</a> on Oracle</center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/LLJgSxwfAXo?version=3&vq=hd1080&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/yIdmk2doU8w?version=3&vq=hd1080&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div class="project pvideo">

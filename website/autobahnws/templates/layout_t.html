@@ -30,23 +30,39 @@
    <body>
 
    {% macro autobahn() -%}
-      AutobahnWebSocket
+      <span style="font-weight: 600;">Autobahn</span>
    {%- endmacro %}
 
-   {% macro autobahntestsuite() -%}
-      AutobahnTestsuite
+   {% macro autobahntestsuite(colored = False) -%}
+      {% if colored %}
+         <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>Testsuite
+      {% else %}
+         <span style="font-weight: 600;">Autobahn</span>|Testsuite
+      {% endif %}
    {%- endmacro %}
 
-   {% macro autobahnpython() -%}
-      AutobahnPython
+   {% macro autobahnpython(colored = False) -%}
+      {% if colored %}
+         <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>Python
+      {% else %}
+         <span style="font-weight: 600;">Autobahn</span>|Python
+      {% endif %}
    {%- endmacro %}
 
-   {% macro autobahnjs() -%}
-      AutobahnJS
+   {% macro autobahnjs(colored = False) -%}
+      {% if colored %}
+         <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>JS
+      {% else %}
+         <span style="font-weight: 600;">Autobahn</span>|JS
+      {% endif %}
    {%- endmacro %}
 
-   {% macro autobahnandroid() -%}
-      AutobahnAndroid
+   {% macro autobahnandroid(colored = False) -%}
+      {% if colored %}
+         <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>Android
+      {% else %}
+         <span style="font-weight: 600;">Autobahn</span>|Android
+      {% endif %}
    {%- endmacro %}
 
    {% macro wsperf(link = True) -%}
