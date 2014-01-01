@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WebSocket Auxiliary &mdash; Autobahn|Python 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="up" title="WebSocket" href="websockettoc.html" />
+    <link rel="next" title="Twisted Integration" href="twistedintegration.html" />
+    <link rel="prev" title="WebSocket Compression" href="websocketcompress.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="twistedintegration.html" title="Twisted Integration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="websocketcompress.html" title="WebSocket Compression"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">WebSocket Auxiliary</a><ul>
+<li><a class="reference internal" href="#url-handling">URL Handling</a></li>
+<li><a class="reference internal" href="#user-agents">User Agents</a></li>
+<li><a class="reference internal" href="#traffic-statistics">Traffic Statistics</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="websocketcompress.html"
+                        title="previous chapter">WebSocket Compression</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="twistedintegration.html"
+                        title="next chapter">Twisted Integration</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/websocketaux.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="websocket-auxiliary">
+<h1>WebSocket Auxiliary<a class="headerlink" href="#websocket-auxiliary" title="Permalink to this headline">¶</a></h1>
+<p>The classes and functions here provide auxiliary and supporting
+functionality to the WebSocket implementation.</p>
+<div class="section" id="url-handling">
+<h2>URL Handling<a class="headerlink" href="#url-handling" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="autobahn.websocket.protocol.createWsUrl">
+<tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">createWsUrl</tt><big>(</big><em>hostname</em>, <em>port=None</em>, <em>isSecure=False</em>, <em>path=None</em>, <em>params=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.createWsUrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a WebSocket URL from components.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hostname</strong> (<em>str</em>) &#8211; WebSocket server hostname.</li>
+<li><strong>port</strong> (<em>int</em>) &#8211; WebSocket service port or None (to select default ports 80/443 depending on isSecure).</li>
+<li><strong>isSecure</strong> (<em>bool</em>) &#8211; Set True for secure WebSocket (&#8220;wss&#8221; scheme).</li>
+<li><strong>path</strong> (<em>str</em>) &#8211; Path component of addressed resource (will be properly URL escaped).</li>
+<li><strong>params</strong> (<em>dict</em>) &#8211; A dictionary of key-values to construct the query component of the addressed resource (will be properly URL escaped).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str &#8211; Constructed WebSocket URL.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="autobahn.websocket.protocol.parseWsUrl">
+<tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">parseWsUrl</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.parseWsUrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses as WebSocket URL into it&#8217;s components and returns a tuple (isSecure, host, port, resource, path, params).</p>
+<p>isSecure is a flag which is True for wss URLs.
+host is the hostname or IP from the URL.
+port is the port from the URL or standard port derived from scheme (ws = 80, wss = 443).
+resource is the /resource name/ from the URL, the /path/ together with the (optional) /query/ component.
+path is the /path/ component properly unescaped.
+params is the /query) component properly unescaped and returned as dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> (<em>str</em>) &#8211; A valid WebSocket URL, i.e. <cite>ws://localhost:9000/myresource?param1=23&amp;param2=666</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple &#8211; A tuple (isSecure, host, port, resource, path, params)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="user-agents">
+<h2>User Agents<a class="headerlink" href="#user-agents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="autobahn.websocket.useragent.lookupWsSupport">
+<tt class="descclassname">autobahn.websocket.useragent.</tt><tt class="descname">lookupWsSupport</tt><big>(</big><em>ua</em>, <em>debug=True</em><big>)</big><a class="headerlink" href="#autobahn.websocket.useragent.lookupWsSupport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lookup if browser supports WebSocket (Hixie76, Hybi10+, RFC6455) natively,
+and if not, whether the <a class="reference external" href="https://github.com/gimite/web-socket-js">web-socket-js</a>
+Flash bridge works to polyfill that.</p>
+<p>Returns a tuple of booleans <cite>(ws_supported, needs_flash, detected)</cite> where</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>ws_supported</cite>: WebSocket is supported</li>
+<li><cite>needs_flash</cite>: Flash Bridge is needed for support</li>
+<li><cite>detected</cite> the code has explicitly mapped the support/nosupport</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ua</strong> (<em>str</em>) &#8211; The browser user agent string as sent in the HTTP header, e.g. provided as <cite>flask.request.user_agent.string</cite> in Flask.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple &#8211; A tuple <cite>(ws_supported, needs_flash, detected)</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="traffic-statistics">
+<h2>Traffic Statistics<a class="headerlink" href="#traffic-statistics" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="autobahn.websocket.protocol.Timings">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">Timings</tt><a class="headerlink" href="#autobahn.websocket.protocol.Timings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper class to track timings by key. This class also supports item access,
+iteration and conversion to string.</p>
+<dl class="method">
+<dt id="autobahn.websocket.protocol.Timings.track">
+<tt class="descname">track</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.Timings.track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Track elapsed for key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<em>str</em>) &#8211; Key under which to track the timing.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.protocol.Timings.diff">
+<tt class="descname">diff</tt><big>(</big><em>startKey</em>, <em>endKey</em>, <em>format=True</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.Timings.diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get elapsed difference between two previously tracked keys.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>startKey</strong> (<em>str</em>) &#8211; First key for interval (older timestamp).</li>
+<li><strong>endKey</strong> (<em>str</em>) &#8211; Second key for interval (younger timestamp).</li>
+<li><strong>format</strong> (<em>bool</em>) &#8211; If <cite>True</cite>, format computed time period and return string.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float or str &#8211; Computed time period in seconds (or formatted string).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="autobahn.websocket.protocol.TrafficStats">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">TrafficStats</tt><a class="headerlink" href="#autobahn.websocket.protocol.TrafficStats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="twistedintegration.html" title="Twisted Integration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="websocketcompress.html" title="WebSocket Compression"
+             >previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014 Tavendo GmbH.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

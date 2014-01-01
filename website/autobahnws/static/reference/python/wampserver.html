@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Server &mdash; Autobahn|Python 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="up" title="WAMP" href="wamptoc.html" />
+    <link rel="prev" title="Client" href="wampclient.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="wampclient.html" title="Client"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="wamptoc.html" accesskey="U">WAMP</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Server</a><ul>
+<li><a class="reference internal" href="#factory">Factory</a></li>
+<li><a class="reference internal" href="#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="wampclient.html"
+                        title="previous chapter">Client</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/wampserver.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="server">
+<h1>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h1>
+<p>The classes <a class="reference internal" href="#autobahn.wamp.WampServerProtocol" title="autobahn.wamp.WampServerProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampServerProtocol</span></tt></a> and
+<a class="reference internal" href="#autobahn.wamp.WampServerFactory" title="autobahn.wamp.WampServerFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampServerFactory</span></tt></a> are the base classes
+you derive from to implement WAMP servers.</p>
+<div class="section" id="factory">
+<h2>Factory<a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="autobahn.wamp.WampServerFactory">
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampServerFactory</tt><big>(</big><em>url</em>, <em>debug=False</em>, <em>debugCodePaths=False</em>, <em>debugWamp=False</em>, <em>debugApp=False</em>, <em>externalPort=None</em>, <em>reactor=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server factory for Wamp RPC/PubSub.</p>
+<dl class="method">
+<dt id="autobahn.wamp.WampServerFactory.dispatch">
+<tt class="descname">dispatch</tt><big>(</big><em>topicUri</em>, <em>event</em>, <em>exclude=</em><span class="optional">[</span><span class="optional">]</span>, <em>eligible=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerFactory.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dispatch an event to all peers subscribed to the event topic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>topicUri</strong> (<em>str</em>) &#8211; Topic to publish event to.</li>
+<li><strong>event</strong> (<em>obj</em>) &#8211; Event to publish (must be JSON serializable).</li>
+<li><strong>exclude</strong> (<em>List of obj</em>) &#8211; List of WampServerProtocol instances to exclude from receivers.</li>
+<li><strong>eligible</strong> (<em>List of obj</em>) &#8211; List of WampServerProtocol instances eligible as receivers (or None for all).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:returns twisted.internet.defer.Deferred &#8211; Will be fired when event was
+dispatched to all subscribers. The return value provided to the deferred
+is a pair (delivered, requested), where delivered = number of actual
+receivers, and requested = number of (subscribers - excluded) &amp; eligible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerFactory.sessionIdsToProtos">
+<tt class="descname">sessionIdsToProtos</tt><big>(</big><em>sessionIds</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerFactory.sessionIdsToProtos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map WAMP session IDs to connected protocol instances (objects of type WampServerProtocol).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sessionIds</strong> (<em>list of str</em>) &#8211; List of session IDs to be mapped.</td>
+</tr>
+</tbody>
+</table>
+<p>:returns list &#8211; List of WampServerProtocol instances corresponding to the WAMP session IDs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerFactory.protosToSessionIds">
+<tt class="descname">protosToSessionIds</tt><big>(</big><em>protos</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerFactory.protosToSessionIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map connected protocol instances (objects of type WampServerProtocol) to WAMP session IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>protos</strong> (<em>list of WampServerProtocol</em>) &#8211; List of instances of WampServerProtocol to be mapped.</td>
+</tr>
+</tbody>
+</table>
+<p>:returns list &#8211; List of WAMP session IDs corresponding to the protos.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerFactory.startFactory">
+<tt class="descname">startFactory</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerFactory.startFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by Twisted when the factory starts up. When overriding, make
+sure to call the base method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerFactory.stopFactory">
+<tt class="descname">stopFactory</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerFactory.stopFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by Twisted when the factory shuts down. When overriding, make
+sure to call the base method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="protocol">
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="autobahn.wamp.WampServerProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampServerProtocol</tt><a class="headerlink" href="#autobahn.wamp.WampServerProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server factory for Wamp RPC/PubSub.</p>
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.onSessionOpen">
+<tt class="descname">onSessionOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.onSessionOpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when WAMP session was fully established.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerForPubSub">
+<tt class="descname">registerForPubSub</tt><big>(</big><em>topicUri</em>, <em>prefixMatch=False</em>, <em>pubsub=3</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerForPubSub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a topic URI as publish/subscribe channel in this session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>topicUri</strong> (<em>str</em>) &#8211; Topic URI to be established as publish/subscribe channel.</li>
+<li><strong>prefixMatch</strong> (<em>bool</em>) &#8211; Allow to match this topic URI by prefix.</li>
+<li><strong>pubsub</strong> (<em>WampServerProtocol.PUB, WampServerProtocol.SUB, WampServerProtocol.PUB | WampServerProtocol.SUB</em>) &#8211; Allow publication and/or subscription.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerHandlerForPubSub">
+<tt class="descname">registerHandlerForPubSub</tt><big>(</big><em>obj</em>, <em>baseUri=''</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerHandlerForPubSub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a handler object for PubSub. A handler object has methods
+which are decorated using &#64;exportPub and &#64;exportSub.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> (<em>Object with methods decorated using &#64;exportPub and &#64;exportSub.</em>) &#8211; The object to be registered (in this WebSockets session) for PubSub.</li>
+<li><strong>baseUri</strong> (<em>String.</em>) &#8211; Optional base URI which is prepended to topic names for export.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerHandlerForSub">
+<tt class="descname">registerHandlerForSub</tt><big>(</big><em>uri</em>, <em>obj</em>, <em>proc</em>, <em>prefixMatch=False</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerHandlerForSub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a method of an object as subscription handler.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uri</strong> (<em>str</em>) &#8211; Topic URI to register subscription handler for.</li>
+<li><strong>obj</strong> (<em>object</em>) &#8211; The object on which to register a method as subscription handler.</li>
+<li><strong>proc</strong> (<em>unbound method</em>) &#8211; Unbound object method to register as subscription handler.</li>
+<li><strong>prefixMatch</strong> (<em>bool</em>) &#8211; Allow to match this topic URI by prefix.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerHandlerForPub">
+<tt class="descname">registerHandlerForPub</tt><big>(</big><em>uri</em>, <em>obj</em>, <em>proc</em>, <em>prefixMatch=False</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerHandlerForPub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a method of an object as publication handler.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uri</strong> (<em>str</em>) &#8211; Topic URI to register publication handler for.</li>
+<li><strong>obj</strong> (<em>object</em>) &#8211; The object on which to register a method as publication handler.</li>
+<li><strong>proc</strong> (<em>unbound method</em>) &#8211; Unbound object method to register as publication handler.</li>
+<li><strong>prefixMatch</strong> (<em>bool</em>) &#8211; Allow to match this topic URI by prefix.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.dispatch">
+<tt class="descname">dispatch</tt><big>(</big><em>topicUri</em>, <em>event</em>, <em>exclude=</em><span class="optional">[</span><span class="optional">]</span>, <em>eligible=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dispatch an event for a topic to all clients subscribed to
+and authorized for that topic.</p>
+<p>Optionally, exclude list of clients and/or only consider clients
+from explicit eligibles. In other words, the event is delivered
+to the set</p>
+<blockquote>
+<div>(subscribers - excluded) &amp; eligible</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>topicUri</strong> (<em>str</em>) &#8211; URI of topic to publish event to.</li>
+<li><strong>event</strong> (<em>obj</em>) &#8211; Event to dispatch.</li>
+<li><strong>exclude</strong> (<em>list of obj</em>) &#8211; Optional list of clients (WampServerProtocol instances) to exclude.</li>
+<li><strong>eligible</strong> (<em>list of obj</em>) &#8211; Optional list of clients (WampServerProtocol instances) eligible at all (or None for all).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:returns twisted.internet.defer.Deferred &#8211; Will be fired when event was
+dispatched to all subscribers. The return value provided to the deferred
+is a pair (delivered, requested), where delivered = number of actual
+receivers, and requested = number of (subscribers - excluded) &amp; eligible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerForRpc">
+<tt class="descname">registerForRpc</tt><big>(</big><em>obj</em>, <em>baseUri=''</em>, <em>methods=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerForRpc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register an service object for RPC. A service object has methods
+which are decorated using &#64;exportRpc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> (<em>Object with methods decorated using &#64;exportRpc.</em>) &#8211; The object to be registered (in this WebSockets session) for RPC.</li>
+<li><strong>baseUri</strong> (<em>String.</em>) &#8211; Optional base URI which is prepended to method names for export.</li>
+<li><strong>methods</strong> (<em>List of unbound class methods.</em>) &#8211; If not None, a list of unbound class methods corresponding to obj
+which should be registered. This can be used to register only a subset
+of the methods decorated with &#64;exportRpc.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerHandlerMethodForRpc">
+<tt class="descname">registerHandlerMethodForRpc</tt><big>(</big><em>uri</em>, <em>obj</em>, <em>handler</em>, <em>extra=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerHandlerMethodForRpc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a handler on an object for RPC.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uri</strong> (<em>str</em>) &#8211; URI to register RPC method under.</li>
+<li><strong>obj</strong> (<em>object</em>) &#8211; The object on which to register the RPC handler</li>
+<li><strong>proc</strong> (<em>unbound method</em>) &#8211; Unbound object method to register RPC for.</li>
+<li><strong>extra</strong> (<em>object</em>) &#8211; Optional extra data that will be given to the handler at call time.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerHandlerProcedureForRpc">
+<tt class="descname">registerHandlerProcedureForRpc</tt><big>(</big><em>uri</em>, <em>handler</em>, <em>extra=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerHandlerProcedureForRpc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a (free standing) handler for RPC.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uri</strong> (<em>str</em>) &#8211; URI to register RPC handler under.</li>
+<li><strong>proc</strong> (<em>callable</em>) &#8211; Free-standing handler</li>
+<li><strong>extra</strong> (<em>object</em>) &#8211; Optional extra data that will be given to the handler at call time.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerMethodForRpc">
+<tt class="descname">registerMethodForRpc</tt><big>(</big><em>uri</em>, <em>obj</em>, <em>proc</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerMethodForRpc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a method of an object for RPC.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uri</strong> (<em>str</em>) &#8211; URI to register RPC method under.</li>
+<li><strong>obj</strong> (<em>object</em>) &#8211; The object on which to register a method for RPC.</li>
+<li><strong>proc</strong> (<em>unbound method</em>) &#8211; Unbound object method to register RPC for.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampServerProtocol.registerProcedureForRpc">
+<tt class="descname">registerProcedureForRpc</tt><big>(</big><em>uri</em>, <em>proc</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampServerProtocol.registerProcedureForRpc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a (free standing) function/procedure for RPC.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>uri</strong> (<em>str</em>) &#8211; URI to register RPC function/procedure under.</li>
+<li><strong>proc</strong> (<em>callable</em>) &#8211; Free-standing function/procedure.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="autobahn.wamp.WampCraServerProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampCraServerProtocol</tt><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple, authenticating WAMP server protocol.</p>
+<p>The server lets clients perform WAMP-Challenge-Response-Authentication (&#8220;WAMP-CRA&#8221;)
+to authenticate. The clients need to implement WAMP-CRA also of course.</p>
+<p>To implement an authenticating server, override:</p>
+<blockquote>
+<div><ul class="simple">
+<li>getAuthSecret</li>
+<li>getAuthPermissions</li>
+<li>onAuthenticated</li>
+</ul>
+</div></blockquote>
+<p>in your class deriving from this class.</p>
+<dl class="attribute">
+<dt id="autobahn.wamp.WampCraServerProtocol.clientAuthTimeout">
+<tt class="descname">clientAuthTimeout</tt><em class="property"> = 0</em><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.clientAuthTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client authentication timeout in seconds or 0 for infinite. A client
+must perform authentication after the initial WebSocket handshake within
+this timeout or the connection is failed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.wamp.WampCraServerProtocol.clientAuthAllowAnonymous">
+<tt class="descname">clientAuthAllowAnonymous</tt><em class="property"> = True</em><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.clientAuthAllowAnonymous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow anonymous client authentication. When this is set to True, a client
+may &#8220;authenticate&#8221; as anonymous.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampCraServerProtocol.getAuthPermissions">
+<tt class="descname">getAuthPermissions</tt><big>(</big><em>authKey</em>, <em>authExtra</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.getAuthPermissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the permissions the session is granted when the authentication succeeds
+for the given key / extra information.</p>
+<p>Override in derived class to implement your authentication.</p>
+<p>A permissions object is structured like this:</p>
+<div class="highlight-python"><pre>{&#x27;permissions&#x27;: {&#x27;rpc&#x27;: [
+                           {&#x27;uri&#x27;:  / RPC Endpoint URI - String /,
+                            &#x27;call&#x27;: / Allow to call? - Boolean /}
+                        ],
+                 &#x27;pubsub&#x27;: [
+                              {&#x27;uri&#x27;:    / PubSub Topic URI / URI prefix - String /,
+                               &#x27;prefix&#x27;: / URI matched by prefix? - Boolean /,
+                               &#x27;pub&#x27;:    / Allow to publish? - Boolean /,
+                               &#x27;sub&#x27;:    / Allow to subscribe? - Boolean /}
+                           ]
+                 }
+}</pre>
+</div>
+<p>You can add custom information to this object. The object will be provided again
+when the client authentication succeeded in <tt class="xref py py-meth docutils literal"><span class="pre">onAuthenticated()</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>authKey</strong> (<em>str</em>) &#8211; The authentication key.</li>
+<li><strong>authExtra</strong> (<em>dict</em>) &#8211; Authentication extra information.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:returns obj or Deferred &#8211; Return a permissions object or None when no permissions granted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampCraServerProtocol.getAuthSecret">
+<tt class="descname">getAuthSecret</tt><big>(</big><em>authKey</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.getAuthSecret" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the authentication secret for an authentication key, i.e. the
+user password for the user name. Return None when the authentication
+key does not exist.</p>
+<p>Override in derived class to implement your authentication.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>authKey</strong> (<em>str</em>) &#8211; The authentication key.</td>
+</tr>
+</tbody>
+</table>
+<p>:returns str or Deferred &#8211; The authentication secret for the key or None when the key does not exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampCraServerProtocol.onAuthTimeout">
+<tt class="descname">onAuthTimeout</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.onAuthTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fired when the client does not authenticate itself in time. The default implementation
+will simply fail the connection.</p>
+<p>May be overridden in derived class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampCraServerProtocol.onAuthenticated">
+<tt class="descname">onAuthenticated</tt><big>(</big><em>authKey</em>, <em>permissions</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.onAuthenticated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fired when client authentication was successful.</p>
+<p>Override in derived class and register PubSub topics and/or RPC endpoints.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>authKey</strong> (<em>str</em>) &#8211; The authentication key the session was authenticated for.</li>
+<li><strong>permissions</strong> (<em>obj</em>) &#8211; The permissions object returned from <tt class="xref py py-meth docutils literal"><span class="pre">getAuthPermissions()</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.wamp.WampCraServerProtocol.registerForPubSubFromPermissions">
+<tt class="descname">registerForPubSubFromPermissions</tt><big>(</big><em>permissions</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampCraServerProtocol.registerForPubSubFromPermissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register topics for PubSub from auth permissions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>permissions</strong> (<em>list</em>) &#8211; The permissions granted to the now authenticated client.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="wampclient.html" title="Client"
+             >previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="wamptoc.html" >WAMP</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014 Tavendo GmbH.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

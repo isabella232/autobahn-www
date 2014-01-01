@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WebSocket Clients &mdash; Autobahn|Python 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="up" title="WebSocket" href="websockettoc.html" />
+    <link rel="next" title="WebSocket Servers" href="websocketserver.html" />
+    <link rel="prev" title="WebSocket" href="websocketbase.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="websocketserver.html" title="WebSocket Servers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="websocketbase.html" title="WebSocket"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">WebSocket Clients</a><ul>
+<li><a class="reference internal" href="#websocket-client-protocol">WebSocket Client Protocol</a><ul>
+<li><a class="reference internal" href="#twisted-websocket-client-protocol">Twisted WebSocket Client Protocol</a></li>
+<li><a class="reference internal" href="#asyncio-websocket-client-protocol">Asyncio WebSocket Client Protocol</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#websocket-client-factory">WebSocket Client Factory</a><ul>
+<li><a class="reference internal" href="#twisted-websocket-client-factory">Twisted WebSocket Client Factory</a></li>
+<li><a class="reference internal" href="#asyncio-websocket-client-factory">Asyncio WebSocket Client Factory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="websocketbase.html"
+                        title="previous chapter">WebSocket</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="websocketserver.html"
+                        title="next chapter">WebSocket Servers</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/websocketclient.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="websocket-clients">
+<h1>WebSocket Clients<a class="headerlink" href="#websocket-clients" title="Permalink to this headline">¶</a></h1>
+<p>The classes</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#autobahn.twisted.websocket.WebSocketClientProtocol" title="autobahn.twisted.websocket.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.twisted.websocket.WebSocketClientProtocol</span></tt></a></li>
+<li><a class="reference internal" href="#autobahn.twisted.websocket.WebSocketClientFactory" title="autobahn.twisted.websocket.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.twisted.websocket.WebSocketClientFactory</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>are the base classes you derive from to implement Twisted-based WebSocket clients.</p>
+<p>The classes</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#autobahn.asyncio.websocket.WebSocketClientProtocol" title="autobahn.asyncio.websocket.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.asyncio.websocket.WebSocketClientProtocol</span></tt></a></li>
+<li><a class="reference internal" href="#autobahn.asyncio.websocket.WebSocketClientFactory" title="autobahn.asyncio.websocket.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.asyncio.websocket.WebSocketClientFactory</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>are the base classes you derive from to implement Asyncio-based WebSocket clients.</p>
+<div class="section" id="websocket-client-protocol">
+<h2>WebSocket Client Protocol<a class="headerlink" href="#websocket-client-protocol" title="Permalink to this headline">¶</a></h2>
+<p>Both Twisted and Asyncio client protocols share the following functionality.</p>
+<dl class="class">
+<dt id="autobahn.websocket.protocol.WebSocketClientProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">WebSocketClientProtocol</tt><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol" title="autobahn.websocket.protocol.WebSocketProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol</span></tt></a></p>
+<p>Protocol base class for WebSocket clients.</p>
+<dl class="method">
+<dt id="autobahn.websocket.protocol.WebSocketClientProtocol.onConnect">
+<tt class="descname">onConnect</tt><big>(</big><em>response</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientProtocol.onConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired directly after WebSocket opening handshake when new WebSocket server
+connection was established.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>response</strong> (instance of <a class="reference internal" href="#autobahn.websocket.protocol.ConnectionResponse" title="autobahn.websocket.protocol.ConnectionResponse"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.ConnectionResponse</span></tt></a>) &#8211; WebSocket connection response information.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="autobahn.websocket.protocol.ConnectionResponse">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">ConnectionResponse</tt><big>(</big><em>peer</em>, <em>headers</em>, <em>version</em>, <em>protocol</em>, <em>extensions</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.ConnectionResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thin-wrapper for WebSocket connection response information provided in
+<a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientProtocol.onConnect" title="autobahn.websocket.protocol.WebSocketClientProtocol.onConnect"><tt class="xref py py-meth docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientProtocol.onConnect()</span></tt></a> when
+a WebSocket server has accepted a connection request by a client.</p>
+<dl class="method">
+<dt id="autobahn.websocket.protocol.ConnectionResponse.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>peer</em>, <em>headers</em>, <em>version</em>, <em>protocol</em>, <em>extensions</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.ConnectionResponse.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>peer</strong> (<em>str</em>) &#8211; Descriptor of the connected server (e.g. IP address/port in case of TCP transport).</li>
+<li><strong>headers</strong> (<em>dict</em>) &#8211; HTTP headers from opening handshake response.</li>
+<li><strong>version</strong> (<em>int</em>) &#8211; The WebSocket protocol version that is spoken.</li>
+<li><strong>protocol</strong> (<em>str</em>) &#8211; The WebSocket (sub)protocol in use.</li>
+<li><strong>extensions</strong> (<em>array of strings</em>) &#8211; The WebSocket extensions in use.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="twisted-websocket-client-protocol">
+<h3>Twisted WebSocket Client Protocol<a class="headerlink" href="#twisted-websocket-client-protocol" title="Permalink to this headline">¶</a></h3>
+<p>To create a Twisted-based WebSocket client, subclass the following protocol class.</p>
+<dl class="class">
+<dt id="autobahn.twisted.websocket.WebSocketClientProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.twisted.websocket.</tt><tt class="descname">WebSocketClientProtocol</tt><a class="headerlink" href="#autobahn.twisted.websocket.WebSocketClientProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.twisted.websocket.WebSocketAdapterProtocol</span></tt>, <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientProtocol" title="autobahn.websocket.protocol.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientProtocol</span></tt></a></p>
+<p>Base class for Twisted WebSocket client protocols.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="asyncio-websocket-client-protocol">
+<h3>Asyncio WebSocket Client Protocol<a class="headerlink" href="#asyncio-websocket-client-protocol" title="Permalink to this headline">¶</a></h3>
+<p>To create an Asyncio-based WebSocket client, subclass the following protocol class.</p>
+<dl class="class">
+<dt id="autobahn.asyncio.websocket.WebSocketClientProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.asyncio.websocket.</tt><tt class="descname">WebSocketClientProtocol</tt><a class="headerlink" href="#autobahn.asyncio.websocket.WebSocketClientProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.asyncio.websocket.WebSocketAdapterProtocol</span></tt>, <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientProtocol" title="autobahn.websocket.protocol.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientProtocol</span></tt></a></p>
+<p>Base class for Asyncio WebSocket client protocols.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="websocket-client-factory">
+<h2>WebSocket Client Factory<a class="headerlink" href="#websocket-client-factory" title="Permalink to this headline">¶</a></h2>
+<p>Both Twisted and Asyncio client factories share the following functionality.</p>
+<dl class="class">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">WebSocketClientFactory</tt><big>(</big><em>url=None</em>, <em>origin=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>useragent='AutobahnPython/0.7.0'</em>, <em>headers={}</em>, <em>proxy=None</em>, <em>debug=False</em>, <em>debugCodePaths=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>A protocol factory for WebSocket clients.</p>
+<dl class="attribute">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory.protocol">
+<tt class="descname">protocol</tt><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory.protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>The protocol to be spoken. Must be derived from <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientProtocol" title="autobahn.websocket.protocol.WebSocketClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientProtocol</span></tt></a>.</p>
+<p>alias of <tt class="xref py py-class docutils literal"><span class="pre">WebSocketClientProtocol</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory.isServer">
+<tt class="descname">isServer</tt><em class="property"> = False</em><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory.isServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag indicating if this factory is client- or server-side.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>url=None</em>, <em>origin=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>useragent='AutobahnPython/0.7.0'</em>, <em>headers={}</em>, <em>proxy=None</em>, <em>debug=False</em>, <em>debugCodePaths=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create instance of WebSocket client factory.</p>
+<p>Note that you MUST provide URL either here or set using
+<tt class="xref py py-meth docutils literal"><span class="pre">autobahn.websocket.WebSocketClientFactory.setSessionParameters()</span></tt>
+<em>before</em> the factory is started.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; WebSocket URL this factory will connect to, e.g. <cite>ws://myhost.com/somepath</cite>.</li>
+<li><strong>origin</strong> (<em>str</em>) &#8211; The origin to be sent in WebSocket opening handshake or None (default: <cite>None</cite>).</li>
+<li><strong>protocols</strong> (<em>list of strings</em>) &#8211; List of subprotocols the client should announce in WebSocket opening handshake (default: <cite>[]</cite>).</li>
+<li><strong>useragent</strong> (<em>str</em>) &#8211; User agent as announced in HTTP request header or None (default: <cite>AutobahnWebSocket/?.?.?</cite>).</li>
+<li><strong>headers</strong> (<em>dict</em>) &#8211; An optional mapping of additional HTTP headers to send during the WebSocket opening handshake.</li>
+<li><strong>proxy</strong> (<em>str</em>) &#8211; Explicit proxy server to use (<cite>hostname:port</cite> or <cite>IP:port</cite>), e.g. <cite>192.168.1.100:8080</cite>.</li>
+<li><strong>debug</strong> (<em>bool</em>) &#8211; Debug mode (default: <cite>False</cite>).</li>
+<li><strong>debugCodePaths</strong> (<em>bool</em>) &#8211; Debug code paths mode (default: <cite>False</cite>).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory.setSessionParameters">
+<tt class="descname">setSessionParameters</tt><big>(</big><em>url=None</em>, <em>origin=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>useragent=None</em>, <em>headers={}</em>, <em>proxy=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory.setSessionParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set WebSocket session parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; WebSocket URL this factory will connect to, e.g. <cite>ws://myhost.com/somepath</cite>.</li>
+<li><strong>origin</strong> (<em>str</em>) &#8211; The origin to be sent in opening handshake.</li>
+<li><strong>protocols</strong> (<em>list of strings</em>) &#8211; List of WebSocket subprotocols the client should announce in opening handshake.</li>
+<li><strong>useragent</strong> (<em>str</em>) &#8211; User agent as announced in HTTP request header during opening handshake.</li>
+<li><strong>headers</strong> (<em>dict</em>) &#8211; An optional mapping of additional HTTP headers to send during the WebSocket opening handshake.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory.resetProtocolOptions">
+<tt class="descname">resetProtocolOptions</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory.resetProtocolOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset all WebSocket protocol options to defaults.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.protocol.WebSocketClientFactory.setProtocolOptions">
+<tt class="descname">setProtocolOptions</tt><big>(</big><em>version=None</em>, <em>allowHixie76=None</em>, <em>utf8validateIncoming=None</em>, <em>acceptMaskedServerFrames=None</em>, <em>maskClientFrames=None</em>, <em>applyMask=None</em>, <em>maxFramePayloadSize=None</em>, <em>maxMessagePayloadSize=None</em>, <em>autoFragmentSize=None</em>, <em>failByDrop=None</em>, <em>echoCloseCodeReason=None</em>, <em>serverConnectionDropTimeout=None</em>, <em>openHandshakeTimeout=None</em>, <em>closeHandshakeTimeout=None</em>, <em>tcpNoDelay=None</em>, <em>perMessageCompressionOffers=None</em>, <em>perMessageCompressionAccept=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketClientFactory.setProtocolOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set WebSocket protocol options used as defaults for _new_ protocol instances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>version</strong> &#8211; The WebSocket protocol spec (draft) version to be used (default: <a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.SUPPORTED_PROTOCOL_VERSIONS" title="autobahn.websocket.protocol.WebSocketProtocol.SUPPORTED_PROTOCOL_VERSIONS"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.SUPPORTED_PROTOCOL_VERSIONS()</span></tt></a>).</li>
+<li><strong>utf8validateIncoming</strong> (<em>bool</em>) &#8211; Validate incoming UTF-8 in text message payloads (default: <cite>True</cite>).</li>
+<li><strong>acceptMaskedServerFrames</strong> (<em>bool</em>) &#8211; Accept masked server-to-client frames (default: <cite>False</cite>).</li>
+<li><strong>maskClientFrames</strong> (<em>bool</em>) &#8211; Mask client-to-server frames (default: <cite>True</cite>).</li>
+<li><strong>applyMask</strong> (<em>bool</em>) &#8211; Actually apply mask to payload when mask it present. Applies for outgoing and incoming frames (default: <cite>True</cite>).</li>
+<li><strong>maxFramePayloadSize</strong> (<em>int</em>) &#8211; Maximum frame payload size that will be accepted when receiving or <cite>0</cite> for unlimited (default: <cite>0</cite>).</li>
+<li><strong>maxMessagePayloadSize</strong> (<em>int</em>) &#8211; Maximum message payload size (after reassembly of fragmented messages) that will be accepted when receiving or <cite>0</cite> for unlimited (default: <cite>0</cite>).</li>
+<li><strong>autoFragmentSize</strong> (<em>int</em>) &#8211; Automatic fragmentation of outgoing data messages (when using the message-based API) into frames with payload length <cite>&lt;=</cite> this size or <cite>0</cite> for no auto-fragmentation (default: <cite>0</cite>).</li>
+<li><strong>failByDrop</strong> &#8211; Fail connections by dropping the TCP connection without performing closing handshake (default: <cite>True</cite>).</li>
+<li><strong>echoCloseCodeReason</strong> (<em>bool</em>) &#8211; Iff true, when receiving a close, echo back close code/reason. Otherwise reply with <cite>code == 1000, reason = &#8220;&#8221;</cite> (default: <cite>False</cite>).</li>
+<li><strong>serverConnectionDropTimeout</strong> (<em>float</em>) &#8211; When the client expects the server to drop the TCP, timeout in seconds (default: <cite>1</cite>).</li>
+<li><strong>openHandshakeTimeout</strong> (<em>float</em>) &#8211; Opening WebSocket handshake timeout, timeout in seconds or <cite>0</cite> to deactivate (default: <cite>0</cite>).</li>
+<li><strong>closeHandshakeTimeout</strong> (<em>float</em>) &#8211; When we expect to receive a closing handshake reply, timeout in seconds (default: <cite>1</cite>).</li>
+<li><strong>tcpNoDelay</strong> (<em>bool</em>) &#8211; TCP NODELAY (&#8220;Nagle&#8221;): bool socket option (default: <cite>True</cite>).</li>
+<li><strong>perMessageCompressionOffers</strong> (<em>list of instance of subclass of PerMessageCompressOffer</em>) &#8211; A list of offers to provide to the server for the permessage-compress WebSocket extension. Must be a list of instances of subclass of PerMessageCompressOffer.</li>
+<li><strong>perMessageCompressionAccept</strong> (<em>callable</em>) &#8211; Acceptor function for responses.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="twisted-websocket-client-factory">
+<h3>Twisted WebSocket Client Factory<a class="headerlink" href="#twisted-websocket-client-factory" title="Permalink to this headline">¶</a></h3>
+<p>To create a Twisted-based WebSocket client, use the following factory class.</p>
+<dl class="class">
+<dt id="autobahn.twisted.websocket.WebSocketClientFactory">
+<em class="property">class </em><tt class="descclassname">autobahn.twisted.websocket.</tt><tt class="descname">WebSocketClientFactory</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WebSocketClientFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.twisted.websocket.WebSocketAdapterFactory</span></tt>, <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientFactory" title="autobahn.websocket.protocol.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientFactory</span></tt></a>, <tt class="xref py py-class docutils literal"><span class="pre">twisted.internet.protocol.ClientFactory</span></tt></p>
+<p>Base class for Twisted WebSocket client factories.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://twistedmatrix.com/documents/current/api/twisted.internet.protocol.ClientFactory.html">twisted.internet.protocol.ClientFactory</a></p>
+</div>
+<dl class="method">
+<dt id="autobahn.twisted.websocket.WebSocketClientFactory.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WebSocketClientFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>In addition to all arguments to the constructor of
+<a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientFactory" title="autobahn.websocket.protocol.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientFactory</span></tt></a>,
+you can supply a <cite>reactor</cite> keyword argument to specify the 
+Twisted reactor to be used.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="asyncio-websocket-client-factory">
+<h3>Asyncio WebSocket Client Factory<a class="headerlink" href="#asyncio-websocket-client-factory" title="Permalink to this headline">¶</a></h3>
+<p>To create an Asyncio-based WebSocket client, use the following factory class.</p>
+<dl class="class">
+<dt id="autobahn.asyncio.websocket.WebSocketClientFactory">
+<em class="property">class </em><tt class="descclassname">autobahn.asyncio.websocket.</tt><tt class="descname">WebSocketClientFactory</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.asyncio.websocket.WebSocketClientFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.asyncio.websocket.WebSocketAdapterFactory</span></tt>, <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientFactory" title="autobahn.websocket.protocol.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientFactory</span></tt></a></p>
+<p>Base class for Asyncio WebSocket client factories.</p>
+<dl class="method">
+<dt id="autobahn.asyncio.websocket.WebSocketClientFactory.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.asyncio.websocket.WebSocketClientFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>In addition to all arguments to the constructor of
+<a class="reference internal" href="#autobahn.websocket.protocol.WebSocketClientFactory" title="autobahn.websocket.protocol.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientFactory</span></tt></a>,
+you can supply a <cite>loop</cite> keyword argument to specify the
+Asyncio loop to be used.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="websocketserver.html" title="WebSocket Servers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="websocketbase.html" title="WebSocket"
+             >previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014 Tavendo GmbH.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

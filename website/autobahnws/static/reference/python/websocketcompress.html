@@ -1,0 +1,793 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WebSocket Compression &mdash; Autobahn|Python 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="up" title="WebSocket" href="websockettoc.html" />
+    <link rel="next" title="WebSocket Auxiliary" href="websocketaux.html" />
+    <link rel="prev" title="WebSocket Servers" href="websocketserver.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="websocketaux.html" title="WebSocket Auxiliary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="websocketserver.html" title="WebSocket Servers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">WebSocket Compression</a><ul>
+<li><a class="reference internal" href="#per-message-deflate">Per-Message Deflate</a></li>
+<li><a class="reference internal" href="#per-message-bzip2">Per-Message Bzip2</a></li>
+<li><a class="reference internal" href="#per-message-snappy">Per-Message Snappy</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="websocketserver.html"
+                        title="previous chapter">WebSocket Servers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="websocketaux.html"
+                        title="next chapter">WebSocket Auxiliary</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/websocketcompress.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="websocket-compression">
+<h1>WebSocket Compression<a class="headerlink" href="#websocket-compression" title="Permalink to this headline">¶</a></h1>
+<p>Autobahn|Python supports the following WebSocket extensions for compression:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://tools.ietf.org/html/draft-ietf-hybi-permessage-compression">permessage-deflate</a></li>
+<li>permessage-bzip2</li>
+<li>permessage-snappy</li>
+</ul>
+</div></blockquote>
+<p>You can find a complete example <a class="reference external" href="https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/websocket/echo_compressed">here</a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="per-message-deflate">
+<h2>Per-Message Deflate<a class="headerlink" href="#per-message-deflate" title="Permalink to this headline">¶</a></h2>
+<p>The following classes provide the API to the <strong>permessage-deflate</strong> WebSocket extension functionality of AutobahnPython.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOffer">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageDeflateOffer</tt><big>(</big><em>acceptNoContextTakeover=True</em>, <em>acceptMaxWindowBits=True</em>, <em>requestNoContextTakeover=False</em>, <em>requestMaxWindowBits=0</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressOffer</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_deflate.PerMessageDeflateMixin</span></tt></p>
+<p>Set of extension parameters for <cite>permessage-deflate</cite> WebSocket extension
+offered by a client to a server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOffer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>acceptNoContextTakeover=True</em>, <em>acceptMaxWindowBits=True</em>, <em>requestNoContextTakeover=False</em>, <em>requestMaxWindowBits=0</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOffer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>acceptNoContextTakeover</strong> (<em>bool</em>) &#8211; Iff true, client accepts &#8220;no context takeover&#8221; feature.</li>
+<li><strong>acceptMaxWindowBits</strong> (<em>bool</em>) &#8211; Iff true, client accepts setting &#8220;max window size&#8221;.</li>
+<li><strong>requestNoContextTakeover</strong> (<em>bool</em>) &#8211; Iff true, client request &#8220;no context takeover&#8221; feature.</li>
+<li><strong>requestMaxWindowBits</strong> (<em>int</em>) &#8211; Iff non-zero, client requests given &#8220;max window size&#8221; - must be 8-15.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOffer.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOffer.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOffer.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOffer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOfferAccept">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageDeflateOfferAccept</tt><big>(</big><em>offer</em>, <em>requestNoContextTakeover=False</em>, <em>requestMaxWindowBits=0</em>, <em>noContextTakeover=None</em>, <em>windowBits=None</em>, <em>memLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOfferAccept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressOfferAccept</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_deflate.PerMessageDeflateMixin</span></tt></p>
+<p>Set of parameters with which to accept an <cite>permessage-deflate</cite> offer
+from a client by a server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOfferAccept.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>offer</em>, <em>requestNoContextTakeover=False</em>, <em>requestMaxWindowBits=0</em>, <em>noContextTakeover=None</em>, <em>windowBits=None</em>, <em>memLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOfferAccept.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offer</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.compress.PerMessageDeflateOffer</span></tt>.) &#8211; The offer being accepted.</li>
+<li><strong>requestNoContextTakeover</strong> (<em>bool</em>) &#8211; Iff true, server request &#8220;no context takeover&#8221; feature.</li>
+<li><strong>requestMaxCompressLevel</strong> (<em>int</em>) &#8211; Iff non-zero, server requests given &#8220;maximum compression level&#8221; - must be 1-9.</li>
+<li><strong>noContextTakeover</strong> (<em>bool</em>) &#8211; Override server (&#8220;server-to-client direction&#8221;) context takeover (this must be compatible with offer).</li>
+<li><strong>windowBits</strong> (<em>int</em>) &#8211; Override server (&#8220;server-to-client direction&#8221;) window size (this must be compatible with offer).</li>
+<li><strong>memLevel</strong> (<em>int</em>) &#8211; Set server (&#8220;server-to-client direction&#8221;) memory level.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOfferAccept.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOfferAccept.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateOfferAccept.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateOfferAccept.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponse">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageDeflateResponse</tt><big>(</big><em>client_max_window_bits</em>, <em>client_no_context_takeover</em>, <em>server_max_window_bits</em>, <em>server_no_context_takeover</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressResponse</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_deflate.PerMessageDeflateMixin</span></tt></p>
+<p>Set of parameters for <cite>permessage-deflate</cite> responded by server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponse.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponse.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponse.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponse.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponseAccept">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageDeflateResponseAccept</tt><big>(</big><em>response</em>, <em>noContextTakeover=None</em>, <em>windowBits=None</em>, <em>memLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponseAccept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressResponseAccept</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_deflate.PerMessageDeflateMixin</span></tt></p>
+<p>Set of parameters with which to accept an <cite>permessage-deflate</cite> response
+from a server by a client.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponseAccept.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>response</em>, <em>noContextTakeover=None</em>, <em>windowBits=None</em>, <em>memLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponseAccept.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>response</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.compress.PerMessageDeflateResponse</span></tt>.) &#8211; The response being accepted.</li>
+<li><strong>noContextTakeover</strong> (<em>bool</em>) &#8211; Override client (&#8220;client-to-server direction&#8221;) context takeover (this must be compatible with response).</li>
+<li><strong>windowBits</strong> (<em>int</em>) &#8211; Override client (&#8220;client-to-server direction&#8221;) window size (this must be compatible with response).</li>
+<li><strong>memLevel</strong> (<em>int</em>) &#8211; Set client (&#8220;client-to-server direction&#8221;) memory level.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponseAccept.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponseAccept.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageDeflateResponseAccept.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageDeflateResponseAccept.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="per-message-bzip2">
+<h2>Per-Message Bzip2<a class="headerlink" href="#per-message-bzip2" title="Permalink to this headline">¶</a></h2>
+<p>The following classes provide the API to the (non-standard) <strong>permessage-bzip2</strong> WebSocket extension functionality of Autobahn|Python.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Offer">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageBzip2Offer</tt><big>(</big><em>acceptMaxCompressLevel=True</em>, <em>requestMaxCompressLevel=0</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Offer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressOffer</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_bzip2.PerMessageBzip2Mixin</span></tt></p>
+<p>Set of extension parameters for <cite>permessage-bzip2</cite> WebSocket extension
+offered by a client to a server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Offer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>acceptMaxCompressLevel=True</em>, <em>requestMaxCompressLevel=0</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Offer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>acceptMaxCompressLevel</strong> (<em>bool</em>) &#8211; Iff true, client accepts &#8220;maximum compression level&#8221; parameter.</li>
+<li><strong>requestMaxCompressLevel</strong> (<em>int</em>) &#8211; Iff non-zero, client requests given &#8220;maximum compression level&#8221; - must be 1-9.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Offer.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Offer.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Offer.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Offer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageBzip2OfferAccept">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageBzip2OfferAccept</tt><big>(</big><em>offer</em>, <em>requestMaxCompressLevel=0</em>, <em>compressLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2OfferAccept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressOfferAccept</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_bzip2.PerMessageBzip2Mixin</span></tt></p>
+<p>Set of parameters with which to accept an <cite>permessage-bzip2</cite> offer
+from a client by a server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2OfferAccept.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>offer</em>, <em>requestMaxCompressLevel=0</em>, <em>compressLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2OfferAccept.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offer</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.compress.PerMessageBzip2Offer</span></tt>.) &#8211; The offer being accepted.</li>
+<li><strong>requestMaxCompressLevel</strong> (<em>int</em>) &#8211; Iff non-zero, server requests given &#8220;maximum compression level&#8221; - must be 1-9.</li>
+<li><strong>compressLevel</strong> (<em>int</em>) &#8211; Override server (&#8220;server-to-client direction&#8221;) compress level (this must be compatible with offer).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2OfferAccept.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2OfferAccept.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2OfferAccept.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2OfferAccept.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Response">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageBzip2Response</tt><big>(</big><em>client_max_compress_level</em>, <em>server_max_compress_level</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressResponse</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_bzip2.PerMessageBzip2Mixin</span></tt></p>
+<p>Set of parameters for <cite>permessage-bzip2</cite> responded by server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Response.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Response.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2Response.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2Response.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageBzip2ResponseAccept">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageBzip2ResponseAccept</tt><big>(</big><em>response</em>, <em>compressLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2ResponseAccept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressResponseAccept</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_bzip2.PerMessageBzip2Mixin</span></tt></p>
+<p>Set of parameters with which to accept an <cite>permessage-bzip2</cite> response
+from a server by a client.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2ResponseAccept.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>response</em>, <em>compressLevel=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2ResponseAccept.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>response</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.compress.PerMessageBzip2Response</span></tt>.) &#8211; The response being accepted.</li>
+<li><strong>compressLevel</strong> (<em>int</em>) &#8211; Override client (&#8220;client-to-server direction&#8221;) compress level (this must be compatible with response).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2ResponseAccept.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2ResponseAccept.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageBzip2ResponseAccept.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageBzip2ResponseAccept.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="per-message-snappy">
+<h2>Per-Message Snappy<a class="headerlink" href="#per-message-snappy" title="Permalink to this headline">¶</a></h2>
+<p>The following classes provide the API to the (non-standard) <strong>permessage-snappy</strong> WebSocket extension functionality of Autobahn|Python.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOffer">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageSnappyOffer</tt><big>(</big><em>acceptNoContextTakeover=True</em>, <em>requestNoContextTakeover=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressOffer</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_snappy.PerMessageSnappyMixin</span></tt></p>
+<p>Set of extension parameters for <cite>permessage-snappy</cite> WebSocket extension
+offered by a client to a server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOffer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>acceptNoContextTakeover=True</em>, <em>requestNoContextTakeover=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOffer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>acceptNoContextTakeover</strong> (<em>bool</em>) &#8211; Iff true, client accepts &#8220;no context takeover&#8221; feature.</li>
+<li><strong>requestNoContextTakeover</strong> (<em>bool</em>) &#8211; Iff true, client request &#8220;no context takeover&#8221; feature.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOffer.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOffer.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOffer.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOffer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOfferAccept">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageSnappyOfferAccept</tt><big>(</big><em>offer</em>, <em>requestNoContextTakeover=False</em>, <em>noContextTakeover=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOfferAccept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressOfferAccept</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_snappy.PerMessageSnappyMixin</span></tt></p>
+<p>Set of parameters with which to accept an <cite>permessage-snappy</cite> offer
+from a client by a server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOfferAccept.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>offer</em>, <em>requestNoContextTakeover=False</em>, <em>noContextTakeover=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOfferAccept.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offer</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.compress.PerMessageSnappyOffer</span></tt>.) &#8211; The offer being accepted.</li>
+<li><strong>requestNoContextTakeover</strong> (<em>bool</em>) &#8211; Iff true, server request &#8220;no context takeover&#8221; feature.</li>
+<li><strong>noContextTakeover</strong> (<em>bool</em>) &#8211; Override server (&#8220;server-to-client direction&#8221;) context takeover (this must be compatible with offer).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOfferAccept.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOfferAccept.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyOfferAccept.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyOfferAccept.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponse">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageSnappyResponse</tt><big>(</big><em>client_no_context_takeover</em>, <em>server_no_context_takeover</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressResponse</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_snappy.PerMessageSnappyMixin</span></tt></p>
+<p>Set of parameters for <cite>permessage-snappy</cite> responded by server.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponse.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponse.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponse.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponse.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="class">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponseAccept">
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.compress.</tt><tt class="descname">PerMessageSnappyResponseAccept</tt><big>(</big><em>response</em>, <em>noContextTakeover=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponseAccept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_base.PerMessageCompressResponseAccept</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.compress_snappy.PerMessageSnappyMixin</span></tt></p>
+<p>Set of parameters with which to accept an <cite>permessage-snappy</cite> response
+from a server by a client.</p>
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponseAccept.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>response</em>, <em>noContextTakeover=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponseAccept.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>response</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.compress.PerMessageSnappyResponse</span></tt>.) &#8211; The response being accepted.</li>
+<li><strong>noContextTakeover</strong> (<em>bool</em>) &#8211; Override client (&#8220;client-to-server direction&#8221;) context takeover (this must be compatible with response).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponseAccept.__json__">
+<tt class="descname">__json__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponseAccept.__json__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a JSON serializable object representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object &#8211; JSON serializable represention.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="autobahn.websocket.compress.PerMessageSnappyResponseAccept.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.compress.PerMessageSnappyResponseAccept.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python object representation that can be eval&#8217;ed to reconstruct the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Python string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="websocketaux.html" title="WebSocket Auxiliary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="websocketserver.html" title="WebSocket Servers"
+             >previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014 Tavendo GmbH.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

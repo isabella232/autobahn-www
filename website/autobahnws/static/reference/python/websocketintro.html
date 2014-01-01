@@ -1,0 +1,621 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; Autobahn|Python 0.7.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="up" title="WebSocket" href="websockettoc.html" />
+    <link rel="next" title="WebSocket" href="websocketbase.html" />
+    <link rel="prev" title="WebSocket" href="websockettoc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="websocketbase.html" title="WebSocket"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="websockettoc.html" title="WebSocket"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#basic-websocket">Basic WebSocket</a><ul>
+<li><a class="reference internal" href="#message-based-processing">Message-based Processing</a></li>
+<li><a class="reference internal" href="#prepared-messages">Prepared Messages</a></li>
+<li><a class="reference internal" href="#handshake-hooks">Handshake Hooks</a></li>
+<li><a class="reference internal" href="#ping-pong-processing">Ping/Pong Processing</a></li>
+<li><a class="reference internal" href="#interface-definition">Interface Definition</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-websocket">Advanced WebSocket</a><ul>
+<li><a class="reference internal" href="#frame-based-api">Frame-based API</a></li>
+<li><a class="reference internal" href="#streaming-api">Streaming API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="websockettoc.html"
+                        title="previous chapter">WebSocket</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="websocketbase.html"
+                        title="next chapter">WebSocket</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/websocketintro.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic-websocket">
+<h2>Basic WebSocket<a class="headerlink" href="#basic-websocket" title="Permalink to this headline">¶</a></h2>
+<p><strong>AutobahnPython</strong> provides a Message-based API to WebSocket plus auxiliary methods and callbacks.</p>
+<p>The message-based API closely resembles the API of WebSocket available to JavaScript in browsers.</p>
+<p>Most of the time, this API is what you should use, unless you have specific needs (frame-based / streaming processing, see below).</p>
+<div class="section" id="message-based-processing">
+<h3>Message-based Processing<a class="headerlink" href="#message-based-processing" title="Permalink to this headline">¶</a></h3>
+<p>The message-based API is implemented in the following methods and callbacks</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onOpen" title="autobahn.websocket.protocol.WebSocketProtocol.onOpen"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onOpen()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendMessage" title="autobahn.websocket.protocol.WebSocketProtocol.sendMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessage" title="autobahn.websocket.protocol.WebSocketProtocol.onMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendClose" title="autobahn.websocket.protocol.WebSocketProtocol.sendClose"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendClose()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onClose" title="autobahn.websocket.protocol.WebSocketProtocol.onClose"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onClose()</span></tt></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="prepared-messages">
+<h3>Prepared Messages<a class="headerlink" href="#prepared-messages" title="Permalink to this headline">¶</a></h3>
+<p>In case you want to send a single WebSocket message to multiple peers, AutobahnPython provides an optimized way of sending using</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketFactory.prepareMessage" title="autobahn.websocket.protocol.WebSocketFactory.prepareMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketFactory.prepareMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendPreparedMessage" title="autobahn.websocket.protocol.WebSocketProtocol.sendPreparedMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendPreparedMessage()</span></tt></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="handshake-hooks">
+<h3>Handshake Hooks<a class="headerlink" href="#handshake-hooks" title="Permalink to this headline">¶</a></h3>
+<p>AutobahnPython allows you to hook into the initial WebSocket opening handshake (e.g. for handling HTTP cookies, subprotocols, etc):</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketserver.html#autobahn.websocket.protocol.WebSocketServerProtocol.onConnect" title="autobahn.websocket.protocol.WebSocketServerProtocol.onConnect"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketServerProtocol.onConnect()</span></tt></a></li>
+<li><a class="reference internal" href="websocketclient.html#autobahn.websocket.protocol.WebSocketClientProtocol.onConnect" title="autobahn.websocket.protocol.WebSocketClientProtocol.onConnect"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketClientProtocol.onConnect()</span></tt></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="ping-pong-processing">
+<h3>Ping/Pong Processing<a class="headerlink" href="#ping-pong-processing" title="Permalink to this headline">¶</a></h3>
+<p>The basic API also allows for explicit processing of WebSocket Pings and Pongs:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onPing" title="autobahn.websocket.protocol.WebSocketProtocol.onPing"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onPing()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onPong" title="autobahn.websocket.protocol.WebSocketProtocol.onPong"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onPong()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendPing" title="autobahn.websocket.protocol.WebSocketProtocol.sendPing"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendPing()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendPong" title="autobahn.websocket.protocol.WebSocketProtocol.sendPong"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendPong()</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>Note that explicit processing of Pings/Pongs is unnecessary normally - AutobahnPython will do the right thing under the hood.</p>
+</div>
+<div class="section" id="interface-definition">
+<h3>Interface Definition<a class="headerlink" href="#interface-definition" title="Permalink to this headline">¶</a></h3>
+<p>The basic API has the following interface definition:</p>
+<dl class="interface">
+<dt id="autobahn.interfaces.IWebSocketChannel">
+<em class="property">interface </em><tt class="descclassname">autobahn.interfaces.</tt><tt class="descname">IWebSocketChannel</tt><a class="headerlink" href="#autobahn.interfaces.IWebSocketChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A WebSocket channel is a bidirectional, full-duplex, ordered, reliable message channel
+over a WebSocket connection as specified in RFC6455.</p>
+<p>This interface defines a message-based API to WebSocket plus auxiliary hooks
+and methods.</p>
+<dl class="method">
+<dt id="IWebSocketChannel.onConnect">
+<tt class="descname">onConnect</tt><big>(</big><em>requestOrResponse</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.onConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired during WebSocket opening handshake when a client connects (with
+request from client) or when server connection established (with response from
+server).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>requestOrResponse</strong> (Instance of <a class="reference internal" href="websocketserver.html#autobahn.websocket.protocol.ConnectionRequest" title="autobahn.websocket.protocol.ConnectionRequest"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.ConnectionRequest</span></tt></a>
+or <a class="reference internal" href="websocketclient.html#autobahn.websocket.protocol.ConnectionResponse" title="autobahn.websocket.protocol.ConnectionResponse"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.ConnectionResponse</span></tt></a>.) &#8211; Connection request or response.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.onOpen">
+<tt class="descname">onOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#IWebSocketChannel.onOpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when the initial WebSocket opening handshake was completed.
+You now can send and receive WebSocket messages.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.sendMessage">
+<tt class="descname">sendMessage</tt><big>(</big><em>payload</em>, <em>isBinary=False</em>, <em>fragmentSize=None</em>, <em>sync=False</em>, <em>doNotCompress=False</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.sendMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a WebSocket message.</p>
+<p>You can send text or binary messages, and optionally specifiy a payload fragment size.
+When the latter is given, the payload will be split up into WebSocket frames each with
+payload length <cite>&lt;= fragmentSize</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>payload</strong> (<em>bytes</em>) &#8211; The message payload.</li>
+<li><strong>isBinary</strong> (<em>bool</em>) &#8211; <cite>True</cite> iff payload is binary, else the payload must be UTF-8 encoded text.</li>
+<li><strong>fragmentSize</strong> (<em>int</em>) &#8211; Fragment message into WebSocket fragments of this size.</li>
+<li><strong>sync</strong> (<em>bool</em>) &#8211; Iff <cite>True</cite>, try to force data onto the wire immediately. Note: do NOT use
+this normally unless you know what you are doing. Performance likely will
+suffer significantly. This feature is mainly here for use by Autobahn|Testsuite.</li>
+<li><strong>doNotCompress</strong> (<em>bool</em>) &#8211; Iff <cite>True</cite>, never compress this message. This only applies to
+Hybi-Mode and only when WebSocket compression has been negotiated on
+the WebSocket connection. Use when you know the payload 
+uncompressible (e.g. encrypted or already compressed).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.onMessage">
+<tt class="descname">onMessage</tt><big>(</big><em>payload</em>, <em>isBinary</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.onMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when a complete WebSocket message was received.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>payload</strong> (<em>bytes</em>) &#8211; Message payload (UTF-8 encoded text or binary). Can also be empty when
+the WebSocket message contained no payload.</li>
+<li><strong>isBinary</strong> (<em>bool</em>) &#8211; <cite>True</cite> iff payload is binary, else the payload is UTF-8 encoded text.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.sendClose">
+<tt class="descname">sendClose</tt><big>(</big><em>code=None</em>, <em>reason=None</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.sendClose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a WebSocket closing handshake tearing down the WebSocket connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>code</strong> (<em>int</em>) &#8211; An optional close status code (<cite>1000</cite> for normal close or <cite>3000-4999</cite> for
+application specific close).</li>
+<li><strong>reason</strong> (<em>str</em>) &#8211; An optional close reason (a string that when present, a status
+code MUST also be present).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.onClose">
+<tt class="descname">onClose</tt><big>(</big><em>wasClean</em>, <em>code</em>, <em>reason</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.onClose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when the WebSocket connection has been closed (WebSocket closing
+handshake has been finished or the connection was closed uncleanly).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wasClean</strong> (<em>bool</em>) &#8211; True, iff the WebSocket connection was closed cleanly.</li>
+<li><strong>code</strong> (<em>int</em>) &#8211; None or close status code (as sent by the WebSocket peer).</li>
+<li><strong>reason</strong> (<em>str</em>) &#8211; None or close reason (as sent by the WebSocket peer).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.sendPreparedMessage">
+<tt class="descname">sendPreparedMessage</tt><big>(</big><em>preparedMsg</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.sendPreparedMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message that was previously prepared with <a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketFactory.prepareMessage" title="autobahn.websocket.protocol.WebSocketFactory.prepareMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketFactory.prepareMessage()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prepareMessage</strong> (Instance of <a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.PreparedMessage" title="autobahn.websocket.protocol.PreparedMessage"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.PreparedMessage</span></tt></a>.) &#8211; A previsouly prepared message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.sendPing">
+<tt class="descname">sendPing</tt><big>(</big><em>payload=None</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.sendPing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a WebSocket ping to the peer.</p>
+<p>A peer is expected to pong back the payload a soon as &#8220;practical&#8221;. When more than
+one ping is outstanding at a peer, the peer may elect to respond only to the last ping.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>bytes</em>) &#8211; An (optional) arbitrary payload of length <cite>&lt;126</cite> octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.onPing">
+<tt class="descname">onPing</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.onPing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when a WebSocket ping was received. A default implementation responds
+by sending a WebSocket pong.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>bytes</em>) &#8211; Payload of ping (when there was any). Can be arbitrary, up to <cite>125</cite> octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.sendPong">
+<tt class="descname">sendPong</tt><big>(</big><em>payload=None</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.sendPong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a WebSocket pong to the peer.</p>
+<p>A WebSocket pong may be sent unsolicited. This serves as a unidirectional heartbeat.
+A response to an unsolicited pong is &#8220;not expected&#8221;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>bytes</em>) &#8211; An (optional) arbitrary payload of length &lt; 126 octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannel.onPong">
+<tt class="descname">onPong</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#IWebSocketChannel.onPong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when a WebSocket pong was received. A default implementation does nothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>bytes</em>) &#8211; Payload of pong (when there was any). Can be arbitrary, up to 125 octets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="advanced-websocket">
+<h2>Advanced WebSocket<a class="headerlink" href="#advanced-websocket" title="Permalink to this headline">¶</a></h2>
+<p>A WebSockets message consists of a potentially unlimited number of
+fragments (&#8220;message frames&#8221;), each of which can have a payload between <cite>0</cite>
+and <cite>2^63</cite> octets.</p>
+<p>The implementation of the basic API is message-based, and thus has to buffer
+all data received for a message frame, and buffer all frames received for
+a message, and only when the message finally ends, flattens all buffered
+data and fires <a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessage" title="autobahn.websocket.protocol.WebSocketProtocol.onMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessage()</span></tt></a>.</p>
+<p>Usually, when you produce/consume messages of small to limited size (like
+say <cite>&lt;256k</cite>), this is absolutely sufficient and convenient.</p>
+<p>However, when you want to process messages consisting of a large number
+of message fragments, or you want to process messages that contain message
+fragments of large size, this buffering will result in excessive memory
+consumption.</p>
+<p>In these cases, you might want to process message fragments on a per
+frame basis, or you may even want to process data incoming, as it arrives.</p>
+<p>The advanced API provides you all the necessary methods and callbacks to
+do WebSockets using frame-based processing or even completely streaming
+processing - both sending and receiving.</p>
+<div class="section" id="frame-based-api">
+<h3>Frame-based API<a class="headerlink" href="#frame-based-api" title="Permalink to this headline">¶</a></h3>
+<p>API for frame-based processing is implemented in:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrame" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrame"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageFrame()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.beginMessage" title="autobahn.websocket.protocol.WebSocketProtocol.beginMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.beginMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrame" title="autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrame"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrame()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.endMessage" title="autobahn.websocket.protocol.WebSocketProtocol.endMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.endMessage()</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>and has the following definition:</p>
+<dl class="interface">
+<dt id="autobahn.interfaces.IWebSocketChannelFrameApi">
+<em class="property">interface </em><tt class="descclassname">autobahn.interfaces.</tt><tt class="descname">IWebSocketChannelFrameApi</tt><a class="headerlink" href="#autobahn.interfaces.IWebSocketChannelFrameApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#autobahn.interfaces.IWebSocketChannel" title="autobahn.interfaces.IWebSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel</span></tt></a></p>
+<p>Frame-based API to a WebSocket channel.</p>
+<dl class="method">
+<dt id="IWebSocketChannelFrameApi.onMessageBegin">
+<tt class="descname">onMessageBegin</tt><big>(</big><em>isBinary</em><big>)</big><a class="headerlink" href="#IWebSocketChannelFrameApi.onMessageBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when receiving of a new WebSocket message has begun.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>isBinary</strong> (<em>bool</em>) &#8211; <cite>True</cite> iff payload is binary, else the payload is UTF-8 encoded text.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelFrameApi.onMessageFrame">
+<tt class="descname">onMessageFrame</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#IWebSocketChannelFrameApi.onMessageFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when a complete WebSocket message frame for a previously begun
+WebSocket message has been received.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>list of bytes</em>) &#8211; Message frame payload (a list of chunks received).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelFrameApi.onMessageEnd">
+<tt class="descname">onMessageEnd</tt><big>(</big><big>)</big><a class="headerlink" href="#IWebSocketChannelFrameApi.onMessageEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when a WebSocket message has been completely received (the last
+WebSocket frame for that message has been received).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelFrameApi.beginMessage">
+<tt class="descname">beginMessage</tt><big>(</big><em>isBinary=False</em>, <em>doNotCompress=False</em><big>)</big><a class="headerlink" href="#IWebSocketChannelFrameApi.beginMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin sending a new WebSocket message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>isBinary</strong> (<em>bool</em>) &#8211; <cite>True</cite> iff payload is binary, else the payload must be UTF-8 encoded text.</li>
+<li><strong>doNotCompress</strong> (<em>bool</em>) &#8211; Iff <cite>True</cite>, never compress this message. This only applies to
+Hybi-Mode and only when WebSocket compression has been negotiated on
+the WebSocket connection. Use when you know the payload 
+uncompressible (e.g. encrypted or already compressed).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelFrameApi.sendMessageFrame">
+<tt class="descname">sendMessageFrame</tt><big>(</big><em>payload</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#IWebSocketChannelFrameApi.sendMessageFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>When a message has been previously begun, send a complete message frame in one go.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>payload</strong> (<em>bytes</em>) &#8211; The message frame payload. When sending a text message, the payload must
+be UTF-8 encoded already.</li>
+<li><strong>sync</strong> (<em>bool</em>) &#8211; Iff <cite>True</cite>, try to force data onto the wire immediately. Note: do NOT use
+this normally unless you know what you are doing. Performance likely will
+suffer significantly. This feature is mainly here for use by Autobahn|Testsuite.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelFrameApi.endMessage">
+<tt class="descname">endMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#IWebSocketChannelFrameApi.endMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>End a message previously begun message. No more frames may be sent (for that message).
+You have to begin a new message before sending again.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="streaming-api">
+<h3>Streaming API<a class="headerlink" href="#streaming-api" title="Permalink to this headline">¶</a></h3>
+<p>API for streaming processing is implemented in:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameBegin" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameBegin"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameBegin()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameData" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameData"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameData()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameEnd" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameEnd"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameEnd()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd" title="autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.beginMessage" title="autobahn.websocket.protocol.WebSocketProtocol.beginMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.beginMessage()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.beginMessageFrame" title="autobahn.websocket.protocol.WebSocketProtocol.beginMessageFrame"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.beginMessageFrame()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrameData" title="autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrameData"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrameData()</span></tt></a></li>
+<li><a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketProtocol.endMessage" title="autobahn.websocket.protocol.WebSocketProtocol.endMessage"><tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketProtocol.endMessage()</span></tt></a></li>
+</ul>
+</div></blockquote>
+<p>and has the following definition:</p>
+<dl class="interface">
+<dt id="autobahn.interfaces.IWebSocketChannelStreamingApi">
+<em class="property">interface </em><tt class="descclassname">autobahn.interfaces.</tt><tt class="descname">IWebSocketChannelStreamingApi</tt><a class="headerlink" href="#autobahn.interfaces.IWebSocketChannelStreamingApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#autobahn.interfaces.IWebSocketChannelFrameApi" title="autobahn.interfaces.IWebSocketChannelFrameApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannelFrameApi</span></tt></a></p>
+<p>Streaming API to a WebSocket channel.</p>
+<dl class="method">
+<dt id="IWebSocketChannelStreamingApi.onMessageFrameBegin">
+<tt class="descname">onMessageFrameBegin</tt><big>(</big><em>length</em><big>)</big><a class="headerlink" href="#IWebSocketChannelStreamingApi.onMessageFrameBegin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when receiving a new message frame has begun.
+A default implementation will prepare to buffer message frame data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length</strong> (<em>int</em>) &#8211; Payload length of message frame which is subsequently received.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelStreamingApi.onMessageFrameData">
+<tt class="descname">onMessageFrameData</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#IWebSocketChannelStreamingApi.onMessageFrameData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when receiving data within a previously begun message frame.
+A default implementation will buffer data for frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<em>bytes</em>) &#8211; Partial payload for message frame.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelStreamingApi.onMessageFrameEnd">
+<tt class="descname">onMessageFrameEnd</tt><big>(</big><big>)</big><a class="headerlink" href="#IWebSocketChannelStreamingApi.onMessageFrameEnd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback fired when a previously begun message frame has been completely received.
+A default implementation will flatten the buffered frame data and
+fire <cite>onMessageFrame</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelStreamingApi.beginMessageFrame">
+<tt class="descname">beginMessageFrame</tt><big>(</big><em>length</em><big>)</big><a class="headerlink" href="#IWebSocketChannelStreamingApi.beginMessageFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin sending a new message frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length</strong> (<em>int</em>) &#8211; Length of the frame which is to be started. Must be <cite>&gt;= 0</cite> and <cite>&lt;= 2^63</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IWebSocketChannelStreamingApi.sendMessageFrameData">
+<tt class="descname">sendMessageFrameData</tt><big>(</big><em>payload</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#IWebSocketChannelStreamingApi.sendMessageFrameData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send out data when within a message frame (message was begun, frame was begun).
+Note that the frame is automatically ended when enough data has been sent.
+In other words, there is no <cite>endMessageFrame</cite>, since you have begun the frame
+specifying the frame length, which implicitly defined the frame end. This is different
+from messages, which you begin <em>and</em> end explicitly , since a message can contain
+an unlimited number of frames.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>payload</strong> (<em>bytes</em>) &#8211; Frame payload to send.</li>
+<li><strong>sync</strong> (<em>bool</em>) &#8211; Iff <cite>True</cite>, try to force data onto the wire immediately. Note: do NOT use
+this normally unless you know what you are doing. Performance likely will
+suffer significantly. This feature is mainly here for use by Autobahn|Testsuite.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">int &#8211; When the currently sent message frame is still incomplete,
+returns octets remaining to be sent. When the frame is complete,
+returns <cite>0</cite>, when <cite>&lt; 0</cite>, the amount of unconsumed data in payload
+argument.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="websocketbase.html" title="WebSocket"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="websockettoc.html" title="WebSocket"
+             >previous</a> |</li>
+        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+          <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2014 Tavendo GmbH.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
