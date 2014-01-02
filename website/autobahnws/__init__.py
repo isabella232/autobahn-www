@@ -61,6 +61,12 @@ def page_python_getstarted():
    session['subsitetab'] = 'getstarted'
    return render_template('python/page_tpnd_python_getstarted.html')
 
+@app.route('/python/reference/')
+def page_python_reference():
+   session['subsite'] = 'python'
+   session['subsitetab'] = 'reference'
+   return render_template('python/page_tpn_python_reference.html')
+
 @app.route('/python/tutorials/')
 def page_python_tutorials():
    session['subsite'] = 'python'
