@@ -13,7 +13,7 @@
       <a name="top"></a>
       <h1>Get started with {{ autobahnpython() }}</h1>
       <p>
-         This short intro will get you started with AutobahnPython in no time:
+         This short intro will get you started with {{ autobahnpython() }} in no time:
          <div style="margin-left: 40px;">
             <ul>
                <li><a href="#installation">Installation</a></li>
@@ -35,47 +35,45 @@
       <h2>Requirements</h2>
 
       <p>
-         A prerequisite for the {{ autobahnpython() }} <a href="http://pypi.python.org/pypi/autobahn" target="_blank">package</a> is obviously <a href="http://www.python.org/" target="_blank">Python</a>.
+         A prerequisite is (obviously) <a href="http://www.python.org/" target="_blank">Python</a>.
+         {{ autobahnpython() }} is compatible with Python 2 and Python 3, and runs on <a href="http://python.org/">CPython</a>, <a href="http://pypy.org/">PyPy</a> and <a href="http://jython.org/">Jython</a>.
       </p>
 
       <p>
-         The only dependency of {{ autobahnpython() }} is <a href="http://twistedmatrix.com" target="_blank">Twisted</a>.
+         Further, {{ autobahnpython() }} requires a networking library and currently supports:
+         <ul>
+            <li><a href="http://twistedmatrix.com/">Twisted</a> and</li>
+            <li><a href="http://docs.python.org/3.4/library/asyncio.html">asyncio</a></li>
+         </ul>
       </p>
 
-      <p class="hint">
-         {{ autobahnpython() }} is currently developed and tested using Python 2, so the recommendation is to use the latest
-         version of Python 2. Python 3 is currently neither supported by Twisted, nor Autobahn.
+      <p>
+         Asyncio comes bundled with CPython 3.4+ and can be installed from <a href="https://pypi.python.org/pypi/asyncio/0.2.1">here</a> on CPython 3.3.
       </p>
-      <p class="hint">
-         The package installation/update variants described here rely on the Python <a href="http://pypi.python.org/pypi/setuptools" target="_blank">Setuptools</a>,
-         which will automatically download and install Python packages and their dependencies.
+
+      <p>
+         Twisted runs best on Python 2 (support for Python 3 is not yet fully complete), but the bits necessary for WebSocket already work on Python 3. For Twisted installation, please follow the instructions on the <a href="http://twistedmatrix.com" target="_blank">Twisted website</a>.
       </p>
 
 
       <h2>Installing from Package</h2>
 
-      <p>To install {{ autobahnpython() }} from the Python Package Index (PyPi), you should be done with the following:</p>
+      <p>
+         To install the <a href="https://pypi.python.org/pypi/autobahn/">Autobahn|Python Package</a>
+         using <a href="http://pypi.python.org/pypi/setuptools" target="_blank">Setuptools</a>:
+      </p>
 
       {{ beginshell() }}
 easy_install autobahn
       {{ endshell() }}
 
-      <p>This will install the {{ autobahnpython() }} <a href="http://pypi.python.org/pypi/autobahn" target="_blank">package</a> and it's dependencies (Twisted).</p>
-
-      <p class="hint">
-         When you don't have Twisted installed, the above command might trigger a build-from-source for Twisted. When you
-         run into problems with that, you can install a Twisted binary package from the <a href="http://twistedmatrix.com" target="_blank">Twisted</a> website.
-      </p>
-
-      <p class="hint">
-         On Windows, when you do not have Twisted installed, a source build will be triggered. For this to succeed, you will need
-         to have Visual Studio 2008 installed (Express Edition is sufficient, but you need VS2008. VS2012 will NOT work).
-      </p>
-
 
       <h2>Updating from Package</h2>
 
-      <p>To update {{ autobahnpython() }} from the Python Package Index (PyPi), you should be done with the following:</p>
+      <p>
+         To update the <a href="https://pypi.python.org/pypi/autobahn/">Autobahn|Python Package</a>
+         using <a href="http://pypi.python.org/pypi/setuptools" target="_blank">Setuptools</a>:
+      </p>
 
       <div class="shell">
          <pre>
@@ -86,15 +84,15 @@ easy_install -U autobahn
 
       <h2>Installing from Source</h2>
 
-      <p>{{ autobahnpython() }} source code is available from the project's Git <a href="https://github.com/tavendo/AutobahnPython" target="_blank">repository</a> hosted on GitHub.</p>
-
-      <p>To install from sources, do the following:</p>
+      <p>
+         Source code is available from <a href="https://github.com/tavendo/AutobahnPython" target="_blank">Git repository</a>. To install from sources:
+      </p>
 
       <div class="shell">
          <pre>
 git clone git://github.com/tavendo/AutobahnPython.git
 cd AutobahnPython
-git checkout v0.5.2
+git checkout v0.7.0
 cd autobahn
 python setup.py install
          </pre>
@@ -114,16 +112,16 @@ python setup.py install
 
       <h2>Test the Installation</h2>
 
-      <p>To check whether installation was indeed successful, see if you can import the {{ autobahnpython() }} core module:</p>
+      <p>To check whether installation was indeed successful:</p>
 
       <div class="shell">
          <pre>
-C:\>python
-Python 2.7.2 (default, Jun 12 2011, 15:08:59) [MSC v.1500 32 bit (Intel)] on win32
+$ python
+Python 2.7.6 (default, Nov 10 2013, 19:24:18) [MSC v.1500 32 bit (Intel)] on win32
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import autobahn
->>> print autobahn.version
-0.5.2
+>>> autobahn.version
+'0.7.0'
          </pre>
       </div>
       <br>
@@ -134,47 +132,88 @@ Type "help", "copyright", "credits" or "license" for more information.
       <p>
          Lets fire up a simple WebSocket echo server and test it from a browser.
       </p>
+
       <p>
-         Put the following code into a <a href="{{ url_for('static', filename='file/myserver.py') }}">myserver.py</a> file:
+         If you are using <b>Asyncio</b>, put the following code into a <a href="{{ url_for('static', filename='file/myserver_asyncio.py') }}">myserver_asyncio.py</a> file:
       </p>
-
       <div class="codeex">
-         <pre class="brush: python; highlight: [13,14,15]; toolbar: false; auto-links: false;">
-         import sys
-
-         from twisted.internet import reactor
-         from twisted.python import log
-
-         from autobahn.websocket import WebSocketServerFactory, \
-                                        WebSocketServerProtocol, \
-                                        listenWS
+         <pre class="brush: python; highlight: [5,6,7,8]; toolbar: false; auto-links: false;">
+         from autobahn.asyncio.websocket import WebSocketServerProtocol, \
+                                                WebSocketServerFactory
 
 
-         class EchoServerProtocol(WebSocketServerProtocol):
+         class MyServerProtocol(WebSocketServerProtocol):
 
-            def onMessage(self, msg, binary):
-               print "sending echo:", msg
-               self.sendMessage(msg, binary)
+            def onMessage(self, payload, isBinary):
+               self.sendMessage(payload, isBinary)
 
 
          if __name__ == '__main__':
 
-            log.startLogging(sys.stdout)
+            import asyncio
 
             factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
-            factory.protocol = EchoServerProtocol
-            listenWS(factory)
+            factory.protocol = MyServerProtocol
 
-            reactor.run()
+            loop = asyncio.get_event_loop()
+            coro = loop.create_server(factory, '127.0.0.1', 9000)
+            server = loop.run_until_complete(coro)
+
+            try:
+               loop.run_forever()
+            except KeyboardInterrupt:
+               pass
+            finally:
+               server.close()
+               loop.close()
+         </pre>
+      </div>
+      <p>
+         and start your server by doing
+      </p>
+      <div class="shell">
+         <pre>
+python myserver_asyncio.py
          </pre>
       </div>
 
       <p>
-         Start your server by doing
+         If you are using <b>Twisted</b>, put the following code into a <a href="{{ url_for('static', filename='file/myserver_twisted.py') }}">myserver_twisted.py</a> file:
+      </p>
+      <div class="codeex">
+         <pre class="brush: python; highlight: [5,6,7,8]; toolbar: false; auto-links: false;">
+         from autobahn.twisted.websocket import WebSocketServerProtocol, \
+                                                WebSocketServerFactory
+
+
+         class MyServerProtocol(WebSocketServerProtocol):
+
+            def onMessage(self, payload, isBinary):
+               self.sendMessage(payload, isBinary)
+
+
+         if __name__ == '__main__':
+
+            import sys
+
+            from twisted.python import log
+            from twisted.internet import reactor
+
+            log.startLogging(sys.stdout)
+
+            factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
+            factory.protocol = MyServerProtocol
+
+            reactor.listenTCP(9000, factory)
+            reactor.run()
+         </pre>
+      </div>
+      <p>
+         and start your server by doing
       </p>
       <div class="shell">
          <pre>
-python myserver.py
+python myserver_twisted.py
          </pre>
       </div>
 
@@ -231,12 +270,12 @@ python myserver.py
 
       <p>
          To see logging output, open your browser debugging console
-         (i.e. with Chrome Firefox on Windows, press F12). Click the button to send
+         (e.g. with Chrome or Firefox on Windows, press F12). Click the button to send
          a message and watch the echo'ed messages in the console.
       </p>
 
       <p class="hint">
-         Use a current version of Chrome, Firefox or IE10. Support for other
+         Use a current version of Chrome, Firefox, Safari or IE10+. Support for older
          browsers is there, but things need to be prepared for that.
       </p>
       <br>

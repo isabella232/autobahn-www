@@ -10,113 +10,125 @@
    <div class="pagewrapper">
 
       <p>
-         {{autobahnpython()}} is an open-source networking library for <a href="http://www.python.org/" target="_blank">Python</a>/<a href="http://twistedmatrix.com/" target="_blank">Twisted</a> created by the <a href="/">Autobahn project</a> that implements
+         {{autobahnpython()}} is a subproject of <a href="/">Autobahn</a> and provides open-source implementations of
+
          <ul>
             <li><a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSocket Protocol</a> and</li>
             <li>{{ wamp(short = False) }}</li>
          </ul>
-         for creating WebSocket/WAMP servers and clients.
+
+         in <a href="http://www.python.org/" target="_blank">Python</a> running on <a href="http://twistedmatrix.com/" target="_blank">Twisted</a> and <a href="http://docs.python.org/3.4/library/asyncio.html" target="_blank">Asyncio</a>.
+
          <span style="float: right; margin-right: 2em;">
-            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/python" data-text="AutobahnPython: WebSocket and WAMP (RPC+PubSub over WebSocket) for Python/Twisted." data-count="none" data-hashtags="websocket,wamp,python,twisted">Tweet</a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/python" data-text="Autobahn|Python: WebSocket and WAMP for Python 2/3 on Twisted and Asyncio." data-count="none" data-hashtags="websocket,wamp,python,twisted,asyncio">Tweet</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
          </span>
       </p>
-      <br>
-
-      <b>Features</b>
-      <ul>
-         <li>supports WebSocket RFC6455, Draft Hybi-10+, Hixie-76 and WAMP v1</li>
-         <li><a href="http://twistedmatrix.com" target="_blank">Twisted</a>-based, runs on <a href="http://www.python.org">CPython</a>, <a href="http://pypy.org/">PyPy</a> and <a href="http://www.jython.org/">Jython</a></li>
-         <li>high-performance, fully asynchronous implementation</li>
-         <li>best-in-class standards conformance (100% strict passes with <a href="{{ url_for('page_testsuite') }}">Autobahn WebSocket Testsuite</a>)</li>
-         <li>message-, frame- and streaming-APIs</li>
-         <li><a href="http://twistedmatrix.com/documents/current/core/howto/defer.html">Deferred</a>-based API for asynchronous RPC and PubSub (WAMP)</li>
-         <li>supports TLS (secure WebSocket)</li>
-         <li>session authentication (WAMP-CRA)</li>
-         <li><a href="https://github.com/tavendo/AutobahnPython" target="_blank">Open-source</a> (Apache 2 license)</li>
-      </ul>
+      <p>
+         WebSocket allows <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">bidirectional real-time messaging on the Web</a> and WAMP adds <a href="http://wamp.ws/why/">asynchronous Remote Procedure Calls and Publish &amp; Subscribe</a> on top of WebSocket. 
+      </p>
+      <p>
+         You can use {{autobahnpython()}} to create clients and servers in Python speaking just plain WebSocket or WAMP:
+         <ul>
+            <li>framework for <a href="http://tools.ietf.org/html/rfc6455">WebSocket</a> / <a href="http://wamp.ws/">WAMP</a> clients and servers</li>
+            <li>compatible with Python 2.6, 2.7, 3.3 and 3.4</li>
+            <li>runs on <a href="http://python.org/">CPython</a>, <a href="http://pypy.org/">PyPy</a> and <a href="http://jython.org/">Jython</a></li>
+            <li>runs under <a href="http://twistedmatrix.com/">Twisted</a> and <a href="http://docs.python.org/3.4/library/asyncio.html">asyncio</a></li>
+            <li>implements WebSocket <a href="http://tools.ietf.org/html/rfc6455">RFC6455</a>, Draft Hybi-10+, Hixie-76</li>
+            <li>implements <a href="http://tools.ietf.org/html/draft-ietf-hybi-permessage-compression">WebSocket compression</a></li>
+            <li>implements <a href="http://wamp.ws/spec/">WAMPv1</a> and <a href="http://wamp.ws/spec/">WAMPv2</a> (<i>upcoming</i>)</li>
+            <li>high-performance, fully asynchronous implementation</li>
+            <li>best-in-class standards conformance (100% strict passes with {{autobahntestsuite(link = True)}})</li>
+            <li>message-, frame- and streaming-APIs for WebSocket</li>
+            <li>supports TLS (secure WebSocket) and proxies</li>
+            <li>Open-source <a href="https://github.com/tavendo/AutobahnPython/blob/master/LICENSE">Apache 2 license</a></li>
+         </ul>
+      </p>
       <br>
 
       <p>
-         You can use {{autobahnpython()}} to create clients and servers
-         speaking either plain WebSocket or WAMP. Here is a simple WebSocket echo server:
+         Here is a simple WebSocket server:
       </p>
-
       <div class="codeex">
          <h1>WebSocket Echo Server</h1>
-         <pre class="brush: python; toolbar: false; auto-links: false; gutter: false;">
-         from twisted.internet import reactor
-         from autobahn.websocket import WebSocketServerFactory, \
-                                        WebSocketServerProtocol, \
-                                        listenWS
+         <pre class="brush: python; highlight: [9, 16]; toolbar: false; auto-links: false; gutter: false;">
+            class MyServerProtocol(WebSocketServerProtocol):
 
-         class EchoServerProtocol(WebSocketServerProtocol):
+               def onConnect(self, request):
+                  print("Client connecting: {}".format(request.peer))
 
-            def onMessage(self, msg, binary):
-               self.sendMessage(msg, binary)
+               def onOpen(self):
+                  print("WebSocket connection open.")
 
-         if __name__ == '__main__':
-            factory = WebSocketServerFactory("ws://localhost:9000")
-            factory.protocol = EchoServerProtocol
-            listenWS(factory)
-            reactor.run()
+               def onMessage(self, payload, isBinary):
+                  if isBinary:
+                     print("Binary message received: {} bytes".format(len(payload)))
+                  else:
+                     print("Text message received: {}".format(payload.decode('utf8')))
+
+                  ## echo back message verbatim
+                  self.sendMessage(payload, isBinary)
+
+               def onClose(self, wasClean, code, reason):
+                  print("WebSocket connection closed: {}".format(reason))
          </pre>
          <note>
-            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_python_tutorials_echo') }}">Hello world: WebSocket Echo</a>
+            Code: &nbsp; 
+            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/websocket/echo/server.py">Twisted-based</a>
+            or
+            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/asyncio/websocket/echo/server.py">Asyncio-based</a>
+            &nbsp;&nbsp;
+            Tutorial: &nbsp; <a href="{{ url_for('page_python_tutorials_echo') }}">"Hello world: WebSocket Echo"</a>
          </note>
       </div>
       <br>
 
       <p>
-         {{wamp()}} allows to develop real-time enabled apps
-         based on asynchronous RPC and PubSub messaging patterns.
-         Here is a simple WAMP server providing a RPC endpoint and a PubSub topic:
+         Here is a simple WAMP server:
       </p>
-
       <div class="codeex">
-         <h1>WAMP RPC/PubSub Server</h1>
-         <pre class="brush: python; toolbar: false; auto-links: false; gutter: false;">
-         from twisted.internet import reactor
-         from autobahn.websocket import listenWS
-         from autobahn.wamp import WampServerFactory, \
-                                   WampServerProtocol, \
-                                   exportRpc
+         <h1>WAMP RPC Server</h1>
+         <pre class="brush: python; highlight: [3, 12]; toolbar: false; auto-links: false; gutter: false;">
+         class RpcServer1Protocol(WampServerProtocol):
 
-         class RpcServerProtocol(WampServerProtocol):
-
-            @exportRpc
-            def add(self, x, y):
+            @exportRpc("add")
+            def doAdd(self, x, y):
+               """
+               A method that can be called remotely.
+               """
                return x + y
 
             def onSessionOpen(self):
-               self.registerForRpc(self, "http://example.com/calc#")
-               self.registerForPubSub("http://example.com/calcevent#evt1")
+               ## WAMP session established: register RPC endpoints ..
+               self.registerForRpc(self, "http://example.com/simple/calc#")
 
-         if __name__ == '__main__':
-            factory = WampServerFactory("ws://localhost:9000")
-            factory.protocol = RpcServerProtocol
-            listenWS(factory)
-            reactor.run()
          </pre>
          <note>
-            Complete Tutorials: <br>
-            &nbsp; <a href="{{ url_for('page_python_tutorials_rpc') }}">Remote Procedure Calls with AutobahnPython</a>
-            &nbsp; <a href="{{ url_for('page_python_tutorials_pubsub') }}">Publish &amp; Subscribe with AutobahnPython</a>
+            Code: &nbsp; <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/wamp/rpc/simple/example1/server.py">Twisted-based</a>
+            &nbsp;&nbsp;
+            Tutorials: &nbsp;
+            <a href="{{ url_for('page_python_tutorials_rpc') }}">"Remote Procedure Calls"</a>
+            and <a href="{{ url_for('page_python_tutorials_pubsub') }}">"Publish &amp; Subscribe"</a>
          </note>
       </div>
+      <br>
 
       <p>
-         You can call registered procedures and do publish &amp; subscribe on
-         registered topics from any WAMP client such as browsers (via <a href="{{ url_for('page_js') }}">AutobahnJS</a>),
-         native Android apps (via <a href="{{ url_for('page_android') }}">AutobahnAndroid</a>) or
-         Python programs (via <a href="{{ url_for('page_python') }}">AutobahnPython</a>).
+         You can call procedures and do publish &amp; subscribe on
+         topics from any WAMP client such as
+         <ul>
+            <li>Browsers using <a href="{{ url_for('page_js') }}">AutobahnJS</a>,</li>
+            <li>native Android apps using <a href="{{ url_for('page_android') }}">AutobahnAndroid</a> or</li>
+            <li>Python programs using <a href="{{ url_for('page_python') }}">AutobahnPython</a></li>
+            <li>other clients using <a href="http://wamp.ws/implementations/">3rd-party WAMP implementations</a></li>
+         </ul>
       </p>
       <br>
 
       <p>
          If you like, <a href="{{ url_for('page_python_getstarted') }}">get started</a>,
          check out the <a href="{{ url_for('page_python_tutorials') }}">tutorials</a> and
-         - for complete information - the <a href="https://autobahnpython.readthedocs.org/" target="_blank">API reference</a>.
+         - for complete information - the <a href="{{ url_for('page_python_reference') }}" target="_blank">API reference</a>.
       </p>
 
    </div> <!-- pagewrapper -->

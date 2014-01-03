@@ -33,11 +33,17 @@
       <span style="font-weight: 600;">Autobahn</span>
    {%- endmacro %}
 
-   {% macro autobahntestsuite(colored = False) -%}
-      {% if colored %}
-         <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>Testsuite
-      {% else %}
-         <span style="font-weight: 600;">Autobahn</span>|Testsuite
+   {% macro autobahntestsuite(colored = False, link = False) -%}
+      {% if link %}
+      <a href="{{ url_for('page_testsuite') }}">
+      {% endif %}
+         {% if colored %}
+            <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>Testsuite
+         {% else %}
+            <span style="font-weight: 600;">Autobahn</span>|Testsuite
+         {% endif %}
+      {% if link %}
+      </a>
       {% endif %}
    {%- endmacro %}
 
@@ -82,7 +88,7 @@
          {% if short %}
             WAMP
          {% else %}
-            The WebSocket Application Messaging Protocol (WAMP)
+            The Web Application Messaging Protocol (WAMP)
          {% endif %}
       {% if link %}</a>{% endif %}
    {%- endmacro %}
