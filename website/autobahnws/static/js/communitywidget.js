@@ -55,13 +55,6 @@ window.addEventListener("blur", onInterActionDetected);
 var messageTarget = document.getElementById("communityWidget").contentWindow;
 function onInterActionDetected(evt) {
    // console.log("interaction detected", evt.type);
-   var actionType;
-   if(evt.type === "focus") {
-      actionType = "focus";
-   } else if (evt.type === "blur") {
-      actionType = "blur";
-   } else {
-      actionType = "action";
-   }
+   var actionType = evt.type;
    messageTarget.postMessage(actionType, "*");
 }
