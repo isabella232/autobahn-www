@@ -4,7 +4,7 @@
    right: 5px;
    background-color: #fff;
    z-index: 1000;
-   border-radius: 5px;
+   border-radius: 6px;
 }
 
 #communityWidget.nonDisplay {
@@ -17,5 +17,5 @@
 }
 #communityWidget.max {
    width: 170px;
-   height: 272px;
+   height: 288px;
 }

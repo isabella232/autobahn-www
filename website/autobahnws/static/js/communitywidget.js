@@ -33,3 +33,35 @@ if (showWidget) {
 
 }
 
+
+// detect user interacting with the page / tab
+// message this to the community widget iframe
+
+document.addEventListener("click", onInterActionDetected);
+document.addEventListener("keydown", onInterActionDetected);
+document.addEventListener("mousemove", onInterActionDetected);
+document.addEventListener("mousedown", onInterActionDetected);
+document.addEventListener("mouseup", onInterActionDetected);
+document.addEventListener("wheel", onInterActionDetected);
+
+// for touch devices
+document.addEventListener("touchstart", onInterActionDetected);
+document.addEventListener("touchend", onInterActionDetected);
+document.addEventListener("touchmove", onInterActionDetected);
+
+window.addEventListener("focus", onInterActionDetected);
+window.addEventListener("blur", onInterActionDetected);
+
+var messageTarget = document.getElementById("communityWidget").contentWindow;
+function onInterActionDetected(evt) {
+   // console.log("interaction detected", evt.type);
+   var actionType;
+   if(evt.type === "focus") {
+      actionType = "focus";
+   } else if (evt.type === "blur") {
+      actionType = "blur";
+   } else {
+      actionType = "action";
+   }
+   messageTarget.postMessage(actionType, "*");
+}
