@@ -84,24 +84,25 @@
       <br>
 
       <p>
-         Here is a simple WAMP server:
+         Here is a simple WAMP application component:
       </p>
       <div class="codeex">
-         <h1>WAMP RPC Server</h1>
-         <pre class="brush: python; highlight: [3, 12]; toolbar: false; auto-links: false; gutter: false;">
-         class RpcServer1Protocol(WampServerProtocol):
+         <h1>WAMP Time Service Component</h1>
+         <pre class="brush: python; highlight: [5, 14]; toolbar: false; auto-links: false; gutter: false;">
+         class TimeService(ApplicationSession):
 
-            @exportRpc("add")
-            def doAdd(self, x, y):
-               """
-               A method that can be called remotely.
-               """
-               return x + y
+            def onConnect(self):
+               ## attach WAMP session to realm
+               self.join("realm1")
 
-            def onSessionOpen(self):
-               ## WAMP session established: register RPC endpoints ..
-               self.registerForRpc(self, "http://example.com/simple/calc#")
+            def onJoin(self, details):
 
+               def utcnow():
+                  now = datetime.datetime.utcnow()
+                  return now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+               ## make function callable over WAMP
+               self.register(utcnow, 'com.timeservice.now')
          </pre>
          <note>
             Code: &nbsp; <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/wamp/rpc/simple/example1/server.py">Twisted-based</a>
@@ -127,7 +128,7 @@
 
       <p>
          If you like, <a href="{{ url_for('page_python_getstarted') }}">get started</a>,
-         check out the <a href="{{ url_for('page_python_tutorials') }}">tutorials</a> and
+         check out the <a href="{{ url_for('page_python_tutorials') }}">examples</a> and
          - for complete information - the <a href="{{ url_for('page_python_reference') }}" target="_blank">API reference</a>.
       </p>
 
