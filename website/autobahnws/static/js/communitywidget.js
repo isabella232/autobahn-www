@@ -3,7 +3,7 @@
 var showWidget = true;
 
 if (showWidget) {
-   console.log("loaded");
+   // console.log("loaded");
    var widget = document.getElementById("communityWidget"),
        parentUrl = window.location.host;
 

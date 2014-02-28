@@ -23,7 +23,7 @@ body
    font-size: 16px;
 
 
-/*   
+/*
    background-color: #e00;
    background: -webkit-linear-gradient(bottom, rgba(200,200,200,1.0), rgba(255,255,255, 1.0));
    background:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)) fixed, url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
@@ -41,17 +41,17 @@ background-image: -moz-linear-gradient(bottom left, #BFBFBF 0%, #FFFFFF 100%);
 background-image: -o-linear-gradient(bottom left, #BFBFBF 0%, #FFFFFF 100%);
 */
 
-/* Webkit (Safari/Chrome 10) */ 
+/* Webkit (Safari/Chrome 10) */
 /*
 background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #BFBFBF), color-stop(1, #FFFFFF));
 */
 
-/* Webkit (Chrome 11+) */ 
+/* Webkit (Chrome 11+) */
 background: -moz-linear-gradient(bottom right, #eee 0%, #FFFFFF 100%) fixed;
 background: -webkit-linear-gradient(bottom left, #eee 0%, #FFFFFF 100%) fixed;
 background: linear-gradient(to bottom left, #eee 0%, #FFFFFF 100%) fixed;
 
-/* W3C Markup, IE10 Release Preview */ 
+/* W3C Markup, IE10 Release Preview */
 /*
 background-image: linear-gradient(to top right, #BFBFBF 0%, #FFFFFF 100%);
 */
@@ -435,4 +435,12 @@ body
 #footer
 {
    overflow: visible;
+}
+
+
+.legacyNotice {
+    border: 1px solid #D35400;
+
+    padding: 1em;
+    background-color: #FF9147;
 }

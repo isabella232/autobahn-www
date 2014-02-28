@@ -9,12 +9,18 @@
 
    <div class="pagewrapper">
 
-<!--
-      <p>
-         {{ autobahnandroid() }} implements <a href="http://tools.ietf.org/html/rfc6455" target="_blank">The WebSockets Protocol</a>
-         and {{ wamp(short = False) }}
-      </p>
--->
+      <div class="legacyNotice">
+         <p>
+            {{autobahnandroid()}} implements <strong>version 1 of WAMP</strong>.
+         </p>
+         <p>
+            This is <strong>incompatible with version 2 of WAMP</strong> which is already implemented in {{autobahnpython()}} as well as {{autobahnjs()}}
+         </p>
+         <p>
+            Migration of {{autobahnandroid()}} to WAMP v2 is coming, but we cannot guarantee a release date.
+         </p>
+      </div>
+
 
       <p>
          {{autobahnandroid()}} is an open-source networking library for Java/<a href="http://developer.android.com/" target="_blank">Android</a> created by the <a href="/">Autobahn project</a> that implements

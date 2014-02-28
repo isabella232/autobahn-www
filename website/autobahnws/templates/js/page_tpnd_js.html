@@ -12,9 +12,9 @@
       <p>
          {{autobahnjs()}} is an open-source JavaScript networking library created by the <a href="/">Autobahn project</a> that implements
          <ul>
-            <li>{{ wamp(short = False) }}</li>
+            <li>{{ wamp(short = False) }} version 2</li>
          </ul>
-         for creating real-time clients that do asynchronous RPC and PubSub over WebSocket.
+         for creating real-time clients (browsers) and servers (Node.js) that do asynchronous RPC and PubSub over WebSocket.
          <span style="float: right; margin-right: 2em;">
             <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/js" data-text="AutobahnJS: WAMP (RPC+PubSub over WebSocket) for JavaScript." data-count="none" data-hashtags="websocket,wamp,javascript">Tweet</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -24,21 +24,21 @@
 
       <b>Features</b>
       <ul>
-         <li>supports WAMP v1, works with any <a href="http://wamp.ws/implementations">WAMP server</a>
+         <li>supports WAMP v2, works with any <a href="http://wamp.ws/implementations">WAMP server</a></li>
+         <li>works both in the browser and Node.js</li>
          <li>provides asynchronous RPC and PubSub messaging patterns</li>
          <li>easy to use Promise-based API</li>
          <li>pluggable promises/deferreds: use <a href="https://github.com/cujojs/when">when.js</a> (built-in), <a href="http://api.jquery.com/category/deferred-object/">jQuery</a>, <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/Deferred.html">Dojo</a> or others</li>
-         <li>flexible, automatic reconnect</li>
-         <li>session authentication (WAMP-CRA)</li>
+         <!-- <li>flexible, automatic reconnect</li> -->
+         <!-- <li>session authentication (WAMP-CRA)</li> -->
          <li>no dependencies</li>
-         <li>tiny size (65kB source, 24kB minified, 7kB compressed)</li>
+         <li>small size (134kB source, 74kB minified, 23kB compressed)</li>
          <li><a href="https://github.com/tavendo/AutobahnJS" target="_blank">Open-Source</a> (MIT License)</li>
       </ul>
       <br>
 
       <p>
-         {{autobahnjs()}} allows to develop real-time enabled Web/HTML5 apps based on asynchronous
-         RPC and PubSub messaging patterns.
+         {{autobahnjs()}} allows to develop real-time enabled Web/HTML5 apps based on asynchronous RPC and PubSub messaging patterns.
       </p>
 
       <p style="width: 90%; margin: 2em auto 2em auto; color: #0273a0; font-style: italic;">
@@ -52,45 +52,82 @@
       </p>
 
       <div class="codeex">
-         <h1>AutobahnJS RPC Client</h1>
+         <h1>AutobahnJS RPC Frontend</h1>
          <pre class="brush: javascript; highlight: []; toolbar: false; auto-links: false; gutter: false;">
-            window.onload = function() {
 
-               // WAMP server
-               var wsuri = "ws://localhost:9000";
+            // Set up WAMP connection to router
+            var connection = new autobahn.Connection({
+               url: 'ws://127.0.0.1:9000/',
+               realm: 'realm1'}
+            );
 
-               ab.connect(wsuri,
+            // Set up 'onopen' handler
+            connection.onopen = function (session) {
 
-                  // WAMP session was established
-                  function (session) {
-
-                     // asynchronous RPC, returns promise object
-                     session.call("http://example.com/simple/calc#add",
-                                  23, 7).then(
-
-                        // RPC success callback
-                        function (res) {
-                           console.log("got result: " + res);
-                        },
-
-                        // RPC error callback
-                        function (error, desc) {
-                           console.log("error: " + desc);
-                        }
-                     );
+               // asynchronous RPC, returns promise object
+               session.call('com.timeservice.now').then(
+                  // RPC success callback
+                  function (now) {
+                     console.log("Current time:", now);
                   },
-
-                  // WAMP session is gone
-                  function (code, reason) {
-                     console.log(reason);
+                  // RPC error callback
+                  function (error) {
+                     console.log("Call failed:", error);
                   }
                );
             };
+
+            // Open connection
+            connection.open();
+
          </pre>
-         <note>
+         <!-- <note>
             Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
-         </note>
+         </note> -->
       </div>
+      <div class="codeex">
+         <h1>AutobahnJS RPC Backend</h1>
+         <pre class="brush: javascript; highlight: []; toolbar: false; auto-links: false; gutter: false;">
+
+            // Set up WAMP connection to router
+            var connection = new autobahn.Connection({
+               url: 'ws://127.0.0.1:9000/',
+               realm: 'realm1'}
+            );
+
+            // Set up 'onopen' handler
+            connection.onopen = function (session) {
+
+               // Define the remote procedure
+               function utcnow() {
+                  console.log("Someone is calling me;)");
+                  now = new Date();
+                  return now.toISOString();
+               }
+
+               // Register the remote procedure with the router
+               session.register('com.timeservice.now', utcnow).then(
+                  function (registration) {
+                     console.log("Procedure registered:", registration.id);
+                  },
+                  function (error) {
+                     console.log("Registration failed:", error);
+                  }
+               );
+            };
+
+            // Open connection
+            connection.open();
+
+         </pre>
+         <!-- <note>
+            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
+         </note> -->
+      </div>
+      <p>
+         Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
+      </p>
+
       <br>
 
       <p>
@@ -98,43 +135,60 @@
       </p>
 
       <div class="codeex">
-         <h1>AutobahnJS PubSub Client</h1>
+         <h1>AutobahnJS PubSub Publisher</h1>
          <pre class="brush: javascript; highlight: []; toolbar: false; auto-links: false; gutter: false;">
-            window.onload = function() {
 
-               // WAMP server
-               var wsuri = "ws://localhost:9000";
+            // Set up WAMP connection to router
+            var connection = new autobahn.Connection({
+               url: 'ws://127.0.0.1:9000/',
+               realm: 'realm1'}
+            );
 
-               ab.connect(wsuri,
+            // Set up 'onopen' handler
+            connection.onopen = function (session) {
 
-                  // WAMP session was established
-                  function (session) {
-
-                     // subscribe to topic
-                     session.subscribe("http://example.com/event#myevent1",
-
-                        // on event publication callback
-                        function (topic, event) {
-                           console.log("got event1: " + event);
-                     });
-
-                     // publish event on a topic
-                     session.publish("http://example.com/event#myevent1",
-                                     {a: 23, b: "foobar"});
-                  },
-
-                  // WAMP session is gone
-                  function (code, reason) {
-                     console.log(reason);
-                  }
-               );
+               // Publish event
+               session.publish('com.myapp.topic1', 'foobar');
             };
+
+            // Open connection
+            connection.open();
+
          </pre>
-         <note>
-            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_pubsub') }}">Publish &amp; Subscribe with AutobahnJS</a>
-         </note>
+         <!-- <note>
+            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
+         </note> -->
       </div>
-      <br>
+      <div class="codeex">
+         <h1>AutobahnJS PubSub Subscriber</h1>
+         <pre class="brush: javascript; highlight: []; toolbar: false; auto-links: false; gutter: false;">
+
+            // Set up WAMP connection to router
+            var connection = new autobahn.Connection({
+               url: 'ws://127.0.0.1:9000/',
+               realm: 'realm1'}
+            );
+
+            // Set up 'onopen' handler
+            connection.onopen = function (session) {
+
+               // Define an event handler
+               function onEvent(args) {
+                  console.log("Event received ", args);
+               }
+
+               // Subscribe to a topic
+               session.subscribe('com.myapp.topci1', onEvent);
+            };
+
+            // Open connection
+            connection.open();
+
+         </pre>
+         <!-- <note>
+            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
+         </note> -->
+      </div>
 
       <p>
          If you like, <a href="{{ url_for('page_js_getstarted') }}">get started</a>, check out the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a> and
