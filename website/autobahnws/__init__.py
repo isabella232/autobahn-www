@@ -67,8 +67,14 @@ def page_python_reference():
    session['subsitetab'] = 'reference'
    return render_template('python/page_tpn_python_reference.html')
 
-@app.route('/python/tutorials/')
+@app.route('/python/examples/')
 def page_python_tutorials():
+   session['subsite'] = 'python'
+   session['subsitetab'] = 'tutorials'
+   return render_template('python/page_tpn_python_examples.html')
+
+@app.route('/python/tutorials/')
+def page_python_tutorials_old():
    session['subsite'] = 'python'
    session['subsitetab'] = 'tutorials'
    return render_template('python/page_tpn_python_tutorials.html')

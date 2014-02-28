@@ -42,8 +42,8 @@
                   <a href="{{ url_for('page_python_getstarted') }}" {% if session['subsitetab'] == 'getstarted' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Get Started
                   </a>
-                  <a href="{{ url_for('page_python_tutorials') }}" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
-                     Tutorials
+                  <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     Examples
                   </a>
                   <a href="{{ url_for('page_python_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Reference

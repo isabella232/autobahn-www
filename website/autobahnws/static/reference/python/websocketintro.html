@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; Autobahn|Python 0.7.0 documentation</title>
+    <title>Introduction &mdash; Autobahn|Python 0.8.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.0',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
     <link rel="up" title="WebSocket" href="websockettoc.html" />
     <link rel="next" title="WebSocket" href="websocketbase.html" />
     <link rel="prev" title="WebSocket" href="websockettoc.html" /> 
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="websockettoc.html" title="WebSocket"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
       </ul>
     </div>
@@ -156,8 +156,8 @@
 <h3>Interface Definition<a class="headerlink" href="#interface-definition" title="Permalink to this headline">¶</a></h3>
 <p>The basic API has the following interface definition:</p>
 <dl class="interface">
-<dt id="autobahn.interfaces.IWebSocketChannel">
-<em class="property">interface </em><tt class="descclassname">autobahn.interfaces.</tt><tt class="descname">IWebSocketChannel</tt><a class="headerlink" href="#autobahn.interfaces.IWebSocketChannel" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.websocket.interfaces.IWebSocketChannel">
+<em class="property">interface </em><tt class="descclassname">autobahn.websocket.interfaces.</tt><tt class="descname">IWebSocketChannel</tt><a class="headerlink" href="#autobahn.websocket.interfaces.IWebSocketChannel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A WebSocket channel is a bidirectional, full-duplex, ordered, reliable message channel
 over a WebSocket connection as specified in RFC6455.</p>
 <p>This interface defines a message-based API to WebSocket plus auxiliary hooks
@@ -388,9 +388,9 @@ processing - both sending and receiving.</p>
 </div></blockquote>
 <p>and has the following definition:</p>
 <dl class="interface">
-<dt id="autobahn.interfaces.IWebSocketChannelFrameApi">
-<em class="property">interface </em><tt class="descclassname">autobahn.interfaces.</tt><tt class="descname">IWebSocketChannelFrameApi</tt><a class="headerlink" href="#autobahn.interfaces.IWebSocketChannelFrameApi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extends: <a class="reference internal" href="#autobahn.interfaces.IWebSocketChannel" title="autobahn.interfaces.IWebSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel</span></tt></a></p>
+<dt id="autobahn.websocket.interfaces.IWebSocketChannelFrameApi">
+<em class="property">interface </em><tt class="descclassname">autobahn.websocket.interfaces.</tt><tt class="descname">IWebSocketChannelFrameApi</tt><a class="headerlink" href="#autobahn.websocket.interfaces.IWebSocketChannelFrameApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#autobahn.websocket.interfaces.IWebSocketChannel" title="autobahn.websocket.interfaces.IWebSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel</span></tt></a></p>
 <p>Frame-based API to a WebSocket channel.</p>
 <dl class="method">
 <dt id="IWebSocketChannelFrameApi.onMessageBegin">
@@ -498,9 +498,9 @@ You have to begin a new message before sending again.</p>
 </div></blockquote>
 <p>and has the following definition:</p>
 <dl class="interface">
-<dt id="autobahn.interfaces.IWebSocketChannelStreamingApi">
-<em class="property">interface </em><tt class="descclassname">autobahn.interfaces.</tt><tt class="descname">IWebSocketChannelStreamingApi</tt><a class="headerlink" href="#autobahn.interfaces.IWebSocketChannelStreamingApi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extends: <a class="reference internal" href="#autobahn.interfaces.IWebSocketChannelFrameApi" title="autobahn.interfaces.IWebSocketChannelFrameApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannelFrameApi</span></tt></a></p>
+<dt id="autobahn.websocket.interfaces.IWebSocketChannelStreamingApi">
+<em class="property">interface </em><tt class="descclassname">autobahn.websocket.interfaces.</tt><tt class="descname">IWebSocketChannelStreamingApi</tt><a class="headerlink" href="#autobahn.websocket.interfaces.IWebSocketChannelStreamingApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#autobahn.websocket.interfaces.IWebSocketChannelFrameApi" title="autobahn.websocket.interfaces.IWebSocketChannelFrameApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannelFrameApi</span></tt></a></p>
 <p>Streaming API to a WebSocket channel.</p>
 <dl class="method">
 <dt id="IWebSocketChannelStreamingApi.onMessageFrameBegin">
@@ -609,13 +609,13 @@ argument.</p>
         <li class="right" >
           <a href="websockettoc.html" title="WebSocket"
              >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>

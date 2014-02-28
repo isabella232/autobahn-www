@@ -36,7 +36,7 @@
             <li>runs under <a href="http://twistedmatrix.com/">Twisted</a> and <a href="http://docs.python.org/3.4/library/asyncio.html">asyncio</a></li>
             <li>implements WebSocket <a href="http://tools.ietf.org/html/rfc6455">RFC6455</a>, Draft Hybi-10+, Hixie-76</li>
             <li>implements <a href="http://tools.ietf.org/html/draft-ietf-hybi-permessage-compression">WebSocket compression</a></li>
-            <li>implements <a href="http://wamp.ws/spec/">WAMPv1</a> and <a href="http://wamp.ws/spec/">WAMPv2</a> (<i>upcoming</i>)</li>
+            <li>implements <a href="http://wamp.ws/">WAMP</a> versions 1 and 2</li>
             <li>high-performance, fully asynchronous implementation</li>
             <li>best-in-class standards conformance (100% strict passes with {{autobahntestsuite(link = True)}})</li>
             <li>message-, frame- and streaming-APIs for WebSocket</li>
@@ -51,7 +51,7 @@
       </p>
       <div class="codeex">
          <h1>WebSocket Echo Server</h1>
-         <pre class="brush: python; highlight: [9, 16]; toolbar: false; auto-links: false; gutter: false;">
+         <pre class="brush: python; highlight: [1, 9, 16]; toolbar: false; auto-links: false; gutter: false;">
             class MyServerProtocol(WebSocketServerProtocol):
 
                def onConnect(self, request):
@@ -73,42 +73,38 @@
                   print("WebSocket connection closed: {}".format(reason))
          </pre>
          <note>
-            Code: &nbsp; 
-            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/websocket/echo/server.py">Twisted-based</a>
+            Complete Example: &nbsp; 
+            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/websocket/echo/">Twisted-based</a>
             or
-            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/asyncio/websocket/echo/server.py">Asyncio-based</a>
-            &nbsp;&nbsp;
-            Tutorial: &nbsp; <a href="{{ url_for('page_python_tutorials_echo') }}">"Hello world: WebSocket Echo"</a>
+            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/asyncio/websocket/echo/">Asyncio-based</a>
          </note>
       </div>
       <br>
 
       <p>
-         Here is a simple WAMP server:
+         Here is a simple WAMP application component:
       </p>
       <div class="codeex">
-         <h1>WAMP RPC Server</h1>
-         <pre class="brush: python; highlight: [3, 12]; toolbar: false; auto-links: false; gutter: false;">
-         class RpcServer1Protocol(WampServerProtocol):
+         <h1>WAMP Time Service Component</h1>
+         <pre class="brush: python; highlight: [1, 5, 14]; toolbar: false; auto-links: false; gutter: false;">
+         class TimeService(ApplicationSession):
 
-            @exportRpc("add")
-            def doAdd(self, x, y):
-               """
-               A method that can be called remotely.
-               """
-               return x + y
+            def onConnect(self):
+               ## attach WAMP session to realm
+               self.join("realm1")
 
-            def onSessionOpen(self):
-               ## WAMP session established: register RPC endpoints ..
-               self.registerForRpc(self, "http://example.com/simple/calc#")
+            def onJoin(self, details):
 
+               def utcnow():
+                  now = datetime.datetime.utcnow()
+                  return now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+               ## make function callable over WAMP
+               self.register(utcnow, 'com.timeservice.now')
          </pre>
          <note>
-            Code: &nbsp; <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/wamp/rpc/simple/example1/server.py">Twisted-based</a>
-            &nbsp;&nbsp;
-            Tutorials: &nbsp;
-            <a href="{{ url_for('page_python_tutorials_rpc') }}">"Remote Procedure Calls"</a>
-            and <a href="{{ url_for('page_python_tutorials_pubsub') }}">"Publish &amp; Subscribe"</a>
+            Complete Examples: &nbsp; 
+            <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/twisted/wamp/basic/">Twisted-based</a>
          </note>
       </div>
       <br>
@@ -127,7 +123,7 @@
 
       <p>
          If you like, <a href="{{ url_for('page_python_getstarted') }}">get started</a>,
-         check out the <a href="{{ url_for('page_python_tutorials') }}">tutorials</a> and
+         check out the <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples">examples</a> and
          - for complete information - the <a href="{{ url_for('page_python_reference') }}" target="_blank">API reference</a>.
       </p>
 

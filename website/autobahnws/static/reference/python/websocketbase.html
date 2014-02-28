@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>WebSocket &mdash; Autobahn|Python 0.7.0 documentation</title>
+    <title>WebSocket &mdash; Autobahn|Python 0.8.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.0',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
     <link rel="up" title="WebSocket" href="websockettoc.html" />
     <link rel="next" title="WebSocket Clients" href="websocketclient.html" />
     <link rel="prev" title="Introduction" href="websocketintro.html" /> 
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="websocketintro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
       </ul>
     </div>
@@ -123,9 +123,9 @@
 <p>This class implements:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="websocketintro.html#autobahn.interfaces.IWebSocketChannel" title="autobahn.interfaces.IWebSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel</span></tt></a></li>
-<li><a class="reference internal" href="websocketintro.html#autobahn.interfaces.IWebSocketChannelFrameApi" title="autobahn.interfaces.IWebSocketChannelFrameApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannelFrameApi</span></tt></a></li>
-<li><a class="reference internal" href="websocketintro.html#autobahn.interfaces.IWebSocketChannelStreamingApi" title="autobahn.interfaces.IWebSocketChannelStreamingApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannelStreamingApi</span></tt></a></li>
+<li><a class="reference internal" href="websocketintro.html#autobahn.websocket.interfaces.IWebSocketChannel" title="autobahn.websocket.interfaces.IWebSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel</span></tt></a></li>
+<li><a class="reference internal" href="websocketintro.html#autobahn.websocket.interfaces.IWebSocketChannelFrameApi" title="autobahn.websocket.interfaces.IWebSocketChannelFrameApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannelFrameApi</span></tt></a></li>
+<li><a class="reference internal" href="websocketintro.html#autobahn.websocket.interfaces.IWebSocketChannelStreamingApi" title="autobahn.websocket.interfaces.IWebSocketChannelStreamingApi"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannelStreamingApi</span></tt></a></li>
 </ul>
 </div></blockquote>
 <dl class="attribute">
@@ -238,127 +238,127 @@ done by using setProtocolOptions() on the factories for clients and servers.</p>
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onOpen">
 <tt class="descname">onOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onOpen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onOpen()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onOpen()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin">
 <tt class="descname">onMessageBegin</tt><big>(</big><em>isBinary</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessageBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessageBegin()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessageBegin()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameBegin">
 <tt class="descname">onMessageFrameBegin</tt><big>(</big><em>length</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameBegin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessageFrameBegin()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessageFrameBegin()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameData">
 <tt class="descname">onMessageFrameData</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessageFrameData()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessageFrameData()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameEnd">
 <tt class="descname">onMessageFrameEnd</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrameEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessageFrameEnd()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessageFrameEnd()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessageFrame">
 <tt class="descname">onMessageFrame</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessageFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessageFrame()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessageFrame()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd">
 <tt class="descname">onMessageEnd</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessageEnd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessageEnd()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessageEnd()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onMessage">
 <tt class="descname">onMessage</tt><big>(</big><em>payload</em>, <em>isBinary</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onMessage()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onMessage()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onPing">
 <tt class="descname">onPing</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onPing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onPing()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onPing()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onPong">
 <tt class="descname">onPong</tt><big>(</big><em>payload</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onPong" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onPong()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onPong()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.onClose">
 <tt class="descname">onClose</tt><big>(</big><em>wasClean</em>, <em>code</em>, <em>reason</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.onClose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.onClose()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.onClose()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendPreparedMessage">
 <tt class="descname">sendPreparedMessage</tt><big>(</big><em>preparedMsg</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendPreparedMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendPreparedMessage()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendPreparedMessage()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendPing">
 <tt class="descname">sendPing</tt><big>(</big><em>payload=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendPing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendPing()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendPing()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendPong">
 <tt class="descname">sendPong</tt><big>(</big><em>payload=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendPong" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendPong()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendPong()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendClose">
 <tt class="descname">sendClose</tt><big>(</big><em>code=None</em>, <em>reason=None</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendClose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendClose()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendClose()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.beginMessage">
 <tt class="descname">beginMessage</tt><big>(</big><em>isBinary=False</em>, <em>doNotCompress=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.beginMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.beginMessage()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.beginMessage()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.beginMessageFrame">
 <tt class="descname">beginMessageFrame</tt><big>(</big><em>length</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.beginMessageFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.beginMessageFrame()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.beginMessageFrame()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrameData">
 <tt class="descname">sendMessageFrameData</tt><big>(</big><em>payload</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrameData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendMessageFrameData()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendMessageFrameData()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.endMessage">
 <tt class="descname">endMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.endMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.endMessage()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.endMessage()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrame">
 <tt class="descname">sendMessageFrame</tt><big>(</big><em>payload</em>, <em>sync=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendMessageFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendMessageFrame()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendMessageFrame()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketProtocol.sendMessage">
 <tt class="descname">sendMessage</tt><big>(</big><em>payload</em>, <em>isBinary=False</em>, <em>fragmentSize=None</em>, <em>sync=False</em>, <em>doNotCompress=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketProtocol.sendMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.interfaces.IWebSocketChannel.sendMessage()</span></tt></p>
+<dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.websocket.interfaces.IWebSocketChannel.sendMessage()</span></tt></p>
 </dd></dl>
 
 </dd></dl>
@@ -396,7 +396,7 @@ uncompressible (e.g. encrypted or already compressed).</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">obj &#8211; An instance of <a class="reference internal" href="#autobahn.websocket.protocol.PreparedMessage" title="autobahn.websocket.protocol.PreparedMessage"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.PreparedMessage</span></tt></a>,</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">obj &#8211; An instance of <a class="reference internal" href="#autobahn.websocket.protocol.PreparedMessage" title="autobahn.websocket.protocol.PreparedMessage"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.PreparedMessage</span></tt></a>.</p>
 </td>
 </tr>
 </tbody>
@@ -457,13 +457,13 @@ uncompressible (e.g. encrypted or already compressed).</li>
         <li class="right" >
           <a href="websocketintro.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>
