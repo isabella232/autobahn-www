@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Client &mdash; Autobahn|Python 0.7.0 documentation</title>
+    <title>Client &mdash; Autobahn|Python 0.8.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.0',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,10 +23,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
-    <link rel="up" title="WAMP" href="wamptoc.html" />
-    <link rel="next" title="Server" href="wampserver.html" />
-    <link rel="prev" title="Base" href="wampbase.html" /> 
+    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
+    <link rel="up" title="WAMP v1" href="wamp1toc.html" />
+    <link rel="next" title="Server" href="wamp1server.html" />
+    <link rel="prev" title="Base" href="wamp1base.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,13 +36,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="wampserver.html" title="Server"
+          <a href="wamp1server.html" title="Server"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="wampbase.html" title="Base"
+          <a href="wamp1base.html" title="Base"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
-          <li><a href="wamptoc.html" accesskey="U">WAMP</a> &raquo;</li> 
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
+          <li><a href="wamp1toc.html" accesskey="U">WAMP v1</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -57,14 +57,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="wampbase.html"
+  <p class="topless"><a href="wamp1base.html"
                         title="previous chapter">Base</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="wampserver.html"
+  <p class="topless"><a href="wamp1server.html"
                         title="next chapter">Server</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/wampclient.txt"
+    <li><a href="_sources/wamp1client.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -90,25 +90,25 @@
             
   <div class="section" id="client">
 <h1>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h1>
-<p>The classes <a class="reference internal" href="#autobahn.wamp.WampClientProtocol" title="autobahn.wamp.WampClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampClientProtocol</span></tt></a> and
-<a class="reference internal" href="#autobahn.wamp.WampClientFactory" title="autobahn.wamp.WampClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.WampClientFactory</span></tt></a> are the base classes
-you derive from to implement WAMP clients.</p>
+<p>The classes <a class="reference internal" href="#autobahn.wamp1.protocol.WampClientProtocol" title="autobahn.wamp1.protocol.WampClientProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp1.protocol.WampClientProtocol</span></tt></a> and
+<a class="reference internal" href="#autobahn.wamp1.protocol.WampClientFactory" title="autobahn.wamp1.protocol.WampClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp1.protocol.WampClientFactory</span></tt></a> are the base classes
+you derive from to implement WAMP v1 clients.</p>
 <div class="section" id="factory">
 <h2>Factory<a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="autobahn.wamp.WampClientFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampClientFactory</tt><big>(</big><em>url</em>, <em>debug=False</em>, <em>debugCodePaths=False</em>, <em>debugWamp=False</em>, <em>debugApp=False</em>, <em>reactor=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientFactory" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientFactory">
+<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampClientFactory</tt><big>(</big><em>url</em>, <em>debug=False</em>, <em>debugCodePaths=False</em>, <em>debugWamp=False</em>, <em>debugApp=False</em>, <em>reactor=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Twisted client factory for WAMP.</p>
 <dl class="method">
-<dt id="autobahn.wamp.WampClientFactory.startFactory">
-<tt class="descname">startFactory</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientFactory.startFactory" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientFactory.startFactory">
+<tt class="descname">startFactory</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientFactory.startFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called by Twisted when the factory starts up. When overriding, make
 sure to call the base method.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="autobahn.wamp.WampClientFactory.stopFactory">
-<tt class="descname">stopFactory</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientFactory.stopFactory" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientFactory.stopFactory">
+<tt class="descname">stopFactory</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientFactory.stopFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called by Twisted when the factory shuts down. When overriding, make
 sure to call the base method.</p>
 </dd></dl>
@@ -119,19 +119,19 @@ sure to call the base method.</p>
 <div class="section" id="protocol">
 <h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="autobahn.wamp.WampClientProtocol">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampClientProtocol</tt><a class="headerlink" href="#autobahn.wamp.WampClientProtocol" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampClientProtocol</tt><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Twisted client protocol for WAMP.</p>
 <dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.onSessionOpen">
-<tt class="descname">onSessionOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.onSessionOpen" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol.onSessionOpen">
+<tt class="descname">onSessionOpen</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol.onSessionOpen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback fired when WAMP session was fully established. Override
 in derived class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.prefix">
-<tt class="descname">prefix</tt><big>(</big><em>prefix</em>, <em>uri</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.prefix" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol.prefix">
+<tt class="descname">prefix</tt><big>(</big><em>prefix</em>, <em>uri</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol.prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Establishes a prefix to be used in <a class="reference external" href="http://en.wikipedia.org/wiki/CURIE">CURIEs</a>
 instead of URIs having that prefix for both client-to-server and
 server-to-client messages.</p>
@@ -150,8 +150,8 @@ server-to-client messages.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.publish">
-<tt class="descname">publish</tt><big>(</big><em>topicUri</em>, <em>event</em>, <em>excludeMe=None</em>, <em>exclude=None</em>, <em>eligible=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.publish" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol.publish">
+<tt class="descname">publish</tt><big>(</big><em>topicUri</em>, <em>event</em>, <em>excludeMe=None</em>, <em>exclude=None</em>, <em>eligible=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol.publish" title="Permalink to this definition">¶</a></dt>
 <dd><p>Publish an event under a topic URI. The latter may be abbreviated using a
 CURIE which has been previously defined using prefix(). The event must
 be JSON serializable.</p>
@@ -173,8 +173,8 @@ be JSON serializable.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.subscribe">
-<tt class="descname">subscribe</tt><big>(</big><em>topicUri</em>, <em>handler</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.subscribe" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol.subscribe">
+<tt class="descname">subscribe</tt><big>(</big><em>topicUri</em>, <em>handler</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol.subscribe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subscribe to topic. When already subscribed, will overwrite the handler.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -191,8 +191,8 @@ be JSON serializable.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.unsubscribe">
-<tt class="descname">unsubscribe</tt><big>(</big><em>topicUri</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol.unsubscribe">
+<tt class="descname">unsubscribe</tt><big>(</big><em>topicUri</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol.unsubscribe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unsubscribe from topic. Will do nothing when currently not subscribed to the topic.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -205,8 +205,8 @@ be JSON serializable.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="autobahn.wamp.WampClientProtocol.call">
-<tt class="descname">call</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampClientProtocol.call" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampClientProtocol.call">
+<tt class="descname">call</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampClientProtocol.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a remote-procedure call (RPC). The first argument is the procedure
 URI (mandatory). Subsequent positional arguments can be provided (must be
 JSON serializable). The return value is a Twisted Deferred.</p>
@@ -215,14 +215,14 @@ JSON serializable). The return value is a Twisted Deferred.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="autobahn.wamp.WampCraClientProtocol">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.</tt><tt class="descname">WampCraClientProtocol</tt><a class="headerlink" href="#autobahn.wamp.WampCraClientProtocol" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampCraClientProtocol">
+<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampCraClientProtocol</tt><a class="headerlink" href="#autobahn.wamp1.protocol.WampCraClientProtocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple, authenticated WAMP client protocol.</p>
 <p>The client can perform WAMP-Challenge-Response-Authentication (&#8220;WAMP-CRA&#8221;) to authenticate
 itself to a WAMP server. The server needs to implement WAMP-CRA also of course.</p>
 <dl class="method">
-<dt id="autobahn.wamp.WampCraClientProtocol.authenticate">
-<tt class="descname">authenticate</tt><big>(</big><em>authKey=None</em>, <em>authExtra=None</em>, <em>authSecret=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.WampCraClientProtocol.authenticate" title="Permalink to this definition">¶</a></dt>
+<dt id="autobahn.wamp1.protocol.WampCraClientProtocol.authenticate">
+<tt class="descname">authenticate</tt><big>(</big><em>authKey=None</em>, <em>authExtra=None</em>, <em>authSecret=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampCraClientProtocol.authenticate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Authenticate the WAMP session to server.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -258,18 +258,18 @@ itself to a WAMP server. The server needs to implement WAMP-CRA also of course.<
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="wampserver.html" title="Server"
+          <a href="wamp1server.html" title="Server"
              >next</a> |</li>
         <li class="right" >
-          <a href="wampbase.html" title="Base"
+          <a href="wamp1base.html" title="Base"
              >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
-          <li><a href="wamptoc.html" >WAMP</a> &raquo;</li> 
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
+          <li><a href="wamp1toc.html" >WAMP v1</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Autobahn|Python Reference &mdash; Autobahn|Python 0.7.0 documentation</title>
+    <title>Autobahn|Python Reference &mdash; Autobahn|Python 0.8.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.0',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="#" />
+    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="#" />
     <link rel="next" title="WebSocket" href="websockettoc.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="websockettoc.html" title="WebSocket"
              accesskey="N">next</a> |</li>
-        <li><a href="#">Autobahn|Python 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="#">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -118,22 +118,64 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="wamptoc.html">WAMP</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="wampbase.html">Base</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="wampbase.html#factory">Factory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wampbase.html#protocol">Protocol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp1base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp1base.html#factory">Factory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp1base.html#protocol">Protocol</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="wampclient.html">Client</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="wampclient.html#factory">Factory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wampclient.html#protocol">Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1client.html">Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp1client.html#factory">Factory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp1client.html#protocol">Protocol</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="wampserver.html">Server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="wampserver.html#factory">Factory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wampserver.html#protocol">Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1server.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp1server.html#factory">Factory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp1server.html#protocol">Protocol</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#sessions">Sessions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#session-details">Session Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#close-details">Close Details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callers">Callers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#calling">Calling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#call-options">Call Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#call-results">Call Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callees">Callees</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#registering">Registering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#registration">Registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#register-options">Register Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#call-details">Call Details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#subscribing">Subscribing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#subscription">Subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#subscribe-options">Subscribe Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#event-details">Event Details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#publishers">Publishers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#publishing">Publishing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#publication">Publication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wamp2.html#publish-options">Publish Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#protocol">Protocol</a></li>
 </ul>
 </li>
 </ul>
@@ -159,12 +201,12 @@
         <li class="right" >
           <a href="websockettoc.html" title="WebSocket"
              >next</a> |</li>
-        <li><a href="#">Autobahn|Python 0.7.0 documentation</a> &raquo;</li> 
+        <li><a href="#">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>

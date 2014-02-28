@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>WebSocket Servers &mdash; Autobahn|Python 0.7.0 documentation</title>
+    <title>WebSocket Servers &mdash; Autobahn|Python 0.8.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.0',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
     <link rel="up" title="WebSocket" href="websockettoc.html" />
     <link rel="next" title="WebSocket Compression" href="websocketcompress.html" />
     <link rel="prev" title="WebSocket Clients" href="websocketclient.html" /> 
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="websocketclient.html" title="WebSocket Clients"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
       </ul>
     </div>
@@ -232,7 +232,7 @@ during handshake in <a class="reference internal" href="#autobahn.websocket.prot
 <p>Both Twisted and Asyncio server factories share the following functionality.</p>
 <dl class="class">
 <dt id="autobahn.websocket.protocol.WebSocketServerFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">WebSocketServerFactory</tt><big>(</big><em>url=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>server='AutobahnPython/0.7.0'</em>, <em>headers={}</em>, <em>externalPort=None</em>, <em>debug=False</em>, <em>debugCodePaths=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketServerFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.websocket.protocol.</tt><tt class="descname">WebSocketServerFactory</tt><big>(</big><em>url=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>server='AutobahnPython/0.8.3'</em>, <em>headers={}</em>, <em>externalPort=None</em>, <em>debug=False</em>, <em>debugCodePaths=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketServerFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="websocketbase.html#autobahn.websocket.protocol.WebSocketFactory" title="autobahn.websocket.protocol.WebSocketFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketFactory</span></tt></a></p>
 <p>A protocol factory for WebSocket servers.</p>
 <dl class="attribute">
@@ -250,7 +250,7 @@ during handshake in <a class="reference internal" href="#autobahn.websocket.prot
 
 <dl class="method">
 <dt id="autobahn.websocket.protocol.WebSocketServerFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>url=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>server='AutobahnPython/0.7.0'</em>, <em>headers={}</em>, <em>externalPort=None</em>, <em>debug=False</em>, <em>debugCodePaths=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketServerFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>url=None</em>, <em>protocols=</em><span class="optional">[</span><span class="optional">]</span>, <em>server='AutobahnPython/0.8.3'</em>, <em>headers={}</em>, <em>externalPort=None</em>, <em>debug=False</em>, <em>debugCodePaths=False</em><big>)</big><a class="headerlink" href="#autobahn.websocket.protocol.WebSocketServerFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create instance of WebSocket server factory.</p>
 <p>Note that you MUST provide URL either here or using
 <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketServerFactory.setSessionParameters" title="autobahn.websocket.protocol.WebSocketServerFactory.setSessionParameters"><tt class="xref py py-meth docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketServerFactory.setSessionParameters()</span></tt></a>
@@ -366,7 +366,7 @@ during handshake in <a class="reference internal" href="#autobahn.websocket.prot
 <tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WebSocketServerFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>In addition to all arguments to the constructor of
 <a class="reference internal" href="#autobahn.websocket.protocol.WebSocketServerFactory" title="autobahn.websocket.protocol.WebSocketServerFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.websocket.protocol.WebSocketServerFactory</span></tt></a>,
-you can supply a <cite>reactor</cite> keyword argument to specify the 
+you can supply a <cite>reactor</cite> keyword argument to specify the
 Twisted reactor to be used.</p>
 </dd></dl>
 
@@ -414,13 +414,13 @@ Asyncio loop to be used.</p>
         <li class="right" >
           <a href="websocketclient.html" title="WebSocket Clients"
              >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>

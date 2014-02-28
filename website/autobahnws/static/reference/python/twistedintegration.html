@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Twisted Integration &mdash; Autobahn|Python 0.7.0 documentation</title>
+    <title>Twisted Integration &mdash; Autobahn|Python 0.8.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.0',
+        VERSION:     '0.8.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.7.0 documentation" href="index.html" />
+    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
     <link rel="up" title="WebSocket" href="websockettoc.html" />
-    <link rel="next" title="WAMP" href="wamptoc.html" />
+    <link rel="next" title="WAMP v1" href="wamp1toc.html" />
     <link rel="prev" title="WebSocket Auxiliary" href="websocketaux.html" /> 
   </head>
   <body>
@@ -36,12 +36,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="wamptoc.html" title="WAMP"
+          <a href="wamp1toc.html" title="WAMP v1"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="websocketaux.html" title="WebSocket Auxiliary"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" accesskey="U">WebSocket</a> &raquo;</li> 
       </ul>
     </div>
@@ -64,8 +64,8 @@
   <p class="topless"><a href="websocketaux.html"
                         title="previous chapter">WebSocket Auxiliary</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="wamptoc.html"
-                        title="next chapter">WAMP</a></p>
+  <p class="topless"><a href="wamp1toc.html"
+                        title="next chapter">WAMP v1</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/twistedintegration.txt"
@@ -184,12 +184,12 @@ listening port and others are provided via the factory.</p>
 <p>You can find a complete example <a class="reference external" href="https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/websocket/wrapping">here</a></p>
 <dl class="class">
 <dt id="autobahn.twisted.websocket.WrappingWebSocketServerFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.twisted.websocket.</tt><tt class="descname">WrappingWebSocketServerFactory</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketServerFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.twisted.websocket.</tt><tt class="descname">WrappingWebSocketServerFactory</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>subprotocol=None</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketServerFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="websocketserver.html#autobahn.twisted.websocket.WebSocketServerFactory" title="autobahn.twisted.websocket.WebSocketServerFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.twisted.websocket.WebSocketServerFactory</span></tt></a></p>
 <p>Wrapping server factory for stream-based transport over WebSocket.</p>
 <dl class="method">
 <dt id="autobahn.twisted.websocket.WrappingWebSocketServerFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketServerFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>subprotocol=None</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketServerFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -209,12 +209,12 @@ listening port and others are provided via the factory.</p>
 
 <dl class="class">
 <dt id="autobahn.twisted.websocket.WrappingWebSocketClientFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.twisted.websocket.</tt><tt class="descname">WrappingWebSocketClientFactory</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketClientFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.twisted.websocket.</tt><tt class="descname">WrappingWebSocketClientFactory</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>subprotocol=None</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketClientFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="websocketclient.html#autobahn.twisted.websocket.WebSocketClientFactory" title="autobahn.twisted.websocket.WebSocketClientFactory"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.twisted.websocket.WebSocketClientFactory</span></tt></a></p>
 <p>Wrapping client factory for stream-based transport over WebSocket.</p>
 <dl class="method">
 <dt id="autobahn.twisted.websocket.WrappingWebSocketClientFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketClientFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>factory</em>, <em>url</em>, <em>reactor=None</em>, <em>enableCompression=True</em>, <em>autoFragmentSize=0</em>, <em>subprotocol=None</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#autobahn.twisted.websocket.WrappingWebSocketClientFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -427,18 +427,18 @@ older browser, in particular MSIE9/8.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="wamptoc.html" title="WAMP"
+          <a href="wamp1toc.html" title="WAMP v1"
              >next</a> |</li>
         <li class="right" >
           <a href="websocketaux.html" title="WebSocket Auxiliary"
              >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.7.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
           <li><a href="websockettoc.html" >WebSocket</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
     </div>
   </body>
 </html>
