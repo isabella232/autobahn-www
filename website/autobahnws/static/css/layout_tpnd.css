@@ -34,9 +34,17 @@ div .codeex > note {
    padding-bottom: 16px;
 }
 
-.ident_tut
-{
+.ident_tut {
    display: inline-block;
    margin: 0.5em 0 0.5em 3em;
    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;;
+}
+
+
+.versionOneNote {
+    font-size: 13px;
+
+    padding: 1em 3em;
+    background-color: #D1EE6E;
+    margin: 0 0 2em 0;
 }

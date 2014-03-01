@@ -1,0 +1,64 @@
+{% extends "layout_tpn.html" %}
+
+{% block subheader %}
+   <meta name="description" content="Downloads and source code for AutobahnJS.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <p>
+         The latest release version of {{ autobahnjs() }} is available as a single-file JavaScript library
+         with no dependencies, hosted on Amazon S3.
+      </p>
+      <p>
+         Due to <a href="https://groups.google.com/d/msg/autobahnws/Zhgvf2BdDNo/E01YV55Ekr8J">abuse</a>, downloads are limited by referer, and only possible
+      </p>
+      <ul>
+         <li>
+            from this website
+         </li>
+         <li>
+            from sites served via localhost (e.g. for development purposes)
+         </li>
+         <li>
+            via curl/wget etc. (empty referer)
+         </li>
+      </ul>
+      <center>
+         <a href="http://autobahn.s3.amazonaws.com/js/autobahn.min.js" target="_blank">
+            <img src="{{ url_for('static', filename='img/amazon_s3_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="199" height="50">
+            <br>
+            http://autobahn.s3.amazonaws.com/js/autobahn.min.js
+         </a>
+      </center>
+      <br><br>
+
+      <p>
+         For development, there is also the non-minified version<br> (same download restrictions as above apply)
+      </p>
+      <center>
+         <a href="http://autobahn.s3.amazonaws.com/js/autobahn.js" target="_blank">
+            <img src="{{ url_for('static', filename='img/amazon_s3_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="199" height="50">
+            <br>
+            http://autobahn.s3.amazonaws.com/js/autobahn.js
+         </a>
+      </center>
+      <br><br>
+
+      <p>
+         You can also get the source code from GitHub
+      </p>
+      <center>
+         <a href="https://github.com/tavendo/AutobahnJS" target="_blank">
+            <img src="{{ url_for('static', filename='img/github_logo.png') }}" style="margin-top: 14px; margin-bottom: 8px;" width="135" height="60">
+            <br>
+            https://github.com/tavendo/AutobahnJS
+         </a>
+      </center>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS Backend</title>
+</head>
+<body>
+
+   <h1>AutobahnJS Backend</h1>
+
+   <p>
+      Open the JavaScript console to watch output.
+   </p>
+
+   <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+   <script>
+      // Set up WAMP connection to router
+      var connection = new autobahn.Connection({
+         url: 'ws://127.0.0.1:9000/',
+         realm: 'realm1'}
+      );
+
+      // Set up 'onopen' handler
+      connection.onopen = function (session) {
+
+         // Define the remote procedure
+         function utcnow() {
+            console.log("Someone is calling me;)");
+            now = new Date();
+            return now.toISOString();
+         }
+
+         // Register the remote procedure with the router
+         session.register('com.timeservice.now', utcnow).then(
+            function (registration) {
+               console.log("Procedure registered:", registration.id);
+            },
+            function (error) {
+               console.log("Registration failed:", error);
+            }
+         );
+
+
+         // Start publishing events
+         var counter = 0;
+
+         setInterval(function () {
+            console.log("publishing to topic 'com.myapp.topic1': " + counter);
+            session.publish('com.myapp.topic1', [counter]);
+            counter += 1;
+         }, 1000);
+
+      };
+
+      // Open connection
+      connection.open();
+   </script>
+
+</body>
+</html>

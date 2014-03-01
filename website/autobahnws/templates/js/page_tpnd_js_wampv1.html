@@ -1,0 +1,44 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="AutobahnJS 0.8.2 documentation overview.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+
+      <h1>
+         {{autobahnjs()}} 0.8.2 documentation
+      </h1>
+
+      <p>
+         This page links to the materials concerning {{autobahnjs()}} 0.8.2.
+      </p>
+      <p>
+         This version of {{autobahnjs()}} implements WAMP v1, and is now in maintenance mode.
+      </p>
+      <p>
+         Be aware that these materials are no longer updated.
+      </p>
+
+      <ul>
+         <li>
+            <a href="{{ url_for('page_js_wampv1_getstarted') }}">Get Started</a>
+         </li>
+         <li>
+            <a href="{{ url_for('page_js_wampv1_tutorials') }}">Tutorials</a>
+         </li>
+         <li>
+            <a href="{{ url_for('page_js_wampv1_reference') }}">Reference</a>
+         </li>
+         <li>
+            <a href="{{ url_for('page_js_wampv1_downloads') }}">Downloads</a>
+         </li>
+      </ul>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

@@ -42,17 +42,14 @@
                   <a href="{{ url_for('page_python_getstarted') }}" {% if session['subsitetab'] == 'getstarted' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Get Started
                   </a>
-                  <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+
+                  <a href="{{ url_for('page_python_examples') }}" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Examples
                   </a>
+
                   <a href="{{ url_for('page_python_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Reference
                   </a>
-<!--                  
-                  <a href="https://autobahnpython.readthedocs.org/" class="navitem" target="_blank">
-                     Reference
-                  </a>
--->                  
                   <a href="{{ url_for('page_python_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Downloads
                   </a>
@@ -94,6 +91,9 @@
                   <a href="{{ url_for('page_js_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Downloads
                   </a>
+                  <a href="{{ url_for('page_js_wampv1') }}" {% if session['subsitetab'] == 'wampv1' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                     WAMP v1
+                  </a>
                   <a href="{{ url_for('page_js_getintouch') }}" {% if session['subsitetab'] == 'getintouch' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Get in touch
                   </a>
@@ -128,7 +128,7 @@
                <a href="http://www.tavendo.com"><img style="" src="{{ url_for('static', filename='img/tavendosmallgrey.png') }}" width="118" height="18"></a>
             </p>
             <p>
-               Copyright &copy; 2011-2014, <a href="http://www.tavendo.com" target="_blank">Tavendo GmbH</a> (<a id="impressumLink" href="{{ url_for('page_impressum') }}">Impressum</a>). Content licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons CC-BY-SA</a> and code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>.          
+               Copyright &copy; 2011-2014, <a href="http://www.tavendo.com" target="_blank">Tavendo GmbH</a> (<a id="impressumLink" href="{{ url_for('page_impressum') }}">Impressum</a>). Content licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons CC-BY-SA</a> and code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a>.
             </p>
             <p>
                Tavendo, WAMP and "Autobahn WebSocket" are trademarks of <a href="http://www.tavendo.com" target="_blank">Tavendo GmbH</a>.

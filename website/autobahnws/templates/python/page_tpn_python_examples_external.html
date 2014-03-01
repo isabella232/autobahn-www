@@ -1,0 +1,48 @@
+{% extends "layout_tpn.html" %}
+
+{% block subheader %}
+   <meta name="description" content="AutobahnPython programming tutorials.">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+<div class="pagewrapper">
+
+   <h1>{{ autobahnpython() }} Tutorials &amp; Examples</h1>
+
+   <p>
+      Tutorials and examples are here to show case specific areas of {{ autobahnpython() }}.
+      They include self-contained, fully working code, but may not cover all features available.
+      For the latter, please consult the <a href="https://autobahnpython.readthedocs.org/" target="_blank">API reference</a>.
+   </p>
+
+   <p>
+      All examples are part of the <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples">project GitHub repository</a>.
+   </p>
+
+   <p>
+      Since {{ autobahnpython() }} can be run both using Twisted and, on Python 3.4, asyncio, the examples are split according to framework.
+   </p>
+
+   <p>
+      For asyncio, presently only <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/asyncio">examples concerning WebSocket</a> are available.
+   </p>
+
+   <p>
+      For Twisted, there are examples for
+   </p>
+   <ul>
+      <li>
+         <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/websocket">WebSocket</a>
+      </li>
+      <li>
+         <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/wamp">WAMP v2</a>
+      </li>
+   </ul>
+
+
+
+</div>
+
+{% endblock %}

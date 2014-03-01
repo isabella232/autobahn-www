@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS Frontend</title>
+</head>
+<body>
+
+   <h1>AutobahnJS Frontend</h1>
+
+   <button id="callProcedure">Call Procedure</button>
+
+   <p>
+      Open the JavaScript console to watch output.
+   </p>
+
+   <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+   <script>
+      // Set up WAMP connection to router
+      var connection = new autobahn.Connection({
+         url: 'ws://127.0.0.1:9000/',
+         realm: 'realm1'}
+      );
+
+      // Set up 'onopen' handler
+      connection.onopen = function (session) {
+
+         document.getElementById('callProcedure').addEventListener('click', function() {
+            session.call('com.timeservice.now').then(
+               // RPC success callback
+               function (now) {
+                  console.log("Current time:", now);
+               },
+               // RPC error callback
+               function (error) {
+                  console.log("Call failed:", error);
+               }
+            );
+         })
+
+         // Define an event handler
+         function onEvent(args) {
+            console.log("Event received ", args);
+         }
+
+         // Subscribe to a topic
+         session.subscribe('com.myapp.topic1', onEvent);
+
+      };
+
+      // Open connection
+      connection.open();
+
+   </script>
+
+</body>
+</html>

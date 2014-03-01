@@ -22,6 +22,18 @@
       </p>
       <br>
 
+      <div class="versionOneNote">
+         <p>
+            All current versions of {{autobahnjs()}} going forward only support WAMP version 2.
+         </p>
+         <p>
+            The last version of {{autobahnjs()}} supporting version 1 (0.8.2) is in maintenance mode.
+         </p>
+         <p>
+            We've moved the old documentation regarding this version under the 'WAMP v1' tab. Information is still available, but will no longer be updated.
+         </p>
+      </div>
+
       <b>Features</b>
       <ul>
          <li>supports WAMP v2, works with any <a href="http://wamp.ws/implementations">WAMP server</a></li>
@@ -48,7 +60,7 @@
       </p>
 
       <p>
-         For example, here is how you do asynchronous RPCs with AutobahnJS and Promises ..
+         For example, here is how you do <strong>asynchronous RPCs</strong> with AutobahnJS and Promises ..
       </p>
 
       <div class="codeex">
@@ -124,6 +136,9 @@
             Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
          </note> -->
       </div>
+      <p class="note">
+         <strong>Note:</strong> Both the frontend and the backend code can be run in the browser or Node.js!
+      </p>
       <p>
          Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
       </p>
@@ -131,7 +146,7 @@
       <br>
 
       <p>
-         .. and this is how Publish &amp; Subscribe looks
+         .. and this is how <strong>Publish &amp; Subscribe</strong> looks
       </p>
 
       <div class="codeex">
@@ -148,7 +163,7 @@
             connection.onopen = function (session) {
 
                // Publish event
-               session.publish('com.myapp.topic1', 'foobar');
+               session.publish('com.myapp.topic1', ['foobar']);
             };
 
             // Open connection
@@ -185,10 +200,10 @@
             connection.open();
 
          </pre>
-         <!-- <note>
-            Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
-         </note> -->
       </div>
+      <p>
+         Complete Tutorial: &nbsp; &nbsp; <a href="{{ url_for('page_js_tutorials_rpc') }}">Remote Procedure Calls with AutobahnJS</a>
+      </p>
 
       <p>
          If you like, <a href="{{ url_for('page_js_getstarted') }}">get started</a>, check out the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a> and

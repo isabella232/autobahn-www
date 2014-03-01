@@ -67,11 +67,17 @@ def page_python_reference():
    session['subsitetab'] = 'reference'
    return render_template('python/page_tpn_python_reference.html')
 
+# @app.route('/python/examples/')
+# def page_python_tutorials():
+#    session['subsite'] = 'python'
+#    session['subsitetab'] = 'tutorials'
+#    return render_template('python/page_tpn_python_examples.html')
+
 @app.route('/python/examples/')
-def page_python_tutorials():
+def page_python_examples():
    session['subsite'] = 'python'
    session['subsitetab'] = 'tutorials'
-   return render_template('python/page_tpn_python_examples.html')
+   return render_template('python/page_tpn_python_examples_external.html')
 
 @app.route('/python/tutorials/')
 def page_python_tutorials_old():
@@ -215,6 +221,47 @@ def page_js_getintouch():
    session['subsitetab'] = 'getintouch'
    return render_template('page_tpn_getintouch.html')
 
+@app.route('/js/wampv1/')
+def page_js_wampv1():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpnd_js_wampv1.html')
+
+@app.route('/js/wampv1/getstarted')
+def page_js_wampv1_getstarted():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpnd_js_wampv1_getstarted.html')
+
+@app.route('/js/wampv1/tutorials')
+def page_js_wampv1_tutorials():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpn_js_wampv1_tutorials.html')
+
+@app.route('/js/wampv1/tutorials/pubsub/')
+def page_js_wampv1_tutorials_pubsub():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpnd_js_wampv1_tutorials_pubsub.html')
+
+@app.route('/js/wampv1/tutorials/rpc/')
+def page_js_wampv1_tutorials_rpc():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpnd_js_wampv1_tutorials_rpc.html')
+
+@app.route('/js/wampv1/reference')
+def page_js_wampv1_reference():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpsd_js_wampv1_reference.html')
+
+@app.route('/js/wampv1/downloads')
+def page_js_wampv1_downloads():
+   session['subsite'] = 'js'
+   session['subsitetab'] = 'wampv1'
+   return render_template('js/page_tpn_js_wampv1_downloads.html')
 
 ################################################################################
 ## AutobahnTestsuite

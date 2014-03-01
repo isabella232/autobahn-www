@@ -1,0 +1,221 @@
+{% extends "layout_tpnd.html" %}
+
+{% block subsubheader %}
+   <meta name="description" content="Getting started with AutobahnJS.">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/page_tpsd_getstarted.css') }}">
+{% endblock%}
+
+
+{% block pagecontent %}
+
+   <div class="pagewrapper">
+
+      <a name="top"></a>
+      <h1>Get started with {{ autobahnjs() }}</h1>
+      <p>
+         This short intro will get you started with {{autobahnjs()}} in no time:
+         <div style="margin-left: 40px;">
+            <ul>
+               <li><a href="#installation">Installation</a></li>
+               <li><a href="#testserver">Running a Test Server</a></li>
+               <li><a href="#yourfirstclient">Your first Client</a></li>
+               <li><a href="#wheretogo">Where to go now</a></li>
+            </ul>
+         </div>
+      </p>
+      <br>
+
+
+      <a name="installation"></a>
+      <h1>Installation</h1>
+
+      <p>
+         {{ autobahnjs() }} is available as a single-file JavaScript library with no dependencies.
+      <p>
+         As to the nature of JavaScript libraries used in browsers, there is nothing to install.
+         Using {{ autobahnjs() }} is simply done by including an appropriate script link in your HTML:
+      </p>
+
+      <div class="codeex">
+         <h1>Linking to AutobahnJS</h1>
+         <pre class="brush: xml; highlight: [3]; toolbar: false; auto-links: false;">
+            &lt;html&gt;
+               &lt;head&gt;
+                  &lt;script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"&gt;&lt;/script&gt;
+               &lt;&#47;head&gt;
+            &lt;&#47;html&gt;
+         </pre>
+      </div>
+      <br>
+
+
+      <a name="testserver"></a>
+      <h1>Running a Test Server</h1>
+
+      <p>
+         Obviously, we will need a WAMP server to access from {{autobahnjs()}}.
+      </p>
+
+      <p>
+         To keep things simple, we will use the WAMP test server that is embedded
+         in {{autobahntestsuite()}}. An installation guide for {{autobahntestsuite()}}
+         can be found <a href="{{ url_for('page_testsuite_installation') }}">here</a>.
+      </p>
+
+      <p>
+         Start the WAMP test server from a command shell
+      </p>
+
+      {{ beginshell() }}
+wstest -d -m wampserver -w ws://localhost:9000
+      {{ endshell() }}
+
+
+
+      <a name="yourfirstclient"></a>
+      <h1>Your first Client</h1>
+
+      <p>
+         We create a simple {{autobahnjs()}} based client in JavaScript. The client
+         will call a remote procedure on the WAMP server and do publish &amp;
+         subscribe over a topic.
+         We will just present and run the code without explanations.
+         For detailed walkthroughs, please see the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a>.
+      </p>
+      <p>
+         Create a new HTML file (or use <a href="{{ url_for('static', filename='file/autobahnjs.html') }}">this</a> file)
+      </p>
+
+      <div class="codeex">
+         <h1>Client HTML</h1>
+         <script type="syntaxhighlighter" class="brush: xml; highlight: [7]; toolbar: false; auto-links: false;"><![CDATA[
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js">
+      &lt;/script>
+      <script>
+         <!-- code see below -->
+      &lt;/script>
+   </head>
+   <body>
+      <h1>AutobahnJS WAMP Client</h1>
+      <button onclick="publishEvent();">Publish Event</button>
+      <button onclick="callProcedure();">Call Procedure</button>
+   </body>
+ </html>
+         ]]></script>
+      </div>
+
+      <p>
+         and add the following JavaScript code
+      </p>
+
+      <div class="codeex">
+         <h1>Client JavaScript</h1>
+         <pre class="brush: javascript; highlight: [8, 17, 36, 41]; toolbar: false; auto-links: false;">
+         // WAMP session object
+         var sess;
+         var wsuri = "ws://localhost:9000";
+
+         window.onload = function() {
+
+            // connect to WAMP server
+            ab.connect(wsuri,
+
+               // WAMP session was established
+               function (session) {
+
+                  sess = session;
+                  console.log("Connected to " + wsuri);
+
+                  // subscribe to topic, providing an event handler
+                  sess.subscribe("http://example.com/simple", onEvent);
+               },
+
+               // WAMP session is gone
+               function (code, reason) {
+
+                  sess = null;
+                  console.log("Connection lost (" + reason + ")");
+               }
+            );
+         };
+
+         function onEvent(topic, event) {
+            console.log(topic);
+            console.log(event);
+         }
+
+         function publishEvent()
+         {
+            sess.publish("http://example.com/simple", {a: "foo", b: "bar", c: 23});
+         }
+
+         function callProcedure() {
+            // issue an RPC, returns promise object
+            sess.call("http://example.com/simple/calc#add", 23, 7).then(
+
+               // RPC success callback
+               function (res) {
+                  console.log("got result: " + res);
+               },
+
+               // RPC error callback
+               function (error, desc) {
+                  console.log("error: " + desc);
+               }
+            );
+         }
+         </pre>
+      </div>
+
+      <p>
+         Open the file in at least two tabs (windows) of your browser
+         and click the "Publish Event" button to publish events.
+      </p>
+
+      <p>
+         To see logging output, open your browser debugging console
+         (i.e. with Chrome or Firefox on Windows, press F12).
+         You should see events publishes in one tab to appear on
+         console log of all <i>other</i> tabs.
+      </p>
+
+      <p>
+         Click the "Call Procedure" button to issue RPCs. You should see
+         the RPC results in the console log.
+      </p>
+
+      <p class="hint">
+         Use a current version of Chrome, Firefox or IE10. Support for other
+         browsers is there, but things need to be prepared for that.
+      </p>
+      <p class="hint">
+         By default, the publisher of an event is excluded from receiving
+         the event, even if that publisher is subscribed to the respective
+         topic.
+      </p>
+      <br>
+
+      <a name="wheretogo"></a>
+      <h1>Where to go now</h1>
+
+      <p>
+         Now that you are up and running, check out the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a>
+         available or the <a href="{{ url_for('page_js_reference') }}">reference documentation</a>.
+      </p>
+
+      <p>
+         If you want to learn more about creating your own WAMP servers,
+         check out the companion project <a href="{{ url_for('page_python') }}">AutobahnPython</a>.
+      </p>
+
+      <p>
+         Finally, if you run into problems, have questions or want to contribute,
+         don't hesitate to <a href="{{ url_for('page_js_getintouch') }}">join us</a>!
+      </p>
+
+   </div> <!-- pagewrapper -->
+
+{% endblock %}

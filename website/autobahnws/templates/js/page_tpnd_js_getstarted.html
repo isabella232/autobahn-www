@@ -18,7 +18,7 @@
             <ul>
                <li><a href="#installation">Installation</a></li>
                <li><a href="#testserver">Running a Test Server</a></li>
-               <li><a href="#yourfirstclient">Your first Client</a></li>
+               <li><a href="#yourfirstclient">Your first Frontend and Backend</a></li>
                <li><a href="#wheretogo">Where to go now</a></li>
             </ul>
          </div>
@@ -41,7 +41,7 @@
          <pre class="brush: xml; highlight: [3]; toolbar: false; auto-links: false;">
             &lt;html&gt;
                &lt;head&gt;
-                  &lt;script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"&gt;&lt;/script&gt;
+                  &lt;script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"&gt;&lt;/script&gt;
                &lt;&#47;head&gt;
             &lt;&#47;html&gt;
          </pre>
@@ -57,53 +57,104 @@
       </p>
 
       <p>
-         To keep things simple, we will use the WAMP test server that is embedded
-         in {{autobahntestsuite()}}. An installation guide for {{autobahntestsuite()}}
-         can be found <a href="{{ url_for('page_testsuite_installation') }}">here</a>.
+         This server will establish the WAMP connection on top of WebSocket, and provide the routing for both PubSub and RPCs.
       </p>
 
       <p>
-         Start the WAMP test server from a command shell
+         We will use a basic WAMP server based on {{autobahnpython()}} which is <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/wamp/basic">part of the examples</a> for that project.
+      </p>
+      <p>
+         To use this, you need to clone the <a href="https://github.com/tavendo/AutobahnPython">project GitHub repository</a>, or, if you're no a git user, download the <a href="https://github.com/tavendo/AutobahnPython/archive/master.zip">zipped version</a>.
+      </p>
+      <p>
+         You also need to install {{autobahnpython()}} itself, which is done easiest following these <a href="{{ url_for('page_python_getstarted') }}">installation instructions</a>.)
+      </p>
+
+      <p>
+         Once you've done so, in the {{autobahnpython()}} repository on your hard drive, in a command shell go to the folder `examples / twisted / wamp / basic` and start the server
       </p>
 
       {{ beginshell() }}
-wstest -d -m wampserver -w ws://localhost:9000
+python server.py
       {{ endshell() }}
 
 
 
       <a name="yourfirstclient"></a>
-      <h1>Your first Client</h1>
+      <h1>Your first Clients</h1>
 
       <p>
-         We create a simple {{autobahnjs()}} based client in JavaScript. The client
-         will call a remote procedure on the WAMP server and do publish &amp;
-         subscribe over a topic.
-         We will just present and run the code without explanations.
-         For detailed walkthroughs, please see the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a>.
+         The basic server we've started only routes PubSub events and RPCs, but does not provide any additional functionality.
       </p>
       <p>
-         Create a new HTML file (or use <a href="{{ url_for('static', filename='file/autobahnjs.html') }}">this</a> file)
+         All the functionality will be provided by two HTML files. This functionality is
+      </p>
+      <ul>
+         <li>
+            publishing events to a topic
+         </li>
+         <li>
+            subscribing to a topic and logging received events
+         </li>
+         <li>
+            providing a remote procedure endpoint
+         </li>
+         <li>
+            calling a remote procedure and logging the result
+         </li>
+      </ul>
+
+      <p>
+         We will just present and run the code without explanations.
+         For detailed walk-throughs, please see the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a>.
+      </p>
+      <p>
+         You can create the sample HTML files yourself, based on the code below, or use our prepared files:
+      </p>
+      <ul>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_frontend.html') }}">frontend client</a>
+         </li>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_backend.html') }}">backend client</a>
+         </li>
+      </ul>
+
+
+      <h2>
+         Frontend Client
+      </h2>
+
+      <p>
+         The frontend client provides receives PubSub events to a set topci, and allows calling a remote procedure
       </p>
 
       <div class="codeex">
-         <h1>Client HTML</h1>
+         <h1>HTML</h1>
          <script type="syntaxhighlighter" class="brush: xml; highlight: [7]; toolbar: false; auto-links: false;"><![CDATA[
-<!DOCTYPE html>
-<html>
-   <head>
-      <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js">
-      &lt;/script>
-      <script>
-         <!-- code see below -->
-      &lt;/script>
-   </head>
-   <body>
-      <h1>AutobahnJS WAMP Client</h1>
-      <button onclick="publishEvent();">Publish Event</button>
-      <button onclick="callProcedure();">Call Procedure</button>
-   </body>
- </html>
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS Frontend</title>
+</head>
+<body>
+
+   <h1>AutobahnJS Frontend</h1>
+
+   <button id="callProcedure">Call Procedure</button>
+
+   <p>
+      Open the JavaScript console to watch output.
+   </p>
+
+   <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">&lt;/script>
+   <script>
+      // see code below
+   &lt;/script>
+
+</body>
+</html>
          ]]></script>
       </div>
 
@@ -112,89 +163,151 @@ wstest -d -m wampserver -w ws://localhost:9000
       </p>
 
       <div class="codeex">
-         <h1>Client JavaScript</h1>
-         <pre class="brush: javascript; highlight: [8, 17, 36, 41]; toolbar: false; auto-links: false;">
-         // WAMP session object
-         var sess;
-         var wsuri = "ws://localhost:9000";
+         <h1>Frontend JavaScript</h1>
+         <pre class="brush: javascript; toolbar: false; auto-links: false;">
+      // Set up WAMP connection to router
+      var connection = new autobahn.Connection({
+         url: 'ws://127.0.0.1:9000/',
+         realm: 'realm1'}
+      );
 
-         window.onload = function() {
+      // Set up 'onopen' handler
+      connection.onopen = function (session) {
 
-            // connect to WAMP server
-            ab.connect(wsuri,
-
-               // WAMP session was established
-               function (session) {
-
-                  sess = session;
-                  console.log("Connected to " + wsuri);
-
-                  // subscribe to topic, providing an event handler
-                  sess.subscribe("http://example.com/simple", onEvent);
-               },
-
-               // WAMP session is gone
-               function (code, reason) {
-
-                  sess = null;
-                  console.log("Connection lost (" + reason + ")");
-               }
-            );
-         };
-
-         function onEvent(topic, event) {
-            console.log(topic);
-            console.log(event);
-         }
-
-         function publishEvent()
-         {
-            sess.publish("http://example.com/simple", {a: "foo", b: "bar", c: 23});
-         }
-
-         function callProcedure() {
-            // issue an RPC, returns promise object
-            sess.call("http://example.com/simple/calc#add", 23, 7).then(
-
+         document.getElementById('callProcedure').addEventListener('click', function() {
+            session.call('com.timeservice.now').then(
                // RPC success callback
-               function (res) {
-                  console.log("got result: " + res);
+               function (now) {
+                  console.log("Current time:", now);
                },
-
                // RPC error callback
-               function (error, desc) {
-                  console.log("error: " + desc);
+               function (error) {
+                  console.log("Call failed:", error);
                }
             );
+         })
+
+         // Define an event handler
+         function onEvent(args) {
+            console.log("Event received ", args);
          }
+
+         // Subscribe to a topic
+         session.subscribe('com.myapp.topic1', onEvent);
+
+      };
+
+      // Open connection
+      connection.open();
+         </pre>
+      </div>
+
+      <h2>
+         Backend Client
+      </h2>
+
+      <p>
+         The backend client provides the remote procedure endpoint for the frontend client to call, and publishes to the topic the frontend client subscribes to.
+      </p>
+
+<div class="codeex">
+         <h1>HTML</h1>
+         <script type="syntaxhighlighter" class="brush: xml; highlight: [7]; toolbar: false; auto-links: false;"><![CDATA[
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS Backend</title>
+</head>
+<body>
+
+   <h1>AutobahnJS Backend</h1>
+
+   <p>
+      Open the JavaScript console to watch output.
+   </p>
+
+   <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">&lt;/script>
+   <script>
+      // see code below
+   &lt;/script>
+
+</body>
+</html>
+         ]]></script>
+      </div>
+
+      <div class="codeex">
+         <h1>Backend JavaScript</h1>
+         <pre class="brush: javascript; toolbar: false; auto-links: false;">
+      // Set up WAMP connection to router
+      var connection = new autobahn.Connection({
+         url: 'ws://127.0.0.1:9000/',
+         realm: 'realm1'}
+      );
+
+      // Set up 'onopen' handler
+      connection.onopen = function (session) {
+
+         // Define the remote procedure
+         function utcnow() {
+            console.log("Someone is calling me;)");
+            now = new Date();
+            return now.toISOString();
+         }
+
+         // Register the remote procedure with the router
+         session.register('com.timeservice.now', utcnow).then(
+            function (registration) {
+               console.log("Procedure registered:", registration.id);
+            },
+            function (error) {
+               console.log("Registration failed:", error);
+            }
+         );
+
+
+         // Start publishing events
+         var counter = 0;
+
+         setInterval(function () {
+            console.log("publishing to topic 'com.myapp.topic1': " + counter);
+            session.publish('com.myapp.topic1', [counter]);
+            counter += 1;
+         }, 1000);
+
+      };
+
+      // Open connection
+      connection.open();
          </pre>
       </div>
 
       <p>
-         Open the file in at least two tabs (windows) of your browser
-         and click the "Publish Event" button to publish events.
+         The <strong>backend client</strong> needs to be <strong>open in exactly one browser tab</strong>.
+      </p>
+
+      <p>
+         The <strong>frontend client</strong> can be open in <strong>as many browser tabs as you want</strong>.
       </p>
 
       <p>
          To see logging output, open your browser debugging console
          (i.e. with Chrome or Firefox on Windows, press F12).
-         You should see events publishes in one tab to appear on
-         console log of all <i>other</i> tabs.
       </p>
-
       <p>
-         Click the "Call Procedure" button to issue RPCs. You should see
-         the RPC results in the console log.
+         All frontend tabs should log the events published the backend tab.
+      </p>
+      <p>
+         You can call the backend's 'timeservice' procedure from any client, with the call result logged in the console.
       </p>
 
       <p class="hint">
-         Use a current version of Chrome, Firefox or IE10. Support for other
-         browsers is there, but things need to be prepared for that.
+         Use a modern browser (e.g. Chrome, Firefox or IE>9. AutobahnJS has support for older browsers, but this requires more work on the server side.
       </p>
+
       <p class="hint">
-         By default, the publisher of an event is excluded from receiving
-         the event, even if that publisher is subscribed to the respective
-         topic.
+         Here all functionality except for the routing is run in the browser. In most real-world deployments, some functionality will be run on a server.
       </p>
       <br>
 
@@ -213,7 +326,7 @@ wstest -d -m wampserver -w ws://localhost:9000
 
       <p>
          Finally, if you run into problems, have questions or want to contribute,
-         don't hesitate to <a href="{{ url_for('page_js_getintouch') }}">join us</a>!
+         don't hesitate to <a href="{{ url_for('page_js_getintouch') }}">contact us</a>!
       </p>
 
    </div> <!-- pagewrapper -->
