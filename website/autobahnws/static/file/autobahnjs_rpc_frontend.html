@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>AutobahnJS Frontend</title>
+   <title>AutobahnJS RPC Frontend</title>
 </head>
 <body>
 
-   <h1>AutobahnJS Frontend</h1>
-
-   <button id="callProcedure">Call Procedure</button>
+   <h1>AutobahnJS RPC Frontend</h1>
 
    <p>
       Open the JavaScript console to watch output.
@@ -32,8 +30,7 @@
 
       // Set up 'onopen' handler
       connection.onopen = function (session) {
-
-         document.getElementById('callProcedure').addEventListener('click', function() {
+         setInterval(function() {
             session.call('com.timeservice.now').then(
                // RPC success callback
                function (now) {
@@ -44,16 +41,7 @@
                   console.log("Call failed:", error);
                }
             );
-         })
-
-         // Define an event handler
-         function onEvent(args) {
-            console.log("Event received ", args);
-         }
-
-         // Subscribe to a topic
-         session.subscribe('com.myapp.topic1', onEvent);
-
+         }, 1000);
       };
 
       // Open connection

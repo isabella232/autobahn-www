@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>AutobahnJS Frontend</title>
+   <title>AutobahnJS RPC Backend</title>
 </head>
 <body>
 
-   <h1>AutobahnJS Frontend</h1>
+   <h1>AutobahnJS RPC Backend</h1>
 
-   <button id="callProcedure">Call Procedure</button>
-
-   <p>
+   <p>autobahnjs_rpc_backend.html
       Open the JavaScript console to watch output.
    </p>
 
@@ -32,28 +30,22 @@
 
       // Set up 'onopen' handler
       connection.onopen = function (session) {
-
-         document.getElementById('callProcedure').addEventListener('click', function() {
-            session.call('com.timeservice.now').then(
-               // RPC success callback
-               function (now) {
-                  console.log("Current time:", now);
-               },
-               // RPC error callback
-               function (error) {
-                  console.log("Call failed:", error);
-               }
-            );
-         })
-
-         // Define an event handler
-         function onEvent(args) {
-            console.log("Event received ", args);
+         // Define the remote procedure
+         function utcnow() {
+            console.log("Someone is calling me;)");
+            now = new Date();
+            return now.toISOString();
          }
 
-         // Subscribe to a topic
-         session.subscribe('com.myapp.topic1', onEvent);
-
+         // Register the remote procedure with the router
+         session.register('com.timeservice.now', utcnow).then(
+            function (registration) {
+               console.log("Procedure registered:", registration.id);
+            },
+            function (error) {
+               console.log("Registration failed:", error);
+            }
+         );
       };
 
       // Open connection

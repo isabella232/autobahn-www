@@ -31,27 +31,27 @@
 
 
          <p>
-            In this tutorial well will create a small web app that connects to a WAMP demo server and sends and receives some PubSub events. Sending is via a HTML browser front-end, and the received events are logged on the browser console.
+            In this tutorial well will create a small web app that consists of two clients which connect to a WAMP server. One of the clients publishes to a topic to which the other client subscribes himself. The sent and received events are logged in the respective browser consoles.
          </p>
 
 
       <h2>Prerequisites</h2>
 
          <p>
-            For this tutorial, you will need a
+            For this tutorial, you will need
             <ul>
-               <li><a href="{{ url_for('page_home') }}">Web Browser with WebSockets</a>
-            to run the web app, and</li>
-               <li><a href="{{ url_for('page_home') }}">{{ autobahnpython() }}</a> to run the demo server which the web app connects to.</li>
+               <li>
+                  a modern Web Browser with WebSockets to run the clients, and
+               </li>
+               <li>
+                  <a href="{{ url_for('page_python') }}">{{ autobahnpython() }}</a> to run the server which the web app connects to.
+               </li>
             </ul>
-         </p>
-
-         <p>
-         The full code for the web app can be found in the <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/pubsub/simple/index.html">Git Repository</a>. We'll go over all of it bit by bit now.
          </p>
 
          <a class="awh_up_developers" href="#top">Up</a>
          <br/>
+
 
       <h2>The WAMP RPC demo server</h2>
 
@@ -70,11 +70,13 @@
          </li>
          <li>
             In a command shell, type<br>
-            <pre class="shell">easy_install autobahntestsuite</pre> This automatically downloads the install package. The {{ autobahntestsuite() }} contains the {{ autobahnpython() }} libraries as well as a test server for this and other tutorials.
+            <pre class="shell">easy_install autobahn</pre> This automatically gets the install package from the internet.
          </li>
          <li>
-            In the command shell, go to the python directory (e.g. 'Python27' on your C: drive if you installed with defaults under Windows). There, go to the 'lib' folder, and in that to the 'site-packages' folder. There you'll see an 'autobahn' folder (which has the version number appended at the end). Go to that folder and type<br>
-            <pre class="shell">wstest -m wampserver</pre>
+            Save <a href="{{ url_for('static', filename='file/wamp-server.py') }}">the server script</a> in a directory of your choosing.
+
+         <li>
+            Open a command shell in the directory where you've saved the script and, start the server with <pre class="shell">python server.py</pre>
          </li>
       </ul>
       <p>That's it - the WAMP demo server is running. (It runs until you break out from the Python interpreter - Ctrl-C/D/Z depending on your platform).
@@ -85,358 +87,241 @@
       <a class="awh_up_developers" href="#top">Up</a>
          <br/>
 
-      <h2>Including {{ autobahnjs() }}</h2>
+      <h2>The HTML</h2>
 
-         <p>To use PubSub in our web app, we need {{ autobahnjs() }}. We include the {{ autobahnjs() }} script in the head of our HTML:</p>
+      <p>
+         The HTML is very simple in for both the publisher and the subscriber.
+      </p>
 
-      <div class="codeex">
-         <pre type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;">
-            &lt;head&gt;
-               &lt;script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"&gt;&lt;/script&gt;
-            &lt;&#47;head&gt;
-         </pre>
-      </div>
-
-      <h2>Connecting to the server</h2>
-
-         <p>
-            The first thing we need to do if we want to use PubSub over WebSockets is to establish a WebSocket connection. WebSocket is built into modern browsers, so in principle we could use the built-in API for this.<br>
-         {{ autobahnjs() }} wraps this browser functionality for WebSocket connections, and takes care of things like automatic reconnects. All our interaction for PubSub is then via {{ autobahnjs() }} - which makes things more straight forward.</p>
-         <p>
-            Initial interaction is via the 'ab' object that {{ autobahnjs() }} creates.
-         </p>
-         <p>
-            We want the connecting to the server established once the document has finished loading, so we call our connect function via 'window.onload':
-         </p>
+      <p>
+         For the publisher, we just need something which identifies the browser tab to us, plus, of course, load the WAMP library, {{ autobahnjs() }}.
+      </p>
 
       <div class="codeex">
-         <pre class="brush: javascript; highlight: [4, 7, 14]; toolbar: false; auto-links: false;">
-            window.onload = function() {
-
-               // connect to WAMP server
-               ab.connect("ws://localhost:9000",
-
-                  // WAMP session was established
-                  function (session) {
-
-                     // things to do once the session has been established
-
-                  },
-
-                  // WAMP session is gone
-                  function (code, reason) {
-
-                     // things to do once the session fails
-                  }
-               );
-            };
-         </pre>
+         <script type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;"><![CDATA[
+<!DOCTYPE html>
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS PubSub Publisher</title>
+</head>
+<html>
+   <body>
+      <h1>AutobahnJS PubSub Publisher</h1>
+      <p>Open JavaScript console to watch output.</p>
+      <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">&lt;/script>
+   </body>
+</html>
+            ]]>
+         </script>
       </div>
-         <p>
-            In this anonymous function, the only thing we do directly is ask for a connection. This is via the 'connect' method of the 'ab' object (line 4).<br>
-            We pass three arguments to the 'connect' method:
+
+      <p>
+         For the subscriber, all that changes are some title strings:
+      </p>
+
+      <div class="codeex">
+         <script type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;"><![CDATA[
+<!DOCTYPE html>
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS PubSub Subscriber</title>
+</head>
+<html>
+   <body>
+      <h1>AutobahnJS PubSub Subscriber</h1>
+      <p>Open JavaScript console to watch output.</p>
+      <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">&lt;/script>
+      <script src="backend.js">&lt;/script>
+   </body>
+</html>
+            ]]>
+         </script>
+      </div>
+
+
+      <h2>The JavaScript</h2>
+
+      <p>
+         To make the demo quick to run in the browser, the JavaScript is included as an inline script in the publisher and subscriber client HTML files.
       </p>
       <ul>
          <li>
-            The WebSockets address to connect to (line 4). This starts with the WebSockets protocol prefix 'ws' (instead of 'http' for regular web traffic), and here is the localhost on port 9000. It could equally be the IP of the machine you run the server on.
+            <a href="{{ url_for('static', filename='file/autobahnjs_pubsub_publisher.html') }}">Publisher</a>
          </li>
          <li>
-            A first function to execute once a connection has been established (starting at line 7). This is passed an object through which we can interact with the established WebSocket session.
+            <a href="{{ url_for('static', filename='file/autobahnjs_pubsub_subscriber.html') }}">Subscriber</a>
+         </li>
+      </ul>
+      <p>
+         The JavaScript on its own can, however, also be run in Node.js. In this case, use
+      </p>
+      <ul>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_pubsub_publisher.js') }}">Publisher</a>
          </li>
          <li>
-            A second function to execute if the connection cannot be established (starting at line 14), or when the connection closes. This is passed arguments that give the reason for the failure.
+            <a href="{{ url_for('static', filename='file/autobahnjs_pubsub_subscriber.js') }}">Subscriber</a>
+         </li>
+      </ul>
+      <p>
+         The only difference is that in the browser, {{ autobahnjs() }} is loaded via a script tag, while in Node.js we need to include it via node's dependency management.
+      </p>
+      <p>
+         In order to be freely movable, we can do so in a way which doesn't fail in the browser by using:
+      </p>
+      <div class="codeex">
+         <pre class="brush: javascript; highlight: [2, 8, 13]; toolbar: false; auto-links: false;">
+            try {
+               var autobahn = require('autobahn');
+            } catch (e) {
+               // when running in browser, AutobahnJS will
+               // be included without a module system
+            }
+         </pre>
+      </div>
+
+      <h2>Connecting to the Server</h2>
+
+      <p>
+         The first thing we need to do if we want to use PubSub over WebSockets is to establish a WebSocket connection. WebSocket is built into modern browsers, so in principle we could use the built-in API for this.
+      </p>
+      <p>
+         Establishing the connection itself is quite straight forward, but WebSockets is  a low-level protocol. It does not provide any in-built features for publish and subscribe. For these we use WAMP.
+      </p>
+      <p>
+         {{ autobahnjs() }} not only implements WAMP, but also some comfort features for handling WebSocket connections. Because of this all our interaction for the connection is via {{ autobahnjs() }}.
+      </p>
+      <p>
+         The code to establish a WAMP/WebSocket connection is the same for both the publisher and the subscriber.
+      </p>
+
+      <div class="codeex">
+         <pre class="brush: javascript; highlight: [2, 8, 13]; toolbar: false; auto-links: false;">
+            // Set up WAMP connection to router
+            var connection = new autobahn.Connection({
+               url: 'ws://127.0.0.1:9000/',
+               realm: 'realm1'}
+            );
+
+            // Set up 'onopen' handler
+            connection.onopen = function (session) {
+               // code to execute on connection open goes here
+            };
+
+            // Open connection
+            connection.open();
+         </pre>
+      </div>
+
+      <p>
+         What we do here is:
+      </p>
+      <ul>
+         <li>
+            We define (line 2) a WAMP/WebSocket connection with minimum amount of necessary parameters
+            <ul>
+               <li>
+                  The WebSockets address to connect to. This starts with the WebSockets protocol prefix 'ws' (instead of 'http' for regular web traffic), and here is the localhost on port 9000. It could equally be the IP of the machine you run the server on.
+               </li>
+               <li>
+                  The WAMP realm to connect to. Realms are used to group connections to a WAMP server together, and to e.g. apply permissions to them. With our demo server, we are free to chose a realm name.
+               </li>
+            </ul>
+         </li>
+         <li>
+            We set up an 'onopen' handler, i.e. a function to execute once a connection has been established (starting at line 8). This is passed an object through which we can interact with the established WAMP/WebSocket session.
+         </li>
+         <li>
+            We open the WAMP/WebSocket connection (line 13).
          </li>
       </ul>
 
       <p>
-         (The connect method also accepts a fourth argument, which allows fine-tuning of the options for the connect process, such as the maximum number of reconnect attempts. For this demo, we'll just use the defaults for these options.)
+         The options dictionary for the connection accepts further optional arguments. For this tutorial, none of these are relevant.
       </p>
-         <a class="awh_up_developers" href="#top">Up</a>
-            <br/>
+
+      <a class="awh_up_developers" href="#top">Up</a>
+         <br/>
+
 
       <h2>On connect</h2>
 
       <p>
-         For an established connection, the following is executed:
+         Once the connection is established, the code in the 'onopen' handler is executed.
+      </p>
+
+      <p>
+         For the <strong>publisher</strong> this is:
       </p>
 
       <div class="codeex">
-         <pre id="code" class="brush: javascript; highlight: [2, 3]; toolbar: false; auto-links: false;">
-                  // WAMP session was established
-                  function (session) {
-                     sess = session;
-                     console.log("Connected!");
-                  }
+         <pre id="code" class="brush: javascript; highlight: [2, 9, 10, 13]; toolbar: false; auto-links: false;">
+            // Start publishing events
+            var counter = 0;
+
+            setInterval(function () {
+               console.log("publishing to topic 'com.myapp.topic1': " + counter);
+               session.publish('com.myapp.topic1', [counter]);
+               counter += 1;
+            }, 1000);
          </pre>
       </div>
 
       <p>
-         We bind the session object that is passed into the function (line 2) to a global variable 'sess' (line 4). In order to do this, we need to define 'sess' at the beginning of our JavaScript:
-      </p>
-
-      <div class="codeex">
-         <pre id="code" class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-            // WAMP session object
-            var sess;
-         </pre>
-      </div>
-
-      <p>
-         All interaction with the WebSocket session is then via this global object.
-      </p>
-
-      <p>
-         In our example web app, we then log the fact that we are connected to the console.
-      </p>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-      <h2>Subscriptions</h2>
-
-      <p>
-         The other thing we do on connection is to subscribe to some topics.
-      </p>
-      <p>
-         Like all PubSub interactions, subscriptions are made via the session object, which we access via the 'sess' global variable.
-      </p>
-      <div class="codeex">
-         <pre class="brush: javascript; highlight: [7]; toolbar: false; auto-links: false;">
-               // WAMP session was established
-               function (session) {
-
-                  sess = session;
-                  console.log("Connected!");
-
-                  sess.subscribe("http://example.com/simple", onEvent);
-
-                  sess.prefix("event", "http://example.com/events/myevents");
-                  sess.subscribe("event:firstevent", onEvent);
-                  sess.subscribe("event:secondevent", onEvent);
-               },
-         </pre>
-      </div>
-
-      <p>
-         As you can see, we make a subscription by calling the 'subscribe' method on the 'sess' object (line 7).
-      </p>
-      <p>
-         This method takes two arguments: an identifier for the topic, and the name of a function to call when a subscription event is received.
-      </p>
-      <p>
-         The 'onEvent' function that handles the subscription events is very simple in our demo app:
-      </p>
-      <div class="codeex">
-         <pre class="brush: javascript; toolbar: false; auto-links: false;">
-         function onEvent(topicUri, event) {
-            console.log(topicUri);
-            console.log(event);
-         }
-         </pre>
-      </div>
-      <p>
-         It receives a topic URI for the event, as well as the event, and both are logged to the console.
-      </p>
-      <p>
-         We'll take a closer look at some possible event data a bit later, when we go over publishing events. For now, let's see what the 'topic URI' is all about.
-      </p>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-      <h2>Topic URIs</h2>
-
-      <p>
-         WebSocket isn't the only web standard that WAMP is based on. To identify topics, WAMP uses URIs. These need to be properly formatted URIs, but there is no need for them to actually resolve to anything on the web.<br>
-         They are used as identifiers within WAMP because URIs are a simple and established way of guaranteeing globally unique namespaces. Nobody needs to worry that their identifier for a topic conflicts with anybody else's, as long as it is within a domain that he or she controls.
-      </p>
-      <p>
-         So URIs as identifiers for topics are useful in principle - but practically speaking, they can get a bit long. Nobody wants to remember, type or even just have to read something such as<br>
-         <span class="ident_tut">http://example.com/events/myevents/firsteevent</span><br>
-         or<br>
-      <span class="ident_tut">http://example.com/events/myevents/secondevent</span><br>
-      every time a subscription is made, canceled, or the resulting events handled.
-      </p>
-      <p>
-         Session prefixes enable us to shorten this to something much more manageable. We just define a shorthand for any parts of URIs that repeat, e.g. in the above example, we would define a prefix for<br>
-         <span class="ident_tut">http://example.com/events/myevents</span><br>
-         and then use this when we reference the 'firstevent' or 'secondevent'.
-      </p>
-      <p>
-         To define a prefix for an {{ autobahnjs() }} session, we use the 'prefix' method of the session object.
-      </p>
-
-      <div class="codeex">
-         <pre class="brush: javascript; highlight: [9]; toolbar: false; auto-links: false;">
-               // WAMP session was established
-               function (session) {
-
-                  sess = session;
-                  console.log("Connected!");
-
-                  sess.subscribe("http://example.com/simple", onEvent);
-
-                  sess.prefix("event", "http://example.com/events/myeevents");
-                  sess.subscribe("event:firstevent", onEvent);
-                  sess.subscribe("event:secondevent", onEvent);
-               },
-         </pre>
-      </div>
-
-      <p>
-         Calling the 'prefix' method (line 9) has now established 'event' as shorthand for<br>
-         <span class="ident_tut">http://example.com/events/myevent/</span><br>
-         By using the prefix, we can write<br>
-         <span class="ident_tut">event:firstevent</span><br>
-         instead of<br>
-         <span class="ident_tut">http://example.com/events/myevent/firstevent</span><br>
-         which saves us time when writing code, and makes everything much more readable.
-      </p>
-      <p>
-         Prefixes are per-session, so we need to define them for every new connection.
-       </p>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-
-      <h2>Just Publish</h2>
-
-      <p>
-         Our demo web app is now subscribed to three topics, and logs any event received to the console.
-      </p>
-      <p>
-         We now need some events to log, i.e. we need to add some publish features. The code so far did not have any need for an interface in the browser.<br>
-         For publishing, we'll add a (small) bit of chrome:
-      </p>
-      <div class="codeex">
-         <pre class="brush: xml; highlight: [7, 8, 9]; toolbar: false; auto-links: false;">
-            &lt;div class="block"&gt;
-               &lt;p&gt;
-                  Publish a simple event containing no data. &lt;br&gt;
-                  In a second browser window/tab with the demo web app, open the console
-                  (hit 'F12') and you can see events being received.
-               &lt;/p&gt;
-               &lt;button onclick="sess.subscribe('http://example.com/simple', onEvent);"&gt;Subscribe&lt;/button&gt;
-               &lt;button onclick="sess.unsubscribe('http://example.com/simple');"&gt;Unsubscribe&lt;/button&gt;
-               &lt;button onclick="sess.publish('http://example.com/simple', null);"&gt;Publish&lt;/button&gt;
-            &lt;/div&gt;
-         </pre>
-      </div>
-
-      <p>
-         The three buttons enable subscribing to a hardcoded topic (line 7), unsubscribing from it (line 8), and publishing to it (line 9).
-      </p>
-      <p>
-         As you can see, publishing is a simple method call on the session object (via the global variable 'sess'). This here is passed two arguments: the topic URI, and the contents of the event. Here the latter are set to 'null'.
-      </p>
-      <p>
-         To see what this does open up a second browser window or tab with the demo app, open the console (hit 'F12'), and then press 'Publish' a couple of times in the first one.
-      </p>
-      <p>
-         The published event is dispatched by the demo WAMP server to the second window/tab. On the console the topic URI and (null) content of the event are logged.
-      </p>
-      <p>
-         Nothing is logged on the console of the first window/tab.
-      </p>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-      <h2>Publish with Event Data</h2>
-
-      <p>
-         Our demo app is subscribed to three topics. We'll now add an interface that enables publishing a message to one of the two latter ones, and to add some data for the event.
-      </p>
-
-      <div class="codeex">
-         <pre class="brush: xml; highlight: [6, 7, 9, 10]; toolbar: false; auto-links: false;">
-
-         &lt;div class="block"&gt;
-            &lt;p&gt;
-               Publish an event containing data.
-            &lt;/p&gt;
-            &lt;form&gt;
-               &lt;p&gt;Message: &lt;input id="form_message" type="text" size="50" maxlength="50" value="Hello, world!"&gt;&lt;/p&gt;
-               &lt;p&gt;Flag: &lt;input id="form_flag" type="checkbox"&gt;&lt;/p&gt;
-               &lt;p&gt;Event:
-                  &lt;input id="event1" type="radio" name="eventtype" checked&gt;MyEvent 1
-                  &lt;input type="radio" name="eventtype"&gt;MyEvent 2
-               &lt;/p&gt;
-            &lt;/form&gt;
-            &lt;button onclick="publishEvent()"&gt;Publish Event&lt;/button&gt;
-         &lt;/div&gt;
-         </pre>
-      </div>
-
-      <p>
-         This interface enables us to input a message text (line 6), toggle a flag (line 7) and decide which of the two available topics this will be published under (lines 9 & 10).
-      </p>
-      <p>
-         The 'Publish Event' button calls the following 'publishEvent' function:
-      </p>
-      <div class="codeex">
-         <pre class="brush: javascript; highlight: [3, 8, 9, 10, 12, 14]; toolbar: false; auto-links: false;">
-         function publishEvent()
-         {
-            evt = {};
-
-            evt.name = document.getElementById('form_message').value;
-            evt.flag = document.getElementById('form_flag').checked;
-
-            evt.num = 23;
-            evt.created = new Date();
-            evt.rand = Math.random();
-
-            var excludeMe = false;
-
-            if (document.getElementById('event1').checked) {
-               sess.publish("event:firstevent", evt, excludeMe);
-            } else {
-               sess.publish("event:secondevent", evt, excludeMe);
-            }
-         }
-         </pre>
-      </div>
-
-      <p>
-         Here we initialize an 'evt' object than will contain the event data to be sent (line 3). Any JavaScript object can be sent as event data - so we'll fill it with a few different items.
-      </p>
-      <p>
-         We first get the two items of data that can be set via the UI.<br>
-         Then we add some more data:
+         What we do here is:
       </p>
       <ul>
          <li>
-            A hard-coded number (line 8)
+            The publication of the event itself if just a single line (line XXX). The publication is for a topic, 'com.myapp.topic1'. WAMP uses URIs (with the notation following the Java package naming conventions) to identify topics. The publication also has an optional payload
          </li>
          <li>
-            The current datetime (line 9)
+            The payload here is a counter, which we've defined in line XXX and which we increment after each publish (line XXX).
          </li>
          <li>
-            A random number (line 10)
+            We want to publish more than once, so we create an interval time to wrap the publication.
+         </li>
+         <li>
+            Since we want some output in the publisher's console, we log the fact that we're publishing as well as the current counter value (line XXX).
          </li>
       </ul>
+
       <p>
-         We check for the state of the radio buttons (line 14), and publish our event data on one of two topics accordingly.
+         For the <strong>subscriber</strong> this is:
       </p>
+
+      <div class="codeex">
+         <pre id="code" class="brush: javascript; highlight: [2, 4, 8]; toolbar: false; auto-links: false;">
+         // Define an event handler
+         function onEvent(args) {
+            console.log("Event received ", args);
+         }
+
+         // Subscribe to a topic
+         session.subscribe('com.myapp.topic1', onEvent);
+         </pre>
+      </div>
+
       <p>
-         There's a little addition here, as well:<br>
-         A 'excludeMe' variable (line 12) that we pass to the 'publish' function as a third argument, and which was not used in the hardcoded simple publish.
+         What we do here is:
       </p>
-      <p>
-         This third argument is, as we've seen, optional. It is a boolean value, and the default if nothing is passed is 'true'.
-      </p>
-      <p>
-         The effect of us setting this to 'false' for our publishing here is that the event is now dispatched to the window/tab that publishes it as well.
-      </p>
-      <p>
-         This is switched off by default because it is first of all not really necessary on the side of the publisher - he has knowledge of the event data. Additionally, this may necessitate filtering by the publisher, to exclude self-published events.
-      </p>
+      <ul>
+         <li>
+            We define a handler for subscription events. Here, this just logs the fact that we have received an event plus the event payload.
+         </li>
+         <li>
+            We then subscribe to the topic. Arguments are the subscription topic (identified by a URI) and the subscription event handler (the function we've just defined).
+         </li>
+      </ul>
+
       <a class="awh_up_developers" href="#top">Up</a>
          <br/>
 
+
       <h2>Summary & Beyond</h2>
       <p>This tutorial gave an overview how simple PubSub messaging is with {{ autobahnjs() }} - no more than a line of code each for either subscribing and publishing.</p>
-      <p>We encourage you to play around with the WAMP demo server and with the demo app. Run it on different machines. Add more event data. Use the received events to trigger functions that do more than just log things (for a neat little example of this, take a look at the <a href="{{ url_for('page_home')}}">BeatBox Real-Time Demo</a>).
+      <p>We encourage you to play around with the WAMP demo server and with the demo app. Run it on different machines. Add more event data. Use the received events to trigger functions that do more than just log things.
       <p>
-         If you're interested, the <a href="{{ url_for('page_home')}}">PubSub Tutorial</a> shows you an equally quick and easy start into publish & subscribe with {{ autobahnjs() }}. Or go to the <a href="{{ url_for('page_python_tutorials')}}">Python tutorials</a> to start exploring how the WAMP demo server works.
+         If you're interested, the <a href="{{ url_for('page_home')}}">PubSub Tutorial</a> shows you an equally quick and easy start into publish & subscribe with {{ autobahnjs() }}. Or go to the <a href="{{ url_for('page_python_examples')}}">Python examples</a> to start exploring how the WAMP demo server works.
       </p>
 
 

@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>AutobahnJS Frontend</title>
+   <title>AutobahnJS PubSub Publisher</title>
 </head>
 <body>
 
-   <h1>AutobahnJS Frontend</h1>
-
-   <button id="callProcedure">Call Procedure</button>
+   <h1>AutobahnJS PubSub Publisher</h1>
 
    <p>
       Open the JavaScript console to watch output.
@@ -33,32 +31,19 @@
       // Set up 'onopen' handler
       connection.onopen = function (session) {
 
-         document.getElementById('callProcedure').addEventListener('click', function() {
-            session.call('com.timeservice.now').then(
-               // RPC success callback
-               function (now) {
-                  console.log("Current time:", now);
-               },
-               // RPC error callback
-               function (error) {
-                  console.log("Call failed:", error);
-               }
-            );
-         })
+         // Start publishing events
+         var counter = 0;
 
-         // Define an event handler
-         function onEvent(args) {
-            console.log("Event received ", args);
-         }
-
-         // Subscribe to a topic
-         session.subscribe('com.myapp.topic1', onEvent);
+         setInterval(function () {
+            console.log("publishing to topic 'com.myapp.topic1': " + counter);
+            session.publish('com.myapp.topic1', [counter]);
+            counter += 1;
+         }, 1000);
 
       };
 
       // Open connection
       connection.open();
-
    </script>
 
 </body>

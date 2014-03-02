@@ -14,6 +14,14 @@
 
    <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
    <script>
+      // Make code portable to Node.js without any changes
+      try {
+         var autobahn = require('autobahn');
+      } catch (e) {
+         // when running in browser, AutobahnJS will
+         // be included without a module system
+      }
+
       // Set up WAMP connection to router
       var connection = new autobahn.Connection({
          url: 'ws://127.0.0.1:9000/',

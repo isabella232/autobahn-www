@@ -18,7 +18,7 @@
             <ul>
                <li><a href="#installation">Installation</a></li>
                <li><a href="#testserver">Running a Test Server</a></li>
-               <li><a href="#yourfirstclient">Your first Frontend and Backend</a></li>
+               <li><a href="#yourfirstclient">Your first Clients</a></li>
                <li><a href="#wheretogo">Where to go now</a></li>
             </ul>
          </div>
@@ -53,7 +53,7 @@
       <h1>Running a Test Server</h1>
 
       <p>
-         Obviously, we will need a WAMP server to access from {{autobahnjs()}}.
+         Obviously, we will need a WAMP server to access from {{autobahnjs()}}. This is based on {{autobahnpython()}}.
       </p>
 
       <p>
@@ -61,17 +61,15 @@
       </p>
 
       <p>
-         We will use a basic WAMP server based on {{autobahnpython()}} which is <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/wamp/basic">part of the examples</a> for that project.
-      </p>
-      <p>
-         To use this, you need to clone the <a href="https://github.com/tavendo/AutobahnPython">project GitHub repository</a>, or, if you're no a git user, download the <a href="https://github.com/tavendo/AutobahnPython/archive/master.zip">zipped version</a>.
-      </p>
-      <p>
-         You also need to install {{autobahnpython()}} itself, which is done easiest following these <a href="{{ url_for('page_python_getstarted') }}">installation instructions</a>.)
+         You first need to install {{autobahnpython()}} itself, which is done easiest following these <a href="{{ url_for('page_python_getstarted') }}">installation instructions</a>.)
       </p>
 
       <p>
-         Once you've done so, in the {{autobahnpython()}} repository on your hard drive, in a command shell go to the folder `examples / twisted / wamp / basic` and start the server
+         We then run a simple server script which builds on top of {{ autobahnpython() }}. Just download <a href="{{ url_for('static', filename='file/wamp-server.py') }}">the script</a> and store it in a directory of your choosing.
+      </p>
+
+      <p>
+         Then open a command shell in the directory where you've saved the script and, start the server with
       </p>
 
       {{ beginshell() }}
@@ -84,7 +82,7 @@ python server.py
       <h1>Your first Clients</h1>
 
       <p>
-         The basic server we've started only routes PubSub events and RPCs, but does not provide any additional functionality.
+         The basic server we've started only routes PubSub events and RPCs, but does not provide any application functionality.
       </p>
       <p>
          All the functionality will be provided by two HTML files. This functionality is
@@ -104,6 +102,8 @@ python server.py
          </li>
       </ul>
 
+
+
       <p>
          We will just present and run the code without explanations.
          For detailed walk-throughs, please see the <a href="{{ url_for('page_js_tutorials') }}">tutorials</a>.
@@ -120,13 +120,17 @@ python server.py
          </li>
       </ul>
 
+      <p class="hint">
+         Barring its use of browser-only methods, the JavaScript can equally well be run in Node.js.
+      </p>
+
 
       <h2>
          Frontend Client
       </h2>
 
       <p>
-         The frontend client provides receives PubSub events to a set topci, and allows calling a remote procedure
+         The frontend client provides receives PubSub events to a set topic, and allows calling a remote procedure
       </p>
 
       <div class="codeex">
@@ -305,10 +309,16 @@ python server.py
       <p class="hint">
          Use a modern browser (e.g. Chrome, Firefox or IE>9. AutobahnJS has support for older browsers, but this requires more work on the server side.
       </p>
-
+      <br>
       <p class="hint">
          Here all functionality except for the routing is run in the browser. In most real-world deployments, some functionality will be run on a server.
+         <br>
+         To enable the above JavaScript to run in Node.js, just add the following at the beginning:
       </p>
+      <pre class="brush: javascript; toolbar: false; auto-links: false;">
+         var autobahn = require('autobahn');
+      </pre>
+
       <br>
 
       <a name="wheretogo"></a>

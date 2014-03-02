@@ -15,33 +15,39 @@
             The goal of this tutorial is to introduce remote procedure calls (RPC) with {{ autobahnjs() }}.
          </p>
          <p>
-            RPC, as the name suggests, means calling a procedure remotely, e.g. on a server. The result of that procedure is received in the call return. Examples of RPCs are a request to a server to send some current weather data when a weather app starts up, or sending of some form input to be verified on a server.</p>
+            RPC, as the name suggests, means calling a procedure remotely. The remote procedure endpoint is most usually on a server, but with {{ wamp() }}, the protocol which {{ autobahnjs() }} implements, it can also be within a JavaScript client.
+         </p>
+         <p>
+            The result of the called procedure is received in the call return. Examples of RPCs are a request to a server to send some current weather data when a weather app starts up, or the sending of some form input to be verified on a server.</p>
          <p>
             In {{ autobahnjs() }}, RPC is implemented based on
             {{ wamp() }}, an open protocol that does both RPC and Publish & Subscribe (PubSub) over WebSocket. There's also a <a href="{{ url_for('page_js_tutorials_pubsub') }}">tutorial</a> for how to do PubSub using {{ autobahnjs() }}.
          </p>
 
          <p>
-            In this tutorial we will create a small web app that connects to a WAMP server and sends some RPCs. The results of these calls are logged to the console.
+            In this tutorial we will create a small web app that consists of two clients which connect to a WAMP server. One of the clients provides an RPC endpoint (the 'backend') while the other calls this procedure and logs its result (the 'frontend'). The WAMP server routes the calls and results.
          <p>
 
          <p>
-            You can find all code for this tutorial in the <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples/rpc/simple" target="_blank">source repository</a> for {{ autobahnpython() }}
+            We will create both the 'frontend' and the 'backend' ready to run in a browser, but the JavaScript can equally be executed in Node.js.
+         </p>
+
+         <p>
+            Download links for all code are provided with the explanations for the respective parts.
          </p>
 
       <h2>Prerequisites</h2>
 
          <p>
-            For this tutorial, you will need a
+            For this tutorial, you will need
             <ul>
-               <li><a href="{{ url_for('page_home') }}">Web Browser with WebSockets</a>
-            to run the web app, and</li>
-               <li><a href="{{ url_for('page_home') }}">{{ autobahnpython() }}</a> to run the demo server which the web app connects to.</li>
+               <li>
+                  a modern Web Browser with WebSockets to run the clients, and
+               </li>
+               <li>
+                  <a href="{{ url_for('page_python') }}">{{ autobahnpython() }}</a> to run the server which the web app connects to.
+               </li>
             </ul>
-         </p>
-
-         <p>
-         The full code for the web app can be found in the <a href="https://github.com/tavendo/AutobahnPython/blob/master/examples/rpc/simple/client.html">Git Repository</a>. We'll go over all of it piece by piece now.
          </p>
 
          <a class="awh_up_developers" href="#top">Up</a>
@@ -64,11 +70,13 @@
          </li>
          <li>
             In a command shell, type<br>
-            <pre class="shell">easy_install autobahntestsuite</pre> This automatically gets the install package from the internet. The {{ autobahntestsuite() }} contains the {{ autobahnpython() }} libraries as well as a test server for this and other tutorials.
+            <pre class="shell">easy_install autobahn</pre> This automatically gets the install package from the internet.
          </li>
          <li>
-            In the command shell, go to the python directory (e.g. 'Python27' on your C: drive if you installed with defaults under Windows). There, go to the 'lib' folder, and in that to the 'site-packages' folder. There you'll see an 'autobahn' folder (which has the version number appended at the end). Go to that folder and type<br>
-            <pre class="shell">wstest -m wampserver</pre>
+            Save <a href="{{ url_for('static', filename='file/wamp-server.py') }}">the server script</a> in a directory of your choosing.
+
+         <li>
+            Open a command shell in the directory where you've saved the script and, start the server with <pre class="shell">python server.py</pre>
          </li>
       </ul>
       <p>That's it - the WAMP demo server is running. (It runs until you break out from the Python interpreter - Ctrl-C/D/Z depending on your platform).
@@ -80,108 +88,160 @@
          <br/>
 
 
-      <h2>Including {{ autobahnjs() }}</h2>
-
-
-      <p>To use RPCs in our web app, we need {{ autobahnjs() }}. We include the {{ autobahnjs() }} script in the head of our HTML:</p>
-
-      <div class="codeex">
-         <pre type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;">
-            &lt;head&gt;
-               &lt;script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"&gt;&lt;/script&gt;
-            &lt;&#47;head&gt;
-         </pre>
-      </div>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
       <h2>The HTML</h2>
 
       <p>
-         The HTML for the web app is very simple:
+         The HTML is very simple in for both the 'frontend' and the 'backend'.
+      </p>
+
+      <p>
+         For the 'backend', we just need something which identifies the browser tab to us, plus, of course, load the WAMP library, {{ autobahnjs() }}.
       </p>
 
       <div class="codeex">
-         <pre type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;">
-            &lt;body&gt;
-               &lt;h1&gt;Simple RPCs with WAMP&lt;/h1&gt;
-               &lt;noscript&gt;
-                  &lt;span style="color: #f00; font-weight: bold;"&gt;
-               You need to turn on JavaScript.
-                  &lt;/span&gt;
-               &lt;/noscript&gt;
-               &lt;p&gt;
-                  Open development console (press F12) to watch and press
-                  &lt;button onclick="run();"&gt;Run&lt;/button&gt;
-               &lt;/p&gt;
-            &lt;&#47;body&gt;
-         </pre>
+         <script type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;"><![CDATA[
+<!DOCTYPE html>
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS RPC Backend</title>
+</head>
+<html>
+   <body>
+      <h1>RPC Time Service Backend</h1>
+      <p>Open JavaScript console to watch output.</p>
+      <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">&lt;/script>
+   </body>
+</html>
+            ]]>
+         </script>
       </div>
 
       <p>
-         The 'noscript' tag contains a reminder to turn on JavaScript in the browser if you run a script blocker.<br>
-         Else a request to open the developer console of the browser is shown, together with a 'run' button which is wired to execute a 'run' function in our JavaScript.
+         For the 'frontend', all that changes are some title strings:
       </p>
+
+      <div class="codeex">
+         <script type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;"><![CDATA[
+<!DOCTYPE html>
+<head>
+   <meta charset="UTF-8">
+   <title>AutobahnJS RPC Backend</title>
+</head>
+<html>
+   <body>
+      <h1>RPC Time Service Frontend</h1>
+      <p>Open JavaScript console to watch output.</p>
+      <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">&lt;/script>
+      <script src="backend.js">&lt;/script>
+   </body>
+</html>
+            ]]>
+         </script>
+      </div>
+
       <a class="awh_up_developers" href="#top">Up</a>
          <br/>
 
+      <h2>The JavaScript</h2>
+
+      <p>
+         To make the demo quick to run in the browser, the JavaScript is included as an inline script in the frontend and backend client HTML files.
+      </p>
+      <ul>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_rpc_backend.html') }}">Backend</a>
+         </li>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_rpc_frontend.html') }}">Frontend</a>
+         </li>
+      </ul>
+      <p>
+         The JavaScript on its own can, however, also be run in Node.js. In this case, use
+      </p>
+      <ul>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_rpc_backend.js') }}">Backend</a>
+         </li>
+         <li>
+            <a href="{{ url_for('static', filename='file/autobahnjs_rpc_frontend.js') }}">Frontend</a>
+         </li>
+      </ul>
+      <p>
+         The only difference is that in the browser, {{ autobahnjs() }} is loaded via a script tag, while in Node.js we need to include it via node's dependency management.
+      </p>
+      <p>
+         In order to be freely movable, we can do so in a way which doesn't fail in the browser by using:
+      </p>
+      <div class="codeex">
+         <pre class="brush: javascript; highlight: [2, 8, 13]; toolbar: false; auto-links: false;">
+            try {
+               var autobahn = require('autobahn');
+            } catch (e) {
+               // when running in browser, AutobahnJS will
+               // be included without a module system
+            }
+         </pre>
+      </div>
 
 
       <h2>Connecting to the Server</h2>
 
       <p>
-         The first thing we need to do if we want to use RPC over WebSockets is to establish a WebSocket connection. WebSocket is built into modern browsers, so in principle we could use the built-in API for this.<br>
-         Establishing the connection itself is quite straight forward, but then there's all the hassle of e.g. handling connection failures. {{ autobahnjs() }} wraps the browser WebSockets functionality, and add some other comfort features under the hood, e.g. automatic reconnects. Because of this all our interaction for the connection is via {{ autobahnjs() }}.
+         The first thing we need to do if we want to use RPC over WebSockets is to establish a WebSocket connection. WebSocket is built into modern browsers, so in principle we could use the built-in API for this.
       </p>
       <p>
-         Establishing a WAMP-enabled WebSocket connection is via the 'ab' object that {{ autobahnjs() }} creates.
+         Establishing the connection itself is quite straight forward, but WebSockets is  a low-level protocol. It does not provide any in-built features for Remote Procedure calls. For these we use WAMP.
       </p>
       <p>
-         We want the connecting to the server established once the document has finished loading, so we call this via 'window.onload':
+         {{ autobahnjs() }} not only implements WAMP, but also some comfort features for handling WebSocket connections. Because of this all our interaction for the connection is via {{ autobahnjs() }}.
+      </p>
+      <p>
+         The code to establish a WAMP/WebSocket connection is the same for both the frontend and the backend.
       </p>
 
       <div class="codeex">
-         <pre class="brush: javascript; highlight: [4, 7, 14]; toolbar: false; auto-links: false;">
-            window.onload = function() {
+         <pre class="brush: javascript; highlight: [2, 8, 13]; toolbar: false; auto-links: false;">
+            // Set up WAMP connection to router
+            var connection = new autobahn.Connection({
+               url: 'ws://127.0.0.1:9000/',
+               realm: 'realm1'}
+            );
 
-               // connect to WAMP server
-               ab.connect("ws://localhost:9000",
-
-                  // WAMP session was established
-                  function (session) {
-
-                     // things to do once the session has been established
-
-                  },
-
-                  // WAMP session is gone
-                  function (code, reason) {
-
-                     // things to do once the session fails
-                  }
-               );
+            // Set up 'onopen' handler
+            connection.onopen = function (session) {
+               // code to execute on connection open goes here
             };
+
+            // Open connection
+            connection.open();
          </pre>
       </div>
 
       <p>
-         In this anonymous function, the only thing we do directly is ask for a connection. This is via the 'connect' method of the 'ab' object (line 4).<br>
-      We pass three arguments to the 'connect' method:
+         What we do here is:
       </p>
       <ul>
          <li>
-            The WebSockets address to connect to. This starts with the WebSockets protocol prefix 'ws' (instead of 'http' for regular web traffic), and here is the localhost on port 9000. It could equally be the IP of the machine you run the server on.
+            We define (line 2) a WAMP/WebSocket connection with minimum amount of necessary parameters
+            <ul>
+               <li>
+                  The WebSockets address to connect to. This starts with the WebSockets protocol prefix 'ws' (instead of 'http' for regular web traffic), and here is the localhost on port 9000. It could equally be the IP of the machine you run the server on.
+               </li>
+               <li>
+                  The WAMP realm to connect to. Realms are used to group connections to a WAMP server together, and to e.g. apply permissions to them. With our demo server, we are free to chose a realm name.
+               </li>
+            </ul>
          </li>
          <li>
-            A first function to execute once a connection has been established (starting at line 7). This is passed an object through which we can interact with the established WebSocket session.
+            We set up an 'onopen' handler, i.e. a function to execute once a connection has been established (starting at line 8). This is passed an object through which we can interact with the established WAMP/WebSocket session.
          </li>
          <li>
-            A second function to execute if the connection cannot be established (starting at line 14), or when the connection closes. This is passed arguments that give the reason for the failure.
+            We open the WAMP/WebSocket connection (line 13).
          </li>
       </ul>
 
       <p>
-         (The connect method also accepts a fourth argument, which allows fine-tuning of the options for the connect process, such as the maximum number of reconnect attempts. For this demo, we'll just use the defaults for these options.)
+         The options dictionary for the connection accepts further optional arguments. For this tutorial, none of these are relevant.
       </p>
 
       <a class="awh_up_developers" href="#top">Up</a>
@@ -190,187 +250,134 @@
       <h2>On connect</h2>
 
       <p>
-         For an established connection, the following is executed:
+         Once the connection is established, the code in the 'onopen' handler is executed.
+      </p>
+
+      <p>
+         For the <strong>backend</strong> this is:
       </p>
 
       <div class="codeex">
-         <pre id="code" class="brush: javascript; highlight: [2, 3]; toolbar: false; auto-links: false;">
-                  // WAMP session was established
-                  function (session) {
-                     sess = session;
-                     console.log("Connected!");
-                  }
+         <pre id="code" class="brush: javascript; highlight: [2, 9, 10, 13]; toolbar: false; auto-links: false;">
+            // Define the remote procedure
+            function utcnow() {
+               console.log("Someone is calling me;)");
+               now = new Date();
+               return now.toISOString();
+            }
+
+            // Register the remote procedure with the router
+            session.register('com.timeservice.now', utcnow).then(
+               function (registration) {
+                  console.log("Procedure registered:", registration.id);
+               },
+               function (error) {
+                  console.log("Registration failed:", error);
+               }
+            );
          </pre>
       </div>
 
       <p>
-         We bind the session object that is passed into the function (line 2) to a global variable 'sess' (line 4). In order to do this, we need to define 'sess' at the beginning of our JavaScript:
-      </p>
-
-      <div class="codeex">
-         <pre id="code" class="brush: javascript; toolbar: false; auto-links: false; gutter: false;">
-            // WAMP session object
-            var sess;
-         </pre>
-      </div>
-
-      <p>
-         All interaction with the WebSocket session is then via this global object.
-      </p>
-
-      <p>
-         In our example web app, we then log the fact that we are connected to the console.
-      </p>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-      <h2>Establishing session prefixes</h2>
-
-      <p>
-         WebSocket isn't the only web standard that WAMP is based on. To identify procedures, WAMP uses URIs. These need to be properly formatted URIs, but there is no need for them to actually resolve to anything on the web.
-      </p>
-      <p>
-         They are used as identifiers within WAMP because URIs are a simple and established way of guaranteeing globally unique namespaces. Nobody needs to worry that their identifier for a remote procedure conflicts with anybody else's, as long as it is within a domain that he or she controls.
-      </p>
-      <p>
-         So URIs as identifiers for procedures are useful in principle - but practically speaking, they can get a bit long. Nobody wants to remember, type or even just have to read something such as<br>
-         <span class="ident_tut">http://example.com/remoteprocedures/mathfunctions#add </span><br>
-         or<br>
-      <span class="ident_tut">http://example.com/remoteprocedures/mathfunctions#sum</span><br>
-      all the time.
-      </p>
-      <p>
-         Session prefixes enable us to shorten this to something much more manageable. We just define a shorthand for any parts of URIs that repeat, e.g. in the above example, we would define a prefix for<br>
-         <span class="ident_tut">http://example.com/remoteprocedures/mathfunctions</span><br>
-         and then use this to call our 'add' or 'sum' functions.
-      </p>
-      <p>
-         To define a prefix for an {{ autobahnjs() }} session, we use the 'prefix' method of the session object, and add this to our previous on connect function.
-      </p>
-
-      <div class="codeex">
-         <pre class="brush: javascript; highlight: [8]; toolbar: false; auto-links: false;">
-                  // WAMP session was established
-                  function (session) {
-
-                     sess = session;
-                     console.log("Connected!");
-
-                     // establish a prefix, so we can abbreviate procedure URIs ..
-                     session.prefix("calc", "http://example.com/simple/calc#");
-                  }
-         </pre>
-      </div>
-
-      <p>
-         Calling the 'prefix' method (line 8) has now established 'calc' as shorthand for<br>
-         <span class="ident_tut">http://example.com/remoteprocedures/mathfunctions</span><br>
-         and we can use this whenever we make a procedure call in the current session to a remote procedure that performs a math function. We need to do this once every new session.
-      </p>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-      <h2>If the session fails</h2>
-
-      <p>
-         As we said before, the 'connect' method on the 'ab' object takes a second function to execute in case the connection fails. This covers an initial failure to connect as well as a closing or break-off of the connection.
-      </p>
-
-      <div class="codeex">
-         <pre class="brush: javascript; highlight: [3, 4]; toolbar: false; auto-links: false;">
-                  // WAMP session is gone
-                  function (code, reason) {
-                     sess = null;
-                     alert(reason);
-                  }
-         </pre>
-      </div>
-
-      <p>
-         In our example web app, we only do two things here:
+         What we do here is:
       </p>
       <ul>
          <li>
-            We reset the binding for our global variable 'sess' to null (line 3).
+            We define the function to be executed as a remote procedure (starting line 2). This simply logs the fact that it has been called to the console, and returns the current time in ISO format.
          </li>
          <li>
-            We show the string containing the human-readable reason for the connection fail in an alert box (line 4).
+            We register this function as a remote procedure with the WAMP router we're connected to (line 9). The registration itself has two arguments:
+            <ul>
+               <li>
+                  The name of the function to register ('utcnow')
+               </li>
+               <li>
+                  The identifier which a caller needs to use for calling the procedure. For this, WAMP uses URIs following the Java package naming convention.
+               </li>
+            </ul>
+         </li>
+         <li>
+            The registration creates a promise, which is resolved when the registration either succeeds or fails. We attach a handler for either outcome to the promise (that's what the '.then' does: when the promise fulfills, then do ...).
+         </li>
+         <li>
+            The first function (starting in line 10) is called if the registration succeeds and logs the registration ID that the server has created. (This is need in case of de-registration of the procedure.)
+         </li>
+         <li>
+            The second function (starting in line 13) is called if the registration fails and just logs the received error code.
          </li>
       </ul>
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-
-      <h2>Sending an RPC</h2>
 
       <p>
-         Now that we have a WebSocket connection to a WAMP server, we are ready to make some calls. The demo web server has some simple arithmetic operations implemented.
-      </p>
-      <p>
-         The 'run' button in the the example web app is wired to a 'run' function, and this makes a set of these calls. Let's take a look at a few of these right now to get the basic structure.
+         For the <strong>frontend</strong> this is:
       </p>
 
       <div class="codeex">
-         <pre class="brush: javascript; highlight: [4, 7, 10]; toolbar: false; auto-links: false;">
-            function run()
-            {
-               // call a function and log result on success
-               sess.call("calc:square", 23).then(ab.log);
-
-               // call a function with multiple arguments
-               sess.call("calc:add", 23, 7).then(ab.log);
-
-               // call a function with list of numbers as arg
-               sess.call("calc:sum", [1, 2, 3, 4, 5]).then(ab.log);
-            }
+         <pre id="code" class="brush: javascript; highlight: [2, 4, 8]; toolbar: false; auto-links: false;">
+            setInterval(function() {
+               session.call('com.timeservice.now').then(
+                  // RPC success callback
+                  function (now) {
+                     console.log("Current time:", now);
+                  },
+                  // RPC error callback
+                  function (error) {
+                     console.log("Call failed:", error);
+                  }
+               );
+            }, 1000);
          </pre>
       </div>
 
       <p>
-         We use the session object 'sess' to make the calls - or, more precisely, the 'call' method of that object.
+         What we do here is:
       </p>
-      <p>
-         The 'call' method requires as its first argument an URI identifying the procedure that is called. In all our examples, we use the prefix we defined when we initiated the session, e.g. 'calc:square' (line 4) is just a shorthand for<br>
-         <span class="ident_tut">http://example.com/remoteprocedures/mathfunctions#square</span><br>
-      </p>
-      <p>
-         The call method can take zero or more additional arguments.<br>
-      Here only a single integer is passed to 'square' to be squared (line 4), while 'add' naturally takes two (line 7). For 'sum' only a single argument is passed (line 10) - but this is an array of integers.<br>
-      In principle arguments can be of any data type or object that is handled by JavaScript. (Under the hood, WAMP serializes the entire call as JSON, which is another web standard, and is designed to handle data from JavaScript.)
-      </p>
+      <ul>
+         <li>
+            We want to call the timeservice remote procedure once per second, so we wrap the actual call in an interval timer.
+         </li>
+         <li>
+            The call to the remote procedure occurs in line 2. All we need here is the identifier of the procedure. With a procedure which requires input, there would additionally be call arguments. For possible call argument types, see the reference.
+         </li>
+         <li>
+            The call creates a promise, which is resolved when the call either succeeds or fails. We attach a handler for either outcome to the promise (that's what the '.then' does: when the promise fulfills, then do ...
+         </li>
+         <li>
+            The first function (starting in line 4) is called if the call succeeds and logs the ISO time string that the procedure has returned.
+         </li>
+         <li>
+            The second function (starting in line 8) is called if the call fails and just logs the received error code.
+         </li>
+      </ul>
 
-      <p>
-         We'll take a closer look at the other RPCs, and what happens as the result of these, but first we need to cover how responses to calls are handled.
-      </p>
       <a class="awh_up_developers" href="#top">Up</a>
          <br/>
 
-      <h2>Deferred handling of Responses</h2>
+      <h2>Using Promises to handle deferred outcomes</h2>
 
       <p>
-         With RPCs, we are calling a procedure that is executed on a connected device or process. Quite often the connection will be one over the web (we are using WebSockets, after all). With this, for simple functions, the accumulated round trip times will be several orders of magnitude above that for a locally executed one.<br>
+         With all networking events, the outcome of a process involves network latencies. Quite often the connection will be one over the web (we are using WebSockets, after all). With this, for simple functions (like our RPC procedure), the accumulated round trip times will be several orders of magnitude above that for a locally executed one.<br>
          Conventional synchronous programming in JavaScript, in which the program blocks until there is a function result, is not an option if apps are to remain speedy.
       </p>
       <p>
-         To handle this problem, the {{ autobahnjs() }} library implements a form of deferreds. This means that together with the RPC, you pass at least one function to handle the result of the RPC, e.g.
+         To handle this problem, the {{ autobahnjs() }} library implements a form of promises. This means that together with the RPC, you pass at least one function to handle the result of the RPC, e.g.
       </p>
-      <pre id="code" class="brush: javascript; ; toolbar: false; auto-links: false; gutter:false">sess.call("calc:square", 23).then(ab.log);</pre>
+      <pre id="code" class="brush: javascript; ; toolbar: false; auto-links: false; gutter:false">sess.call('com.timeservice.now').then(console.log);</pre>
       <p>
-         This is what the argument of the '.then()' after the RPC is. The execution of this function is then deferred until the result has been received.
+         This is what the argument of the '.then()' after the RPC is. The execution of this function is then deferred until the result has been received (the 'promise' has been fulfilled).
       </p>
       <p>
-         In our examples, only a single function is passed as an argument, and this is called when the RPC is successful (i.e. returns a result - this result itself can be an error message of the called procedure). It is also possible to pass a second function which is executed if the RPC itself fails, e.g. if it couldn't be sent. If this is used, the first and the second function are simply separated by a comma.
+         In the above example, only a single function is passed as an argument, and this is called when the RPC is successful (i.e. returns a result - this result itself can be an error message of the called procedure). In our demo, we also pass a second function which is executed if the RPC itself fails, e.g. if it couldn't be sent.
       </p>
       <p>
          There's no need for you to manage anything regarding the passed functions - reception of the result and execution of the function for handling the result, or calling of the error function, are fully automatic in the background. All it may take is a little rethinking of some of the habits from synchronous programming - but you gain an extremely powerful and flexible tool.
       </p>
-      <p>This is what we are using in a further call:</p>
+      <p>Using promises, we can do things like:</p>
 
       <div class="codeex">
          <pre class="brush: javascript; highlight: [2]; toolbar: false; auto-links: false;">
             // call a function and call another function on success
-            sess.call("calc:square", 23).then(function(res) {
-               sess.call("calc:sqrt", res).then(ab.log);
+            sess.call('com.timeservice.now').then(function(res) {
+               sess.call('com.formatstrings.date', res).then(console.log);
             });
          </pre>
       </div>
@@ -378,89 +385,13 @@
          Here a second RPC is made once the result of the first one is received, and this first result is passed as an argument. The result of this second RPC is then logged.<br>
          This is actually somewhat easier than the reverse chaining of functions that conventional JavaScript would demand, where the last executed function is the outermost, with all previous ones nested successively backwards inside.
       </p>
-
-
-      <a class="awh_up_developers" href="#top">Up</a>
-         <br/>
-
-
-      <h2>The Console Output</h2>
-
-      <p>
-         We'll now take a look at the console output, and cover the remaining RPCs that are sent in our web app in the process.
-      </p>
-      <p>
-         If you haven't done so already, download the <a href="https://raw.github.com/tavendo/AutobahnPython/master/examples/rpc/simple/client.html">web app demo code</a> and open it in your browser.<br>
-         Hit 'F12' to open the console.
-      </p>
-      <p>
-        You should now see a 'Connected!' as the first output in the console.
-      </p>
-      <p>
-         Press the 'Run' button in the browser window, and you should get the following output in the console:
-      </p>
-      <p>
-         <span class="ident_tut">529</span><br>
-         <span class="ident_tut">30</span><br>
-         <span class="ident_tut">15</span><br>
-         <span class="ident_tut">http://autobahn.tavendo.de/error#generic</span><br>
-         <span class="ident_tut">http://example.com/error#number_too_big</span><br>
-         <span class="ident_tut">25</span><br>
-         <span class="ident_tut">23</span><br>
-         <span class="ident_tut">10</span><br>
-      </p>
-
-      <p>
-         The first three lines of the output are expected: 529 is 23 squared, 30 is 23 + 7, and 15 is the sum of 1, 2, 3, 4 & 5.
-      </p>
-      <p>
-         The result for the fourth RPC, or rather, the chaining of two RPCs that started with the fourth RPC, does not appear until later. The '23' only appears at the second-to-last position. The chaining of these two RPCs led to an increased run time, so that the results of other, subsequently initiated RPCs, are received and logged first.</p>
-      <p>
-         Next come the error results for the fifth (line 2) and and sixth call (lin3 5):
-      </p>
-
-      <div class="codeex">
-         <pre id="code" class="brush: javascript; highlight: [2, 5]; toolbar: false; auto-links: false;">
-            // call a function, log on success, handle error
-            sess.call("calc:sqrt", -1).then(ab.log, ab.log);
-
-            // we can throw (see server) and receive a custom error
-            sess.call("calc:square", 1001).then(ab.log, ab.log);
-         </pre>
-      </div>
-
-      <p>
-         The first is a generic error message, the second specific to the particular class of error. Both are expressed as URIs (and can be shortened if a prefix for them is the server).
-      </p>
-      <p>
-         And last in the 'run' function we sent two RPCs that differed mainly in one respect:
-      </p>
-
-      <div class="codeex">
-         <pre id="code" class="brush: javascript; highlight: [4, 5]; toolbar: false; auto-links: false;">
-            // call a function that takes a long time, call another function
-            // the result of the latter is received first, in other words,
-            // RPC is really asynchronous
-            sess.call("calc:asum", [1, 2, 3, 4]).then(ab.log);
-            sess.call("calc:sum", [5, 6, 7, 8]).then(ab.log);
-         </pre>
-      </div>
-      <p>
-         Both are calls to functions that return the sum of the numbers received in an array.
-      </p>
-      <p>
-         The first function, 'asum'  (line 4) has a hardcoded delay of 3 seconds before the return, while the second one  (line 5) sends the result as soon as it has computed it (i.e. almost instantly).
-      </p>
-      <p>
-         Consequently, we see the result for the second call, '25', returned before that of the first one - and after the result for the fourth, chained RPC (even with network delays, in a local network 3 seconds is beyond eternity, so the chaining is much faster).
-      </p>
       <a class="awh_up_developers" href="#top">Up</a>
          <br/>
 
       <h2>Summary & Beyond</h2>
       <p>This gave an overview how simple RPCs are with {{ autobahnjs() }} - no more than a line of code each</p>
       <p>
-         If you're interested, the <a href="{{ url_for('page_js_tutorials_pubsub')}}">PubSub Tutorial</a> shows you an equally quick and easy start into publish & subscribe with {{ autobahnjs() }}. Or go to the <a href="{{ url_for('page_python_tutorials')}}">Python tutorials</a> to start exploring how the WAMP demo server works - and to implement some procedures there that fit your needs better than our simple math functions.
+         If you're interested, the <a href="{{ url_for('page_js_tutorials_pubsub')}}">PubSub Tutorial</a> shows you an equally quick and easy start into publish & subscribe with {{ autobahnjs() }}. Or go to the <a href="{{ url_for('page_python_examples')}}">Python examples</a> to start exploring how the WAMP demo server works - and to implement some procedures there that fit your needs better than our simple math functions.
       </p>
 
 
