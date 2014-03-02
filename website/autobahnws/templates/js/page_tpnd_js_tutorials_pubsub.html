@@ -73,10 +73,10 @@
             <pre class="shell">easy_install autobahn</pre> This automatically gets the install package from the internet.
          </li>
          <li>
-            Save <a href="{{ url_for('static', filename='file/wamp-server.py') }}">the server script</a> in a directory of your choosing.
+            Save <a href="{{ url_for('static', filename='file/wamp_server.py') }}">the server script</a> in a directory of your choosing.
 
          <li>
-            Open a command shell in the directory where you've saved the script and, start the server with <pre class="shell">python server.py</pre>
+            Open a command shell in the directory where you've saved the script and, start the server with <pre class="shell">python wamp_server.py</pre>
          </li>
       </ul>
       <p>That's it - the WAMP demo server is running. (It runs until you break out from the Python interpreter - Ctrl-C/D/Z depending on your platform).
@@ -116,11 +116,11 @@
       </div>
 
       <p>
-         For the subscriber, all that changes are some title strings:
+         For the subscriber, all that changes are some title strings, i.e. "AutobahnJS PubSub Publisher" becomes "AutobahnJS PubSub Subscriber":
       </p>
 
       <div class="codeex">
-         <script type="syntaxhighlighter" class="brush: xml; toolbar: false; auto-links: false;"><![CDATA[
+         <script type="syntaxhighlighter" class="brush: xml;  highlight: [4, 8]; toolbar: false; auto-links: false;"><![CDATA[
 <!DOCTYPE html>
 <head>
    <meta charset="UTF-8">
@@ -167,10 +167,10 @@
          The only difference is that in the browser, {{ autobahnjs() }} is loaded via a script tag, while in Node.js we need to include it via node's dependency management.
       </p>
       <p>
-         In order to be freely movable, we can do so in a way which doesn't fail in the browser by using:
+         In order to be freely movable, we can add code which covers both use cases:
       </p>
       <div class="codeex">
-         <pre class="brush: javascript; highlight: [2, 8, 13]; toolbar: false; auto-links: false;">
+         <pre class="brush: javascript; toolbar: false; auto-links: false;">
             try {
                var autobahn = require('autobahn');
             } catch (e) {
@@ -255,7 +255,7 @@
       </p>
 
       <div class="codeex">
-         <pre id="code" class="brush: javascript; highlight: [2, 9, 10, 13]; toolbar: false; auto-links: false;">
+         <pre id="code" class="brush: javascript; highlight: [6]; toolbar: false; auto-links: false;">
             // Start publishing events
             var counter = 0;
 
@@ -272,16 +272,16 @@
       </p>
       <ul>
          <li>
-            The publication of the event itself if just a single line (line XXX). The publication is for a topic, 'com.myapp.topic1'. WAMP uses URIs (with the notation following the Java package naming conventions) to identify topics. The publication also has an optional payload
+            The publication of the event itself if just a single line (line 6). The publication is for a topic, 'com.myapp.topic1'. WAMP uses URIs (with the notation following the Java package naming conventions) to identify topics. The publication also has an optional payload
          </li>
          <li>
-            The payload here is a counter, which we've defined in line XXX and which we increment after each publish (line XXX).
+            The payload here is a counter, which we've defined in line 2 and which we increment after each publish (line 7).
          </li>
          <li>
             We want to publish more than once, so we create an interval time to wrap the publication.
          </li>
          <li>
-            Since we want some output in the publisher's console, we log the fact that we're publishing as well as the current counter value (line XXX).
+            Since we want some output in the publisher's console, we log the fact that we're publishing as well as the current counter value (line 5).
          </li>
       </ul>
 
@@ -290,7 +290,7 @@
       </p>
 
       <div class="codeex">
-         <pre id="code" class="brush: javascript; highlight: [2, 4, 8]; toolbar: false; auto-links: false;">
+         <pre id="code" class="brush: javascript; highlight: [7]; toolbar: false; auto-links: false;">
          // Define an event handler
          function onEvent(args) {
             console.log("Event received ", args);
@@ -306,10 +306,10 @@
       </p>
       <ul>
          <li>
-            We define a handler for subscription events. Here, this just logs the fact that we have received an event plus the event payload.
+            We define a handler for subscription events (line 2). Here, this just logs the fact that we have received an event plus the event payload.
          </li>
          <li>
-            We then subscribe to the topic. Arguments are the subscription topic (identified by a URI) and the subscription event handler (the function we've just defined).
+            We then subscribe to the topic (line 7). Arguments are the subscription topic (identified by a URI) and the subscription event handler (the function we've just defined).
          </li>
       </ul>
 

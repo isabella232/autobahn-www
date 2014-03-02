@@ -61,11 +61,11 @@
       </p>
 
       <p>
-         You first need to install {{autobahnpython()}} itself, which is done easiest following these <a href="{{ url_for('page_python_getstarted') }}">installation instructions</a>.)
+         You first need to install {{autobahnpython()}} itself, which is done easiest following these <a href="{{ url_for('page_python_getstarted') }}">installation instructions</a>.
       </p>
 
       <p>
-         We then run a simple server script which builds on top of {{ autobahnpython() }}. Just download <a href="{{ url_for('static', filename='file/wamp-server.py') }}">the script</a> and store it in a directory of your choosing.
+         We then run a simple server script which builds on top of {{ autobahnpython() }}. Just download <a href="{{ url_for('static', filename='file/wamp_server.py') }}">the script</a> and store it in a directory of your choosing.
       </p>
 
       <p>
@@ -73,7 +73,7 @@
       </p>
 
       {{ beginshell() }}
-python server.py
+python wamp_server.py
       {{ endshell() }}
 
 
@@ -130,7 +130,7 @@ python server.py
       </h2>
 
       <p>
-         The frontend client provides receives PubSub events to a set topic, and allows calling a remote procedure
+         The frontend client receives PubSub events to a set topic, and allows calling a remote procedure
       </p>
 
       <div class="codeex">
@@ -292,7 +292,7 @@ python server.py
       </p>
 
       <p>
-         The <strong>frontend client</strong> can be open in <strong>as many browser tabs as you want</strong>.
+         The <strong>frontend client</strong> can be open in <strong>as many browser tabs as you want</strong>. This can be across all devices on your local network which have access to the IP the demo server runs under.
       </p>
 
       <p>
@@ -313,7 +313,7 @@ python server.py
       <p class="hint">
          Here all functionality except for the routing is run in the browser. In most real-world deployments, some functionality will be run on a server.
          <br>
-         To enable the above JavaScript to run in Node.js, just add the following at the beginning:
+         To enable the above JavaScript (excluded parts which user browser-only functionality) to run in Node.js, just add the following at the beginning:
       </p>
       <pre class="brush: javascript; toolbar: false; auto-links: false;">
          var autobahn = require('autobahn');

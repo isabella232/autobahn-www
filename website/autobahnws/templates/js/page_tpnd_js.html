@@ -14,7 +14,7 @@
          <ul>
             <li>{{ wamp(short = False) }} version 2</li>
          </ul>
-         for creating real-time clients (browsers) and servers (Node.js) that do asynchronous RPC and PubSub over WebSocket.
+         to allow creating real-time clients (browsers) and servers (Node.js) that do asynchronous RPC and PubSub over WebSocket.
          <span style="float: right; margin-right: 2em;">
             <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://autobahn.ws/js" data-text="AutobahnJS: WAMP (RPC+PubSub over WebSocket) for JavaScript." data-count="none" data-hashtags="websocket,wamp,javascript">Tweet</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -40,7 +40,7 @@
          <li>works both in the browser and Node.js</li>
          <li>provides asynchronous RPC and PubSub messaging patterns</li>
          <li>easy to use Promise-based API</li>
-         <li>pluggable promises/deferreds: use <a href="https://github.com/cujojs/when">when.js</a> (built-in), <a href="http://api.jquery.com/category/deferred-object/">jQuery</a>, <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/Deferred.html">Dojo</a> or others</li>
+         <li>pluggable promises/deferreds: use <a href="https://github.com/cujojs/when">when.js</a> (built-in), <a href="http://api.jquery.com/category/deferred-object/">jQuery</a>, <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/Deferred.html">Dojo</a>, ECMPA Script 6 or others</li>
          <!-- <li>flexible, automatic reconnect</li> -->
          <!-- <li>session authentication (WAMP-CRA)</li> -->
          <li>no dependencies</li>
@@ -54,7 +54,7 @@
       </p>
 
       <p style="width: 90%; margin: 2em auto 2em auto; color: #0273a0; font-style: italic;">
-         {{autobahnjs()}} relies on <a style="text-decoration: underline;" href="{{url_for('page_js_reference')}}#promises">Promises</a> for asynchronous programming.
+         {{autobahnjs()}} relies on <a style="text-decoration: underline;" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a> for asynchronous programming.
          A <i>promise</i> is an object that represents the eventual value returned from
          the completion of an operation.
       </p>
