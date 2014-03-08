@@ -53,36 +53,37 @@
       <h1>Running a Test Server</h1>
 
       <p>
-         Obviously, we will need a WAMP server to access from {{autobahnjs()}}. This is based on {{autobahnpython()}}.
+         Obviously, we will need a WAMP server to access from {{autobahnjs()}}. This can be any WAMP server which implements the routing for both PubSub and RPCs.
       </p>
 
       <p>
-         This server will establish the WAMP connection on top of WebSocket, and provide the routing for both PubSub and RPCs.
+         We could, in principle, use the basic functionality which is included in {{autobahnpython()}}, but we're going to go with <a href="http://crossbar.io/">Crossbar.io</a> instead. Crossbar.io is an open source application router which implements the full range of WAMP features. It is easy to run now for the demo code here, and gives you all the capabilities you may need for future advanced projects.
       </p>
 
       <p>
-         You first need to install {{autobahnpython()}} itself, which is done easiest following these <a href="{{ url_for('page_python_getstarted') }}">installation instructions</a>.
+         For the installation of Crossbar.io, see the <a href="https://github.com/crossbario/crossbar/wiki/Getting-Started">detailed instructions</a> at the project GitHub repo.
       </p>
 
       <p>
-         We then run a simple server script which builds on top of {{ autobahnpython() }}. Just download <a href="{{ url_for('static', filename='file/wamp_server.py') }}">the script</a> and store it in a directory of your choosing.
-      </p>
-
-      <p>
-         Then open a command shell in the directory where you've saved the script and, start the server with
+         Once you've installed Crossbar.io, open a command shell, create a test directory, initialize Crossbar.io and start it.
       </p>
 
       {{ beginshell() }}
-python wamp_server.py
+mkdir test1
+cd test1
+crossbar init
+crossbar start
       {{ endshell() }}
 
-
+      <p>
+         When started without any additional arguments, Crossbar.io defaults to a development configuration which allows all connections.
+      </p>
 
       <a name="yourfirstclient"></a>
       <h1>Your first Clients</h1>
 
       <p>
-         The basic server we've started only routes PubSub events and RPCs, but does not provide any application functionality.
+         Crossbar.io routes PubSub events and RPCs, but does not provide any application functionality.
       </p>
       <p>
          All the functionality will be provided by two HTML files. This functionality is
@@ -171,8 +172,8 @@ python wamp_server.py
          <pre class="brush: javascript; toolbar: false; auto-links: false;">
       // Set up WAMP connection to router
       var connection = new autobahn.Connection({
-         url: 'ws://127.0.0.1:9000/',
-         realm: 'realm1'}
+         url: 'ws://localhost:8080/ws',
+         realm: 'gettingstarted'}
       );
 
       // Set up 'onopen' handler
@@ -246,8 +247,8 @@ python wamp_server.py
          <pre class="brush: javascript; toolbar: false; auto-links: false;">
       // Set up WAMP connection to router
       var connection = new autobahn.Connection({
-         url: 'ws://127.0.0.1:9000/',
-         realm: 'realm1'}
+         url: 'ws://localhost:8080/ws',
+         realm: 'gettingstarted'}
       );
 
       // Set up 'onopen' handler
@@ -307,7 +308,7 @@ python wamp_server.py
       </p>
 
       <p class="hint">
-         Use a modern browser (e.g. Chrome, Firefox or IE>9. AutobahnJS has support for older browsers, but this requires more work on the server side.
+         Use a modern browser (e.g. Chrome, Firefox, IE10+, Safari, Opera). AutobahnJS has support for older browsers, but this requires more work on the server side.
       </p>
       <br>
       <p class="hint">

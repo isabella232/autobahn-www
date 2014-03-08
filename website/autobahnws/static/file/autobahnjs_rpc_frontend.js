@@ -8,8 +8,8 @@ try {
 
 // Set up WAMP connection to router
 var connection = new autobahn.Connection({
-   url: 'ws://127.0.0.1:9000/',
-   realm: 'realm1'}
+   url: 'ws://localhost:8080/ws',
+   realm: 'tutorialrpc'}
 );
 
 // Set up 'onopen' handler

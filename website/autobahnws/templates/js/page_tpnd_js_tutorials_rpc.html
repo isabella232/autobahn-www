@@ -45,7 +45,7 @@
                   a modern Web Browser with WebSockets to run the clients, and
                </li>
                <li>
-                  <a href="{{ url_for('page_python') }}">{{ autobahnpython() }}</a> to run the server which the web app connects to.
+                  <a href="http://crossbar.io/">Crossbar.io</a>, a WAMP application router to provide the RPC routing
                </li>
             </ul>
          </p>
@@ -56,31 +56,28 @@
       <h2>The WAMP RPC demo server</h2>
 
       <p>
-         Browsers can only act as WebSockets clients, so we need something external to the browser to act as a sever. For this we provide a WAMP demo server written in Python.
+         Browsers can only act as WebSockets clients, so we need something external to the browser to act as a sever. For this we use Crossbar.io, an open source application server.
       </p>
-      <p>
-         To run this, you need a few things installed. Fortunately, all of these are quick and easy to do.
-      </p>
-      <ul>
-         <li>
-            Download and install the <a href="http://www.python.org/getit/releases/2.7.2/">Python 2.7 installation package</a> for your system (just use the default settings for the installation).
-         </li>
-         <li>
-            Download and install the <a href="http://pypi.python.org/pypi/setuptools">Python setuptools</a> (this makes the next install a breeze).
-         </li>
-         <li>
-            In a command shell, type<br>
-            <pre class="shell">easy_install autobahn</pre> This automatically gets the install package from the internet.
-         </li>
-         <li>
-            Save <a href="{{ url_for('static', filename='file/wamp_server.py') }}">the server script</a> in a directory of your choosing.
 
-         <li>
-            Open a command shell in the directory where you've saved the script and, start the server with <pre class="shell">python wamp_server.py</pre>
-         </li>
-      </ul>
-      <p>That's it - the WAMP demo server is running. (It runs until you break out from the Python interpreter - Ctrl-C/D/Z depending on your platform).
+      <p>
+         For the installation of Crossbar.io, see the <a href="https://github.com/crossbario/crossbar/wiki/Getting-Started">detailed instructions</a> at the project GitHub repo.
       </p>
+
+      <p>
+         Once you've installed Crossbar.io, open a command shell, create a test directory, initialize Crossbar.io and start it.
+      </p>
+
+      {{ beginshell() }}
+mkdir test1
+cd test 1
+crossbar init
+crossbar start
+      {{ endshell() }}
+
+      <p>
+         That's it - Crossbar.io is running, ready to route our RPCs. (It runs until you break out from the Python interpreter - Ctrl-C/D/Z depending on your platform).
+      </p>
+
       <p>
          With this we have all the non-JavaScript stuff out of the way. From now on it's web technologies only.
       </p>
@@ -91,11 +88,11 @@
       <h2>The HTML</h2>
 
       <p>
-         The HTML is very simple in for both the 'frontend' and the 'backend'.
+         The HTML is very simple for both the 'frontend' and the 'backend'.
       </p>
 
       <p>
-         For the 'backend', we just need something which identifies the browser tab to us, plus, of course, load the WAMP library, {{ autobahnjs() }}.
+         For the 'backend', we want something which identifies the browser tab to us, plus, of course, we need to load the WAMP library, {{ autobahnjs() }}.
       </p>
 
       <div class="codeex">
@@ -202,8 +199,8 @@
          <pre class="brush: javascript; highlight: [2, 8, 13]; toolbar: false; auto-links: false;">
             // Set up WAMP connection to router
             var connection = new autobahn.Connection({
-               url: 'ws://127.0.0.1:9000/',
-               realm: 'realm1'}
+               url: 'ws://localhost:8080/ws',
+               realm: 'tutorialrpc'}
             );
 
             // Set up 'onopen' handler

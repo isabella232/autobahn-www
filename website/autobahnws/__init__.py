@@ -227,13 +227,13 @@ def page_js_wampv1():
    session['subsitetab'] = 'wampv1'
    return render_template('js/page_tpnd_js_wampv1.html')
 
-@app.route('/js/wampv1/getstarted')
+@app.route('/js/wampv1/getstarted/')
 def page_js_wampv1_getstarted():
    session['subsite'] = 'js'
    session['subsitetab'] = 'wampv1'
    return render_template('js/page_tpnd_js_wampv1_getstarted.html')
 
-@app.route('/js/wampv1/tutorials')
+@app.route('/js/wampv1/tutorials/')
 def page_js_wampv1_tutorials():
    session['subsite'] = 'js'
    session['subsitetab'] = 'wampv1'
@@ -251,13 +251,13 @@ def page_js_wampv1_tutorials_rpc():
    session['subsitetab'] = 'wampv1'
    return render_template('js/page_tpnd_js_wampv1_tutorials_rpc.html')
 
-@app.route('/js/wampv1/reference')
+@app.route('/js/wampv1/reference/')
 def page_js_wampv1_reference():
    session['subsite'] = 'js'
    session['subsitetab'] = 'wampv1'
    return render_template('js/page_tpsd_js_wampv1_reference.html')
 
-@app.route('/js/wampv1/downloads')
+@app.route('/js/wampv1/downloads/')
 def page_js_wampv1_downloads():
    session['subsite'] = 'js'
    session['subsitetab'] = 'wampv1'
