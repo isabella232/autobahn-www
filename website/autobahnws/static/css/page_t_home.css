@@ -64,37 +64,55 @@ a:hover {
 }
 
 #introsub {
+   position: relative;
    font-family: "Segoe UI", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
-   width: 80%;
+   width: 95%;
    margin: 28px auto 14px auto;
-   font-size: 16px;
-   background-color: rgba(255,255,255, 0.4);
-   color: #000;
+   font-size: 18px;
 
-   background-color: rgba(0,0,0, 0.3);
-   color: #ccc;
-
+/*
    border-left: solid 8px #a5d500;
    border-right: solid 1px #a5d500;
    border-top: solid 1px #a5d500;
    border-bottom: solid 1px #a5d500;
-
+*/
+/*
    padding: 8px 0 8px 20px;
+*/ 
+   padding: 8px 0 20px 40px;
    border-radius: 3px;
+
+   background-color: #fff;
+   color: #333;
+
+   background-color: #000;
+   color: #fff;
+   border: solid 1px #a5d500;
+/*   padding: 20px; */
+   line-height: 1.4em;
 }
 
-#introsub > a, a:visited {
+#introsub li {
+   margin: 8px 0 0 0;
+
+}
+
+#introsub a, a:visited {
    color: #a5d500;
-}
-#introsub > a:hover {
-   color: #d8ff50;
+   color: #333;
+   color: #fff;
 }
 
-#introsub > li {
-   margin-right: 0;
-   padding-right: 0;
-   width: 100%;
-   font-size: 18px;
+#introsub a:hover {
+   color: #d8ff50;
+   color: #000;
+   color: #fff;
+}
+
+#introsub_twitter {
+   position: absolute;
+   right: 0;
+   bottom: 4px;
 }
 
 .linkboxspacer {
@@ -199,7 +217,7 @@ a:hover {
 
 /* projects container & projects */
 
-#projectsContainer {
+.projectsContainer {
    width: 460px;
    margin: 40px auto;
 }
@@ -234,13 +252,13 @@ a:hover {
 }
 
 @media (min-width: 960px) {
-   #projectsContainer {
+   .projectsContainer {
       width: 930px;
    }
 }
 
 @media (min-width: 1480px) {
-   #projectsContainer {
+   .projectsContainer {
       width: 1393px;
    }
 }
@@ -305,10 +323,10 @@ a:hover {
    font-family: "Segoe UI Light", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-size: 16px;
    text-align: center;
-   margin: 4px 0 12px;
+   margin: 4px 0 40px;
 }
 
-#projectsHeader {
+.projectsHeader {
    font-size: 24px;
    font-family: "Segoe UI Light", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

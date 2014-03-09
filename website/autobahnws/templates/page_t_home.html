@@ -20,30 +20,39 @@
 
          <center id="introhead">
             Open-source real-time framework for Web, Mobile &amp; Internet of Things.
-            <div>
+         </center>
+         <ol id="introsub">
+            <li>
+               With <b>Autobahn</b> you can build real-time enabled Web, mobile and embedded applications in no time.
+            </li>
+               <li>
+               The <b>Autobahn</b> project provides open-source implementations of the
+               <b><a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a></b> and
+               <b><a href="http://wamp.ws">WAMP</a></b> protocols.
+            </li>
+            <li>
+               WebSocket allows bidirectional real-time messaging on the Web and WAMP adds
+               asynchronous Remote Procedure Calls and Publish &amp; Subscribe on top of WebSocket.
+            </li>
+
+            <div id="introsub_twitter">
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:70px; height:20px;"></iframe>
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&count=none&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:70px; height:20px;"></iframe>
+            </div>
+         </ol>
+<!--         
+         <center>
+            <div id="introsub_twitter">
                <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:70px; height:20px;"></iframe>
                <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&count=none&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:70px; height:20px;"></iframe>
             </div>
          </center>
-
-         <p id="introsub">
-               The Autobahn project provides open-source implementations of the
-               <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a> and
-               <a href="http://wamp.ws">WAMP</a> protocols.
-               WebSocket allows bidirectional real-time messaging on the Web and WAMP adds
-               asynchronous Remote Procedure Calls and Publish &amp; Subscribe on top of WebSocket.
-         </p>
-
-         <div id="broughtToYouBy">
-            Autobahn is a community project started and sponsored by
-            <a href="http://www.tavendo.com"><img style="" src="{{ url_for('static', filename='img/tavendosmall.png') }}" width="118" height="18"></a>
-         </div>
-
+-->         
       </div>
 
-     <div id="projectsContainer">
-         <center id="projectsHeader">
-            Explore the Autobahn subprojects and gallery:
+     <div class="projectsContainer">
+         <center class="projectsHeader">
+            Explore the Autobahn <b>subprojects</b>:
          </center>
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
@@ -167,6 +176,13 @@
             <a class="linkbox crossbar" href="http://crossbar.io">Project Site</a>
             <a class="forkgithub" href="https://github.com/crossbario/crossbar"></a>
          </div>
+      </div>
+      <br style="clear: both;">
+
+      <div class="projectsContainer">
+         <center class="projectsHeader">
+            Explore the Autobahn <b>apps &amp; demo gallery</b>:
+         </center>
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://record-evolution.com/">REone</a> business app built with <a href="http://crossbar.io/">Crossbar.io</a> on Oracle</center>
@@ -191,6 +207,11 @@
 
          <div style="clear: both"></div>
       </div>
+
+         <div id="broughtToYouBy">
+            Autobahn is a community project started and sponsored by
+            <a href="http://www.tavendo.com"><img style="" src="{{ url_for('static', filename='img/tavendosmall.png') }}" width="118" height="18"></a>
+         </div>
 
    </div>
 
