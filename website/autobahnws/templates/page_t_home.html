@@ -20,12 +20,10 @@
 
          <center id="introhead">
             Open-source real-time framework for Web, Mobile &amp; Internet of Things.
-            <span>
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:80px; height:20px;"></iframe>
-            </span>
-            <span>
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:100px; height:20px;"></iframe>
-            </span>
+            <div>
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:70px; height:20px;"></iframe>
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&count=none&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:70px; height:20px;"></iframe>
+            </div>
          </center>
 
          <p id="introsub">
@@ -49,6 +47,12 @@
          </center>
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
+
+            <div class="gh_project_watch_count">
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnPython&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnPython&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+            </div>
+
             <p>
                {{ autobahnpython(colored = True) }} is a WebSocket / WAMP library for Python 2 and 3 on
                <a href="http://twistedmatrix.com">Twisted</a> and
@@ -68,6 +72,12 @@
 
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnjs.png') }}" width="280" height="44">
+
+            <div class="gh_project_watch_count">
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnJS&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnJS&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+            </div>
+
             <p>
                {{ autobahnjs(colored = True) }} is a WAMP client library that
                <a href="http://wamp.ws/implementations/">works with any</a> WAMP server
@@ -75,8 +85,8 @@
             <p>
                <ul>
                   <li>add <a href="http://wamp.ws">WAMP</a> connectivity to HTML5 apps</li>
+                  <li>works in browsers and <a href="http://nodejs.org/">Node.js</a></li>
                   <li><b>upcoming:</b> long-poll fallback (old browsers)</li>
-                  <li><b>upcoming:</b> <a href="http://nodejs.org/">Node.js</a> support</li>
                </ul>
             </p>
             <div class="linkboxspacer"></div>
@@ -86,6 +96,12 @@
 
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnandroid.png') }}" width="353" height="44">
+
+            <div class="gh_project_watch_count">
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnAndroid&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnAndroid&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+            </div>
+
             <p>
                {{ autobahnandroid(colored = True) }} is a WebSocket / WAMP
                client library written in Java for <a href="http://developer.android.com/">Android</a>
@@ -104,6 +120,12 @@
 
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahntestsuite.png') }}" width="374" height="44">
+
+            <div class="gh_project_watch_count">
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnTestSuite&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnTestSuite&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+            </div>
+
             <p>
                {{ autobahntestsuite(colored = True) }} is a comprehensive protocol test
                suite for verifying WebSocket implementations
@@ -122,6 +144,12 @@
 
          <div class="project crossbar">
             <img style="" src="{{ url_for('static', filename='img/crossbar_icon_and_text.png') }}" width="260" height="44">
+
+            <div class="gh_project_watch_count">
+               <iframe src="http://ghbtns.com/github-btn.html?user=crossbario&repo=crossbar&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+               <iframe src="http://ghbtns.com/github-btn.html?user=crossbario&repo=crossbar&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+            </div>
+
             <p>
                Open source multi-protocol application router based on Autobahn and WAMP.
             </p>
@@ -134,7 +162,7 @@
             </p>
             <div class="linkboxspacer"></div>
             <a class="linkbox crossbar" href="http://crossbar.io">Project Site</a>
-            <a class="forkgithub" href="https://github.com/crossbario"></a>
+            <a class="forkgithub" href="https://github.com/crossbario/crossbar"></a>
          </div>
 
          <div class="project pvideo">
