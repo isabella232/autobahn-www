@@ -24,6 +24,7 @@ upload:
 upload_reports:
 	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "reports" --prefix "testsuite/reports"
 	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "reports_20131013" --prefix "testsuite/reports_20131013"
+	python website/autobahnws/upload.py --bucket "autobahn.ws" --directory "reports_20140314" --prefix "testsuite/reports_20140314"
 
 test:
 	python website/autobahnws/__init__.py -d
