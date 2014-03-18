@@ -25,8 +25,8 @@ from flask import Flask, Request, request, session, g, url_for, \
 
 
 app = Flask(__name__)
+#app = Flask(__name__, static_url_path='')
 app.secret_key = str(uuid.uuid4())
-
 
 ################################################################################
 ## Home
@@ -61,11 +61,18 @@ def page_python_getstarted():
    session['subsitetab'] = 'getstarted'
    return render_template('python/page_tpnd_python_getstarted.html')
 
-@app.route('/python/reference/')
-def page_python_reference():
-   session['subsite'] = 'python'
-   session['subsitetab'] = 'reference'
-   return render_template('python/page_tpn_python_reference.html')
+# @app.route('/python/reference/')
+# def page_python_reference():
+#    session['subsite'] = 'python'
+#    session['subsitetab'] = 'reference'
+#    return render_template('python/page_tpn_python_reference.html')
+
+# import os
+
+# @app.route('/python/reference/', defaults = {'filename': 'index.html'})
+# @app.route('/python/reference/<path:filename>')
+# def page_python_reference_new(filename):
+#    return send_from_directory(os.path.join(app.static_folder, 'reference', 'python'), filename)
 
 # @app.route('/python/examples/')
 # def page_python_tutorials():
@@ -150,11 +157,11 @@ def page_android_tutorials():
    session['subsitetab'] = 'tutorials'
    return render_template('android/page_tpn_android_tutorials.html')
 
-@app.route('/android/reference/')
-def page_android_reference():
-   session['subsite'] = 'android'
-   session['subsitetab'] = 'reference'
-   return render_template('android/page_tpn_android_reference.html')
+# @app.route('/android/reference/')
+# def page_android_reference():
+#    session['subsite'] = 'android'
+#    session['subsitetab'] = 'reference'
+#    return render_template('android/page_tpn_android_reference.html')
 
 @app.route('/android/downloads/')
 def page_android_downloads():

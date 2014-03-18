@@ -47,7 +47,7 @@
                      Examples
                   </a>
 
-                  <a href="{{ url_for('page_python_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                  <a href="/python/reference/" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Reference
                   </a>
                   <a href="{{ url_for('page_python_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
@@ -66,7 +66,7 @@
                   <a href="{{ url_for('page_android_tutorials') }}" {% if session['subsitetab'] == 'tutorials' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Tutorials
                   </a>
-                  <a href="{{ url_for('page_android_reference') }}" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
+                  <a href="/android/reference/" {% if session['subsitetab'] == 'reference' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
                      Reference
                   </a>
                   <a href="{{ url_for('page_android_downloads') }}" {% if session['subsitetab'] == 'downloads' %} class="navitem navitem_highlighted" {% else %} class="navitem" {% endif %}>
