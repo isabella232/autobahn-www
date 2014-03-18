@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>autobahn.twisted.flashpolicy &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">autobahn.twisted.flashpolicy</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <h1>Source code for autobahn.twisted.flashpolicy</h1><div class="highlight"><pre>
+<span class="c">###############################################################################</span>
+<span class="c">##</span>
+<span class="c">##  Copyright 2013 Tavendo GmbH</span>
+<span class="c">##</span>
+<span class="c">##  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c">##  you may not use this file except in compliance with the License.</span>
+<span class="c">##  You may obtain a copy of the License at</span>
+<span class="c">##</span>
+<span class="c">##      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">##</span>
+<span class="c">##  Unless required by applicable law or agreed to in writing, software</span>
+<span class="c">##  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c">##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c">##  See the License for the specific language governing permissions and</span>
+<span class="c">##  limitations under the License.</span>
+<span class="c">##</span>
+<span class="c">###############################################################################</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;FlashPolicyProtocol&quot;</span><span class="p">,</span> <span class="s">&quot;FlashPolicyFactory&quot;</span><span class="p">,)</span>
+
+
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">twisted.internet.protocol</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">Factory</span>
+
+
+<div class="viewcode-block" id="FlashPolicyProtocol"><a class="viewcode-back" href="../../../twistedintegration.html#autobahn.twisted.flashpolicy.FlashPolicyProtocol">[docs]</a><span class="k">class</span> <span class="nc">FlashPolicyProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Flash Player 9 (version 9.0.124.0 and above) implements a strict new access</span>
+<span class="sd">   policy for Flash applications that make Socket or XMLSocket connections to</span>
+<span class="sd">   a remote host. It now requires the presence of a socket policy file</span>
+<span class="sd">   on the server.</span>
+
+<span class="sd">   We want this to support the Flash WebSockets bridge which is needed for</span>
+<span class="sd">   older browser, in particular MSIE9/8.</span>
+
+<span class="sd">   See:</span>
+<span class="sd">      * `Autobahn WebSocket fallbacks example &lt;https://github.com/tavendo/AutobahnPython/tree/master/examples/twisted/websocket/echo_wsfallbacks&gt;`_</span>
+<span class="sd">      * `Flash policy files background &lt;http://www.lightsphere.com/dev/articles/flash_socket_policy.html&gt;`_</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="n">REQUESTPAT</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;^\s*&lt;policy-file-request\s*/&gt;&quot;</span><span class="p">)</span>
+   <span class="n">REQUESTMAXLEN</span> <span class="o">=</span> <span class="mi">200</span>
+   <span class="n">REQUESTTIMEOUT</span> <span class="o">=</span> <span class="mi">5</span>
+   <span class="n">POLICYFILE</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;&lt;?xml version=&quot;1.0&quot;?&gt;&lt;cross-domain-policy&gt;&lt;allow-access-from domain=&quot;*&quot; to-ports=&quot;</span><span class="si">%d</span><span class="s">&quot; /&gt;&lt;/cross-domain-policy&gt;&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FlashPolicyProtocol.__init__"><a class="viewcode-back" href="../../../twistedintegration.html#autobahn.twisted.flashpolicy.FlashPolicyProtocol.__init__">[docs]</a>   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allowedPort</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Ctor.</span>
+
+<span class="sd">      :param allowedPort: The port to which Flash player should be allowed to connect.</span>
+<span class="sd">      :type allowedPort: int</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">allowedPort</span> <span class="o">=</span> <span class="n">allowedPort</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">received</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">dropConnection</span> <span class="o">=</span> <span class="bp">None</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">connectionMade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="c">## DoS protection</span>
+      <span class="c">##</span>
+      <span class="k">def</span> <span class="nf">dropConnection</span><span class="p">():</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">abortConnection</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">dropConnection</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">dropConnection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">reactor</span><span class="o">.</span><span class="n">callLater</span><span class="p">(</span><span class="n">FlashPolicyProtocol</span><span class="o">.</span><span class="n">REQUESTTIMEOUT</span><span class="p">,</span> <span class="n">dropConnection</span><span class="p">)</span>
+
+
+   <span class="k">def</span> <span class="nf">connectionLost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropConnection</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">dropConnection</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">dropConnection</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+   <span class="k">def</span> <span class="nf">dataReceived</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">received</span> <span class="o">+=</span> <span class="n">data</span>
+      <span class="k">if</span> <span class="n">FlashPolicyProtocol</span><span class="o">.</span><span class="n">REQUESTPAT</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">received</span><span class="p">):</span>
+         <span class="c">## got valid request: send policy file</span>
+         <span class="c">##</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">FlashPolicyProtocol</span><span class="o">.</span><span class="n">POLICYFILE</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowedPort</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">loseConnection</span><span class="p">()</span>
+      <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">received</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">FlashPolicyProtocol</span><span class="o">.</span><span class="n">REQUESTMAXLEN</span><span class="p">:</span>
+         <span class="c">## possible DoS attack</span>
+         <span class="c">##</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">abortConnection</span><span class="p">()</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="c">## need more data</span>
+         <span class="c">##</span>
+         <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="FlashPolicyFactory"><a class="viewcode-back" href="../../../twistedintegration.html#autobahn.twisted.flashpolicy.FlashPolicyFactory">[docs]</a><span class="k">class</span> <span class="nc">FlashPolicyFactory</span><span class="p">(</span><span class="n">Factory</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FlashPolicyFactory.__init__"><a class="viewcode-back" href="../../../twistedintegration.html#autobahn.twisted.flashpolicy.FlashPolicyFactory.__init__">[docs]</a>   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allowedPort</span><span class="p">,</span> <span class="n">reactor</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Ctor.</span>
+
+<span class="sd">      :param allowedPort: The port to which Flash player should be allowed to connect.</span>
+<span class="sd">      :type allowedPort: int</span>
+<span class="sd">      :param reactor: Twisted reactor to use. If not given, autoimport.</span>
+<span class="sd">      :type reactor: obj</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="c">## lazy import to avoid reactor install upon module import</span>
+      <span class="k">if</span> <span class="n">reactor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+         <span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">reactor</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">reactor</span> <span class="o">=</span> <span class="n">reactor</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">allowedPort</span> <span class="o">=</span> <span class="n">allowedPort</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">buildProtocol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">):</span>
+      <span class="n">proto</span> <span class="o">=</span> <span class="n">FlashPolicyProtocol</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allowedPort</span><span class="p">)</span>
+      <span class="n">proto</span><span class="o">.</span><span class="n">factory</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">return</span> <span class="n">proto</span></div>
+</pre></div>
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

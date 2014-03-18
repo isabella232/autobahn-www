@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>autobahn.websocket.interfaces &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">autobahn.websocket.interfaces</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <h1>Source code for autobahn.websocket.interfaces</h1><div class="highlight"><pre>
+<span class="c">###############################################################################</span>
+<span class="c">##</span>
+<span class="c">##  Copyright (C) 2013-2014 Tavendo GmbH</span>
+<span class="c">##</span>
+<span class="c">##  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c">##  you may not use this file except in compliance with the License.</span>
+<span class="c">##  You may obtain a copy of the License at</span>
+<span class="c">##</span>
+<span class="c">##      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">##</span>
+<span class="c">##  Unless required by applicable law or agreed to in writing, software</span>
+<span class="c">##  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c">##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c">##  See the License for the specific language governing permissions and</span>
+<span class="c">##  limitations under the License.</span>
+<span class="c">##</span>
+<span class="c">###############################################################################</span>
+
+
+<span class="kn">import</span> <span class="nn">zope</span>
+<span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Attribute</span>
+
+
+<div class="viewcode-block" id="IWebSocketChannel"><a class="viewcode-back" href="../../../websocketintro.html#autobahn.websocket.interfaces.IWebSocketChannel">[docs]</a><span class="k">class</span> <span class="nc">IWebSocketChannel</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   A WebSocket channel is a bidirectional, full-duplex, ordered, reliable message channel</span>
+<span class="sd">   over a WebSocket connection as specified in RFC6455.</span>
+
+<span class="sd">   This interface defines a message-based API to WebSocket plus auxiliary hooks</span>
+<span class="sd">   and methods.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onConnect</span><span class="p">(</span><span class="n">requestOrResponse</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired during WebSocket opening handshake when a client connects (with</span>
+<span class="sd">      request from client) or when server connection established (with response from</span>
+<span class="sd">      server).</span>
+
+<span class="sd">      :param requestOrResponse: Connection request or response.</span>
+<span class="sd">      :type requestOrResponse: Instance of :class:`autobahn.websocket.protocol.ConnectionRequest`</span>
+<span class="sd">                               or :class:`autobahn.websocket.protocol.ConnectionResponse`.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onOpen</span><span class="p">():</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when the initial WebSocket opening handshake was completed.</span>
+<span class="sd">      You now can send and receive WebSocket messages.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendMessage</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">isBinary</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">fragmentSize</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">sync</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">doNotCompress</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Send a WebSocket message.</span>
+
+<span class="sd">      You can send text or binary messages, and optionally specifiy a payload fragment size.</span>
+<span class="sd">      When the latter is given, the payload will be split up into WebSocket frames each with</span>
+<span class="sd">      payload length `&lt;= fragmentSize`.</span>
+
+<span class="sd">      :param payload: The message payload.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      :param isBinary: `True` iff payload is binary, else the payload must be UTF-8 encoded text.</span>
+<span class="sd">      :type isBinary: bool</span>
+<span class="sd">      :param fragmentSize: Fragment message into WebSocket fragments of this size.</span>
+<span class="sd">      :type fragmentSize: int</span>
+<span class="sd">      :param sync: Iff `True`, try to force data onto the wire immediately. Note: do NOT use</span>
+<span class="sd">                   this normally unless you know what you are doing. Performance likely will</span>
+<span class="sd">                   suffer significantly. This feature is mainly here for use by Autobahn|Testsuite.</span>
+<span class="sd">      :type sync: bool</span>
+<span class="sd">      :param doNotCompress: Iff `True`, never compress this message. This only applies to</span>
+<span class="sd">                            Hybi-Mode and only when WebSocket compression has been negotiated on</span>
+<span class="sd">                            the WebSocket connection. Use when you know the payload </span>
+<span class="sd">                            uncompressible (e.g. encrypted or already compressed).</span>
+<span class="sd">      :type doNotCompress: bool</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessage</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">isBinary</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when a complete WebSocket message was received.</span>
+
+<span class="sd">      :param payload: Message payload (UTF-8 encoded text or binary). Can also be empty when</span>
+<span class="sd">                      the WebSocket message contained no payload.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      :param isBinary: `True` iff payload is binary, else the payload is UTF-8 encoded text.</span>
+<span class="sd">      :type isBinary: bool</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendClose</span><span class="p">(</span><span class="n">code</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Starts a WebSocket closing handshake tearing down the WebSocket connection.</span>
+
+<span class="sd">      :param code: An optional close status code (`1000` for normal close or `3000-4999` for</span>
+<span class="sd">                   application specific close).</span>
+<span class="sd">      :type code: int</span>
+<span class="sd">      :param reason: An optional close reason (a string that when present, a status</span>
+<span class="sd">                     code MUST also be present).</span>
+<span class="sd">      :type reason: str</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onClose</span><span class="p">(</span><span class="n">wasClean</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when the WebSocket connection has been closed (WebSocket closing</span>
+<span class="sd">      handshake has been finished or the connection was closed uncleanly).</span>
+
+<span class="sd">      :param wasClean: True, iff the WebSocket connection was closed cleanly.</span>
+<span class="sd">      :type wasClean: bool</span>
+<span class="sd">      :param code: None or close status code (as sent by the WebSocket peer).</span>
+<span class="sd">      :type code: int</span>
+<span class="sd">      :param reason: None or close reason (as sent by the WebSocket peer).</span>
+<span class="sd">      :type reason: str</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendPreparedMessage</span><span class="p">(</span><span class="n">preparedMsg</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Send a message that was previously prepared with :func:`autobahn.websocket.protocol.WebSocketFactory.prepareMessage`.</span>
+
+<span class="sd">      :param prepareMessage: A previsouly prepared message.</span>
+<span class="sd">      :type prepareMessage: Instance of :class:`autobahn.websocket.protocol.PreparedMessage`.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendPing</span><span class="p">(</span><span class="n">payload</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Send a WebSocket ping to the peer.</span>
+
+<span class="sd">      A peer is expected to pong back the payload a soon as &quot;practical&quot;. When more than</span>
+<span class="sd">      one ping is outstanding at a peer, the peer may elect to respond only to the last ping.</span>
+
+<span class="sd">      :param payload: An (optional) arbitrary payload of length `&lt;126` octets.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onPing</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when a WebSocket ping was received. A default implementation responds</span>
+<span class="sd">      by sending a WebSocket pong.</span>
+
+<span class="sd">      :param payload: Payload of ping (when there was any). Can be arbitrary, up to `125` octets.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendPong</span><span class="p">(</span><span class="n">payload</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Send a WebSocket pong to the peer.</span>
+
+<span class="sd">      A WebSocket pong may be sent unsolicited. This serves as a unidirectional heartbeat.</span>
+<span class="sd">      A response to an unsolicited pong is &quot;not expected&quot;.</span>
+
+<span class="sd">      :param payload: An (optional) arbitrary payload of length &lt; 126 octets.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onPong</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when a WebSocket pong was received. A default implementation does nothing.</span>
+
+<span class="sd">      :param payload: Payload of pong (when there was any). Can be arbitrary, up to 125 octets.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+</div>
+<div class="viewcode-block" id="IWebSocketChannelFrameApi"><a class="viewcode-back" href="../../../websocketintro.html#autobahn.websocket.interfaces.IWebSocketChannelFrameApi">[docs]</a><span class="k">class</span> <span class="nc">IWebSocketChannelFrameApi</span><span class="p">(</span><span class="n">IWebSocketChannel</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Frame-based API to a WebSocket channel.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessageBegin</span><span class="p">(</span><span class="n">isBinary</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when receiving of a new WebSocket message has begun.</span>
+
+<span class="sd">      :param isBinary: `True` iff payload is binary, else the payload is UTF-8 encoded text.</span>
+<span class="sd">      :type isBinary: bool</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessageFrame</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when a complete WebSocket message frame for a previously begun</span>
+<span class="sd">      WebSocket message has been received.</span>
+
+<span class="sd">      :param payload: Message frame payload (a list of chunks received).</span>
+<span class="sd">      :type payload: list of bytes</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessageEnd</span><span class="p">():</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when a WebSocket message has been completely received (the last</span>
+<span class="sd">      WebSocket frame for that message has been received).</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">beginMessage</span><span class="p">(</span><span class="n">isBinary</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">doNotCompress</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Begin sending a new WebSocket message.</span>
+
+<span class="sd">      :param isBinary: `True` iff payload is binary, else the payload must be UTF-8 encoded text.</span>
+<span class="sd">      :type isBinary: bool</span>
+<span class="sd">      :param doNotCompress: Iff `True`, never compress this message. This only applies to</span>
+<span class="sd">                            Hybi-Mode and only when WebSocket compression has been negotiated on</span>
+<span class="sd">                            the WebSocket connection. Use when you know the payload </span>
+<span class="sd">                            uncompressible (e.g. encrypted or already compressed).</span>
+<span class="sd">      :type doNotCompress: bool</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendMessageFrame</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">sync</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      When a message has been previously begun, send a complete message frame in one go.</span>
+
+<span class="sd">      :param payload: The message frame payload. When sending a text message, the payload must</span>
+<span class="sd">                      be UTF-8 encoded already.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      :param sync: Iff `True`, try to force data onto the wire immediately. Note: do NOT use</span>
+<span class="sd">                   this normally unless you know what you are doing. Performance likely will</span>
+<span class="sd">                   suffer significantly. This feature is mainly here for use by Autobahn|Testsuite.</span>
+<span class="sd">      :type sync: bool</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">endMessage</span><span class="p">():</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      End a message previously begun message. No more frames may be sent (for that message).</span>
+<span class="sd">      You have to begin a new message before sending again.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+</div>
+<div class="viewcode-block" id="IWebSocketChannelStreamingApi"><a class="viewcode-back" href="../../../websocketintro.html#autobahn.websocket.interfaces.IWebSocketChannelStreamingApi">[docs]</a><span class="k">class</span> <span class="nc">IWebSocketChannelStreamingApi</span><span class="p">(</span><span class="n">IWebSocketChannelFrameApi</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Streaming API to a WebSocket channel.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessageFrameBegin</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when receiving a new message frame has begun.</span>
+<span class="sd">      A default implementation will prepare to buffer message frame data.</span>
+
+<span class="sd">      :param length: Payload length of message frame which is subsequently received.</span>
+<span class="sd">      :type length: int</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessageFrameData</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when receiving data within a previously begun message frame.</span>
+<span class="sd">      A default implementation will buffer data for frame.</span>
+
+<span class="sd">      :param payload: Partial payload for message frame.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">onMessageFrameEnd</span><span class="p">():</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Callback fired when a previously begun message frame has been completely received.</span>
+<span class="sd">      A default implementation will flatten the buffered frame data and</span>
+<span class="sd">      fire `onMessageFrame`.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">beginMessageFrame</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Begin sending a new message frame.</span>
+
+<span class="sd">      :param length: Length of the frame which is to be started. Must be `&gt;= 0` and `&lt;= 2^63`.</span>
+<span class="sd">      :type length: int</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">sendMessageFrameData</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">sync</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Send out data when within a message frame (message was begun, frame was begun).</span>
+<span class="sd">      Note that the frame is automatically ended when enough data has been sent.</span>
+<span class="sd">      In other words, there is no `endMessageFrame`, since you have begun the frame</span>
+<span class="sd">      specifying the frame length, which implicitly defined the frame end. This is different</span>
+<span class="sd">      from messages, which you begin *and* end explicitly , since a message can contain</span>
+<span class="sd">      an unlimited number of frames.</span>
+
+<span class="sd">      :param payload: Frame payload to send.</span>
+<span class="sd">      :type payload: bytes</span>
+<span class="sd">      :param sync: Iff `True`, try to force data onto the wire immediately. Note: do NOT use</span>
+<span class="sd">                   this normally unless you know what you are doing. Performance likely will</span>
+<span class="sd">                   suffer significantly. This feature is mainly here for use by Autobahn|Testsuite.</span>
+<span class="sd">      :type sync: bool</span>
+
+<span class="sd">      :returns: int -- When the currently sent message frame is still incomplete,</span>
+<span class="sd">                       returns octets remaining to be sent. When the frame is complete,</span>
+<span class="sd">                       returns `0`, when `&lt; 0`, the amount of unconsumed data in payload</span>
+<span class="sd">                       argument.</span>
+<span class="sd">      &quot;&quot;&quot;</span></div>
+</pre></div>
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

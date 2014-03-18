@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>autobahn.twisted.choosereactor &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">autobahn.twisted.choosereactor</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <h1>Source code for autobahn.twisted.choosereactor</h1><div class="highlight"><pre>
+<span class="c">###############################################################################</span>
+<span class="c">##</span>
+<span class="c">##  Copyright (C) 2013 Tavendo GmbH</span>
+<span class="c">##</span>
+<span class="c">##  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c">##  you may not use this file except in compliance with the License.</span>
+<span class="c">##  You may obtain a copy of the License at</span>
+<span class="c">##</span>
+<span class="c">##      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">##</span>
+<span class="c">##  Unless required by applicable law or agreed to in writing, software</span>
+<span class="c">##  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c">##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c">##  See the License for the specific language governing permissions and</span>
+<span class="c">##  limitations under the License.</span>
+<span class="c">##</span>
+<span class="c">###############################################################################</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;install_optimal_reactor&#39;</span><span class="p">,</span><span class="s">&#39;install_reactor&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="install_optimal_reactor"><a class="viewcode-back" href="../../../twistedintegration.html#autobahn.twisted.choosereactor.install_optimal_reactor">[docs]</a><span class="k">def</span> <span class="nf">install_optimal_reactor</span><span class="p">():</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Try to install the optimal Twisted reactor for platform.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="kn">import</span> <span class="nn">sys</span>
+
+   <span class="k">if</span> <span class="s">&#39;bsd&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;darwin&#39;</span><span class="p">):</span>
+      <span class="k">try</span><span class="p">:</span>
+         <span class="n">v</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span>
+         <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Python version too old (</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+         <span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">kqreactor</span>
+         <span class="n">kqreactor</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">   WARNING: Running on BSD or Darwin, but cannot use kqueue Twisted reactor.</span>
+
+<span class="s">    =&gt; </span><span class="si">%s</span><span class="s"></span>
+
+<span class="s">   To use the kqueue Twisted reactor, you will need:</span>
+
+<span class="s">     1. Python &gt;= 2.6.5 or PyPy &gt; 1.8</span>
+<span class="s">     2. Twisted &gt; 12.0</span>
+
+<span class="s">   Note the use of &gt;= and &gt;.</span>
+
+<span class="s">   Will let Twisted choose a default reactor (potential performance degradation).</span>
+<span class="s">   &quot;&quot;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+         <span class="k">pass</span>
+
+   <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;win32&#39;</span><span class="p">]:</span>
+      <span class="k">try</span><span class="p">:</span>
+         <span class="kn">from</span> <span class="nn">twisted.application.reactors</span> <span class="kn">import</span> <span class="n">installReactor</span>
+         <span class="n">installReactor</span><span class="p">(</span><span class="s">&quot;iocp&quot;</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">   WARNING: Running on Windows, but cannot use IOCP Twisted reactor.</span>
+
+<span class="s">    =&gt; </span><span class="si">%s</span><span class="s"></span>
+
+<span class="s">   Will let Twisted choose a default reactor (potential performance degradation).</span>
+<span class="s">   &quot;&quot;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+   <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;linux&#39;</span><span class="p">):</span>
+      <span class="k">try</span><span class="p">:</span>
+         <span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">epollreactor</span>
+         <span class="n">epollreactor</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">   WARNING: Running on Linux, but cannot use Epoll Twisted reactor.</span>
+
+<span class="s">    =&gt; </span><span class="si">%s</span><span class="s"></span>
+
+<span class="s">   Will let Twisted choose a default reactor (potential performance degradation).</span>
+<span class="s">   &quot;&quot;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+
+</div>
+<div class="viewcode-block" id="install_reactor"><a class="viewcode-back" href="../../../twistedintegration.html#autobahn.twisted.choosereactor.install_reactor">[docs]</a><span class="k">def</span> <span class="nf">install_reactor</span><span class="p">(</span><span class="n">explicitReactor</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Install Twisted reactor.</span>
+
+<span class="sd">   :param explicitReactor: If provided, install this reactor. Else, install optimal reactor.</span>
+<span class="sd">   :type explicitReactor: obj</span>
+<span class="sd">   :param verbose: If `True`, print what happens.</span>
+<span class="sd">   :type verbose: bool</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="kn">import</span> <span class="nn">sys</span>
+
+   <span class="k">if</span> <span class="n">explicitReactor</span><span class="p">:</span>
+      <span class="c">## install explicitly given reactor</span>
+      <span class="c">##</span>
+      <span class="kn">from</span> <span class="nn">twisted.application.reactors</span> <span class="kn">import</span> <span class="n">installReactor</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Trying to install explicitly specified Twisted reactor &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">explicitReactor</span><span class="p">)</span>
+      <span class="k">try</span><span class="p">:</span>
+         <span class="n">installReactor</span><span class="p">(</span><span class="n">explicitReactor</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&quot;Could not install Twisted reactor </span><span class="si">%s%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">explicitReactor</span><span class="p">,</span> <span class="s">&#39; [&quot;</span><span class="si">%s</span><span class="s">&quot;]&#39;</span> <span class="o">%</span> <span class="n">e</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="p">))</span>
+         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="c">## automatically choose optimal reactor</span>
+      <span class="c">##</span>
+      <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&quot;Automatically choosing optimal Twisted reactor&quot;</span><span class="p">)</span>
+      <span class="n">install_optimal_reactor</span><span class="p">()</span>
+
+   <span class="c">## now the reactor is installed, import it</span>
+   <span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">reactor</span>
+
+   <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+      <span class="kn">from</span> <span class="nn">twisted.python.reflect</span> <span class="kn">import</span> <span class="n">qual</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&quot;Running Twisted reactor </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">qual</span><span class="p">(</span><span class="n">reactor</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+
+   <span class="k">return</span> <span class="n">reactor</span></div>
+</pre></div>
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

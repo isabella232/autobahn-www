@@ -1,82 +1,134 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>WAMP v1 &mdash; Autobahn|Python 0.8.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>WAMP v1 &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
+        URL_ROOT:'./',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
-    <link rel="next" title="Base" href="wamp1base.html" />
-    <link rel="prev" title="Twisted Integration" href="twistedintegration.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="wamp1base.html" title="Base"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="twistedintegration.html" title="Twisted Integration"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="twistedintegration.html"
-                        title="previous chapter">Twisted Integration</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="wamp1base.html"
-                        title="next chapter">Base</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/wamp1toc.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="index.html"/>
+        <link rel="next" title="Base" href="wamp1base.html"/>
+        <link rel="prev" title="Twisted Integration" href="twistedintegration.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
       </div>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="index.html">Docs</a> &raquo;</li>
+  <li><a href="">WAMP v1</a></li>
+  
+</ul>
+<hr/>
+
+          
   <div class="section" id="wamp-v1">
 <h1>WAMP v1<a class="headerlink" href="#wamp-v1" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
@@ -101,29 +153,33 @@
 </div>
 
 
-          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="wamp1base.html" class="btn btn-neutral float-right" title="Base"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="twistedintegration.html" class="btn btn-neutral" title="Twisted Integration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="wamp1base.html" title="Base"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="twistedintegration.html" title="Twisted Integration"
-             >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+</body>
 </html>

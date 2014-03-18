@@ -1,93 +1,135 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Base &mdash; Autobahn|Python 0.8.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Base &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
+        URL_ROOT:'./',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
-    <link rel="up" title="WAMP v1" href="wamp1toc.html" />
-    <link rel="next" title="Client" href="wamp1client.html" />
-    <link rel="prev" title="WAMP v1" href="wamp1toc.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="wamp1client.html" title="Client"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="wamp1toc.html" title="WAMP v1"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
-          <li><a href="wamp1toc.html" accesskey="U">WAMP v1</a> &raquo;</li> 
-      </ul>
-    </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Base</a><ul>
-<li><a class="reference internal" href="#factory">Factory</a></li>
-<li><a class="reference internal" href="#protocol">Protocol</a></li>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="index.html"/>
+        <link rel="up" title="WAMP v1" href="wamp1toc.html"/>
+        <link rel="next" title="Client" href="wamp1client.html"/>
+        <link rel="prev" title="WAMP v1" href="wamp1toc.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="wamp1toc.html">WAMP v1</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#protocol">Protocol</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="wamp1toc.html"
-                        title="previous chapter">WAMP v1</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="wamp1client.html"
-                        title="next chapter">Client</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/wamp1base.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+        
       </div>
+      &nbsp;
+    </nav>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="index.html">Docs</a> &raquo;</li>
+  <li><a href="">Base</a></li>
+  
+</ul>
+<hr/>
+
+          
   <div class="section" id="base">
 <h1>Base<a class="headerlink" href="#base" title="Permalink to this headline">¶</a></h1>
 <p>The classes <a class="reference internal" href="#autobahn.wamp1.protocol.WampProtocol" title="autobahn.wamp1.protocol.WampProtocol"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp1.protocol.WampProtocol</span></tt></a> and
@@ -98,7 +140,7 @@ common to both client and server roles.</p>
 <h2>Factory<a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="autobahn.wamp1.protocol.WampFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampFactory</tt><a class="headerlink" href="#autobahn.wamp1.protocol.WampFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampFactory</tt><a class="reference internal" href="_modules/autobahn/wamp1/protocol.html#WampFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp1.protocol.WampFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>WAMP factory base class. Mixin for WampServerFactory and WampClientFactory.</p>
 </dd></dl>
 
@@ -107,7 +149,7 @@ common to both client and server roles.</p>
 <h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="autobahn.wamp1.protocol.WampProtocol">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampProtocol</tt><a class="headerlink" href="#autobahn.wamp1.protocol.WampProtocol" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampProtocol</tt><a class="reference internal" href="_modules/autobahn/wamp1/protocol.html#WampProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp1.protocol.WampProtocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>WAMP protocol base class. Mixin for WampServerProtocol and WampClientProtocol.</p>
 <dl class="attribute">
 <dt id="autobahn.wamp1.protocol.WampProtocol.URI_WAMP_BASE">
@@ -147,14 +189,14 @@ common to both client and server roles.</p>
 
 <dl class="method">
 <dt id="autobahn.wamp1.protocol.WampProtocol.shrink">
-<tt class="descname">shrink</tt><big>(</big><em>uri</em>, <em>passthrough=False</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampProtocol.shrink" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">shrink</tt><big>(</big><em>uri</em>, <em>passthrough=False</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp1/protocol.html#WampProtocol.shrink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp1.protocol.WampProtocol.shrink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shrink given URI to CURIE according to current prefix mapping.
 If no appropriate prefix mapping is available, return original URI.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<em>str</em>) &#8211; URI to shrink.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uri</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; URI to shrink.</td>
 </tr>
 </tbody>
 </table>
@@ -163,14 +205,14 @@ If no appropriate prefix mapping is available, return original URI.</p>
 
 <dl class="method">
 <dt id="autobahn.wamp1.protocol.WampProtocol.resolve">
-<tt class="descname">resolve</tt><big>(</big><em>curieOrUri</em>, <em>passthrough=False</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampProtocol.resolve" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">resolve</tt><big>(</big><em>curieOrUri</em>, <em>passthrough=False</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp1/protocol.html#WampProtocol.resolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp1.protocol.WampProtocol.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve given CURIE/URI according to current prefix mapping or return
 None if cannot be resolved.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>curieOrUri</strong> (<em>str</em>) &#8211; CURIE or URI.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>curieOrUri</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; CURIE or URI.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">str &#8211; Full URI for CURIE or None.</td>
 </tr>
@@ -182,7 +224,7 @@ None if cannot be resolved.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp1.protocol.WampCraProtocol">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampCraProtocol</tt><a class="headerlink" href="#autobahn.wamp1.protocol.WampCraProtocol" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp1.protocol.</tt><tt class="descname">WampCraProtocol</tt><a class="reference internal" href="_modules/autobahn/wamp1/protocol.html#WampCraProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp1.protocol.WampCraProtocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for WAMP Challenge-Response Authentication protocols (client and server).</p>
 <p>WAMP-CRA is a cryptographically strong challenge response authentication
 protocol based on HMAC-SHA256.</p>
@@ -192,15 +234,15 @@ implements the authentication handshake via standard WAMP RPCs with well-known
 procedure URIs and signatures.</p>
 <dl class="method">
 <dt id="autobahn.wamp1.protocol.WampCraProtocol.authSignature">
-<tt class="descname">authSignature</tt><big>(</big><em>authChallenge</em>, <em>authSecret=None</em>, <em>authExtra=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp1.protocol.WampCraProtocol.authSignature" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">authSignature</tt><big>(</big><em>authChallenge</em>, <em>authSecret=None</em>, <em>authExtra=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp1/protocol.html#WampCraProtocol.authSignature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp1.protocol.WampCraProtocol.authSignature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the authentication signature from an authentication challenge and a secret.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>authChallenge</strong> (<em>str</em>) &#8211; The authentication challenge.</li>
-<li><strong>authSecret</strong> (<em>str</em>) &#8211; The authentication secret.</li>
+<li><strong>authChallenge</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The authentication challenge.</li>
+<li><strong>authSecret</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The authentication secret.</li>
 </ul>
 </td>
 </tr>
@@ -219,30 +261,33 @@ iterations)</p>
 </div>
 
 
-          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="wamp1client.html" class="btn btn-neutral float-right" title="Client"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="wamp1toc.html" class="btn btn-neutral" title="WAMP v1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="wamp1client.html" title="Client"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="wamp1toc.html" title="WAMP v1"
-             >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li>
-          <li><a href="wamp1toc.html" >WAMP v1</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+</body>
 </html>

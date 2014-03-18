@@ -1,0 +1,1451 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>autobahn.wamp.protocol &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../../../',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="../../../index.html"/>
+        <link rel="up" title="autobahn.wamp" href="../wamp.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../wamp2all.html#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../../../index.html">Docs</a> &raquo;</li>
+  <li><a href="">autobahn.wamp.protocol</a></li>
+  
+</ul>
+<hr/>
+
+          
+  <h1>Source code for autobahn.wamp.protocol</h1><div class="highlight"><pre>
+<span class="c">###############################################################################</span>
+<span class="c">##</span>
+<span class="c">##  Copyright (C) 2013-2014 Tavendo GmbH</span>
+<span class="c">##</span>
+<span class="c">##  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c">##  you may not use this file except in compliance with the License.</span>
+<span class="c">##  You may obtain a copy of the License at</span>
+<span class="c">##</span>
+<span class="c">##      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">##</span>
+<span class="c">##  Unless required by applicable law or agreed to in writing, software</span>
+<span class="c">##  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c">##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c">##  See the License for the specific language governing permissions and</span>
+<span class="c">##  limitations under the License.</span>
+<span class="c">##</span>
+<span class="c">###############################################################################</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implementer</span>
+
+<span class="kn">from</span> <span class="nn">twisted.python</span> <span class="kn">import</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">twisted.internet.defer</span> <span class="kn">import</span> <span class="n">Deferred</span><span class="p">,</span> <span class="n">maybeDeferred</span><span class="p">,</span> <span class="n">DeferredList</span>
+
+<span class="kn">from</span> <span class="nn">autobahn.wamp.interfaces</span> <span class="kn">import</span> <span class="n">ISession</span><span class="p">,</span> \
+                                     <span class="n">IPublication</span><span class="p">,</span> \
+                                     <span class="n">IPublisher</span><span class="p">,</span> \
+                                     <span class="n">ISubscription</span><span class="p">,</span> \
+                                     <span class="n">ISubscriber</span><span class="p">,</span> \
+                                     <span class="n">ICaller</span><span class="p">,</span> \
+                                     <span class="n">IRegistration</span><span class="p">,</span> \
+                                     <span class="n">ICallee</span><span class="p">,</span> \
+                                     <span class="n">ITransportHandler</span>
+
+<span class="kn">from</span> <span class="nn">autobahn</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">autobahn</span> <span class="kn">import</span> <span class="n">wamp</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp</span> <span class="kn">import</span> <span class="n">uri</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp</span> <span class="kn">import</span> <span class="n">message</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp</span> <span class="kn">import</span> <span class="n">types</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp</span> <span class="kn">import</span> <span class="n">role</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp</span> <span class="kn">import</span> <span class="n">exception</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp.exception</span> <span class="kn">import</span> <span class="n">ProtocolError</span><span class="p">,</span> <span class="n">SessionNotReady</span>
+<span class="kn">from</span> <span class="nn">autobahn.wamp.types</span> <span class="kn">import</span> <span class="n">SessionDetails</span>
+
+
+
+<span class="k">class</span> <span class="nc">Endpoint</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+
+
+
+<span class="k">class</span> <span class="nc">Handler</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">details_arg</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">details_arg</span> <span class="o">=</span> <span class="n">details_arg</span>
+
+
+
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">IPublication</span><span class="p">)</span>
+<div class="viewcode-block" id="Publication"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.Publication">[docs]</a><span class="k">class</span> <span class="nc">Publication</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Object representing a publication.</span>
+<span class="sd">   This class implements :class:`autobahn.wamp.interfaces.IPublication`.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">publicationId</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">publicationId</span>
+
+
+</div>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ISubscription</span><span class="p">)</span>
+<div class="viewcode-block" id="Subscription"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.Subscription">[docs]</a><span class="k">class</span> <span class="nc">Subscription</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Object representing a subscription.</span>
+<span class="sd">   This class implements :class:`autobahn.wamp.interfaces.ISubscription`.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">subscriptionId</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">subscriptionId</span>
+
+<div class="viewcode-block" id="Subscription.unsubscribe"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.Subscription.unsubscribe">[docs]</a>   <span class="k">def</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISubscription.unsubscribe`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+</div></div>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">IRegistration</span><span class="p">)</span>
+<div class="viewcode-block" id="Registration"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.Registration">[docs]</a><span class="k">class</span> <span class="nc">Registration</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Object representing a registration.</span>
+<span class="sd">   This class implements :class:`autobahn.wamp.interfaces.IRegistration`.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">registrationId</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">registrationId</span>
+
+<div class="viewcode-block" id="Registration.unregister"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.Registration.unregister">[docs]</a>   <span class="k">def</span> <span class="nf">unregister</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.IRegistration.unregister`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_unregister</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+</div></div>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ISession</span><span class="p">)</span>
+<div class="viewcode-block" id="BaseSession"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.BaseSession">[docs]</a><span class="k">class</span> <span class="nc">BaseSession</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP session base class.</span>
+
+<span class="sd">   This class implements:</span>
+
+<span class="sd">     * :class:`autobahn.wamp.interfaces.ISession`</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Ctor.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_ecls_to_uri_pat</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_uri_to_ecls</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="BaseSession.onConnect"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.BaseSession.onConnect">[docs]</a>   <span class="k">def</span> <span class="nf">onConnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onConnect`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+</div>
+<div class="viewcode-block" id="BaseSession.onJoin"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.BaseSession.onJoin">[docs]</a>   <span class="k">def</span> <span class="nf">onJoin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onJoin`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+</div>
+<div class="viewcode-block" id="BaseSession.onLeave"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.BaseSession.onLeave">[docs]</a>   <span class="k">def</span> <span class="nf">onLeave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onLeave`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+</div>
+<div class="viewcode-block" id="BaseSession.onDisconnect"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.BaseSession.onDisconnect">[docs]</a>   <span class="k">def</span> <span class="nf">onDisconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onDisconnect`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+</div>
+<div class="viewcode-block" id="BaseSession.define"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.BaseSession.define">[docs]</a>   <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.define`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+         <span class="k">assert</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s">&#39;_wampuris&#39;</span><span class="p">))</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_ecls_to_uri_pat</span><span class="p">[</span><span class="n">exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">_wampuris</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_uri_to_ecls</span><span class="p">[</span><span class="n">exception</span><span class="o">.</span><span class="n">_wampuris</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">uri</span><span class="p">()]</span> <span class="o">=</span> <span class="n">exception</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">assert</span><span class="p">(</span><span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s">&#39;_wampuris&#39;</span><span class="p">))</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_ecls_to_uri_pat</span><span class="p">[</span><span class="n">exception</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">uri</span><span class="o">.</span><span class="n">Pattern</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">uri</span><span class="o">.</span><span class="n">Pattern</span><span class="o">.</span><span class="n">URI_TARGET_HANDLER</span><span class="p">)]</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_uri_to_ecls</span><span class="p">[</span><span class="n">error</span><span class="p">]</span> <span class="o">=</span> <span class="n">exception</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">_message_from_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">exc</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Create a WAMP error message from an exception.</span>
+
+<span class="sd">      :param request: The request ID this WAMP error message is for.</span>
+<span class="sd">      :type request: int</span>
+<span class="sd">      :param exc: The exception.</span>
+<span class="sd">      :type exc: Instance of :class:`Exception` or subclass thereof.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="n">exception</span><span class="o">.</span><span class="n">ApplicationError</span><span class="p">):</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">exc</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="p">),</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ecls_to_uri_pat</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">__class__</span><span class="p">):</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ecls_to_uri_pat</span><span class="p">[</span><span class="n">exc</span><span class="o">.</span><span class="n">__class__</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_uri</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="s">&quot;wamp.error.runtime_error&quot;</span>
+
+         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="s">&#39;args&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="s">&#39;kwargs&#39;</span><span class="p">):</span>
+               <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+      <span class="k">return</span> <span class="n">msg</span>
+
+
+   <span class="k">def</span> <span class="nf">_exception_from_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Create a user (or generic) exception from a WAMP error message.</span>
+
+<span class="sd">      :param msg: A WAMP error message.</span>
+<span class="sd">      :type msg: Instance of :class:`autobahn.wamp.message.Error`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+      <span class="c"># FIXME:</span>
+      <span class="c"># 1. map to ecls based on error URI wildcard/prefix</span>
+      <span class="c"># 2. extract additional args/kwargs from error URI</span>
+
+      <span class="n">exc</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_to_ecls</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">error</span><span class="p">):</span>
+         <span class="n">ecls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_to_ecls</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">error</span><span class="p">]</span>
+         <span class="k">try</span><span class="p">:</span>
+            <span class="c">## the following might fail, eg. TypeError when</span>
+            <span class="c">## signature of exception constructor is incompatible</span>
+            <span class="c">## with args/kwargs or when the exception constructor raises</span>
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+               <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                  <span class="n">exc</span> <span class="o">=</span> <span class="n">ecls</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="n">exc</span> <span class="o">=</span> <span class="n">ecls</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                  <span class="n">exc</span> <span class="o">=</span> <span class="n">ecls</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="n">exc</span> <span class="o">=</span> <span class="n">ecls</span><span class="p">()</span>
+         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c">## FIXME: log e</span>
+            <span class="k">pass</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">exc</span><span class="p">:</span>
+         <span class="c">## the following ctor never fails ..</span>
+         <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+               <span class="n">exc</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">ApplicationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="n">exc</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">ApplicationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+               <span class="n">exc</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">ApplicationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="n">exc</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">ApplicationError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+
+      <span class="k">return</span> <span class="n">exc</span>
+
+
+</div>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">IPublisher</span><span class="p">)</span>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ISubscriber</span><span class="p">)</span>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ICaller</span><span class="p">)</span>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ICallee</span><span class="p">)</span>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ITransportHandler</span><span class="p">)</span>
+<div class="viewcode-block" id="ApplicationSession"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession">[docs]</a><span class="k">class</span> <span class="nc">ApplicationSession</span><span class="p">(</span><span class="n">BaseSession</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP endpoint session.</span>
+
+<span class="sd">   This class implements:</span>
+
+<span class="sd">     * :class:`autobahn.wamp.interfaces.IPublisher`</span>
+<span class="sd">     * :class:`autobahn.wamp.interfaces.ISubscriber`</span>
+<span class="sd">     * :class:`autobahn.wamp.interfaces.ICaller`</span>
+<span class="sd">     * :class:`autobahn.wamp.interfaces.ICallee`</span>
+<span class="sd">     * :class:`autobahn.wamp.interfaces.ITransportHandler`</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="n">realm</span> <span class="o">=</span> <span class="s">&quot;anonymous&quot;</span>
+
+<div class="viewcode-block" id="ApplicationSession.__init__"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.__init__">[docs]</a>   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Constructor.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="n">BaseSession</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_realm</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport_is_closing</span> <span class="o">=</span> <span class="bp">False</span>
+
+      <span class="c">## outstanding requests</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_publish_reqs</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_reqs</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_unsubscribe_reqs</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_register_reqs</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_reqs</span> <span class="o">=</span> <span class="p">{}</span>
+
+      <span class="c">## subscriptions in place</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span> <span class="o">=</span> <span class="p">{}</span>
+
+      <span class="c">## registrations in place</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span> <span class="o">=</span> <span class="p">{}</span>
+
+      <span class="c">## incoming invocations</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span> <span class="o">=</span> <span class="p">{}</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">onOpen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransportHandler.onOpen`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="n">transport</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">onConnect</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="ApplicationSession.join"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.join">[docs]</a>   <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">realm</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.join`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;already joined&quot;</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span> <span class="o">=</span> <span class="bp">False</span>
+
+      <span class="n">roles</span> <span class="o">=</span> <span class="p">[</span>
+         <span class="n">role</span><span class="o">.</span><span class="n">RolePublisherFeatures</span><span class="p">(),</span>
+         <span class="n">role</span><span class="o">.</span><span class="n">RoleSubscriberFeatures</span><span class="p">(),</span>
+         <span class="n">role</span><span class="o">.</span><span class="n">RoleCallerFeatures</span><span class="p">(),</span>
+         <span class="n">role</span><span class="o">.</span><span class="n">RoleCalleeFeatures</span><span class="p">()</span>
+      <span class="p">]</span>
+
+      <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Hello</span><span class="p">(</span><span class="n">realm</span><span class="p">,</span> <span class="n">roles</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_realm</span> <span class="o">=</span> <span class="n">realm</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ApplicationSession.disconnect"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.disconnect">[docs]</a>   <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.disconnect`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;transport disconnected&quot;</span><span class="p">)</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">onMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransportHandler.onMessage`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+
+         <span class="c">## the first message MUST be WELCOME</span>
+         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Welcome</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">session</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">onJoin</span><span class="p">(</span><span class="n">SessionDetails</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_realm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">authid</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">authrole</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">authmethod</span><span class="p">))</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;Received {} message, and session is not yet established&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+
+      <span class="k">else</span><span class="p">:</span>
+
+         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Goodbye</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span><span class="p">:</span>
+               <span class="c">## the peer wants to close: send GOODBYE reply</span>
+               <span class="n">reply</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Goodbye</span><span class="p">()</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="c">## fire callback and close the transport</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onLeave</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">CloseDetails</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+
+         <span class="c">## consumer messages</span>
+         <span class="c">##</span>
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">subscription</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">:</span>
+
+               <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">subscription</span><span class="p">]</span>
+
+               <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">details_arg</span><span class="p">:</span>
+                  <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                     <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+                  <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">handler</span><span class="o">.</span><span class="n">details_arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">EventDetails</span><span class="p">(</span><span class="n">publication</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">publication</span><span class="p">,</span> <span class="n">publisher</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">publisher</span><span class="p">)</span>
+
+               <span class="k">try</span><span class="p">:</span>
+                  <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">obj</span><span class="p">:</span>
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">handler</span><span class="o">.</span><span class="n">fn</span><span class="p">()</span>
+
+               <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                  <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s">&quot;Exception raised in event handler: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;EVENT received for non-subscribed subscription ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">subscription</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Published</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_publish_reqs</span><span class="p">:</span>
+               <span class="n">d</span><span class="p">,</span> <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_publish_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+               <span class="n">p</span> <span class="o">=</span> <span class="n">Publication</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">publication</span><span class="p">)</span>
+               <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;PUBLISHED received for non-pending request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribed</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_reqs</span><span class="p">:</span>
+               <span class="n">d</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+               <span class="k">if</span> <span class="n">options</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">subscription</span><span class="p">]</span> <span class="o">=</span> <span class="n">Handler</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">details_arg</span><span class="p">)</span>
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">subscription</span><span class="p">]</span> <span class="o">=</span> <span class="n">Handler</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+               <span class="n">s</span> <span class="o">=</span> <span class="n">Subscription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">subscription</span><span class="p">)</span>
+               <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;SUBSCRIBED received for non-pending request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Unsubscribed</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unsubscribe_reqs</span><span class="p">:</span>
+               <span class="n">d</span><span class="p">,</span> <span class="n">subscription</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unsubscribe_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+               <span class="k">if</span> <span class="n">subscription</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">:</span>
+                  <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">[</span><span class="n">subscription</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+               <span class="n">subscription</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="bp">False</span>
+               <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;UNSUBSCRIBED received for non-pending request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Result</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span><span class="p">:</span>
+
+               <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">progress</span><span class="p">:</span>
+
+                  <span class="c">## progressive result</span>
+                  <span class="c">##</span>
+                  <span class="n">_</span><span class="p">,</span> <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">]</span>
+                  <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">onProgress</span><span class="p">:</span>
+                     <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                           <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                              <span class="n">opts</span><span class="o">.</span><span class="n">onProgress</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                           <span class="k">else</span><span class="p">:</span>
+                              <span class="n">opts</span><span class="o">.</span><span class="n">onProgress</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                              <span class="n">opts</span><span class="o">.</span><span class="n">onProgress</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                           <span class="k">else</span><span class="p">:</span>
+                              <span class="n">opts</span><span class="o">.</span><span class="n">onProgress</span><span class="p">()</span>
+                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="c">## silently drop exceptions raised in progressive results handlers</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                           <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s">&quot;Exception raised in progressive results handler: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="c">## silently ignore progressive results</span>
+                     <span class="k">pass</span>
+               <span class="k">else</span><span class="p">:</span>
+
+                  <span class="c">## final result</span>
+                  <span class="c">##</span>
+                  <span class="n">d</span><span class="p">,</span> <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+                  <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">CallResult</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">CallResult</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                           <span class="n">res</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">CallResult</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                           <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;RESULT received for non-pending request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Invocation</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">:</span>
+
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;INVOCATION received for request ID {} already invoked&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+               <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">registration</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">:</span>
+
+                  <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;INVOCATION received for non-registered registration ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">registration</span><span class="p">))</span>
+
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">registration</span><span class="p">]</span>
+
+                  <span class="k">if</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">options</span> <span class="ow">and</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">details_arg</span><span class="p">:</span>
+
+                     <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">receive_progress</span><span class="p">:</span>
+                        <span class="k">def</span> <span class="nf">progress</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                           <span class="n">progress_msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Yield</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">progress</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">progress_msg</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="n">progress</span> <span class="o">=</span> <span class="bp">None</span>
+
+                     <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">endpoint</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">details_arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">CallDetails</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">caller</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">caller</span><span class="p">,</span> <span class="n">authid</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">authid</span><span class="p">,</span> <span class="n">authrole</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">authrole</span><span class="p">,</span> <span class="n">authmethod</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">authmethod</span><span class="p">)</span>
+
+                  <span class="k">if</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">obj</span><span class="p">:</span>
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">msg</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                           <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">fn</span><span class="p">)</span>
+
+                  <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+                     <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">]</span>
+
+                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">CallResult</span><span class="p">):</span>
+                        <span class="n">reply</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Yield</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">results</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">kwresults</span><span class="p">)</span>
+                     <span class="k">else</span><span class="p">:</span>
+                        <span class="n">reply</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Yield</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">])</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+                  <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+                     <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">]</span>
+
+                     <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_from_exception</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">Invocation</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+
+                  <span class="n">d</span><span class="o">.</span><span class="n">addCallbacks</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Interrupt</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;INTERRUPT received for non-pending invocation {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">try</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">]</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+               <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                  <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                     <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s">&quot;could not cancel call {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+               <span class="k">finally</span><span class="p">:</span>
+                  <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invocations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">]</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Registered</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_reqs</span><span class="p">:</span>
+               <span class="n">d</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+               <span class="k">if</span> <span class="n">options</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">registration</span><span class="p">]</span> <span class="o">=</span> <span class="n">Endpoint</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">registration</span><span class="p">]</span> <span class="o">=</span> <span class="n">Endpoint</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+               <span class="n">r</span> <span class="o">=</span> <span class="n">Registration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">registration</span><span class="p">)</span>
+               <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;REGISTERED received for non-pending request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Unregistered</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_reqs</span><span class="p">:</span>
+               <span class="n">d</span><span class="p">,</span> <span class="n">registration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+               <span class="k">if</span> <span class="n">registration</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">:</span>
+                  <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">[</span><span class="n">registration</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+               <span class="n">registration</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="bp">False</span>
+               <span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;UNREGISTERED received for non-pending request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">):</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="c">## ERROR reply to PUBLISH</span>
+            <span class="c">##</span>
+            <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Publish</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_publish_reqs</span><span class="p">:</span>
+               <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_publish_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c">## ERROR reply to SUBSCRIBE</span>
+            <span class="c">##</span>
+            <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribe</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_reqs</span><span class="p">:</span>
+               <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c">## ERROR reply to UNSUBSCRIBE</span>
+            <span class="c">##</span>
+            <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Unsubscribe</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unsubscribe_reqs</span><span class="p">:</span>
+               <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unsubscribe_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c">## ERROR reply to REGISTER</span>
+            <span class="c">##</span>
+            <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Register</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_reqs</span><span class="p">:</span>
+               <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c">## ERROR reply to UNREGISTER</span>
+            <span class="c">##</span>
+            <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Unregister</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_reqs</span><span class="p">:</span>
+               <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c">## ERROR reply to CALL</span>
+            <span class="c">##</span>
+            <span class="k">elif</span> <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Call</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span><span class="p">:</span>
+               <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+               <span class="n">d</span><span class="o">.</span><span class="n">errback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_exception_from_message</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;WampAppSession.onMessage(): ERROR received for non-pending request_type {} and request ID {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">request_type</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Heartbeat</span><span class="p">):</span>
+
+            <span class="k">pass</span> <span class="c">## FIXME</span>
+
+         <span class="k">else</span><span class="p">:</span>
+
+            <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;Unexpected message {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+
+
+   <span class="k">def</span> <span class="nf">onClose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wasClean</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransportHandler.onClose`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">:</span>
+
+         <span class="c">## fire callback and close the transport</span>
+         <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onLeave</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">CloseDetails</span><span class="p">())</span>
+         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+               <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s">&quot;exception raised in onLeave callback: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">onDisconnect</span><span class="p">()</span>
+
+
+   <span class="k">def</span> <span class="nf">onJoin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onJoin`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+   <span class="k">def</span> <span class="nf">onLeave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onLeave`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="ApplicationSession.leave"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.leave">[docs]</a>   <span class="k">def</span> <span class="nf">leave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">log_message</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.leave`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;not joined&quot;</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span><span class="p">:</span>
+         <span class="k">if</span> <span class="ow">not</span> <span class="n">reason</span><span class="p">:</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="s">&quot;wamp.close.normal&quot;</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">wamp</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">Goodbye</span><span class="p">(</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="n">log_message</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">SessionNotReady</span><span class="p">(</span><span class="s">&quot;Already requested to close the session&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ApplicationSession.publish"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.publish">[docs]</a>   <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.IPublisher.publish`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">assert</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">exception</span><span class="o">.</span><span class="n">TransportLost</span><span class="p">()</span>
+
+      <span class="n">request</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+      <span class="k">if</span> <span class="s">&#39;options&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;options&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">.</span><span class="n">PublishOptions</span><span class="p">):</span>
+         <span class="n">opts</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;options&#39;</span><span class="p">)</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Publish</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="n">opts</span> <span class="o">=</span> <span class="bp">None</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Publish</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="n">opts</span> <span class="ow">and</span> <span class="n">opts</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s">&#39;acknowledge&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+         <span class="n">d</span> <span class="o">=</span> <span class="n">Deferred</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_publish_reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">,</span> <span class="n">opts</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+         <span class="k">return</span> <span class="n">d</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+         <span class="k">return</span>
+
+</div>
+<div class="viewcode-block" id="ApplicationSession.subscribe"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.subscribe">[docs]</a>   <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">topic</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISubscriber.subscribe`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">assert</span><span class="p">((</span><span class="nb">callable</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">topic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s">&#39;__class__&#39;</span><span class="p">))</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">topic</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">options</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">SubscribeOptions</span><span class="p">))</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">exception</span><span class="o">.</span><span class="n">TransportLost</span><span class="p">()</span>
+
+      <span class="k">def</span> <span class="nf">_subscribe</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+         <span class="n">request</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+         <span class="n">d</span> <span class="o">=</span> <span class="n">Deferred</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+
+         <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribe</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribe</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">topic</span><span class="p">)</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+         <span class="k">return</span> <span class="n">d</span>
+
+      <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+         <span class="c">## register a single handler</span>
+         <span class="c">##</span>
+         <span class="k">return</span> <span class="n">_subscribe</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+
+      <span class="k">else</span><span class="p">:</span>
+         <span class="c">## register all methods on an object</span>
+         <span class="c">## decorated with &quot;wamp.topic&quot;</span>
+         <span class="c">##</span>
+         <span class="n">dl</span> <span class="o">=</span> <span class="p">[]</span>
+         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">):</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s">&quot;_wampuris&quot;</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
+               <span class="n">pat</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s">&quot;_wampuris&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+               <span class="k">if</span> <span class="n">pat</span><span class="o">.</span><span class="n">is_handler</span><span class="p">():</span>
+                  <span class="n">uri</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">uri</span><span class="p">()</span>
+                  <span class="n">dl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_subscribe</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">proc</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">options</span><span class="p">))</span>
+         <span class="k">return</span> <span class="n">DeferredList</span><span class="p">(</span><span class="n">dl</span><span class="p">,</span> <span class="n">consumeErrors</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">_unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscription</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Called from :meth:`autobahn.wamp.protocol.Subscription.unsubscribe`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">subscription</span><span class="p">,</span> <span class="n">Subscription</span><span class="p">))</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">subscription</span><span class="o">.</span><span class="n">active</span><span class="p">)</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">subscription</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscriptions</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">exception</span><span class="o">.</span><span class="n">TransportLost</span><span class="p">()</span>
+
+      <span class="n">request</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+      <span class="n">d</span> <span class="o">=</span> <span class="n">Deferred</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_unsubscribe_reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">subscription</span><span class="p">)</span>
+
+      <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Unsubscribe</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">subscription</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">d</span>
+
+
+<div class="viewcode-block" id="ApplicationSession.call"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.call">[docs]</a>   <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ICaller.call`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">assert</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">procedure</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">exception</span><span class="o">.</span><span class="n">TransportLost</span><span class="p">()</span>
+
+      <span class="n">request</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+      <span class="k">if</span> <span class="s">&#39;options&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;options&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">.</span><span class="n">CallOptions</span><span class="p">):</span>
+         <span class="n">opts</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;options&#39;</span><span class="p">)</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="n">opts</span> <span class="o">=</span> <span class="bp">None</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">canceller</span><span class="p">(</span><span class="n">_d</span><span class="p">):</span>
+         <span class="n">cancel_msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Cancel</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">cancel_msg</span><span class="p">)</span>
+
+      <span class="n">d</span> <span class="o">=</span> <span class="n">Deferred</span><span class="p">(</span><span class="n">canceller</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_call_reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">,</span> <span class="n">opts</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">d</span>
+
+</div>
+<div class="viewcode-block" id="ApplicationSession.register"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSession.register">[docs]</a>   <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">procedure</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ICallee.register`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">assert</span><span class="p">((</span><span class="nb">callable</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span> <span class="ow">and</span> <span class="n">procedure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="s">&#39;__class__&#39;</span><span class="p">))</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">procedure</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">procedure</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">options</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">RegisterOptions</span><span class="p">))</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">exception</span><span class="o">.</span><span class="n">TransportLost</span><span class="p">()</span>
+
+      <span class="k">def</span> <span class="nf">_register</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+         <span class="n">request</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+         <span class="n">d</span> <span class="o">=</span> <span class="n">Deferred</span><span class="p">()</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_register_reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+
+         <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">procedure</span><span class="p">)</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+         <span class="k">return</span> <span class="n">d</span>
+
+      <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">endpoint</span><span class="p">):</span>
+         <span class="c">## register a single callable</span>
+         <span class="c">##</span>
+         <span class="k">return</span> <span class="n">_register</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+
+      <span class="k">else</span><span class="p">:</span>
+         <span class="c">## register all methods on an object</span>
+         <span class="c">## decorated with &quot;wamp.procedure&quot;</span>
+         <span class="c">##</span>
+         <span class="n">dl</span> <span class="o">=</span> <span class="p">[]</span>
+         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">endpoint</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">):</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s">&quot;_wampuris&quot;</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
+               <span class="n">pat</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s">&quot;_wampuris&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+               <span class="k">if</span> <span class="n">pat</span><span class="o">.</span><span class="n">is_endpoint</span><span class="p">():</span>
+                  <span class="n">uri</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">uri</span><span class="p">()</span>
+                  <span class="n">dl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_register</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">proc</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">options</span><span class="p">))</span>
+         <span class="k">return</span> <span class="n">DeferredList</span><span class="p">(</span><span class="n">dl</span><span class="p">,</span> <span class="n">consumeErrors</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">_unregister</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registration</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Called from :meth:`autobahn.wamp.protocol.Registration.unregister`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">registration</span><span class="p">,</span> <span class="n">Registration</span><span class="p">))</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">registration</span><span class="o">.</span><span class="n">active</span><span class="p">)</span>
+      <span class="k">assert</span><span class="p">(</span><span class="n">registration</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_registrations</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">exception</span><span class="o">.</span><span class="n">TransportLost</span><span class="p">()</span>
+
+      <span class="n">request</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+      <span class="n">d</span> <span class="o">=</span> <span class="n">Deferred</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">registration</span><span class="p">)</span>
+
+      <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Unregister</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">registration</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">d</span>
+
+
+</div>
+<div class="viewcode-block" id="ApplicationSessionFactory"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSessionFactory">[docs]</a><span class="k">class</span> <span class="nc">ApplicationSessionFactory</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP endpoint session factory.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="n">session</span> <span class="o">=</span> <span class="n">ApplicationSession</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP application session class to be used in this factory.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ApplicationSessionFactory.__call__"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.ApplicationSessionFactory.__call__">[docs]</a>   <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Creates a new WAMP application session.</span>
+
+<span class="sd">      :returns: -- An instance of the WAMP application session class as</span>
+<span class="sd">                   given by `self.session`.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+      <span class="n">session</span><span class="o">.</span><span class="n">factory</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">return</span> <span class="n">session</span>
+
+
+</div></div>
+<div class="viewcode-block" id="RouterApplicationSession"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterApplicationSession">[docs]</a><span class="k">class</span> <span class="nc">RouterApplicationSession</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Wraps an application session to run directly attached to a WAMP router (broker+dealer).</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RouterApplicationSession.__init__"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterApplicationSession.__init__">[docs]</a>   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">routerFactory</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Wrap an application session and add it to the given broker and dealer.</span>
+
+<span class="sd">      :param session: Application session to wrap.</span>
+<span class="sd">      :type session: An instance that implements :class:`autobahn.wamp.interfaces.ISession`</span>
+<span class="sd">      :param routerFactory: The router factory to associate this session with.</span>
+<span class="sd">      :type routerFactory: An instance that implements :class:`autobahn.wamp.interfaces.IRouterFactory`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+      <span class="c">## remember router we are wrapping the app session for</span>
+      <span class="c">##</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_routerFactory</span> <span class="o">=</span> <span class="n">routerFactory</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_router</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="c">## remember wrapped app session</span>
+      <span class="c">##</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+
+      <span class="c">## set fake transport on session (&quot;pass-through transport&quot;)</span>
+      <span class="c">##</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="bp">self</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">onConnect</span><span class="p">()</span>
+
+</div>
+   <span class="k">def</span> <span class="nf">isOpen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransport.isOpen`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+   <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransport.close`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">detach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="p">)</span>
+
+
+   <span class="k">def</span> <span class="nf">abort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransport.abort`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="RouterApplicationSession.send"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterApplicationSession.send">[docs]</a>   <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransport.send`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Hello</span><span class="p">):</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_router</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_routerFactory</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">realm</span><span class="p">)</span>
+
+         <span class="c">## fake session ID assignment (normally done in WAMP opening handshake)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+
+         <span class="c">## add app session to router</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="p">)</span>
+
+         <span class="c">## fake app session open</span>
+         <span class="c">##</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">onJoin</span><span class="p">(</span><span class="n">SessionDetails</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_realm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_session_id</span><span class="p">))</span>
+
+
+      <span class="c">## app-to-router</span>
+      <span class="c">##</span>
+      <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Publish</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribe</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Unsubscribe</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Call</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Yield</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Register</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Unregister</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span> <span class="ow">or</span> \
+          <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span> <span class="ow">and</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Invocation</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span><span class="p">):</span>
+
+         <span class="c">## deliver message to router</span>
+         <span class="c">##</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+
+      <span class="c">## router-to-app</span>
+      <span class="c">##</span>
+      <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Event</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Invocation</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Result</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Published</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribed</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Unsubscribed</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Registered</span><span class="p">)</span> <span class="ow">or</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Unregistered</span><span class="p">)</span> <span class="ow">or</span> \
+          <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Call</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">or</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Cancel</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">or</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Register</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">or</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Unregister</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">or</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Publish</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">or</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Subscribe</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span> <span class="ow">or</span>
+               <span class="n">msg</span><span class="o">.</span><span class="n">request_type</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">Unsubscribe</span><span class="o">.</span><span class="n">MESSAGE_TYPE</span><span class="p">)):</span>
+
+         <span class="c">## deliver message to app session</span>
+         <span class="c">##</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">onMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+      <span class="k">else</span><span class="p">:</span>
+         <span class="c">## should not arrive here</span>
+         <span class="c">##</span>
+         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;RouterApplicationSession.send: unhandled message {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+
+
+</div></div>
+<span class="nd">@implementer</span><span class="p">(</span><span class="n">ITransportHandler</span><span class="p">)</span>
+<div class="viewcode-block" id="RouterSession"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterSession">[docs]</a><span class="k">class</span> <span class="nc">RouterSession</span><span class="p">(</span><span class="n">BaseSession</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP router session.</span>
+
+<span class="sd">   This class implements:</span>
+
+<span class="sd">     * :class:`autobahn.wamp.interfaces.ITransportHandler`</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routerFactory</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Constructor.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="n">BaseSession</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_router_factory</span> <span class="o">=</span> <span class="n">routerFactory</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_router</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_realm</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span> <span class="o">=</span> <span class="bp">False</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport_is_closing</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+   <span class="k">def</span> <span class="nf">onOpen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransportHandler.onOpen`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="n">transport</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_realm</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="c">## session authentication information</span>
+      <span class="c">##</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_authid</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_authrole</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_authmethod</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+   <span class="k">def</span> <span class="nf">onHello</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">realm</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">types</span><span class="o">.</span><span class="n">Accept</span><span class="p">()</span>
+
+
+   <span class="k">def</span> <span class="nf">onAuthenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">extra</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">types</span><span class="o">.</span><span class="n">Accept</span><span class="p">()</span>
+
+
+   <span class="k">def</span> <span class="nf">onMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransportHandler.onMessage`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+
+         <span class="k">def</span> <span class="nf">welcome</span><span class="p">(</span><span class="n">realm</span><span class="p">,</span> <span class="n">authid</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">authrole</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">authmethod</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">id</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span> <span class="o">=</span> <span class="bp">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_router</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_router_factory</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">realm</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="p">:</span>
+               <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;no such realm&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_authid</span> <span class="o">=</span> <span class="n">authid</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_authrole</span> <span class="o">=</span> <span class="n">authrole</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_authmethod</span> <span class="o">=</span> <span class="n">authmethod</span>
+
+            <span class="n">roles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Welcome</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">,</span> <span class="n">roles</span><span class="p">,</span> <span class="n">authid</span> <span class="o">=</span> <span class="n">authid</span><span class="p">,</span> <span class="n">authrole</span> <span class="o">=</span> <span class="n">authrole</span><span class="p">,</span> <span class="n">authmethod</span> <span class="o">=</span> <span class="n">authmethod</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">onJoin</span><span class="p">(</span><span class="n">SessionDetails</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_realm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authrole</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authmethod</span><span class="p">))</span>
+
+         <span class="c">## the first message MUST be HELLO</span>
+         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Hello</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_realm</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">realm</span>
+
+            <span class="n">details</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">HelloDetails</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">roles</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">authmethods</span><span class="p">)</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onHello</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_realm</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+               <span class="n">msg</span> <span class="o">=</span> <span class="bp">None</span>
+
+               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">Accept</span><span class="p">):</span>
+                  <span class="n">welcome</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_realm</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">authid</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">authrole</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">authmethod</span><span class="p">)</span>
+
+               <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">Challenge</span><span class="p">):</span>
+                  <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Challenge</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">extra</span><span class="p">)</span>
+
+               <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">Deny</span><span class="p">):</span>
+                  <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Abort</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="k">pass</span>
+
+               <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">failed</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+               <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="n">d</span><span class="o">.</span><span class="n">addCallbacks</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">failed</span><span class="p">)</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Authenticate</span><span class="p">):</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">maybeDeferred</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onAuthenticate</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">signature</span><span class="p">,</span> <span class="p">{})</span>
+
+            <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+               <span class="n">msg</span> <span class="o">=</span> <span class="bp">None</span>
+
+               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">Accept</span><span class="p">):</span>
+                  <span class="n">welcome</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_realm</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">authid</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">authrole</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">authmethod</span><span class="p">)</span>
+
+               <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">Deny</span><span class="p">):</span>
+                  <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Abort</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="k">pass</span>
+
+               <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">failed</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+               <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="n">d</span><span class="o">.</span><span class="n">addCallbacks</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">failed</span><span class="p">)</span>
+
+         <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;Received {} message, and session is not yet established&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">__class__</span><span class="p">))</span>
+
+      <span class="k">else</span><span class="p">:</span>
+
+         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Hello</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s">&quot;HELLO message received, while session is already established&quot;</span><span class="p">)</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Goodbye</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span><span class="p">:</span>
+               <span class="c">## the peer wants to close: send GOODBYE reply</span>
+               <span class="n">reply</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Goodbye</span><span class="p">()</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+
+            <span class="c">## fire callback and close the transport</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onLeave</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">CloseDetails</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="c">#self._transport.close()</span>
+
+         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">Heartbeat</span><span class="p">):</span>
+
+            <span class="k">pass</span> <span class="c">## FIXME</span>
+
+         <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+
+
+   <span class="k">def</span> <span class="nf">onClose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wasClean</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ITransportHandler.onClose`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="p">:</span>
+
+         <span class="c">## fire callback and close the transport</span>
+         <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onLeave</span><span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">CloseDetails</span><span class="p">())</span>
+         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+               <span class="n">log</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s">&quot;exception raised in onLeave callback: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_router</span><span class="o">.</span><span class="n">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+         <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_authid</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_authrole</span> <span class="o">=</span> <span class="bp">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_authmethod</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+   <span class="k">def</span> <span class="nf">onJoin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onJoin`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+   <span class="k">def</span> <span class="nf">onLeave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.onLeave`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+
+   <span class="k">def</span> <span class="nf">leave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Implements :func:`autobahn.wamp.interfaces.ISession.leave`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span><span class="p">:</span>
+         <span class="n">msg</span> <span class="o">=</span> <span class="n">wamp</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">Goodbye</span><span class="p">(</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_transport</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_goodbye_sent</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="n">SessionNotReady</span><span class="p">(</span><span class="s">&quot;Already requested to close the session&quot;</span><span class="p">)</span>
+
+
+</div>
+<div class="viewcode-block" id="RouterSessionFactory"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterSessionFactory">[docs]</a><span class="k">class</span> <span class="nc">RouterSessionFactory</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP router session factory.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+   <span class="n">session</span> <span class="o">=</span> <span class="n">RouterSession</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   WAMP router session class to be used in this factory.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="RouterSessionFactory.__init__"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterSessionFactory.__init__">[docs]</a>   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routerFactory</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Constructor.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_routerFactory</span> <span class="o">=</span> <span class="n">routerFactory</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_app_sessions</span> <span class="o">=</span> <span class="p">{}</span>
+
+</div>
+<div class="viewcode-block" id="RouterSessionFactory.add"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterSessionFactory.add">[docs]</a>   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Adds a WAMP application session to run directly in this router.</span>
+
+<span class="sd">      :param: session: A WAMP application session.</span>
+<span class="sd">      :type session: A instance of a class that derives of :class:`autobahn.wamp.protocol.WampAppSession`</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="c">#router = self._routerFactory.get(session.realm)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_app_sessions</span><span class="p">[</span><span class="n">session</span><span class="p">]</span> <span class="o">=</span> <span class="n">RouterApplicationSession</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_routerFactory</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="RouterSessionFactory.remove"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterSessionFactory.remove">[docs]</a>   <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Removes a WAMP application session running directly in this router.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="n">session</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_sessions</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_app_sessions</span><span class="p">[</span><span class="n">session</span><span class="p">]</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app_sessions</span><span class="p">[</span><span class="n">session</span><span class="p">]</span>
+
+
+</div>
+<div class="viewcode-block" id="RouterSessionFactory.__call__"><a class="viewcode-back" href="../../../wamp2all.html#autobahn.wamp.protocol.RouterSessionFactory.__call__">[docs]</a>   <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Creates a new WAMP router session.</span>
+
+<span class="sd">      :returns: -- An instance of the WAMP router session class as</span>
+<span class="sd">                   given by `self.session`.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_routerFactory</span><span class="p">)</span>
+      <span class="n">session</span><span class="o">.</span><span class="n">factory</span> <span class="o">=</span> <span class="n">session</span>
+      <span class="k">return</span> <span class="n">session</span></div></div>
+</pre></div>
+
+          <footer>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

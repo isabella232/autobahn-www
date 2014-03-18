@@ -1,93 +1,140 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>WAMP v2 &mdash; Autobahn|Python 0.8.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>WAMP v2 &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
+        URL_ROOT:'./',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
-    <link rel="prev" title="WAMP v2" href="wamp2.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="wamp2.html" title="WAMP v2"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">WAMP v2</a><ul>
-<li><a class="reference internal" href="#interfaces">Interfaces</a></li>
-<li><a class="reference internal" href="#errors">Errors</a></li>
-<li><a class="reference internal" href="#router">Router</a></li>
-<li><a class="reference internal" href="#protocol">Protocol</a></li>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="index.html"/>
+        <link rel="prev" title="WAMP v2" href="wamp2.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2.html#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#protocol">Protocol</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="wamp2.html"
-                        title="previous chapter">WAMP v2</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/wamp2all.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+        
       </div>
+      &nbsp;
+    </nav>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="index.html">Docs</a> &raquo;</li>
+  <li><a href="">WAMP v2</a></li>
+  
+</ul>
+<hr/>
+
+          
   <div class="section" id="wamp-v2">
 <h1>WAMP v2<a class="headerlink" href="#wamp-v2" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interfaces">
 <h2>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IObjectSerializer">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IObjectSerializer</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IObjectSerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IObjectSerializer</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IObjectSerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IObjectSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw Python object serialization and unserialization. Object serializers are
 used by classes implementing WAMP serializers, that is instances of
 <a class="reference internal" href="#autobahn.wamp.interfaces.ISerializer" title="autobahn.wamp.interfaces.ISerializer"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.ISerializer</span></tt></a>.</p>
@@ -134,7 +181,7 @@ transport or if UTF8 transparency is sufficient.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IMessage">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IMessage</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IMessage" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IMessage</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>A WAMP message.</p>
 <dl class="attribute">
 <dt id="IMessage.MESSAGE_TYPE">
@@ -227,7 +274,7 @@ that start with &#8220;_&#8221;).</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ISerializer">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISerializer</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ISerializer" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISerializer</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ISerializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ISerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>WAMP message serialization and unserialization.</p>
 <dl class="attribute">
 <dt id="ISerializer.MESSAGE_TYPE_MAP">
@@ -277,7 +324,7 @@ that start with &#8220;_&#8221;).</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ITransport">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ITransport</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ITransport" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ITransport</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ITransport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ITransport" title="Permalink to this definition">¶</a></dt>
 <dd><p>A WAMP transport is a bidirectional, full-duplex, reliable, ordered,
 message-based channel.</p>
 <dl class="method">
@@ -330,7 +377,7 @@ detected attacks.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ITransportHandler">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ITransportHandler</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ITransportHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ITransportHandler</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ITransportHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ITransportHandler" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="ITransportHandler.onOpen">
 <tt class="descname">onOpen</tt><big>(</big><em>transport</em><big>)</big><a class="headerlink" href="#ITransportHandler.onOpen" title="Permalink to this definition">¶</a></dt>
@@ -367,7 +414,7 @@ detected attacks.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wasClean</strong> (<em>bool</em>) &#8211; Indicates if the transport has been closed regularily.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wasClean</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Indicates if the transport has been closed regularily.</td>
 </tr>
 </tbody>
 </table>
@@ -377,7 +424,7 @@ detected attacks.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IRouterBase">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRouterBase</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IRouterBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRouterBase</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IRouterBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IRouterBase" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="IRouterBase.factory">
 <tt class="descname">factory</tt><a class="headerlink" href="#IRouterBase.factory" title="Permalink to this definition">¶</a></dt>
@@ -422,7 +469,7 @@ detected attacks.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IRouter">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRouter</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IRouter" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRouter</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IRouter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IRouter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.IRouterBase" title="autobahn.wamp.interfaces.IRouterBase"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IRouterBase</span></tt></a></p>
 <dl class="method">
 <dt id="IRouter.process">
@@ -446,7 +493,7 @@ detected attacks.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IBroker">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IBroker</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IBroker" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IBroker</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IBroker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IBroker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.IRouterBase" title="autobahn.wamp.interfaces.IRouterBase"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IRouterBase</span></tt></a></p>
 <p>WAMP broker interface. Brokers are responsible for event routing</p>
 <dl class="method">
@@ -468,7 +515,7 @@ detected attacks.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IDealer">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IDealer</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IDealer" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IDealer</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IDealer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IDealer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.IRouterBase" title="autobahn.wamp.interfaces.IRouterBase"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IRouterBase</span></tt></a></p>
 <p>WAMP dealer interface. Dealers are responsible for call routing.</p>
 <dl class="method">
@@ -505,7 +552,7 @@ detected attacks.</p>
 
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IRouterFactory">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRouterFactory</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IRouterFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRouterFactory</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IRouterFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IRouterFactory" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="IRouterFactory.get">
 <tt class="descname">get</tt><big>(</big><em>realm</em><big>)</big><a class="headerlink" href="#IRouterFactory.get" title="Permalink to this definition">¶</a></dt>
@@ -519,18 +566,18 @@ detected attacks.</p>
 <h2>Errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="autobahn.wamp.exception.Error">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">Error</tt><big>(</big><em>reason</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.Error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.RuntimeError</span></tt></p>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">Error</tt><big>(</big><em>reason</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/exceptions.html#exceptions.RuntimeError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.RuntimeError</span></tt></a></p>
 <p>Base class for all exceptions related to WAMP.</p>
 <dl class="method">
 <dt id="autobahn.wamp.exception.Error.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>reason</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.Error.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>reason</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#Error.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.Error.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str</em>) &#8211; Description of WAMP error that occurred (for logging purposes).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Description of WAMP error that occurred (for logging purposes).</td>
 </tr>
 </tbody>
 </table>
@@ -540,7 +587,7 @@ detected attacks.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.SessionNotReady">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">SessionNotReady</tt><big>(</big><em>reason</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.SessionNotReady" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">SessionNotReady</tt><big>(</big><em>reason</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#SessionNotReady"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.SessionNotReady" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.exception.Error" title="autobahn.wamp.exception.Error"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.exception.Error</span></tt></a></p>
 <dl class="method">
 <dt id="autobahn.wamp.exception.SessionNotReady.__init__">
@@ -550,7 +597,7 @@ detected attacks.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str</em>) &#8211; Description of WAMP error that occurred (for logging purposes).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Description of WAMP error that occurred (for logging purposes).</td>
 </tr>
 </tbody>
 </table>
@@ -560,7 +607,7 @@ detected attacks.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.ProtocolError">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">ProtocolError</tt><big>(</big><em>reason</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.ProtocolError" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">ProtocolError</tt><big>(</big><em>reason</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#ProtocolError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.ProtocolError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.exception.Error" title="autobahn.wamp.exception.Error"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.exception.Error</span></tt></a></p>
 <p>Exception raised when WAMP protocol was violated. Protocol errors
 are fatal and are handled by the WAMP implementation. They are
@@ -573,7 +620,7 @@ not supposed to be handled at the application level.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str</em>) &#8211; Description of WAMP error that occurred (for logging purposes).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Description of WAMP error that occurred (for logging purposes).</td>
 </tr>
 </tbody>
 </table>
@@ -583,26 +630,26 @@ not supposed to be handled at the application level.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.TransportLost">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">TransportLost</tt><a class="headerlink" href="#autobahn.wamp.exception.TransportLost" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">TransportLost</tt><a class="reference internal" href="_modules/autobahn/wamp/exception.html#TransportLost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.TransportLost" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.exception.Error" title="autobahn.wamp.exception.Error"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.exception.Error</span></tt></a></p>
 <p>Exception raised when transport was lost or is not connected.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.ApplicationError">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">ApplicationError</tt><big>(</big><em>error</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.ApplicationError" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">ApplicationError</tt><big>(</big><em>error</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#ApplicationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.ApplicationError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.exception.Error" title="autobahn.wamp.exception.Error"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.exception.Error</span></tt></a></p>
 <p>Base class for all exceptions that can/may be handled
 at the application level.</p>
 <dl class="method">
 <dt id="autobahn.wamp.exception.ApplicationError.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>error</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.ApplicationError.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>error</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#ApplicationError.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.ApplicationError.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error</strong> (<em>str</em>) &#8211; The URI of the error that occurred, e.g. <cite>wamp.error.not_authorized</cite>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The URI of the error that occurred, e.g. <cite>wamp.error.not_authorized</cite>.</td>
 </tr>
 </tbody>
 </table>
@@ -612,12 +659,12 @@ at the application level.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.NotAuthorized">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">NotAuthorized</tt><a class="headerlink" href="#autobahn.wamp.exception.NotAuthorized" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">NotAuthorized</tt><a class="reference internal" href="_modules/autobahn/wamp/exception.html#NotAuthorized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.NotAuthorized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
 <p>Not authorized to perform the respective action.</p>
 <dl class="attribute">
 <dt id="autobahn.wamp.exception.NotAuthorized.__init__">
-<tt class="descname">__init__</tt><em class="property"> None</em><a class="headerlink" href="#autobahn.wamp.exception.NotAuthorized.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><a class="headerlink" href="#autobahn.wamp.exception.NotAuthorized.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
 </dd></dl>
 
@@ -625,12 +672,12 @@ at the application level.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.InvalidTopic">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">InvalidTopic</tt><a class="headerlink" href="#autobahn.wamp.exception.InvalidTopic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">InvalidTopic</tt><a class="reference internal" href="_modules/autobahn/wamp/exception.html#InvalidTopic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.InvalidTopic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
 <p>The topic to publish or subscribe to is invalid.</p>
 <dl class="attribute">
 <dt id="autobahn.wamp.exception.InvalidTopic.__init__">
-<tt class="descname">__init__</tt><em class="property"> None</em><a class="headerlink" href="#autobahn.wamp.exception.InvalidTopic.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><a class="headerlink" href="#autobahn.wamp.exception.InvalidTopic.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
 </dd></dl>
 
@@ -638,19 +685,19 @@ at the application level.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.CallError">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">CallError</tt><big>(</big><em>error</em>, <em>problem</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.CallError" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">CallError</tt><big>(</big><em>error</em>, <em>problem</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#CallError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.CallError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.exception.ApplicationError" title="autobahn.wamp.exception.ApplicationError"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.exception.ApplicationError</span></tt></a></p>
 <p>Remote procedure call errors.</p>
 <dl class="method">
 <dt id="autobahn.wamp.exception.CallError.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>error</em>, <em>problem</em><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.CallError.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>error</em>, <em>problem</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#CallError.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.CallError.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>error</strong> (<em>str</em>) &#8211; The URI of the error that occurred, e.g. &#8220;com.myapp.error.no_such_user&#8221;.</li>
+<li><strong>error</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The URI of the error that occurred, e.g. &#8220;com.myapp.error.no_such_user&#8221;.</li>
 <li><strong>problem</strong> (<em>obj</em>) &#8211; Any application-level details for the error that occurred.</li>
 </ul>
 </td>
@@ -663,12 +710,12 @@ at the application level.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.exception.CanceledError">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">CanceledError</tt><a class="headerlink" href="#autobahn.wamp.exception.CanceledError" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.exception.</tt><tt class="descname">CanceledError</tt><a class="reference internal" href="_modules/autobahn/wamp/exception.html#CanceledError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.CanceledError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.exception.ApplicationError" title="autobahn.wamp.exception.ApplicationError"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.exception.ApplicationError</span></tt></a></p>
 <p>Error for canceled calls.</p>
 <dl class="method">
 <dt id="autobahn.wamp.exception.CanceledError.__init__">
-<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.exception.CanceledError.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/exception.html#CanceledError.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.exception.CanceledError.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 </dd></dl>
 
@@ -679,41 +726,53 @@ at the application level.</p>
 <h2>Router<a class="headerlink" href="#router" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="autobahn.wamp.broker.Broker">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.broker.</tt><tt class="descname">Broker</tt><big>(</big><em>realm</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.broker.</tt><tt class="descname">Broker</tt><big>(</big><em>realm</em>, <em>options=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Basic WAMP broker, implements <a class="reference internal" href="#autobahn.wamp.interfaces.IBroker" title="autobahn.wamp.interfaces.IBroker"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IBroker</span></tt></a>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.broker.Broker.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>realm</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>realm</em>, <em>options=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>realm</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The realm this broker is working for.</li>
+<li><strong>options</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.types.RouterOptions</span></tt>.) &#8211; Router options.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.broker.Broker.attach">
-<tt class="descname">attach</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker.attach" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">attach</tt><big>(</big><em>session</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker.attach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker.attach" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IBroker.attach()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.broker.Broker.detach">
-<tt class="descname">detach</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker.detach" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">detach</tt><big>(</big><em>session</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker.detach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker.detach" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IBroker.detach()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.broker.Broker.processPublish">
-<tt class="descname">processPublish</tt><big>(</big><em>session</em>, <em>publish</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker.processPublish" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processPublish</tt><big>(</big><em>session</em>, <em>publish</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker.processPublish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker.processPublish" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IBroker.processPublish()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.broker.Broker.processSubscribe">
-<tt class="descname">processSubscribe</tt><big>(</big><em>session</em>, <em>subscribe</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker.processSubscribe" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processSubscribe</tt><big>(</big><em>session</em>, <em>subscribe</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker.processSubscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker.processSubscribe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IBroker.processSubscribe()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.broker.Broker.processUnsubscribe">
-<tt class="descname">processUnsubscribe</tt><big>(</big><em>session</em>, <em>unsubscribe</em><big>)</big><a class="headerlink" href="#autobahn.wamp.broker.Broker.processUnsubscribe" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processUnsubscribe</tt><big>(</big><em>session</em>, <em>unsubscribe</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/broker.html#Broker.processUnsubscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.broker.Broker.processUnsubscribe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IBroker.processUnsubscribe()</span></tt></p>
 </dd></dl>
 
@@ -721,59 +780,71 @@ at the application level.</p>
 
 <dl class="class">
 <dt id="autobahn.wamp.dealer.Dealer">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.dealer.</tt><tt class="descname">Dealer</tt><big>(</big><em>realm</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.dealer.</tt><tt class="descname">Dealer</tt><big>(</big><em>realm</em>, <em>options</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Basic WAMP dealer, implements <a class="reference internal" href="#autobahn.wamp.interfaces.IDealer" title="autobahn.wamp.interfaces.IDealer"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer</span></tt></a>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>realm</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>realm</em>, <em>options</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>realm</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The realm this dealer is working for.</li>
+<li><strong>options</strong> (Instance of <tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.types.RouterOptions</span></tt>.) &#8211; Router options.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.attach">
-<tt class="descname">attach</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.attach" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">attach</tt><big>(</big><em>session</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.attach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.attach" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.attach()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.detach">
-<tt class="descname">detach</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.detach" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">detach</tt><big>(</big><em>session</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.detach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.detach" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.detach()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.processRegister">
-<tt class="descname">processRegister</tt><big>(</big><em>session</em>, <em>register</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processRegister" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processRegister</tt><big>(</big><em>session</em>, <em>register</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.processRegister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processRegister" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.processRegister()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.processUnregister">
-<tt class="descname">processUnregister</tt><big>(</big><em>session</em>, <em>unregister</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processUnregister" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processUnregister</tt><big>(</big><em>session</em>, <em>unregister</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.processUnregister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processUnregister" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.processUnregister()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.processCall">
-<tt class="descname">processCall</tt><big>(</big><em>session</em>, <em>call</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processCall" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processCall</tt><big>(</big><em>session</em>, <em>call</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.processCall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processCall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.processCall()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.processCancel">
-<tt class="descname">processCancel</tt><big>(</big><em>session</em>, <em>cancel</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processCancel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processCancel</tt><big>(</big><em>session</em>, <em>cancel</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.processCancel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processCancel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.processCancel()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.processYield">
-<tt class="descname">processYield</tt><big>(</big><em>session</em>, <em>yield_</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processYield" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processYield</tt><big>(</big><em>session</em>, <em>yield_</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.processYield"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processYield" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.processYield()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.dealer.Dealer.processInvocationError">
-<tt class="descname">processInvocationError</tt><big>(</big><em>session</em>, <em>error</em><big>)</big><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processInvocationError" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">processInvocationError</tt><big>(</big><em>session</em>, <em>error</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/dealer.html#Dealer.processInvocationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.dealer.Dealer.processInvocationError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IDealer.processInvocationError()</span></tt></p>
 </dd></dl>
 
@@ -784,19 +855,19 @@ at the application level.</p>
 <h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="autobahn.wamp.protocol.Publication">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">Publication</tt><big>(</big><em>publicationId</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.Publication" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">Publication</tt><big>(</big><em>publicationId</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#Publication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.Publication" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object representing a publication.
 This class implements <a class="reference internal" href="wamp2.html#autobahn.wamp.interfaces.IPublication" title="autobahn.wamp.interfaces.IPublication"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IPublication</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.Subscription">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">Subscription</tt><big>(</big><em>session</em>, <em>subscriptionId</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.Subscription" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">Subscription</tt><big>(</big><em>session</em>, <em>subscriptionId</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#Subscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.Subscription" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object representing a subscription.
 This class implements <a class="reference internal" href="wamp2.html#autobahn.wamp.interfaces.ISubscription" title="autobahn.wamp.interfaces.ISubscription"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.ISubscription</span></tt></a>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.Subscription.unsubscribe">
-<tt class="descname">unsubscribe</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.Subscription.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">unsubscribe</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#Subscription.unsubscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.Subscription.unsubscribe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISubscription.unsubscribe()</span></tt></p>
 </dd></dl>
 
@@ -804,12 +875,12 @@ This class implements <a class="reference internal" href="wamp2.html#autobahn.wa
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.Registration">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">Registration</tt><big>(</big><em>session</em>, <em>registrationId</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.Registration" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">Registration</tt><big>(</big><em>session</em>, <em>registrationId</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#Registration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.Registration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object representing a registration.
 This class implements <a class="reference internal" href="wamp2.html#autobahn.wamp.interfaces.IRegistration" title="autobahn.wamp.interfaces.IRegistration"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.IRegistration</span></tt></a>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.Registration.unregister">
-<tt class="descname">unregister</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.Registration.unregister" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">unregister</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#Registration.unregister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.Registration.unregister" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IRegistration.unregister()</span></tt></p>
 </dd></dl>
 
@@ -817,7 +888,7 @@ This class implements <a class="reference internal" href="wamp2.html#autobahn.wa
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.BaseSession">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">BaseSession</tt><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">BaseSession</tt><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#BaseSession"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession" title="Permalink to this definition">¶</a></dt>
 <dd><p>WAMP session base class.</p>
 <p>This class implements:</p>
 <blockquote>
@@ -827,31 +898,31 @@ This class implements <a class="reference internal" href="wamp2.html#autobahn.wa
 </div></blockquote>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.BaseSession.onConnect">
-<tt class="descname">onConnect</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onConnect" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">onConnect</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#BaseSession.onConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onConnect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.onConnect()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.BaseSession.onJoin">
-<tt class="descname">onJoin</tt><big>(</big><em>details</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onJoin" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">onJoin</tt><big>(</big><em>details</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#BaseSession.onJoin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onJoin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.onJoin()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.BaseSession.onLeave">
-<tt class="descname">onLeave</tt><big>(</big><em>details</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onLeave" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">onLeave</tt><big>(</big><em>details</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#BaseSession.onLeave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onLeave" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.onLeave()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.BaseSession.onDisconnect">
-<tt class="descname">onDisconnect</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onDisconnect" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">onDisconnect</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#BaseSession.onDisconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.onDisconnect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.onDisconnect()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.BaseSession.define">
-<tt class="descname">define</tt><big>(</big><em>exception</em>, <em>error=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.define" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">define</tt><big>(</big><em>exception</em>, <em>error=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#BaseSession.define"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.BaseSession.define" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.define()</span></tt></p>
 </dd></dl>
 
@@ -859,7 +930,7 @@ This class implements <a class="reference internal" href="wamp2.html#autobahn.wa
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.ApplicationSession">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">ApplicationSession</tt><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">ApplicationSession</tt><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.protocol.BaseSession" title="autobahn.wamp.protocol.BaseSession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.protocol.BaseSession</span></tt></a></p>
 <p>WAMP endpoint session.</p>
 <p>This class implements:</p>
@@ -874,49 +945,49 @@ This class implements <a class="reference internal" href="wamp2.html#autobahn.wa
 </div></blockquote>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.__init__">
-<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.join">
-<tt class="descname">join</tt><big>(</big><em>realm</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.join" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">join</tt><big>(</big><em>realm</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.join" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.join()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.disconnect">
-<tt class="descname">disconnect</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.disconnect" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">disconnect</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.disconnect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.disconnect()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.leave">
-<tt class="descname">leave</tt><big>(</big><em>reason=None</em>, <em>log_message=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.leave" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">leave</tt><big>(</big><em>reason=None</em>, <em>log_message=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.leave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.leave" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession.leave()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.publish">
-<tt class="descname">publish</tt><big>(</big><em>topic</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.publish" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">publish</tt><big>(</big><em>topic</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.publish" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IPublisher.publish()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.subscribe">
-<tt class="descname">subscribe</tt><big>(</big><em>handler</em>, <em>topic=None</em>, <em>options=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.subscribe" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">subscribe</tt><big>(</big><em>handler</em>, <em>topic=None</em>, <em>options=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.subscribe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISubscriber.subscribe()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.call">
-<tt class="descname">call</tt><big>(</big><em>procedure</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.call" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">call</tt><big>(</big><em>procedure</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ICaller.call()</span></tt></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSession.register">
-<tt class="descname">register</tt><big>(</big><em>endpoint</em>, <em>procedure=None</em>, <em>options=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.register" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">register</tt><big>(</big><em>endpoint</em>, <em>procedure=None</em>, <em>options=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSession.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSession.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ICallee.register()</span></tt></p>
 </dd></dl>
 
@@ -924,11 +995,11 @@ This class implements <a class="reference internal" href="wamp2.html#autobahn.wa
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.ApplicationSessionFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">ApplicationSessionFactory</tt><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSessionFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">ApplicationSessionFactory</tt><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSessionFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSessionFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>WAMP endpoint session factory.</p>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.ApplicationSessionFactory.__call__">
-<tt class="descname">__call__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSessionFactory.__call__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__call__</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#ApplicationSessionFactory.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.ApplicationSessionFactory.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new WAMP application session.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -945,11 +1016,11 @@ given by <cite>self.session</cite>.</td>
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.RouterApplicationSession">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">RouterApplicationSession</tt><big>(</big><em>session</em>, <em>routerFactory</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterApplicationSession" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">RouterApplicationSession</tt><big>(</big><em>session</em>, <em>routerFactory</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterApplicationSession"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterApplicationSession" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps an application session to run directly attached to a WAMP router (broker+dealer).</p>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.RouterApplicationSession.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>session</em>, <em>routerFactory</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterApplicationSession.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>session</em>, <em>routerFactory</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterApplicationSession.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterApplicationSession.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrap an application session and add it to the given broker and dealer.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -967,7 +1038,7 @@ given by <cite>self.session</cite>.</td>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.RouterApplicationSession.send">
-<tt class="descname">send</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterApplicationSession.send" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">send</tt><big>(</big><em>msg</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterApplicationSession.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterApplicationSession.send" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ITransport.send()</span></tt></p>
 </dd></dl>
 
@@ -975,7 +1046,7 @@ given by <cite>self.session</cite>.</td>
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.RouterSession">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">RouterSession</tt><big>(</big><em>routerFactory</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterSession" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">RouterSession</tt><big>(</big><em>routerFactory</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterSession"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterSession" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#autobahn.wamp.protocol.BaseSession" title="autobahn.wamp.protocol.BaseSession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.protocol.BaseSession</span></tt></a></p>
 <p>WAMP router session.</p>
 <p>This class implements:</p>
@@ -988,17 +1059,17 @@ given by <cite>self.session</cite>.</td>
 
 <dl class="class">
 <dt id="autobahn.wamp.protocol.RouterSessionFactory">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">RouterSessionFactory</tt><big>(</big><em>routerFactory</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.protocol.</tt><tt class="descname">RouterSessionFactory</tt><big>(</big><em>routerFactory</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterSessionFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>WAMP router session factory.</p>
 <dl class="method">
 <dt id="autobahn.wamp.protocol.RouterSessionFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>routerFactory</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>routerFactory</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterSessionFactory.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.RouterSessionFactory.add">
-<tt class="descname">add</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.add" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add</tt><big>(</big><em>session</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterSessionFactory.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a WAMP application session to run directly in this router.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1012,13 +1083,13 @@ given by <cite>self.session</cite>.</td>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.RouterSessionFactory.remove">
-<tt class="descname">remove</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.remove" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">remove</tt><big>(</big><em>session</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterSessionFactory.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a WAMP application session running directly in this router.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="autobahn.wamp.protocol.RouterSessionFactory.__call__">
-<tt class="descname">__call__</tt><big>(</big><big>)</big><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.__call__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__call__</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/protocol.html#RouterSessionFactory.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.protocol.RouterSessionFactory.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new WAMP router session.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1037,26 +1108,31 @@ given by <cite>self.session</cite>.</td>
 </div>
 
 
-          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+      
+        <a href="wamp2.html" class="btn btn-neutral" title="WAMP v2"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="wamp2.html" title="WAMP v2"
-             >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+</body>
 </html>

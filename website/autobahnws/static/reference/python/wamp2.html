@@ -1,121 +1,134 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>WAMP v2 &mdash; Autobahn|Python 0.8.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>WAMP v2 &mdash; Autobahn 0.8.5 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
+        URL_ROOT:'./',
+        VERSION:'0.8.5',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Autobahn|Python 0.8.2 documentation" href="index.html" />
-    <link rel="next" title="WAMP v2" href="wamp2all.html" />
-    <link rel="prev" title="Server" href="wamp1server.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="wamp2all.html" title="WAMP v2"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="wamp1server.html" title="Server"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">WAMP v2</a><ul>
-<li><a class="reference internal" href="#sessions">Sessions</a><ul>
-<li><a class="reference internal" href="#session-details">Session Details</a></li>
-<li><a class="reference internal" href="#close-details">Close Details</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#callers">Callers</a><ul>
-<li><a class="reference internal" href="#calling">Calling</a></li>
-<li><a class="reference internal" href="#call-options">Call Options</a></li>
-<li><a class="reference internal" href="#call-results">Call Results</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#callees">Callees</a><ul>
-<li><a class="reference internal" href="#registering">Registering</a></li>
-<li><a class="reference internal" href="#registration">Registration</a></li>
-<li><a class="reference internal" href="#register-options">Register Options</a></li>
-<li><a class="reference internal" href="#call-details">Call Details</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#subscribers">Subscribers</a><ul>
-<li><a class="reference internal" href="#subscribing">Subscribing</a></li>
-<li><a class="reference internal" href="#subscription">Subscription</a></li>
-<li><a class="reference internal" href="#subscribe-options">Subscribe Options</a></li>
-<li><a class="reference internal" href="#event-details">Event Details</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#publishers">Publishers</a><ul>
-<li><a class="reference internal" href="#publishing">Publishing</a></li>
-<li><a class="reference internal" href="#publication">Publication</a></li>
-<li><a class="reference internal" href="#publish-options">Publish Options</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#decorators">Decorators</a></li>
-</ul>
-</li>
-</ul>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="wamp1server.html"
-                        title="previous chapter">Server</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="wamp2all.html"
-                        title="next chapter">WAMP v2</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/wamp2.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="Autobahn 0.8.5 documentation" href="index.html"/>
+        <link rel="next" title="WAMP v2" href="wamp2all.html"/>
+        <link rel="prev" title="Server" href="wamp1server.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> Autobahn</a>
+        <form class="wy-form" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
       </div>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="websockettoc.html">WebSocket</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="websocketintro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketbase.html">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketclient.html">WebSocket Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketserver.html">WebSocket Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketcompress.html">WebSocket Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="websocketaux.html">WebSocket Auxiliary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twistedintegration.html">Twisted Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp1toc.html">WAMP v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp1base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp1server.html">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sessions">Sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#callers">Callers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#callees">Callees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subscribers">Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#publishers">Publishers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decorators">Decorators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wamp2all.html">WAMP v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#router">Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wamp2all.html#protocol">Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="/">Autobahn</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="index.html">Docs</a> &raquo;</li>
+  <li><a href="">WAMP v2</a></li>
+  
+</ul>
+<hr/>
+
+          
   <div class="section" id="wamp-v2">
 <h1>WAMP v2<a class="headerlink" href="#wamp-v2" title="Permalink to this headline">¶</a></h1>
 <p>WAMP application components are implemented by deriving from the class <a class="reference internal" href="wamp2all.html#autobahn.wamp.protocol.ApplicationSession" title="autobahn.wamp.protocol.ApplicationSession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.protocol.ApplicationSession</span></tt></a>. This class implements the following core interfaces for WAMP application programming:</p>
@@ -134,7 +147,7 @@
 <p>Base interface for WAMP sessions of any role:</p>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ISession">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISession</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ISession" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISession</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ISession"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ISession" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base interface for WAMP sessions.</p>
 <dl class="method">
 <dt id="ISession.onConnect">
@@ -171,8 +184,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>reason</strong> (<em>str</em>) &#8211; An optional URI for the closing reason.</li>
-<li><strong>message</strong> (<em>str</em>) &#8211; An optional (human readable) closing message, intended for
+<li><strong>reason</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; An optional URI for the closing reason.</li>
+<li><strong>message</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; An optional (human readable) closing message, intended for
 logging purposes.</li>
 </ul>
 </td>
@@ -217,7 +230,7 @@ logging purposes.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>exception</strong> (A class that derives of <tt class="docutils literal"><span class="pre">Exception</span></tt>.) &#8211; The exception class to define an error mapping for.</li>
-<li><strong>error</strong> (<em>str</em>) &#8211; The URI (or URI pattern) the exception class should be mapped for.
+<li><strong>error</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The URI (or URI pattern) the exception class should be mapped for.
 Iff the <tt class="docutils literal"><span class="pre">exception</span></tt> class is decorated, this must be <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
 </ul>
 </td>
@@ -233,18 +246,18 @@ Iff the <tt class="docutils literal"><span class="pre">exception</span></tt> cla
 <p>When a WAMP session is open, details on the session are provided by this object:</p>
 <dl class="class">
 <dt id="autobahn.wamp.types.SessionDetails">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">SessionDetails</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.SessionDetails" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">SessionDetails</tt><big>(</big><em>realm</em>, <em>session</em>, <em>authid=None</em>, <em>authrole=None</em>, <em>authmethod=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#SessionDetails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.SessionDetails" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides details for a WAMP session, provided in
 <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IAppSession.onSessionOpen()</span></tt>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.SessionDetails.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.SessionDetails.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>realm</em>, <em>session</em>, <em>authid=None</em>, <em>authrole=None</em>, <em>authmethod=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#SessionDetails.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.SessionDetails.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ctor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>session</strong> (<em>int</em>) &#8211; WAMP session ID of this session.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>session</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; WAMP session ID of this session.</td>
 </tr>
 </tbody>
 </table>
@@ -258,7 +271,7 @@ Iff the <tt class="docutils literal"><span class="pre">exception</span></tt> cla
 <p>When a WAMP session is to be closed, this object can provide closing details:</p>
 <dl class="class">
 <dt id="autobahn.wamp.types.CloseDetails">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CloseDetails</tt><big>(</big><em>reason=None</em>, <em>message=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CloseDetails" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CloseDetails</tt><big>(</big><em>reason=None</em>, <em>message=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CloseDetails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CloseDetails" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides details on closing of a WAMP session, provided in
 <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IAppSession.onSessionClose()</span></tt>.</p>
 </dd></dl>
@@ -273,7 +286,7 @@ Iff the <tt class="docutils literal"><span class="pre">exception</span></tt> cla
 <p><em>Callers</em> can call remote procedures on other WAMP application components using the following interface:</p>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ICaller">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ICaller</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ICaller" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ICaller</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ICaller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ICaller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.ISession" title="autobahn.wamp.interfaces.ISession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession</span></tt></a></p>
 <p>Interface for WAMP peers implementing role <em>Caller</em>.</p>
 <dl class="method">
@@ -296,9 +309,9 @@ specific options for the call to perform.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>procedure</strong> (<em>str</em>) &#8211; The URI of the remote procedure to be called, e.g. <cite>com.myapp.hello</cite>.</li>
-<li><strong>args</strong> (<em>list</em>) &#8211; Any positional arguments for the call.</li>
-<li><strong>kwargs</strong> (<em>dict</em>) &#8211; Any keyword arguments for the call.</li>
+<li><strong>procedure</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The URI of the remote procedure to be called, e.g. <cite>com.myapp.hello</cite>.</li>
+<li><strong>args</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; Any positional arguments for the call.</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Any keyword arguments for the call.</li>
 </ul>
 </td>
 </tr>
@@ -319,11 +332,11 @@ an instance of <tt class="xref py py-class docutils literal"><span class="pre">a
 <p>To set options when issuing a call, provide a keyword argument <tt class="docutils literal"><span class="pre">options</span></tt> of the following type to <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ICaller.call()</span></tt>:</p>
 <dl class="class">
 <dt id="autobahn.wamp.types.CallOptions">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CallOptions</tt><big>(</big><em>onProgress=None</em>, <em>timeout=None</em>, <em>discloseMe=None</em>, <em>runOn=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CallOptions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CallOptions</tt><big>(</big><em>onProgress=None</em>, <em>timeout=None</em>, <em>discloseMe=None</em>, <em>runOn=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CallOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CallOptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to provide options for calling with <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ICaller.call()</span></tt>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.CallOptions.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>onProgress=None</em>, <em>timeout=None</em>, <em>discloseMe=None</em>, <em>runOn=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CallOptions.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>onProgress=None</em>, <em>timeout=None</em>, <em>discloseMe=None</em>, <em>runOn=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CallOptions.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CallOptions.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -332,12 +345,12 @@ an instance of <tt class="xref py py-class docutils literal"><span class="pre">a
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>onProgress</strong> (<em>a callable</em>) &#8211; A callback that will be called when the remote endpoint
 called yields interim call progress results.</li>
-<li><strong>timeout</strong> (<em>float</em>) &#8211; Time in seconds after which the call should be automatically cancelled.</li>
-<li><strong>discloseMe</strong> (<em>bool</em>) &#8211; Request to disclose the identity of the caller (it&#8217;s WAMP session ID)
+<li><strong>timeout</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) &#8211; Time in seconds after which the call should be automatically cancelled.</li>
+<li><strong>discloseMe</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Request to disclose the identity of the caller (it&#8217;s WAMP session ID)
 to Callees. Note that a Dealer, depending on Dealer configuration, might
 reject the request, or might disclose the Callee&#8217;s identity without
 a request to do so.</li>
-<li><strong>runOn</strong> (<em>str</em>) &#8211; If present (non-None), indicates a distributed call. Distributed calls allows
+<li><strong>runOn</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; If present (non-None), indicates a distributed call. Distributed calls allows
 to run a call issued by a Caller on one or more endpoints implementing the
 called procedure. Permissible value are: &#8220;all&#8221;, &#8220;any&#8221; and &#8220;partition&#8221;.
 If <cite>runOne == &#8220;partition&#8221;</cite>, then <cite>runPartitions</cite> MUST be present.</li>
@@ -356,20 +369,20 @@ If <cite>runOne == &#8220;partition&#8221;</cite>, then <cite>runPartitions</cit
 <p>If a call result contains multiple positional result value and/or the call result contains keyword result values, the result is wrapped into an instance of:</p>
 <dl class="class">
 <dt id="autobahn.wamp.types.CallResult">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CallResult</tt><big>(</big><em>*results</em>, <em>**kwresults</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CallResult" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CallResult</tt><big>(</big><em>*results</em>, <em>**kwresults</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CallResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CallResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for remote procedure call results that contain multiple positional
 return values or keyword return values.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.CallResult.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>*results</em>, <em>**kwresults</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CallResult.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>*results</em>, <em>**kwresults</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CallResult.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CallResult.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>results</strong> (<em>list</em>) &#8211; The positional result values.</li>
-<li><strong>kwresults</strong> (<em>dict</em>) &#8211; The keyword result values.</li>
+<li><strong>results</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; The positional result values.</li>
+<li><strong>kwresults</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; The keyword result values.</li>
 </ul>
 </td>
 </tr>
@@ -389,7 +402,7 @@ return values or keyword return values.</p>
 <p><em>Callees</em> provide endpoints which can be called as remote procedures from other WAMP application components:</p>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ICallee">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ICallee</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ICallee" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ICallee</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ICallee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ICallee" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.ISession" title="autobahn.wamp.interfaces.ISession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession</span></tt></a></p>
 <p>Interface for WAMP peers implementing role <em>Callee</em>.</p>
 <dl class="method">
@@ -413,8 +426,8 @@ Deferreds/Futures is returned that each resolves or rejects as above.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>endpoint</strong> (<em>callable</em>) &#8211; The endpoint or endpoint object called under the procedure.</li>
-<li><strong>procedure</strong> (<em>str</em>) &#8211; When <cite>endpoint</cite> is a single event handler, the URI (or URI pattern)
+<li><strong>endpoint</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) &#8211; The endpoint or endpoint object called under the procedure.</li>
+<li><strong>procedure</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; When <cite>endpoint</cite> is a single event handler, the URI (or URI pattern)
 of the procedure to register for. When <tt class="docutils literal"><span class="pre">endpoint</span></tt> is an endpoint
 object, this value is ignored (and should be <tt class="docutils literal"><span class="pre">None</span></tt>).</li>
 <li><strong>options</strong> (An instance of <a class="reference internal" href="#autobahn.wamp.types.RegisterOptions" title="autobahn.wamp.types.RegisterOptions"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.types.RegisterOptions</span></tt></a>.) &#8211; Options for registering.</li>
@@ -439,7 +452,7 @@ running under Twisted) or instance(s) of <tt class="xref py py-class docutils li
 <p>Each registration of an endpoint at a <em>Dealer</em> is represented by</p>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IRegistration">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRegistration</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IRegistration" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IRegistration</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IRegistration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IRegistration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a registration of an endpoint.</p>
 <dl class="attribute">
 <dt id="IRegistration.id">
@@ -483,18 +496,18 @@ or an instance of <tt class="xref py py-class docutils literal"><span class="pre
 <h3>Register Options<a class="headerlink" href="#register-options" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="autobahn.wamp.types.RegisterOptions">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">RegisterOptions</tt><big>(</big><em>details_arg=None</em>, <em>pkeys=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.RegisterOptions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to provide options for subscribing in
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">RegisterOptions</tt><big>(</big><em>details_arg=None</em>, <em>pkeys=None</em>, <em>discloseCaller=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#RegisterOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.RegisterOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to provide options for registering in
 <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ICallee.register()</span></tt>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.RegisterOptions.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>details_arg=None</em>, <em>pkeys=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.RegisterOptions.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>details_arg=None</em>, <em>pkeys=None</em>, <em>discloseCaller=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#RegisterOptions.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.RegisterOptions.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ctor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>details_arg</strong> (<em>str</em>) &#8211; When invoking the endpoint, provide call details
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>details_arg</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; When invoking the endpoint, provide call details
 in this keyword argument to the callable.</td>
 </tr>
 </tbody>
@@ -508,20 +521,22 @@ in this keyword argument to the callable.</td>
 <h3>Call Details<a class="headerlink" href="#call-details" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="autobahn.wamp.types.CallDetails">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CallDetails</tt><big>(</big><em>progress=None</em>, <em>caller=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CallDetails" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">CallDetails</tt><big>(</big><em>progress=None</em>, <em>caller=None</em>, <em>authid=None</em>, <em>authrole=None</em>, <em>authmethod=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CallDetails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CallDetails" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides details on a call when an endpoint previously
 registered is being called and opted to receive call details.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.CallDetails.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>progress=None</em>, <em>caller=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.CallDetails.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>progress=None</em>, <em>caller=None</em>, <em>authid=None</em>, <em>authrole=None</em>, <em>authmethod=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#CallDetails.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.CallDetails.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ctor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>progress</strong> (<em>callable</em>) &#8211; A callable that will receive progressive call results.</li>
-<li><strong>caller</strong> (<em>int</em>) &#8211; The WAMP session ID of the caller, if the latter is disclosed.</li>
+<li><strong>progress</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) &#8211; A callable that will receive progressive call results.</li>
+<li><strong>caller</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; The WAMP session ID of the caller, if the latter is disclosed.</li>
+<li><strong>authid</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The authentication ID of the caller.</li>
+<li><strong>authrole</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The authentication role of the caller.</li>
 </ul>
 </td>
 </tr>
@@ -540,7 +555,7 @@ registered is being called and opted to receive call details.</p>
 <h3>Subscribing<a class="headerlink" href="#subscribing" title="Permalink to this headline">¶</a></h3>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ISubscriber">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISubscriber</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ISubscriber" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISubscriber</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ISubscriber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ISubscriber" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.ISession" title="autobahn.wamp.interfaces.ISession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession</span></tt></a></p>
 <p>Interface for WAMP peers implementing role <em>Subscriber</em>.</p>
 <dl class="method">
@@ -564,7 +579,7 @@ Deferreds/Futures is returned that each resolves or rejects as above.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>handler</strong> (<em>callable or obj</em>) &#8211; The event handler or handler object to receive events.</li>
-<li><strong>topic</strong> (<em>str</em>) &#8211; When <cite>handler</cite> is a single event handler, the URI (or URI pattern)
+<li><strong>topic</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; When <cite>handler</cite> is a single event handler, the URI (or URI pattern)
 of the topic to subscribe to. When <cite>handler</cite> is an event handler
 object, this value is ignored (and should be <cite>None</cite>).</li>
 <li><strong>options</strong> (An instance of <a class="reference internal" href="#autobahn.wamp.types.SubscribeOptions" title="autobahn.wamp.types.SubscribeOptions"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.types.SubscribeOptions</span></tt></a>.) &#8211; Options for subscribing.</li>
@@ -588,7 +603,7 @@ running under Twisted) or instance(s) of <tt class="xref py py-class docutils li
 <h3>Subscription<a class="headerlink" href="#subscription" title="Permalink to this headline">¶</a></h3>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.ISubscription">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISubscription</tt><a class="headerlink" href="#autobahn.wamp.interfaces.ISubscription" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">ISubscription</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#ISubscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.ISubscription" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a subscription to a topic.</p>
 <dl class="attribute">
 <dt id="ISubscription.id">
@@ -632,19 +647,19 @@ or an instance of <tt class="xref py py-class docutils literal"><span class="pre
 <h3>Subscribe Options<a class="headerlink" href="#subscribe-options" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="autobahn.wamp.types.SubscribeOptions">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">SubscribeOptions</tt><big>(</big><em>match=None</em>, <em>details_arg=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.SubscribeOptions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">SubscribeOptions</tt><big>(</big><em>match=None</em>, <em>details_arg=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#SubscribeOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.SubscribeOptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to provide options for subscribing in
 <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.ISubscriber.subscribe()</span></tt>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.SubscribeOptions.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>match=None</em>, <em>details_arg=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.SubscribeOptions.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>match=None</em>, <em>details_arg=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#SubscribeOptions.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.SubscribeOptions.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>match</strong> (<em>str</em>) &#8211; The topic matching method to be used for the subscription.</li>
-<li><strong>details_arg</strong> (<em>str</em>) &#8211; When invoking the handler, provide event details
+<li><strong>match</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The topic matching method to be used for the subscription.</li>
+<li><strong>details_arg</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; When invoking the handler, provide event details
 in this keyword argument to the callable.</li>
 </ul>
 </td>
@@ -660,20 +675,20 @@ in this keyword argument to the callable.</li>
 <h3>Event Details<a class="headerlink" href="#event-details" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="autobahn.wamp.types.EventDetails">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">EventDetails</tt><big>(</big><em>publication</em>, <em>publisher=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.EventDetails" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">EventDetails</tt><big>(</big><em>publication</em>, <em>publisher=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#EventDetails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.EventDetails" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides details on an event when calling an event handler
 previously registered.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.EventDetails.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>publication</em>, <em>publisher=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.EventDetails.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>publication</em>, <em>publisher=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#EventDetails.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.EventDetails.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ctor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>publication</strong> (<em>int</em>) &#8211; The publication ID of the event (always present).</li>
-<li><strong>publisher</strong> (<em>int</em>) &#8211; The WAMP session ID of the original publisher of this event.</li>
+<li><strong>publication</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; The publication ID of the event (always present).</li>
+<li><strong>publisher</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; The WAMP session ID of the original publisher of this event.</li>
 </ul>
 </td>
 </tr>
@@ -692,7 +707,7 @@ previously registered.</p>
 <h3>Publishing<a class="headerlink" href="#publishing" title="Permalink to this headline">¶</a></h3>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IPublisher">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IPublisher</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IPublisher" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IPublisher</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IPublisher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IPublisher" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends: <a class="reference internal" href="#autobahn.wamp.interfaces.ISession" title="autobahn.wamp.interfaces.ISession"><tt class="xref py py-class docutils literal"><span class="pre">autobahn.wamp.interfaces.ISession</span></tt></a></p>
 <p>Interface for WAMP peers implementing role <em>Publisher</em>.</p>
 <dl class="method">
@@ -717,9 +732,9 @@ of <a class="reference internal" href="wamp2all.html#autobahn.wamp.exception.App
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>topic</strong> (<em>str</em>) &#8211; The URI of the topic to publish to, e.g. <cite>com.myapp.mytopic1</cite>.</li>
-<li><strong>args</strong> (<em>list</em>) &#8211; Arbitrary application payload for the event (positional arguments).</li>
-<li><strong>kwargs</strong> (<em>dict</em>) &#8211; Arbitrary application payload for the event (keyword arguments).</li>
+<li><strong>topic</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The URI of the topic to publish to, e.g. <cite>com.myapp.mytopic1</cite>.</li>
+<li><strong>args</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; Arbitrary application payload for the event (positional arguments).</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Arbitrary application payload for the event (keyword arguments).</li>
 </ul>
 </td>
 </tr>
@@ -740,7 +755,7 @@ or an instance of <tt class="xref py py-class docutils literal"><span class="pre
 <h3>Publication<a class="headerlink" href="#publication" title="Permalink to this headline">¶</a></h3>
 <dl class="interface">
 <dt id="autobahn.wamp.interfaces.IPublication">
-<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IPublication</tt><a class="headerlink" href="#autobahn.wamp.interfaces.IPublication" title="Permalink to this definition">¶</a></dt>
+<em class="property">interface </em><tt class="descclassname">autobahn.wamp.interfaces.</tt><tt class="descname">IPublication</tt><a class="reference internal" href="_modules/autobahn/wamp/interfaces.html#IPublication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.interfaces.IPublication" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a publication of an event. This is used with acknowledged publications.</p>
 <dl class="attribute">
 <dt id="IPublication.id">
@@ -755,25 +770,25 @@ or an instance of <tt class="xref py py-class docutils literal"><span class="pre
 <h3>Publish Options<a class="headerlink" href="#publish-options" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="autobahn.wamp.types.PublishOptions">
-<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">PublishOptions</tt><big>(</big><em>acknowledge=None</em>, <em>excludeMe=None</em>, <em>exclude=None</em>, <em>eligible=None</em>, <em>discloseMe=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.PublishOptions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">autobahn.wamp.types.</tt><tt class="descname">PublishOptions</tt><big>(</big><em>acknowledge=None</em>, <em>excludeMe=None</em>, <em>exclude=None</em>, <em>eligible=None</em>, <em>discloseMe=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#PublishOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.PublishOptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to provide options for subscribing in
 <tt class="xref py py-func docutils literal"><span class="pre">autobahn.wamp.interfaces.IPublisher.publish()</span></tt>.</p>
 <dl class="method">
 <dt id="autobahn.wamp.types.PublishOptions.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>acknowledge=None</em>, <em>excludeMe=None</em>, <em>exclude=None</em>, <em>eligible=None</em>, <em>discloseMe=None</em><big>)</big><a class="headerlink" href="#autobahn.wamp.types.PublishOptions.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>acknowledge=None</em>, <em>excludeMe=None</em>, <em>exclude=None</em>, <em>eligible=None</em>, <em>discloseMe=None</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp/types.html#PublishOptions.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.types.PublishOptions.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>acknowledge</strong> (<em>bool</em>) &#8211; If True, acknowledge the publication with a success or
+<li><strong>acknowledge</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; If True, acknowledge the publication with a success or
 error response.</li>
-<li><strong>excludeMe</strong> (<em>bool</em>) &#8211; If True, exclude the publisher from receiving the event, even
+<li><strong>excludeMe</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; If True, exclude the publisher from receiving the event, even
 if he is subscribed (and eligible).</li>
-<li><strong>exclude</strong> (<em>list</em>) &#8211; List of WAMP session IDs to exclude from receiving this event.</li>
-<li><strong>eligible</strong> (<em>list</em>) &#8211; List of WAMP session IDs eligible to receive this event.</li>
-<li><strong>discloseMe</strong> (<em>bool</em>) &#8211; If True, request to disclose the publisher of this event
+<li><strong>exclude</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of WAMP session IDs to exclude from receiving this event.</li>
+<li><strong>eligible</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of WAMP session IDs eligible to receive this event.</li>
+<li><strong>discloseMe</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; If True, request to disclose the publisher of this event
 to subscribers.</li>
 </ul>
 </td>
@@ -791,19 +806,19 @@ to subscribers.</li>
 <h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="autobahn.wamp.procedure">
-<tt class="descclassname">autobahn.wamp.</tt><tt class="descname">procedure</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#autobahn.wamp.procedure" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">autobahn.wamp.</tt><tt class="descname">procedure</tt><big>(</big><em>uri</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp.html#procedure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.procedure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator for WAMP procedure endpoints.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="autobahn.wamp.topic">
-<tt class="descclassname">autobahn.wamp.</tt><tt class="descname">topic</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#autobahn.wamp.topic" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">autobahn.wamp.</tt><tt class="descname">topic</tt><big>(</big><em>uri</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp.html#topic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.topic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator for WAMP event handlers.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="autobahn.wamp.error">
-<tt class="descclassname">autobahn.wamp.</tt><tt class="descname">error</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#autobahn.wamp.error" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">autobahn.wamp.</tt><tt class="descname">error</tt><big>(</big><em>uri</em><big>)</big><a class="reference internal" href="_modules/autobahn/wamp.html#error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autobahn.wamp.error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator for WAMP error classes.</p>
 </dd></dl>
 
@@ -811,29 +826,33 @@ to subscribers.</li>
 </div>
 
 
-          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="wamp2all.html" class="btn btn-neutral float-right" title="WAMP v2"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="wamp1server.html" class="btn btn-neutral" title="Server"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2011-2014 Tavendo GmbH.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="wamp2all.html" title="WAMP v2"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="wamp1server.html" title="Server"
-             >previous</a> |</li>
-        <li><a href="index.html">Autobahn|Python 0.8.2 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011-2014 Tavendo GmbH.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+</body>
 </html>
