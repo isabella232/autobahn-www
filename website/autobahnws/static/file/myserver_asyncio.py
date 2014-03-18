@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
    import asyncio
 
-   factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
+   factory = WebSocketServerFactory()
    factory.protocol = MyServerProtocol
 
    loop = asyncio.get_event_loop()

@@ -60,11 +60,11 @@
 
       <p>
          To install the <a href="https://pypi.python.org/pypi/autobahn/">Autobahn|Python Package</a>
-         using <a href="http://pypi.python.org/pypi/setuptools" target="_blank">Setuptools</a>:
+         using <a href="http://www.pip-installer.org/en/latest/installing.html" target="_blank">Pip</a>:
       </p>
 
       {{ beginshell() }}
-easy_install autobahn
+pip autobahn
       {{ endshell() }}
 
 
@@ -72,12 +72,12 @@ easy_install autobahn
 
       <p>
          To update the <a href="https://pypi.python.org/pypi/autobahn/">Autobahn|Python Package</a>
-         using <a href="http://pypi.python.org/pypi/setuptools" target="_blank">Setuptools</a>:
+         using <a href="http://www.pip-installer.org/en/latest/installing.html" target="_blank">Pip</a>:
       </p>
 
       <div class="shell">
          <pre>
-easy_install -U autobahn
+pip install --upgrade autobahn
          </pre>
       </div>
 
@@ -92,7 +92,7 @@ easy_install -U autobahn
          <pre>
 git clone git://github.com/tavendo/AutobahnPython.git
 cd AutobahnPython
-git checkout v0.8.2
+git checkout v0.8.5
 cd autobahn
 python setup.py install
          </pre>
@@ -121,7 +121,7 @@ Python 2.7.6 (default, Nov 10 2013, 19:24:18) [MSC v.1500 32 bit (Intel)] on win
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import autobahn
 >>> autobahn.version
-'0.7.0'
+'0.8.5'
          </pre>
       </div>
       <br>
@@ -152,7 +152,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
             import asyncio
 
-            factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
+            factory = WebSocketServerFactory()
             factory.protocol = MyServerProtocol
 
             loop = asyncio.get_event_loop()
@@ -201,7 +201,7 @@ python myserver_asyncio.py
 
             log.startLogging(sys.stdout)
 
-            factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
+            factory = WebSocketServerFactory()
             factory.protocol = MyServerProtocol
 
             reactor.listenTCP(9000, factory)
@@ -285,7 +285,7 @@ python myserver_twisted.py
 
       <p>
          Now that you are up and running, check out the <a href="https://github.com/tavendo/AutobahnPython/tree/master/examples">examples</a> available or
-         the <a href="https://autobahnpython.readthedocs.org/" target="_blank">reference documentation</a>.
+         the <a href="/python/reference/">reference documentation</a>.
       </p>
 
       <p>
