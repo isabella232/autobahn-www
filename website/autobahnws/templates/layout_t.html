@@ -75,6 +75,14 @@
       {% endif %}
    {%- endmacro %}
 
+   {% macro autobahncpp(colored = False) -%}
+      {% if colored %}
+         <span style="font-weight: 600;">Autobahn</span><span style="color: #d8ff50;">|</span>Cpp
+      {% else %}
+         <span style="font-weight: 600;">Autobahn</span>|Cpp
+      {% endif %}
+   {%- endmacro %}
+
    {% macro wsperf(link = True) -%}
       {% if link %}<a href="http://www.zaphoyd.com/wsperf" class="nodeco" target="_blank">{% endif %}
          <span style="color: #666; font-weight: 600;">wsperf</span>

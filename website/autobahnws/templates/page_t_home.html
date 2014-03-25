@@ -21,33 +21,25 @@
          <center id="introhead">
             Open-source real-time framework for Web, Mobile &amp; Internet of Things.
          </center>
-         <ol id="introsub">
-            <li>
-               With <b>Autobahn</b> you can build real-time enabled Web, mobile and embedded applications in no time.
-            </li>
-               <li>
-               The <b>Autobahn</b> project provides open-source implementations of the
-               <b><a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a></b> and
-               <b><a href="http://wamp.ws">WAMP</a></b> protocols.
-            </li>
-            <li>
-               WebSocket allows bidirectional real-time messaging on the Web and WAMP adds
-               asynchronous Remote Procedure Calls and Publish &amp; Subscribe on top of WebSocket.
-            </li>
+         <div id="introsub">
+            <p>
+               The <strong>Autobahn project</strong> provides open-source implementations of the
+               <strong><a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a></strong> and
+               <strong><a href="http://wamp.ws">WAMP</a></strong> protocols.
+            </p>
+            <p>
+               <strong>WebSocket</strong> allows <strong>bidirectional real-time messaging</strong> on the Web and WAMP adds asynchronous <strong>Remote Procedure Calls</strong> and <strong>Publish &amp; Subscribe</strong> on top of WebSocket.
+            </p>
+            <p>
+               <strong>WAMP</strong> is <strong>ideal for distributed, multi-client and server applications</strong>, such as multi-user database-drive business applications, sensor networks (IoT), instant messaging or MMOGs (massively multi-player online games).
+            </p>
+            <br>
+            <div id="introsub_twitter">
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:70px; height:20px;"></iframe>
+               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&count=none&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:70px; height:20px;"></iframe>
+            </div>
+         </div>
 
-            <div id="introsub_twitter">
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:70px; height:20px;"></iframe>
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&count=none&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:70px; height:20px;"></iframe>
-            </div>
-         </ol>
-<!--         
-         <center>
-            <div id="introsub_twitter">
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=autobahnws&show_count=false&show_screen_name=false" style="width:70px; height:20px;"></iframe>
-               <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://autobahn.ws/&via=autobahnws&count=none&hashtags=websocket,iot&text=Autobahn: open-source real-time framework for Web, Mobile and Internet of Things" style="width:70px; height:20px;"></iframe>
-            </div>
-         </center>
--->         
       </div>
 
      <div class="projectsContainer">
@@ -76,7 +68,7 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="{{ url_for('page_python') }}"></a>
+            <a class="linkbox" href="/python">Documentation</a>
             <a class="forkgithub" href="https://github.com/tavendo/AutobahnPython"></a>
          </div>
 
@@ -100,7 +92,7 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="{{ url_for('page_js') }}"></a>
+            <a class="linkbox" href="/js">Documentation</a>
             <a class="forkgithub" href="https://github.com/tavendo/AutobahnJS"></a>
          </div>
 
@@ -124,8 +116,30 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="{{ url_for('page_android') }}"></a>
+            <a class="linkbox" href="/android">Documentation</a>
             <a class="forkgithub" href="https://github.com/tavendo/AutobahnAndroid"></a>
+         </div>
+
+         <div class="project">
+            <img style="" src="{{ url_for('static', filename='img/autobahncpp.png') }}" width="302" height="44">
+
+            <div class="gh_project_watch_count">
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnCpp&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+               <iframe src="http://ghbtns.com/github-btn.html?user=tavendo&repo=AutobahnCpp&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20"></iframe>
+            </div>
+
+            <p>
+               {{ autobahncpp(colored = True) }} is a WAMP
+               client library written in C++
+            </p>
+            <p>
+               <ul>
+                  <li>add <a href="http://wamp.ws">WAMP</a> connectivity to apps</li>
+               </ul>
+            </p>
+            <div class="linkboxspacer"></div>
+            <a class="linkbox" href="/cpp">Documentation</a>
+            <a class="forkgithub" href="https://github.com/tavendo/AutobahnCpp"></a>
          </div>
 
          <div class="project">
@@ -149,7 +163,7 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="{{ url_for('page_testsuite') }}"></a>
+            <a class="linkbox" href="/testsuite">Documentation</a>
             <a class="forkgithub" href="https://github.com/tavendo/AutobahnTestSuite"></a>
          </div>
 

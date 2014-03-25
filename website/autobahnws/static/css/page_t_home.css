@@ -16,10 +16,10 @@ body {
    background-image: none; /* reset default background gradient to prevent fallback to white background */
    background-color: #027eae;
    color: #fff;
-   background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
-   background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
-   background-image:     -ms-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
-   background-image:         linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);
+   /*background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);*/
+   /*background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);*/
+   /*background-image:     -ms-linear-gradient(top, rgba(0,0,0,0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);*/
+   /*background-image:         linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(2, 126, 174, 0.9)), url(../img/Stars_in_the_Andromeda_Galaxys_disc.jpg);*/
    background-attachment: scroll;
 }
 
@@ -60,36 +60,22 @@ a:hover {
 
 #introhead {
    font-size: 28px;
-   text-shadow: #000 2px 2px 1px;
+   /*text-shadow: #000 2px 2px 1px;*/
 }
 
 #introsub {
    position: relative;
    font-family: "Segoe UI", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
-   width: 95%;
+   width: 76%;
    margin: 28px auto 14px auto;
-   font-size: 18px;
-
-/*
-   border-left: solid 8px #a5d500;
-   border-right: solid 1px #a5d500;
-   border-top: solid 1px #a5d500;
-   border-bottom: solid 1px #a5d500;
-*/
-/*
-   padding: 8px 0 8px 20px;
-*/
-   padding: 8px 0 20px 40px;
+   font-size: 16px;
+   padding: 8px 40px 20px 40px;
    border-radius: 3px;
-
-   background-color: #fff;
-   color: #333;
-
-   background-color: #000;
+   background-color: #0079a8;
+   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
    color: #fff;
-   border: solid 1px #a5d500;
-/*   padding: 20px; */
-   line-height: 1.4em;
+   /* border: solid 1px #a5d500; */
+   line-height: 1.5em;
 }
 
 #introsub li {
@@ -111,8 +97,8 @@ a:hover {
 
 #introsub_twitter {
    position: absolute;
-   right: 0;
-   bottom: 4px;
+   right: 2px;
+   bottom: 9px;
 }
 
 .linkboxspacer {
@@ -137,8 +123,10 @@ a:hover {
 
 
 .linkbox {
-   background-image: url(../img/btn_devzone_inactive.png);
-   background-repeat: no-repeat;
+   /*background-image: url(../img/btn_devzone_inactive.png);*/
+   /*background-repeat: no-repeat;*/
+   background-color: #a5d500;
+   border-radius: 20px;
    width: 143px;
    height: 34px;
    display: block;
@@ -146,10 +134,19 @@ a:hover {
    position: absolute;
    bottom: 12px;
    right: 12px;
+   text-decoration: none;
+   color: #666;
+   padding: 3px 11px;
+   font-size: 18px
+}
+
+.linkbox:visited {
+   color: #666;
 }
 
 .linkbox:hover {
-   background-image: url(../img/btn_devzone_active.png);
+   /*background-image: url(../img/btn_devzone_active.png);*/
+   background-color: #BDF808;
 }
 
 /* crossbar yellow design */
@@ -233,9 +230,9 @@ a:hover {
 
    background-color: #027eae;
 
-   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.2);
-   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.2);
-   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
+   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
+   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
 
    border-radius: 3px;
    padding: 22px 16px 0 22px;
