@@ -1,4 +1,5 @@
 *.sublime-workspace
-website/autobahnws/build
-website/autobahnws/reports*
-
+web/build
+web/reports*
+*.pyc
+.sconsign.dblite
