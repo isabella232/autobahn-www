@@ -1,5 +1,6 @@
 *.sublime-workspace
 website/build
+web/build
 web/reports*
 *.pyc
 .sconsign.dblite

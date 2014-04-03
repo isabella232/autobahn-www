@@ -1,563 +1,511 @@
-/*enforces a sane box model where paddings are not added to the box size*/
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 html {
-   height: auto;
-   /*the background of the body gets applied to the HTML, so this needs to be reset to more height as well*/
-   /*see: http://stackoverflow.com/questions/20070220/extend-background-gradient-across-body-without-background-attachment-fixed */
-   min-height: 100%;
+    height: auto;
+    min-height: 100%;
 }
 
 body {
-   height: auto; /* extend body to fit the entire content instead of limiting it to the height of the html element = screen height */
-   /* does not fix the fact that the background has the HTML height */
-
-   background-image: none; /* reset default background gradient to prevent fallback to white background */
-   background-color: #027eae;
-   color: #fff;
-   /*background-attachment: scroll;*/
+    background-color: #027EAE;
+    background-image: none;
+    color: #FFFFFF;
+    height: auto;
 }
 
 a {
-   color: #fff;
-   text-decoration: underline;
+    color: #FFFFFF;
+
+    text-decoration: underline;
 }
 
 a:visited {
-   color: #fff;
-   text-decoration: underline;
+    color: #FFFFFF;
+    text-decoration: underline;
 }
 
 a:hover {
-   color: #a5d500;
-   text-decoration: underline;
+    color: #A5D500;
+    text-decoration: underline;
 }
 
-
-
-#home_central_wrapper
-{
-   max-width: 1400px;
-   margin: 0 auto;
-   min-width: 500px;
-   width: 90%;
+#home_central_wrapper {
+    margin: 0 auto;
+    /* max-width: 1400px; */
+    /* min-width: 500px; */
+    width: 90%;
 }
-
 
 #intro {
-   width: 90%;
-   max-width: 900px;
-   min-width: 500px;
-   margin: 0 auto 20px auto;
-   padding-top: 0px;
-   font-family: "Segoe UI Light", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI Light", "Segoe UI", "Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+    /*font-family: "Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    font-weight: lighter;
+    margin: 0 auto 20px;
+    max-width: 900px;
+    min-width: 500px;
+    padding-top: 0;
+    width: 90%;
 }
 
 #introhead {
-   font-size: 28px;
+    font-size: 28px;
 }
 
 #introsub {
-   position: relative;
-   font-family: "Segoe UI", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
-   width: 100%;
-   margin: 28px auto 14px auto;
-   font-size: 16px;
-   padding: 8px 40px 20px 40px;
-   border-radius: 3px;
-   background-color: #f4f4f4;
-   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
-   color: #555;
-   line-height: 1.5em;
+    background-color: #F4F4F4;
+    border-radius: 3px;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.5);
+    color: #555555;
+    font-family: "Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    margin: 28px auto 14px;
+    padding: 8px 40px 20px;
+    position: relative;
+    width: 100%;
 }
 
 #introsub li {
-   margin: 8px 0 0 0;
-
+    margin: 8px 0 0;
 }
 
 #introsub a, a:visited {
-   color: #555;
+    color: #555555;
 }
 
 #introsub a:hover {
-   color: #555;
+    color: #555555;
 }
 
 #introsub_twitter {
-   position: absolute;
-   right: 2px;
-   bottom: 9px;
+    bottom: 9px;
+    position: absolute;
+    right: 2px;
 }
 
 .linkboxspacer {
-   height: 34px;
+    height: 34px;
 }
 
 .forkgithub {
-   background-image: url(../img/githubfork_inactive.png);
-   background-repeat: no-repeat;
-   width: 55px;
-   height: 60px;
-   position: absolute;
-   top: 0px;
-   right: 0px;
-   display: block;
+    background-image: url("../img/githubfork_inactive.png");
+    background-repeat: no-repeat;
+    display: block;
+    height: 60px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 55px;
 }
 
 .forkgithub:hover {
-   background-image: url(../img/githubfork_active.png);
+    background-image: url("../img/githubfork_active.png");
 }
 
-
-
 .linkbox {
-   background-color: #a5d500;
-   border-radius: 20px;
-   width: 143px;
-   height: 34px;
-   display: block;
-   margin: auto;
-   position: absolute;
-   bottom: 12px;
-   right: 12px;
-   text-decoration: none;
-   color: #666;
-   padding: 5px 16px;
-   font-size: 16px
+    background-color: #A5D500;
+    border-radius: 20px;
+    bottom: 12px;
+    color: #666666;
+    display: block;
+    font-size: 16px;
+    height: 34px;
+    margin: auto;
+    padding: 5px 16px;
+    position: absolute;
+    right: 12px;
+    text-decoration: none;
+    width: 143px;
 }
 
 .linkbox:visited {
-   color: #666;
+    color: #666666;
 }
 
 .linkbox:hover {
-   text-decoration: none;
-   background-color: #BDF808;
+    background-color: #BDF808;
+    text-decoration: none;
 }
 
 .linkbox.crossbar {
-   background-image: none;
-   color: #444;
-   background-color: #999999;
-   border-radius: 20px;
+    background-color: #999999;
+    background-image: none;
+    border-radius: 20px;
+    color: #444444;
+    padding: 4px 27px;
+    text-align: center;
+    text-decoration: none;
+}
 
-   padding: 4px 27px;
-   text-decoration: none;
-   text-align: center;
-}
 .linkbox.crossbar:hover {
-   background-image: none;
-   background-color: #cbcbcb;
+    background-color: #CBCBCB;
+    background-image: none;
 }
+
 .crossbar .forkgithub {
-   background-image: url(../img/githubfork_inactive_grey.png);
+    background-image: url("../img/githubfork_inactive_grey.png");
 }
 
 .crossbar .forkgithub:hover {
-   background-image: url(../img/githubfork_active_grey.png);
+    background-image: url("../img/githubfork_active_grey.png");
 }
 
 .notextselect {
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
+    -moz-user-select: none;
 }
 
 .defaultcursor {
-   cursor: default;
+    cursor: default;
 }
-
-
-/* projects container & projects */
 
 .projectsContainer {
-   width: 460px;
-   margin: 40px auto;
+    margin: 40px auto;
+    width: 460px;
 }
 
+
 .project {
-   width: 420px;
+    width: 420px;
    height: 303px;
    float: left;
    margin: 20px;
    position: relative;
-
-   font-family: "Segoe UI", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-   background-color: #027eae;
-
-   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
-   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
-   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.5);
-
+   font-family: 'Segoe UI', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+   background-color: rgb(2, 126, 174);
+   -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 12px 2px;
+   box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 12px 2px;
    border-radius: 3px;
-   padding: 22px 16px 0 22px;
+   padding: 22px 16px 0px 22px;
 }
 
 .gh_project_watch_count {
-   position: absolute;
-   left: 20px;
-   bottom: 16px;
+    bottom: 16px;
+    left: 20px;
+    position: absolute;
 }
 
 @media (min-width: 1000px) {
    .projectsContainer {
-      width: 930px;
+       width: 940px;
    }
 }
 
 @media (min-width: 1480px) {
    .projectsContainer {
-      width: 1393px;
+       width: 1393px;
    }
 }
 
 .project.crossbar {
-   background-color: #ececec;
-
-   color: #666;
-
-   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.25);
-   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.25);
-   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.35);
-
+    background-color: #ECECEC;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.35);
+    color: #666666;
 }
 
 .project.crossbar ul li {
-   background-image: url("../img/bullet_grey.png");
+    background-image: url("../img/bullet_grey.png");
 }
 
-
 .project.pvideo {
-   background-color: #111;
-   padding: 8px 0 0 0;
-   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.25);
-   -webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.25);
-   box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.35);
+    background-color: #111111;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.35);
+    padding: 8px 0 0;
 }
 
 .pvideotitle {
-   color: #aaa;
-   padding-bottom: 8px;
+    color: #AAAAAA;
+    padding-bottom: 8px;
 }
 
 .pvideotitle > a, a:visited {
-   color: #ddd;
+    color: #DDDDDD;
 }
 
 .pvideotitle > a:hover {
-   color: #fff;
+    color: #FFFFFF;
 }
 
-/* protocols in intro */
-
 #protocolContainer {
-   display: inline-block;
-   text-align: center;
-   margin: 0px auto;
-   width: 90%;
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    width: 90%;
 }
 
 #protocolContainer .protocol {
-   display: inline-block;
-
-   padding: 0 0 9px 0;
-
+    display: inline-block;
+    padding: 0 0 9px;
 }
 
-
 #broughtToYouBy {
-   font-family: "Segoe UI Light", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
-   font-size: 16px;
-   text-align: center;
-   margin: 4px 0 40px;
+    font-family: "Segoe UI Light", "Segoe UI", "Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+    /*font-family: "Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    font-weight: lighter;
+    font-size: 16px;
+    margin: 4px 0 40px;
+    text-align: center;
 }
 
 .projectsHeader {
-   font-size: 24px;
-   font-family: "Segoe UI Light", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI Light", "Segoe UI", "Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+    /*font-family: "Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    font-weight: lighter;
+    font-size: 24px;
 }
 
 #impressum {
-   width: 100px;
-   text-align: center;
-   margin: 0 auto;
+    margin: 0 auto;
+    text-align: center;
+    width: 100px;
 }
 
 #impressumLink {
-   font-size: 14px;
-   padding: 0 0 1em;
+    font-size: 14px;
+    padding: 0 0 1em;
 }
 
 .contactUs {
-   font-size: 0.8em;
-   margin-bottom: 0;
+    font-size: 0.8em;
+    margin-bottom: 0;
 }
 
-/* example code */
-
-
-#codeContainer {
-    background-color: #eee;
-
+#code {
+    /* background-color: #EEEEEE; */
+    /* color: #444444; */
     padding: 1em;
-    color: #444;
-}
-
-#codeContainer h1 {
     text-align: center;
-
-    font-size: 31px;
-    margin-top: 0;
+    min-width: 450px;
+    overflow: visible;
+    border-radius: 3px;
 }
 
-#codeContainer #switchBar h3 {
-    display: inline-block;
+#code #codeBlock {
+    background-color: #1B2426;
 
+    margin: 1em 0;
+    border-radius: 3px;
+}
+
+#code #switchBar h3 {
+    display: inline-block;
+}
+
+#code a, #code a:visited {
+    color: #666666;
+}
+
+#code a:hover {
+    color: #000000;
 }
 
 #switchBar {
-    padding: 0px 0px 0px 0px;
-
+    padding: 5.4em 0 0 0;
+    text-align: left;
+    /* text-align: center; */
+    background-color: #313131;
+    border-radius: 3px 3px 0px 0px;
+    font-size: 1px;
 }
 
 #switchBar > div {
-    display: inline-block;
-
-    padding: 0.5em 0.8em 0.7em 0.7em;
-    border: 1px solid #CCC;
-    margin: 0em 0em 0.3em 0em;
     background-color: #E0E0E0;
+    border: 1px solid #CCCCCC;
+    display: inline-block;
+    margin: 0em 0em 0.4em 0.4em;
+    padding: 0.3em 1.1em 0.4em 0.7em;
+    border-radius: 3px;
+    text-align: left;
+    font-size: 14px;
 }
 
 #switchBar > div > h3 {
     margin: 0.3em;
-
 }
 
-#switchBar > div > button {
-    border: none;
+#switchBar .switchBarButtons {
+   display: inline-block;
+}
 
-    background-color: #BBB;
+#switchBar  button {
+    background-color: #BBBBBB;
+    border: medium none;
     padding: 3px 10px;
+    border-radius: 3px;
 }
 
-#switchBar > div > button.isSelected {
-   background-color: #999;
-   color: #fff;
-   box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.5);
+#switchBar  button.isSelected {
+    background-color: #999999;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
 }
 
-/* shared box layout */
+.demoBox {
+    text-align: left;
+    border-radius: 3px;
+}
 
 .demoBox > div {
-   /* border: 1px solid #888; */
-   background-color: #1b2426;
+    background-color: #1B2426;
+    border-radius: 3px;
+}
+
+#codeBoxContainer {
+   border-radius: 3px;
 }
 
 .codeBox {
-
 }
 
-.codeBox > h3,
-.codeBox .selectComponent {
-    text-align: center;
-
-    background-color: #fff;
+.codeBox > h3, .codeBox .selectComponent {
+    background-color: #FFFFFF;
     margin: 0;
     padding: 1em 0;
+    text-align: center;
 }
 
 .codeBox > div {
-    background-color: #1b2426;
-
+    background-color: #1B2426;
 }
 
-.languageBar {
+.codeBox > div.languageBar {
     text-align: center;
+    border-top: 1px inset #fff;
+    padding: 0.3em 0 0.2em 0;
+    position: relative;
+}
 
+.codeBox > div.languageBar,
+.codeBox > div.selectComponent {
+    background-color: #D1D1D1;
+
+    /* margin-left: 2px; */
+    /* margin-right: 2px; */
 }
 
 .languageBar > button {
-   border: none;
-
-   background: inherit;
-   color: #C9C9C9;
-   font-size: 15px;
+    background-color: #B8B8B8;
+    border: medium none;
+    color: #222222;
+    font-size: 15px;
+    padding: 3px 5px;
+    border-radius: 2px;
+    /* box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5); */
+    margin-bottom: 5px;
 }
 
 .languageBar > button.highlighted {
-   color: #FFF;
-   text-decoration: underline;
+    color: #F0F0F0;
+    text-decoration: none;
+    background-color: #777;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);;
+}
+
+#code .languageBar > a,
+#code .languageBar > a:visited {
+   background: url("/static/img/blacktocat-32.png");
+   width: 32px;
+   height: 32px;
+   display: inline-block;
+   position: absolute;
+   right: 5px;
+   bottom: 2px;
+}
+
+#code .languageBar > a:hover {
+
 }
 
 .syntaxContainer {
     height: 600px;
-
     overflow: auto;
+    font-size: 14px;
 }
 
-/* dualBox layout*/
-
 .dualBox .codeBox {
-    width: 50%;
-
     display: inline-block;
-    height: 100%;
-    margin: 0 -4px 0px 0;
+    /* height: 100%; */
+    width: 50%;
+    margin: 0 -4px 0 0;
+}
+
+.dualBox .codeBox:first-of-type {
+   /*margin-right: 3px;*/
+   border-right: 3px solid #888;
+}
+.dualBox .codeBox:last-of-type {
+   /*margin-left: 3px;*/
+   border-left: 3px solid #888;
 }
 
 .dualBox .syntaxContainer {
-
 }
 
-/* singleBox layout */
-
 .codeBox .selectComponent {
-    padding: 1em;
-
+    font-size: 18px;
+    color: #027eae;
+    font-weight: bold;
+    margin: 0;
+    line-height: 28px;
+    padding: 0.3em;
 }
 
 .selectComponent > button {
+    border: 1px solid #999;
     border: none;
-    padding: 5px 22px;
+    border-radius: 3px;
+    padding: 0px 22px;
+    color: #027eae;
+    /* font-weight: bold; */
+    font-size: 18px;
+    background-color: transparent;
+    line-height: 22px;
+    width: 120px;
+    font-weight: bold;
 }
 
 .selectComponent > button.highlighted {
-    background-color: #666;
-    color: #fff;
+    /* text-decoration: underline; */
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+    /* font-weight: bold; */
 }
-
 
 .singleBox .syntaxContainer {
-
+    height: auto;
 }
 
 .singleBox {
-   position: relative;
+    position: relative;
 }
 
-.singleBox .codeBox:last-of-type {
-   position: absolute;
-   top: 0;
-   left: 0;
-   /*visibility: hidden;*/
-   width: 100%;
+.singleBox .codeBox.hidden {
+    display: none;
 }
-.singleBox .codeBox:last-of-type.hidden {
-   visibility: hidden;
-}
-
-/* dualBox / singleBox switch styles */
 
 .singleBox {
-   display: none;
+    display: none;
 }
 
 @media (max-width: 1200px) {
 
    .dualBox {
-      display: none;
+       display: none;
    }
 
    .singleBox {
-      display: block;
+       display: block;
    }
 
-}
-
-/*#codeBoxContainer {
-
-}
-
-#codeBoxContainer > .codeBox {
-
-}
-
-#codeBoxContainer > .codeBox > .languageSwitchContainer {
-
-}
-
-#codeBoxContainer > .codeBox > .code {
-   position: relative;
-   height: 710px;
-}
-
-#codeBoxContainer > .codeBox > .code > .language {
-    display: inline-block;
-
-    width: 49%;
-    vertical-align: top;
-    height: 700px;
-    overflow: auto;
-    background-color: #1b2426;
-    text-align: center;
-}
-#codeBoxContainer > .codeBox > .code > .language > p {
-    color: #DDD;
-
-    text-align: center;
-    font-size: 19px;
-    margin: 0;
-}
-
-#codeBoxContainer > .codeBox > .code > .language > button {
-    border: none;
-
-    background: inherit;
-    color: #ddd;
-    font-size: 15px;
-}
-#codeBoxContainer > .codeBox > .code > .language > button.single {
-   display: none;
-}
-@media (max-width: 1200px) {
-   #codeBoxContainer > .codeBox > .code > .language {
-      display: block;
-      position: absolute;
-      left: 0;
-      top: 0;
-
-      width: 100%;
    }
-
-   #codeBoxContainer > .codeBox > .code > .language.nonDisplay {
-      display: none;
-   }
-
-   #codeBoxContainer > .codeBox > .code > .language > button.dual {
-      display: none;
-   }
-   #codeBoxContainer > .codeBox > .code > .language > button.single {
-      display: inline-block;
-   }
-
-   #codeBoxContainer > .codeBox > .code > .language > button {
-       cursor: pointer;
-       font-weight: bold;
-   }
-
-   #codeBoxContainer > .codeBox > .code > .language > button.switch {
-      color: #BDBDBD;
-      text-decoration: underline;
-      font-weight: normal;
-}
+   .nonDisplay {
+       display: none;
 
 }
 
 
-
-
-#codeBoxContainer .demoLink {
-
-}*/
-
-
-
-.nonDisplay {
-    display: none;
+strong {
+   font-weight: bold;
 }

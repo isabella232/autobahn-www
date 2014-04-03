@@ -10,6 +10,7 @@
    <script src="{{ url_for('static', filename='deps/syntaxhighlighter/scripts/shCore.js') }}" type="text/javascript"></script>
    <script src="{{ url_for('static', filename='deps/syntaxhighlighter/scripts/shBrushJScript.js') }}" type="text/javascript"></script>
    <script src="{{ url_for('static', filename='deps/syntaxhighlighter/scripts/shBrushPython.js') }}" type="text/javascript"></script>
+   <script src="{{ url_for('static', filename='deps/syntaxhighlighter/scripts/shBrushPlain.js') }}" type="text/javascript"></script>
 
 
    <link rel="stylesheet" href="{{ url_for('static', filename='css/page_t_home.css') }}">
@@ -29,6 +30,7 @@
       <div style="width: 405px; margin: 40px auto 40px auto;">
          <img src="{{ url_for('static', filename='img/autobahnws_large_plain.png') }}" width="405" height="64">
       </div>
+
 
       <div id="intro">
 
@@ -61,9 +63,9 @@
 
       </div>
 
-     <div class="projectsContainer">
+      <div id="projects" class="projectsContainer">
          <center class="projectsHeader">
-            Explore the Autobahn <b>subprojects</b>:
+            Explore the Autobahn <strong>subprojects</strong>:
          </center>
          <div class="project">
             <img style="" src="{{ url_for('static', filename='img/autobahnpython.png') }}" width="343" height="44">
@@ -214,125 +216,178 @@
       </div>
       <br style="clear: both;">
 
-      <div id="codeContainer">
+      <div id="code">
 
-         <h1>Code Examples</h1>
+         <center class="projectsHeader">
+            Explore Autobahn/WAMP <strong>code examples</strong>
+         </center>
 
-         <p>
-            The code examples below show Autobahn code for a wide range of WAMP uses and features.
-         </p>
+         <div id="codeBlock">
+            <div id="switchBar">
 
-         <div id="switchBar" data-bind="foreach: switches">
+               <!-- ko foreach: switches -->
+               <div>
+                  <h3 data-bind="text: title"></h3>
 
-            <div>
-               <h3 data-bind="text: title"></h3>
+                  <div class="switchBarButtons">
+                     <!-- ko foreach: examples -->
+                     <button data-bind="text: title, attr: { id: $parent.category + '_' + example }, click: function() {
+                        vm.currentExample.category($parent.category);
+                        vm.currentExample.example(example);
+                     }, css: { isSelected: $root.currentExample.category() === $parent.category  && $root.currentExample.example() === example}"></button>
+                     <!-- /ko -->
+                  </div>
 
-               <!-- ko foreach: examples -->
-               <button data-bind="text: title, attr: { id: $parent.category + '_' + example }, click: function() {
-                  vm.currentExample.category($parent.category);
-                  vm.currentExample.example(example);
-               }, css: { isSelected: $root.currentExample.category() === $parent.category  && $root.currentExample.example() === example}"></button>
+               </div>
                <!-- /ko -->
 
             </div>
 
-         </div>
+            <div id="codeBoxContainer">
 
-         <div id="codeBoxContainer">
+               <div class="demoBox">
 
-            <div class="demoBox">
+                  <div class="dualBox">
 
-               <div class="dualBox">
+                     <div class="frontend codeBox">
 
-                  <div class="frontend codeBox">
-                     <h3>Frontend</h3>
-                     <div>
+                        <div class="selectComponent">
+                           <div>
+                              Frontend
+                           </div>
+                        </div>
+
                         <div class="languageBar">
+
                            <!-- ko foreach:  currentExample.frontendLanguages -->
                            <button data-bind="text: vm.languageToTitle[$data], click: function() {
                               vm.currentExample.frontendLanguage($data);
-                              vm.checkNoCodeAvailable('frontend', $data);
                            }, css: { highlighted: vm.currentExample.frontendLanguage() === $data }">Language</button>
                            <!-- /ko -->
-                        </div>
-                        <div class="syntaxContainer frontendSyntaxContainer">
-                        </div>
-                     </div>
-                  </div>
 
-                  <div class="backend codeBox">
-                     <h3>Backend</h3>
-                     <div>
+                           <a href="" data-bind="attr: { href: vm.examples[vm.currentExample.category()][vm.currentExample.example()].frontend[vm.currentExample.frontendLanguage()].gitHubUrl }"></a>
+
+                        </div>
+
+                        <div>
+
+                           <div class="syntaxContainer frontendSyntaxContainer">
+                           </div>
+
+                        </div>
+
+                     </div>
+
+                     <div class="backend codeBox  expandToCodeHeight">
+
+                        <div class="selectComponent">Backend</div>
+
                         <div class="languageBar">
+
                            <!-- ko foreach:  currentExample.backendLanguages -->
                            <button data-bind="text: vm.languageToTitle[$data], click: function() {
                               vm.currentExample.backendLanguage($data);
-                              vm.checkNoCodeAvailable('backend', $data);
                            }, css: { highlighted: vm.currentExample.backendLanguage() === $data }">Language</button>
                            <!-- /ko -->
+
+                           <a href="" data-bind="attr: { href: vm.examples[vm.currentExample.category()][vm.currentExample.example()].backend[vm.currentExample.backendLanguage()].gitHubUrl }"></a>
                         </div>
-                        <div class="syntaxContainer backendSyntaxContainer">
+
+                        <div>
+
+
+
+                           <div class="syntaxContainer backendSyntaxContainer">
+                           </div>
+
                         </div>
 
                      </div>
+
                   </div>
 
-               </div>
+                  <div class="singleBox">
 
-               <div class="singleBox">
+                     <div class="frontend codeBox"  data-bind="css: { hidden: singleBoxComponent() === 'backend'}">
 
-                  <div class="frontend codeBox">
-                     <div class="selectComponent">
-                        <button class="highlighted">Frontend</button>
-                        <button data-bind="click: function() { vm.singleBoxComponent('backend') }">Backend</button>
-                     </div>
-                     <div>
+                        <div class="selectComponent">
+
+                           <button class="highlighted">Frontend</button>
+
+                           <button data-bind="click: function() { vm.singleBoxComponent('backend') }">Backend</button>
+
+                        </div>
+
                         <div class="languageBar">
+
                            <!-- ko foreach:  currentExample.frontendLanguages -->
                            <button data-bind="text: vm.languageToTitle[$data], click: function() {
                               vm.currentExample.frontendLanguage($data);
-                              vm.checkNoCodeAvailable('frontend', $data);
                            }, css: { highlighted: vm.currentExample.frontendLanguage() === $data }">Language</button>
                            <!-- /ko -->
+
+                           <a href="" data-bind="attr: { href: vm.examples[vm.currentExample.category()][vm.currentExample.example()].frontend[vm.currentExample.frontendLanguage()].gitHubUrl }"></a>
+
                         </div>
-                        <div class="syntaxContainer frontendSyntaxContainer">
+
+                        <div>
+
+                           <div class="syntaxContainer frontendSyntaxContainer">
+                           </div>
+
                         </div>
 
                      </div>
-                  </div>
 
-                  <div class="backend codeBox" data-bind="css: { hidden: singleBoxComponent() === 'frontend'}">
-                     <div class="selectComponent">
-                        <button data-bind="click: function() { vm.singleBoxComponent('frontend') }">Frontend</button>
-                        <button class="highlighted">Backend</button>
-                     </div>
-                     <div>
+                     <div class="backend codeBox" data-bind="css: { hidden: singleBoxComponent() === 'frontend'}">
+
+                        <div class="selectComponent">
+
+                           <button data-bind="click: function() { vm.singleBoxComponent('frontend') }">Frontend</button>
+
+                           <button class="highlighted">Backend</button>
+
+                        </div>
+
                         <div class="languageBar">
+
                            <!-- ko foreach:  currentExample.backendLanguages -->
                            <button data-bind="text: vm.languageToTitle[$data], click: function() {
                               vm.currentExample.backendLanguage($data);
-                              vm.checkNoCodeAvailable('backend', $data);
                            }, css: { highlighted: vm.currentExample.backendLanguage() === $data }">Language</button>
                            <!-- /ko -->
+
+                           <a href="" data-bind="attr: { href: vm.examples[vm.currentExample.category()][vm.currentExample.example()].backend[vm.currentExample.backendLanguage()].gitHubUrl }"></a>
+
                         </div>
-                        <div class="syntaxContainer backendSyntaxContainer">
+
+
+                        <div>
+
+
+                           <div class="syntaxContainer backendSyntaxContainer">
+                           </div>
+
                         </div>
 
                      </div>
+
                   </div>
+
                </div>
 
             </div>
 
+            <!-- <a data-bind="attr: { href: currentExample.link() }">Code for this example on GitHub</a> -->
          </div>
 
-         <a data-bind="attr: { href: currentExample.link() }">Code for this example on GitHub</a>
+
 
       </div>
 
-      <!-- <div class="projectsContainer">
+      <div id="gallery" class="projectsContainer">
          <center class="projectsHeader">
-            Explore the Autobahn <b>apps &amp; demo gallery</b>:
+            Explore the Autobahn <strong>apps &amp; demo gallery</strong>:
          </center>
 
          <div class="project pvideo">
@@ -357,7 +412,7 @@
          </div>
 
          <div style="clear: both"></div>
-      </div> -->
+      </div>
 
          <div id="broughtToYouBy">
             Autobahn is a community project started and sponsored by
