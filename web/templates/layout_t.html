@@ -32,7 +32,8 @@
    <body>
 
    <!-- community widget iframe -->
-   <!-- <iframe id="communityWidget" class="nonDisplay" src="http://127.0.0.1:8090/widget/iframe.html" frameborder="0"></iframe> -->
+   <iframe id="communityWidget" class="nonDisplay" src="http://127.0.0.1:8091/iframe.html" frameborder="0"></iframe>
+   <!-- change url for production -->
 
    {% macro autobahn() -%}
       <span style="font-weight: 600;">Autobahn</span>
@@ -139,9 +140,9 @@
 
    {% block body %}{% endblock %}
 
-   <!--
+
    <script src="{{ url_for('static', filename = 'js/communitywidget.js') }}"></script>
-   -->
+
 
    </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 var showWidget = true;
 
 if (showWidget) {
@@ -7,8 +5,9 @@ if (showWidget) {
    var widget = document.getElementById("communityWidget"),
        parentUrl = window.location.host;
 
-   widget.classList.remove("nonDisplay");
    widget.classList.add("min");
+   widget.classList.remove("nonDisplay");
+
 
    // widget.addEventListener("load", sendUrlToWidget);
    // function sendUrlToWidget() {
@@ -16,14 +15,20 @@ if (showWidget) {
    // }
 
    function onIFrameMessage(evt) {
-      console.log(evt.data);
+      console.log("widget received event", evt.data);
+
       var targetSize = evt.data;
-      if(targetSize === "min") {
+
+      if (targetSize === "min") {
+
          widget.classList.remove("max");
          widget.classList.add("min");
-      } else {
+
+      } else if (targetSize === "max") {
+
          widget.classList.remove("min");
          widget.classList.add("max");
+
       }
    }
 
