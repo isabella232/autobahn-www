@@ -40,6 +40,11 @@ a:hover {
     width: 90%;
 }
 
+#logoHeader {
+   width: 405px;
+   margin: 70px auto 40px;
+}
+
 #intro {
     font-family: "Segoe UI Light", "Segoe UI", "Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;
     /*font-family: "Segoe UI","Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif;*/
