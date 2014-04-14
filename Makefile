@@ -27,7 +27,7 @@ upload_reports:
 	python web/upload.py --bucket "autobahn.ws" --directory "reports_20140314" --prefix "testsuite/reports_20140314"
 
 test:
-	python web/__init__.py -d
+	python web/__init__.py -d --widgeturl "http://127.0.0.1:8090/widget" -p 8030
 
 test_socketserver:
 	python web/__init__.py -d -s

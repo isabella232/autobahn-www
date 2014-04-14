@@ -14,7 +14,7 @@
 
       <link rel="shortcut icon" href="{{ url_for('static', filename = 'img/favicon.ico') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_t.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/communitywidget.css') }}">
+
 
       {% block header %}{% endblock %}
 
@@ -33,10 +33,17 @@
    </head>
    <body>
 
+
    <!-- community widget iframe -->
-   <!-- <iframe id="communityWidget" src="http://127.0.0.1:8090/widget/index.html" frameborder="0"></iframe> -->
-   <iframe id="communityWidget" src="http://192.168.1.147:8090/widget/index.html" frameborder="0"></iframe>
-   <!-- change url for production -->
+
+   <!-- general styles for the widget -->
+   <link rel="stylesheet" type="text/css" href="{{ session["widgeturl"] }}/css/parent.css" />
+   <!-- site-specific modifications -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/communitywidget.css') }}" />
+
+   <iframe id="communityWidget" src="{{ session["widgeturl"] }}/index.html" frameborder="0"></iframe>
+   <script src="{{ session["widgeturl"] }}/js/parent.js"></script>
+
 
    {% macro autobahn() -%}
       <span style="font-weight: 600;">Autobahn</span>
@@ -142,10 +149,6 @@
    {%- endmacro %}
 
    {% block body %}{% endblock %}
-
-
-   <script src="{{ url_for('static', filename = 'js/communitywidget.js') }}"></script>
-
 
    </body>
 </html>
