@@ -15,6 +15,7 @@
       <link rel="shortcut icon" href="{{ url_for('static', filename = 'img/favicon.ico') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_t.css') }}">
 
+      <title>autobahn.ws</title>
 
       {% block header %}{% endblock %}
 
@@ -35,6 +36,7 @@
 
 
    <!-- add community widget -->
+   <div id="widgetAnchor"></div>
    <script src="{{ session["widgeturl"] }}/js/communitywidget.js"></script>
    <script>
       clandeck.create_widget({community: "tavendo", topOffset: "37px"});
