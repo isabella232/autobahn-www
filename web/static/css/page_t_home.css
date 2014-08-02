@@ -495,3 +495,9 @@ a:hover {
 strong {
    font-weight: bold;
 }
+
+
+.footerLogo {
+   position: relative;
+   top: 3px;
+}

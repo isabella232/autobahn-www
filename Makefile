@@ -15,6 +15,9 @@ deploy: clean freeze upload
 clean:
 	rm -rf web/build
 
+img:
+	scons
+
 freeze:
 	python web/__init__.py -f
 
