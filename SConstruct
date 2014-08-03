@@ -25,7 +25,12 @@ SVG_FILES = [
    'autobahnws_large.svg',
    'crossbar_icon_and_text_vectorized.svg',
    'tavendo_small.svg',
-   'wamp_tiny.svg'
+   'wamp_tiny.svg',
+   'githubfork_active_paths.svg',
+   'githubfork_inactive_paths.svg',
+   'githubfork_active_grey_paths.svg',
+   'githubfork_inactive_grey_paths.svg',
+   'blacktocat.svg'
 ]
 
 IMG_SOURCE_DIR = "design"

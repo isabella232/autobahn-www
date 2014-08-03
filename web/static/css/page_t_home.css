@@ -93,20 +93,35 @@ a:hover {
     height: 34px;
 }
 
-.forkgithub {
-    background-image: url("../img/githubfork_inactive.png");
-    background-repeat: no-repeat;
-    display: block;
-    height: 60px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 55px;
+.forkgithub-svg {
+   display: block;
+   height: 60px;
+   width: 55px;
+   position: absolute;
+   right: 0;
+   top: 0;
 }
 
-.forkgithub:hover {
-    background-image: url("../img/githubfork_active.png");
+.forkgithub-svg > img {
+   display: block;
+   position: absolute;
+   top: 0;
+   right: 0;
 }
+
+.forkgithub-svg > img:nth-of-type(2) {
+   opacity: 0;
+   transition: all 0.15s;
+}
+
+.forkgithub-svg:hover > img:nth-of-type(2) {
+   opacity: 1;
+}
+.forkgithub-svg:hover > img:nth-of-type(1) {
+   opacity: 0;
+   transition: all 0.15s;
+}
+
 
 .linkbox {
     background-color: #A5D500;
@@ -146,14 +161,6 @@ a:hover {
 .linkbox.crossbar:hover {
     background-color: #CBCBCB;
     background-image: none;
-}
-
-.crossbar .forkgithub {
-    background-image: url("../img/githubfork_inactive_grey.png");
-}
-
-.crossbar .forkgithub:hover {
-    background-image: url("../img/githubfork_active_grey.png");
 }
 
 .notextselect {
@@ -398,7 +405,7 @@ a:hover {
 
 #code .languageBar > a,
 #code .languageBar > a:visited {
-   background: url("/static/img/blacktocat-32.png");
+   background: url("/static/img/gen/blacktocat.svg");
    width: 32px;
    height: 32px;
    display: inline-block;
