@@ -15,7 +15,7 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_t.css') }}">
 
       <!-- pygments styling -->
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/code.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ session['cstatic'] }}/css/code.css">
 
       {% block header %}{% endblock %}
 
