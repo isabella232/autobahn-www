@@ -17,21 +17,60 @@
 ###############################################################################
 
 import uuid
+import os
+
+import mimetypes
+
+mimetypes.add_type('image/svg+xml', '.svg')
+mimetypes.add_type('text/javascript', '.jgz')
+
 
 from optparse import OptionParser
 
 from flask import Flask, Request, request, session, g, url_for, \
      abort, render_template, flash
 
+from flask.helpers import locked_cached_property
+import jinja2_highlight
+
+
+## jinja2-highlight
+
+class MyFlask(Flask):
+   jinja_options = dict(Flask.jinja_options)
+   jinja_options.setdefault('extensions',[]).append('jinja2_highlight.HighlightExtension')
+# If you'd like to set the class name of the div code blocks are rendered in
+# Uncomment the below lines otherwise the option below can be used
+#@locked_cached_property
+#def jinja_env(self):
+# jinja_env = self.create_jinja_environment()
+# jinja_env.extend(jinja2_highlight_cssclass = 'codehilite')
+# return jinja_env
 
 app = Flask(__name__)
 app.secret_key = str(uuid.uuid4())
 
 
+## generate Pygments CSS file for style:
+## pygmentize -S default -f html > pygments.css
+##
+
+import mistune
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+import json
+
+import sys
+import re
+import copy
+import subprocess
+
+
 @app.before_request
 def before_request():
    session["widgeturl"] = app.widgeturl # TRANSFER
-
+   session["cstatic"] = app.cstatic
 
 @app.route('/')
 def page_home():
@@ -85,9 +124,18 @@ if __name__ == "__main__":
                       default = "https://demo.crossbar.io/clandeckwidget",
                       help = "WebClan widget base URL.")
 
+   parser.add_option ("--cstatic",
+                      dest = "cstatic",
+                      default = "//tavendo-common-static.s3-eu-west-1.amazonaws.com",
+                      help = "Tavendo shared static assets base URL")
+
    (options, args) = parser.parse_args ()
 
-   app.widgeturl = options.widgeturl
+   app.cstatic = str(options.cstatic).strip()
+
+   app.widgeturl = str(options.widgeturl).strip()
+   if len(app.widgeturl) == 0:
+      app.widgeturl = None
 
    if options.freeze:
 
