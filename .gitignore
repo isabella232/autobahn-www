@@ -1,6 +1,6 @@
 *.sublime-workspace
 website/build
-web/build
+web/build*
 web/reports*
 web/static/img/gen
 *.pyc
