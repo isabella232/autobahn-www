@@ -20,7 +20,7 @@ requirements:
 	pip install mistune
 	pip install frozen-flask
 
-deploy: clean freeze upload
+deploy: clean img freeze upload
 
 clean:
 	rm -rf web/build
