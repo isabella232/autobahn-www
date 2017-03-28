@@ -42,7 +42,7 @@
             <p style="position: relative;">
                The <strong>Autobahn</strong> project provides open-source implementations of the
                <strong><a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">The WebSocket Protocol</a></strong> and
-               <strong><a href="http://wamp.ws">The Web Application Messaging Protocol (WAMP)</a></strong> network protocols.
+               <strong><a href="http://wamp-proto.org/">The Web Application Messaging Protocol (WAMP)</a></strong> network protocols.
             </p>
             <p>
                WebSocket allows <strong>bidirectional real-time messaging</strong> on the Web and WAMP adds asynchronous <strong>Remote Procedure Calls</strong> and <strong>Publish &amp; Subscribe</strong> on top of WebSocket.
@@ -95,7 +95,7 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="/python">Documentation</a>
+            <a class="linkbox" href="http://autobahn.readthedocs.io/en/latest/">Documentation</a>
 
             <a class="forkgithub-svg" href="https://github.com/crossbario/autobahn-python">
                <img src="{{ url_for('static', filename='img/gen/githubfork_inactive_paths.svg') }}" alt="">
@@ -123,7 +123,7 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="/js">Documentation</a>
+            <a class="linkbox" href="https://github.com/crossbario/autobahn-js/tree/master/doc">Documentation</a>
             <a class="forkgithub-svg" href="https://github.com/crossbario/autobahn-js">
                <img src="{{ url_for('static', filename='img/gen/githubfork_inactive_paths.svg') }}" alt="">
                <img src="{{ url_for('static', filename='img/gen/githubfork_active_paths.svg') }}" alt="">
@@ -144,9 +144,15 @@
             </p>
             <p>
                <ul>
-                  <li>add <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a> connectivity to apps</li>
-                  <li>add <a href="http://wamp.ws">WAMP</a> connectivity to apps</li>
-                  <li>optimized for Android</li>
+                  <li>
+                     add <a href="http://tavendo.com/blog/post/websocket-why-what-can-i-use-it/">WebSocket</a> connectivity to apps
+                  </li>
+                  <li>
+                     add <a href="http://wamp.ws">WAMP</a> connectivity to apps
+                  </li>
+                  <li>
+                     WAMP v1 only (depreceated version of the protocol)
+                  </li>
                </ul>
             </p>
             <div class="linkboxspacer"></div>
@@ -177,7 +183,7 @@
                </ul>
             </p>
             <div class="linkboxspacer"></div>
-            <a class="linkbox" href="/cpp">Documentation</a>
+            <a class="linkbox" href="https://github.com/crossbario/autobahn-cpp/tree/master/doc">Documentation</a>
             <a class="forkgithub-svg" href="https://github.com/crossbario/autobahn-cpp">
                <img src="{{ url_for('static', filename='img/gen/githubfork_inactive_paths.svg') }}" alt="">
                <img src="{{ url_for('static', filename='img/gen/githubfork_active_paths.svg') }}" alt="">
@@ -424,31 +430,39 @@
             Explore the Autobahn <strong>apps &amp; demo gallery</strong>:
          </center>
          <br>
+         <!-- add explainer video - FIXME -->
+
+         <div class="project pvideo">
+            <center class="pvideotitle">
+               A brief explainer video for what <a href="http://crossbar.io">Crossbar.io</a> does.
+            </center>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube-nocookie.com/embed/pZIOXBmuATg?autoplay=0&disablekb=1&hl=en&iv_load_policy=3&modestbranding=0&rel=0&showinfo=0&fs=1" frameborder="0"  allowfullscreen/></iframe>
+         </div>
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://record-evolution.com/">REone</a> business app built with <a href="http://crossbar.io/">Crossbar.io</a> on Oracle</center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/yIdmk2doU8w?version=3&vq=hd1080&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/yIdmk2doU8w?version=3&vq=hd1080&frameborder=0&allowfullscreen&autohide=2&modestbranding=0&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://showroomdummy.com/">Connected Car</a> demo built with <a href="http://crossbar.io/">Crossbar.io</a></center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/l0A6__tLreY?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/l0A6__tLreY?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=0&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
 
          <div class="project pvideo">
             <center class="pvideotitle"><a href="http://showroomdummy.com/">3D desktop-to-mobile</a> built with <a href="http://crossbar.io/">Crossbar.io</a></center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/8WSCbyTcy-Y?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/8WSCbyTcy-Y?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=0&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div class="project pvideo">
             <center class="pvideotitle">Arduino real-time charting built <a href="http://autobahn.ws/python/">Autobahn</a></center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/va7j86thW5M?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/va7j86thW5M?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=0&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div class="project pvideo">
             <center class="pvideotitle">Tessel Alarm App</center>
-            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/WY7KzrRm8XY?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=1&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
+            <iframe id="sixtdemo" class="demothumb" type="text/html" width="420" height="263" src="http://www.youtube.com/embed/WY7KzrRm8XY?version=3&vq=hd720&frameborder=0&allowfullscreen&autohide=2&modestbranding=0&showinfo=0&rel=0&origin=http://autobahn.ws" frameborder="0"/></iframe>
          </div>
 
          <div style="clear: both"></div>
@@ -456,7 +470,12 @@
 
          <div id="broughtToYouBy">
             Autobahn is a community project started and sponsored by
-            <a href="http://tavendo.com"><img class="footerLogo" style="" src="{{ url_for('static', filename='img/gen/tavendo_small.svg') }}" width="109" height="18"></a>
+            <a href="http://crossbario.com">
+               <img class="footerLogo" style="" src="{{ url_for('static', filename='img/crossbar_icon.svg') }}" width="50" height="50">
+               Crossbar.io GmbH
+            </a>
+            <br>
+            <a href="/impressum">Impressum</a>
          </div>
 
    </div>

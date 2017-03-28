@@ -506,5 +506,9 @@ strong {
 
 .footerLogo {
    position: relative;
-   top: 3px;
+   top: 20px;
+}
+
+#broughtToYouBy a {
+   text-decoration: none;
 }
